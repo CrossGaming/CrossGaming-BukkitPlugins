@@ -5,18 +5,18 @@ version: 1.0.0.0
 commands:
    ops:
       description: Shows the server ops
-      usage: /ops
+      usage: /<command>
       permission: OpsAndBanned.ops
       permission-message: You don't have the ability to do this for some reason
       
    banned:
       description: Shows who is banned from the server
-      usage: /banned
+      usage: /<command>
       permission: OpsAndBanned.banned
       permission-message: You don't have the ability to do this for some reason
    bannedips:
       description: Shows the ips that are banned from a server
-      usage: /bannedips
+      usage: /<command>
       permission: OpsAndBanned.bannedips
       permission-message: You don't have the ability to do this for some reason
 

@@ -29,10 +29,11 @@ public class OpsAndBanned extends JavaPlugin
 	        	   if(line == "None")
 	        	   {
 	        		   player.sendMessage("There are no operators.");
-	        		   return false;
+	        		   return true;
 	        	   }
 	        	   player.sendMessage("The Operators are:");
 	        	   player.sendMessage(line);
+	        	   return true;
 	           }
 	           else
 	           {
@@ -45,11 +46,11 @@ public class OpsAndBanned extends JavaPlugin
 				if(line == "None")
 				{
 					sender.sendMessage("There are no operators.");
-					return false;
+					return true;
 				}
 				sender.sendMessage("The Operators are:");
 				sender.sendMessage(line);
-				return false;
+				return true;
 		    }
 		}
 		if(cmd.getName().equalsIgnoreCase("banned"))
@@ -63,10 +64,11 @@ public class OpsAndBanned extends JavaPlugin
 		       		if(line == "None")
 					{
 						player.sendMessage("There are no banned players.");
-						return false;
+						return true;
 					}
 		       		player.sendMessage("Banned Players:");
 		       		player.sendMessage(line);
+		       		return true;
 	           }
 	           else
 	           {
@@ -79,11 +81,11 @@ public class OpsAndBanned extends JavaPlugin
 				if(line == "None")
 				{
 					sender.sendMessage("There are no banned players.");
-					return false;
+					return true;
 				}
 				sender.sendMessage("Banned Players:");
 		        sender.sendMessage(line);
-		        return false;
+		        return true;
 		    }
 		}
 		if(cmd.getName().equalsIgnoreCase("bannedips"))
@@ -97,10 +99,11 @@ public class OpsAndBanned extends JavaPlugin
 		       		if(line == "None")
 					{
 						player.sendMessage("There are no banned ips.");
-						return false;
+						return true;
 					}
 		       		player.sendMessage("Banned Ips:");
 		       		player.sendMessage(line);
+		       		return true;
 	           }
 	           else
 	           {
@@ -113,11 +116,11 @@ public class OpsAndBanned extends JavaPlugin
 				if(line == "None")
 				{
 					sender.sendMessage("There are no banned ips.");
-					return false;
+					return true;
 				}
 				sender.sendMessage("Banned Ips:");
 				sender.sendMessage(line);
-		        return false;
+		        return true;
 		    }
 		}
 		return false; 
