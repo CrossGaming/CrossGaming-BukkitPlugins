@@ -1,6 +1,9 @@
 name: OpsAndBanned
 main: com.github.CorporateCraft.opsandbanned.OpsAndBanned
 version: 1.0.0.0
+website: http://corporatecraft.net
+description: Adds the commands /ops, /banned, and /bannedips.
+authors: [CorporateCraft Development Team]
 
 commands:
    ops:

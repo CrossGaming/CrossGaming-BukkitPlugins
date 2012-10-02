@@ -14,7 +14,7 @@ public class OpsAndBanned extends JavaPlugin
 	@Override
     public void onEnable()
 	{	
-		getLogger().info("onEnable has been invoked!");
+		getLogger().info("OpsAndBanned has been enabled.");
     }
  
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args){
@@ -138,10 +138,13 @@ public class OpsAndBanned extends JavaPlugin
 		        	String inputText = buff.readLine();
 		            if(inputText == null)
 		            {
-		            	sb.deleteCharAt(sb.length()-1);
-		            	sb.deleteCharAt(sb.length()-1);
-		            	sb.append(".");
-		            	break;
+		            	if (sb.length()>1)
+		            	{
+		            		sb.deleteCharAt(sb.length()-1);
+		            		sb.deleteCharAt(sb.length()-1);
+		            		sb.append(".");
+		            		break;
+		            	}
 		            }
 		            if(!inputText.startsWith("#"))
 		            {
@@ -160,6 +163,6 @@ public class OpsAndBanned extends JavaPlugin
     @Override
     public void onDisable()
     {
-    	getLogger().info("onDisable has been invoked!");
+    	getLogger().info("OpsAndBanned has been disabled.");
     }
 }
