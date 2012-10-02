@@ -3,6 +3,10 @@ CorporateCraft-BukkitPlugins
 
 Plugins made for Bukkit by CorporateCraft
 
+CorporateCraft BukkitPlugins list
+---------------------
+[OpsAndBanned] [3] ~ Adds in a /ops and /banned and /bannedips command
+
 About CorporateCraft-BukkitPlugins
 ---------------------
 Plugins made by the CorporateCraft Dev Team
@@ -26,3 +30,4 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 
 [1]: http://www.corporatecraft.net 
 [2]: https://raw.github.com/CorporateCraft/CorporateCraft-BukkitPlugins/master/LICENSE.txt
+[3]: https://github.com/CorporateCraft/CorporateCraft-BukkitPlugins/tree/master/OpsAndBanned
