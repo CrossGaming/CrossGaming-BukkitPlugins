@@ -1,0 +1,38 @@
+name: OpsAndBanned
+main: com.github.CorporateCraft.opsandbanned.OpsAndBanned
+version: 1.0.0.0
+
+commands:
+   ops:
+      description: Shows the server ops
+      usage: /ops
+      permission: OpsAndBanned.ops
+      permission-message: You don't have the ability to do this for some reason
+      
+   banned:
+      description: Shows who is banned from the server
+      usage: /banned
+      permission: OpsAndBanned.banned
+      permission-message: You don't have the ability to do this for some reason
+   bannedips:
+      description: Shows the ips that are banned from a server
+      usage: /bannedips
+      permission: OpsAndBanned.bannedips
+      permission-message: You don't have the ability to do this for some reason
+
+permissions:
+    OpsAndBanned.*:
+        description: Gives access to all opsandbanned commands
+        children:
+            OpsAndBanned.ops: true
+            OpsAndBanned.banned: true
+            OpsAndBanned.bannedips: true
+    OpsAndBanned.ops:
+        description: Allows you to see the operator list.
+        default: true
+    OpsAndBanned.banned:
+        description: Allows you to see banned players.
+        default: true
+    OpsAndBanned.bannedips:
+        description: Allows you to see banned ips.
+        default: true
