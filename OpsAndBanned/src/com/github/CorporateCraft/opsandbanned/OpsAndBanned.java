@@ -3,7 +3,6 @@ package com.github.CorporateCraft.opsandbanned;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
-
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -17,7 +16,8 @@ public class OpsAndBanned extends JavaPlugin
 		getLogger().info("OpsAndBanned has been enabled.");
     }
  
-	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args){
+	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args)
+	{
 		if(cmd.getName().equalsIgnoreCase("ops"))
 		{			
 			if (sender instanceof Player)
@@ -73,6 +73,7 @@ public class OpsAndBanned extends JavaPlugin
 	           else
 	           {
 	        	   player.sendMessage("No you cant use this sorry");
+	        	   return true;
 	           }
 			}
 			else
@@ -108,6 +109,7 @@ public class OpsAndBanned extends JavaPlugin
 	           else
 	           {
 	        	   player.sendMessage("No you cant use this sorry");
+	        	   return true;
 	           }
 			}
 			else
@@ -133,24 +135,24 @@ public class OpsAndBanned extends JavaPlugin
 		{
 		    FileReader reader = new FileReader(file);
 		    BufferedReader buff = new BufferedReader(reader);
-		        while(true)
+		    while(true)
+		    {
+		    	String inputText = buff.readLine();
+		        if(inputText == null)
 		        {
-		        	String inputText = buff.readLine();
-		            if(inputText == null)
-		            {
-		            	if (sb.length()>1)
-		            	{
-		            		sb.deleteCharAt(sb.length()-1);
-		            		sb.deleteCharAt(sb.length()-1);
-		            		sb.append(".");
-		            		break;
-		            	}
-		            }
-		            if(!inputText.startsWith("#"))
-		            {
-		            	sb.append(inputText).append(", ");
-		            }
+		         	if (sb.length()>1)
+		          	{
+		          		sb.deleteCharAt(sb.length()-1);
+		           		sb.deleteCharAt(sb.length()-1);
+		           		sb.append(".");
+		           		break;
+		           	}
 		        }
+		        if(!inputText.startsWith("#"))
+		        {
+		        	sb.append(inputText).append(", ");
+		        }
+		    }
 		}
 		catch (IOException ex)
 		{

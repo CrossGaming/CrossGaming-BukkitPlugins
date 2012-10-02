@@ -1,6 +1,6 @@
 name: OpsAndBanned
 main: com.github.CorporateCraft.opsandbanned.OpsAndBanned
-version: 1.0.0.0
+version: 1.0.0.1
 website: http://corporatecraft.net
 description: Adds the commands /ops, /banned, and /bannedips.
 authors: [CorporateCraft Development Team]
@@ -10,18 +10,14 @@ commands:
       description: Shows the server ops
       usage: /<command>
       permission: OpsAndBanned.ops
-      permission-message: You don't have the ability to do this for some reason
-      
    banned:
       description: Shows who is banned from the server
       usage: /<command>
       permission: OpsAndBanned.banned
-      permission-message: You don't have the ability to do this for some reason
    bannedips:
       description: Shows the ips that are banned from a server
       usage: /<command>
       permission: OpsAndBanned.bannedips
-      permission-message: You don't have the ability to do this for some reason
 
 permissions:
     OpsAndBanned.*:
