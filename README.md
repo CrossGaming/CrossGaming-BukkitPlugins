@@ -6,7 +6,8 @@ Plugins made for Bukkit by CorporateCraft
 CorporateCraft BukkitPlugins list
 ---------------------
 [OpsAndBanned] [3] ~ Adds in a /ops and /banned and /bannedips 
-command.
+command.        
+
 [KillWithMessage][4] ~ Adds ability to kill someone with a customizable message (shortcut is /killmsg).
 
 About CorporateCraft-BukkitPlugins
