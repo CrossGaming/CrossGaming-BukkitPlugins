@@ -2,9 +2,7 @@ CorporateCraft-BukkitPlugins
 ============================
 
 Plugins made for Bukkit by CorporateCraft
-
-[CorporateCraft BukkitPlugins list][3]
----------------------
+[CorporateCraft BukkitPlugins List][3]
 
 About CorporateCraft-BukkitPlugins
 ---------------------
