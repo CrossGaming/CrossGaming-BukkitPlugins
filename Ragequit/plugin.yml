@@ -1,0 +1,17 @@
+name: Ragequit
+main: com.github.CorporateCraft.ragequit.Ragequit
+version: 1.0.0.0
+website: http://corporatecraft.net
+description: Adds the ability to /ragequit.
+authors: [CorporateCraft Development Team]
+
+commands:
+   ragequit:
+      description: lets you /ragequit
+      usage: /<command>
+      permission: Ragequit.rage
+
+permissions:
+    Ragequit.rage:
+        description: Allows you to ragequit.
+        default: true
