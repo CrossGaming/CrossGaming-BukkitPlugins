@@ -1,0 +1,57 @@
+name: CCEconomy
+main: com.github.CorporateCraft.cceconomy.CCEconomy
+version: 1.0.0.0
+website: http://corporatecraft.net
+description: Adds an economy system
+authors: [CorporateCraft Development Team]
+
+commands:
+   bal:
+      description: Shows your balance
+      usage: /<command> <name>
+      permission: CCEconomy.bal
+      aliases: [balance,money,ccemoney,ccebalance,ccebal]
+   
+   baltop:
+      description: Shows the balance of the top players (a little nerfed at the moment)
+      usage: /<command> <page>
+      permission: CCEconomy.baltop
+      aliases: [balancetop,moneytop,ccemoneytop,ccebalancetop,ccebaltop]
+      
+   pay:
+      description: Pays <name> $<amount>
+      usage: /<command> <name> <amount>
+      permission: CCEconomy.pay
+      aliases: [sendmoney, ccepay]
+      
+   cce:
+      description: A variaty of commands to edit someones bal <set>, <take>, <give>, and <reset>
+      usage: /<command> <sub command> <name> <amount>
+      permission: CCEconomy.editbal
+      aliases: [cceconomy]
+
+permissions:
+    CCEconomy.*:
+        description: The Mainframe of CCEconomy's command structure
+        children:
+            CCEconomy.bal: true
+            CCEconomy.baltop: true
+            CCEconomy.pay: true
+            CCEconomy.balothers: ops
+            CCEconomy.editbal: ops
+    CCEconomy.bal:
+        description: Lets you see your own balance.
+        default: true
+    CCEconomy.baltop:
+        description: Allows you to look at the players with the most money.
+        default: true
+    CCEconomy.pay:
+        description: Pays someone some money.
+        default: true
+    CCEconomy.balothers:
+        description: Allows you to look at other peoples balances.
+        default: ops
+    CCEconomy.editbal:
+        description: Allows you to edit other players balances.
+        default: ops
+        
