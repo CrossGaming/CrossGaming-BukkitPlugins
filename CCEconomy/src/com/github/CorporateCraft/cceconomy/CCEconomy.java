@@ -42,9 +42,12 @@ public class CCEconomy extends JavaPlugin
 		}
 		if(!f.exists())
 		{
-			try {
+			try
+			{
 				f.createNewFile();
-			} catch (IOException e) {
+			}
+			catch (IOException e)
+			{
 				getLogger().info(("Something bad happend"));
 			}
 		}
@@ -157,7 +160,7 @@ public class CCEconomy extends JavaPlugin
 	        	   	bal = Baltop(page, time);
 	        	   	while(bal != null)
 	        	   	{
-	        	   		bal = Integer.toString(time + 1) + ". " + bal.split(" ")[0] + " has: $" + bal.split(" ")[1];
+	        	   		bal = Integer.toString((page*10) + time + 1) + ". " + bal.split(" ")[0] + " has: $" + bal.split(" ")[1];
 	        	   		player.sendMessage(bal);
 	        	   		time++;
 	        	   		bal = Baltop(page, time);
@@ -189,7 +192,7 @@ public class CCEconomy extends JavaPlugin
         	   	bal = Baltop(page, time);
         	   	while(bal != null)
         	   	{
-        	   		bal = Integer.toString(time + 1) + ". " + bal.split(" ")[0] + " has: $" + bal.split(" ")[1];
+        	   		bal = Integer.toString((page*10) + time + 1) + ". " + bal.split(" ")[0] + " has: $" + bal.split(" ")[1];
         	   		sender.sendMessage(bal);
         	   		time++;
         	   		bal = Baltop(page, time);
@@ -416,9 +419,7 @@ public class CCEconomy extends JavaPlugin
 		    }
 		    list.add(name + " 0.00");
 		}
-		catch (IOException ex)
-		{
-		}
+		catch (IOException ex){}
 		Collections.sort(list);
 		try
 		{
@@ -431,9 +432,7 @@ public class CCEconomy extends JavaPlugin
 			}
 			bw.close();
 		}
-		catch (Exception e)
-		{
-		}
+		catch (Exception e){}
 	}
 	
 	public static String Bal(String name)
@@ -486,9 +485,7 @@ public class CCEconomy extends JavaPlugin
 		        balsort.add(Double.parseDouble(inputText.split(" ")[1]));
 		    }
 		}
-		catch (IOException ex)
-		{
-		}
+		catch (IOException ex){}
 		Collections.sort(list);
 		Collections.sort(balsort);
 		Collections.reverse(balsort);
@@ -497,7 +494,7 @@ public class CCEconomy extends JavaPlugin
 		{
 			return null;
 		}
-		if (time == 11)
+		if (time == 10)
 		{
 			return null;
 		}
@@ -513,7 +510,7 @@ public class CCEconomy extends JavaPlugin
 		int BalSpot = BaltopCords(StrBal, occurrence);
 		if (BalSpot == -1)
 		{
-			return list.get(0);
+			return null;
 		}
 		return list.get(BalSpot);
 	}
@@ -536,9 +533,7 @@ public class CCEconomy extends JavaPlugin
 		        list.add(inputText);
 		    }
 		}
-		catch (IOException ex)
-		{
-		}
+		catch (IOException ex){}
 		Collections.sort(list);
 		int counter = 1;
 		for(int i = 0; i < list.size(); i++)
@@ -552,7 +547,7 @@ public class CCEconomy extends JavaPlugin
 				counter++;
 			}
 		}
-		return 0;//should this be -1?
+		return -1;
 	}
 	
 	static int BaltopPages()
@@ -573,9 +568,7 @@ public class CCEconomy extends JavaPlugin
 		        list.add(inputText);
 		    }
 		}
-		catch (IOException ex)
-		{
-		}
+		catch (IOException ex){}
 		int rounder = 0;
 		if (list.size()%10 != 0)
 		{
@@ -609,9 +602,7 @@ public class CCEconomy extends JavaPlugin
 		        list.add(inputText);
 		    }
 		}
-		catch (IOException ex)
-		{
-		}
+		catch (IOException ex){}
 		int spotinlist = list.indexOf(name + " " + Bal(name));
 		String newbal;
 		newbal = name + " " + amount;
@@ -627,9 +618,7 @@ public class CCEconomy extends JavaPlugin
 			}
 			bw.close();
 		}
-		catch (Exception e)
-		{
-		}
+		catch (Exception e){}
 	}
 	
 	public static void RemoveMoney(String name, double amount)
