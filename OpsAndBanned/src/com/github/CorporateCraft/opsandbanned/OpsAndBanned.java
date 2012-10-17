@@ -26,7 +26,7 @@ public class OpsAndBanned extends JavaPlugin
 	           if(player.hasPermission("OpsAndBanned.ops"))
 	           {
 	        	   String line = readFile("ops.txt");
-	        	   if(line == "None")
+	        	   if(line == null)
 	        	   {
 	        		   player.sendMessage("There are no operators.");
 	        		   return true;
@@ -43,7 +43,7 @@ public class OpsAndBanned extends JavaPlugin
 			else
 			{
 				String line = readFile("ops.txt");
-				if(line == "None")
+				if(line == null)
 				{
 					sender.sendMessage("There are no operators.");
 					return true;
@@ -61,7 +61,7 @@ public class OpsAndBanned extends JavaPlugin
 		       if(player.hasPermission("OpsAndBanned.banned"))
 	           {
 		    	   String line = readFile("banned-players");
-		       		if(line == "None")
+		       		if(line == null)
 					{
 						player.sendMessage("There are no banned players.");
 						return true;
@@ -79,7 +79,7 @@ public class OpsAndBanned extends JavaPlugin
 			else
 			{
 				String line = readFile("banned-players");
-				if(line == "None")
+				if(line == null)
 				{
 					sender.sendMessage("There are no banned players.");
 					return true;
@@ -97,7 +97,7 @@ public class OpsAndBanned extends JavaPlugin
 		       if(player.hasPermission("OpsAndBanned.banned"))
 	           {
 		    	   String line = readFile("banned-ips");
-		       		if(line == "None")
+		       		if(line == null)
 					{
 						player.sendMessage("There are no banned ips.");
 						return true;
@@ -115,7 +115,7 @@ public class OpsAndBanned extends JavaPlugin
 			else
 			{
 				String line = readFile("banned-ips");
-				if(line == "None")
+				if(line == null)
 				{
 					sender.sendMessage("There are no banned ips.");
 					return true;
@@ -156,7 +156,7 @@ public class OpsAndBanned extends JavaPlugin
 		}
 		catch (IOException ex)
 		{
-		    return "None";
+		    return null;
 		}
 		String allFile = sb.toString();
 		return allFile;
