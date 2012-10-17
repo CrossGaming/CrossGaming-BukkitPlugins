@@ -574,7 +574,7 @@ public class CCEconomy extends JavaPlugin
         return Double.valueOf(twoDForm.format(d));
 	}
 	
-	static void SetMoney(String name, double amount)
+	public static void SetMoney(String name, double amount)
 	{
 		amount = roundTwoDecimals(amount);
 		ArrayList<String> list = new ArrayList<String>();
@@ -616,7 +616,7 @@ public class CCEconomy extends JavaPlugin
 		}
 	}
 	
-	static void RemoveMoney(String name, double amount)
+	public static void RemoveMoney(String name, double amount)
 	{
 		String bal = Bal(name);
 		double intbal = Double.parseDouble(bal);
@@ -626,7 +626,7 @@ public class CCEconomy extends JavaPlugin
 		SetMoney(name, newamount);
 	}
 	
-	static void AddMoney(String name, double amount)
+	public static void AddMoney(String name, double amount)
 	{
 		String bal = Bal(name);
 		double intbal = Double.parseDouble(bal);
