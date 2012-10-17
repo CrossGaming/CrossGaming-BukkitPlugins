@@ -149,7 +149,8 @@ public class CCEconomy extends JavaPlugin
 	        	   	int totalpages = BaltopPages();
 	        	   	if (page>totalpages)
 	        	   	{
-	        	   		player.sendMessage("Input a number from 1 to " + Integer.toString(totalpages));
+	        	   		player.sendMessage(ChatColor.GOLD + "Input a number from 1 to " + Integer.toString(totalpages));
+	        	   		return true;
 	        	   	}
 	        	   	player.sendMessage(ChatColor.GOLD + "Balanace Top Page [" + Integer.toString(page) + "/" + Integer.toString(totalpages) + "]");
 	        	   	page = page - 1;
@@ -180,7 +181,8 @@ public class CCEconomy extends JavaPlugin
         	   	int totalpages = BaltopPages();
         	   	if (page>totalpages)
         	   	{
-        	   		sender.sendMessage("Input a number from 1 to " + Integer.toString(totalpages));
+        	   		sender.sendMessage(ChatColor.GOLD + "Input a number from 1 to " + Integer.toString(totalpages));
+        	   		return true;
         	   	}
         	   	sender.sendMessage(ChatColor.GOLD + "Balanace Top Page [" + Integer.toString(page) + "/" + Integer.toString(totalpages) + "]");
         	   	page = page - 1;
@@ -498,8 +500,16 @@ public class CCEconomy extends JavaPlugin
 			return null;
 		}
 		double temp = roundTwoDecimals(balsort.get(page + time));
+		int occurrence = 1;
+		for (int i = 0; i < page+time; i++)
+		{
+			if(balsort.get(i).equals(balsort.get(page + time)))
+			{
+				occurrence++;
+			}
+		}
 		String StrBal = Double.toString(temp);
-		int BalSpot = BaltopCords(StrBal);
+		int BalSpot = BaltopCords(StrBal, occurrence);
 		if (BalSpot == -1)
 		{
 			return list.get(0);
@@ -507,7 +517,7 @@ public class CCEconomy extends JavaPlugin
 		return list.get(BalSpot);
 	}
 	
-	static int BaltopCords(String money)
+	static int BaltopCords(String money, int occurrence)
 	{
 		ArrayList<String> list = new ArrayList<String>();
 		String file = "plugins/CCEconomy/moneytracker.txt";
@@ -529,11 +539,16 @@ public class CCEconomy extends JavaPlugin
 		{
 		}
 		Collections.sort(list);
+		int counter = 1;
 		for(int i = 0; i < list.size(); i++)
 		{
 			if(list.get(i).contains(" " + money))
 			{
-				return i;
+				if(counter == occurrence)
+				{
+					return i;
+				}
+				counter++;
 			}
 		}
 		return 0;
