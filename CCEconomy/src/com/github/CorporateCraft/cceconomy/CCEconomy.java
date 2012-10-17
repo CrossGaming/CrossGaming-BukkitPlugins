@@ -465,6 +465,7 @@ public class CCEconomy extends JavaPlugin
 	static String Baltop(int page, int time)
 	{
 		ArrayList<String> list = new ArrayList<String>();
+		ArrayList<Double> balsort = new ArrayList<Double>();
 		String file = "plugins/CCEconomy/moneytracker.txt";
 		try
 		{
@@ -477,14 +478,16 @@ public class CCEconomy extends JavaPlugin
 		        {
 		         	break;
 		        }
-		        list.add(inputText.split(" ")[1] + " " + inputText.split(" ")[0]);
+		        list.add(inputText);
+		        balsort.add(Double.parseDouble(inputText.split(" ")[1]));
 		    }
 		}
 		catch (IOException ex)
 		{
 		}
 		Collections.sort(list);
-		Collections.reverse(list);
+		Collections.sort(balsort);
+		Collections.reverse(balsort);
 		page = page * 10;
 		if (list.size() < time + page + 1)
 		{
@@ -494,9 +497,46 @@ public class CCEconomy extends JavaPlugin
 		{
 			return null;
 		}
-		String bal = list.get(page + time);
-		bal = bal.split(" ")[1] + " " + bal.split(" ")[0];
-		return bal;
+		double temp = roundTwoDecimals(balsort.get(page + time));
+		String StrBal = Double.toString(temp);
+		int BalSpot = BaltopCords(StrBal);
+		if (BalSpot == -1)
+		{
+			return list.get(0);
+		}
+		return list.get(BalSpot);
+	}
+	
+	static int BaltopCords(String money)
+	{
+		ArrayList<String> list = new ArrayList<String>();
+		String file = "plugins/CCEconomy/moneytracker.txt";
+		try
+		{
+		    FileReader reader = new FileReader(file);
+		    BufferedReader buff = new BufferedReader(reader);
+		    while(true)
+		    {
+		    	String inputText = buff.readLine();
+		        if(inputText == null)
+		        {
+		         	break;
+		        }
+		        list.add(inputText);
+		    }
+		}
+		catch (IOException ex)
+		{
+		}
+		Collections.sort(list);
+		for(int i = 0; i < list.size(); i++)
+		{
+			if(list.get(i).contains(" " + money))
+			{
+				return i;
+			}
+		}
+		return 0;
 	}
 	
 	static int BaltopPages()

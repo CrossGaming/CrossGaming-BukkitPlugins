@@ -13,7 +13,7 @@ commands:
       aliases: [balance,money,ccemoney,ccebalance,ccebal]
    
    baltop:
-      description: Shows the balance of the top players (a little nerfed at the moment)
+      description: Shows the balance of the top players
       usage: /<command> <page>
       permission: CCEconomy.baltop
       aliases: [balancetop,moneytop,ccemoneytop,ccebalancetop,ccebaltop]
