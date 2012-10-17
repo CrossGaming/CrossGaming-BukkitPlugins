@@ -231,10 +231,10 @@ public class CCEconomy extends JavaPlugin
 						player.sendMessage("You dont have: $" + args[1]);
 						return true;
 					}
-					payamount = roundTwoDecimals(payamount);
+					payamount = Double.parseDouble(roundTwoDecimals(payamount));
 					RemoveMoney(player.getName(), payamount);
 					AddMoney(targetsname, payamount);
-					player.sendMessage("Your payed " + targetsname + " $" + Double.toString(payamount) + ".");
+					player.sendMessage("Your payed " + targetsname + " $" + roundTwoDecimals(payamount) + ".");
 					return true;
 	           }
 	        } 
@@ -272,7 +272,7 @@ public class CCEconomy extends JavaPlugin
 					}
 					if (args[0].equalsIgnoreCase("reset"))
 					{
-						SetMoney(targetsname, 0);
+						SetMoney(targetsname, "0");
 						player.sendMessage("Your successfully reset the balance of " + targetsname + ".");
 						return true;
 					}
@@ -281,11 +281,12 @@ public class CCEconomy extends JavaPlugin
 						double amount = Double.parseDouble(args[2]);
 						String balance = Bal(targetsname);
 						double intbal = Double.parseDouble(balance);
-						amount = roundTwoDecimals(amount);
+						amount = Double.parseDouble(roundTwoDecimals(amount));
+						String setamount = roundTwoDecimals(amount);
 						if (args[0].equalsIgnoreCase("give"))
 						{
 							AddMoney(targetsname, amount);
-							player.sendMessage("Your successfully gave "+ " $" + Double.toString(amount) + " to "  + targetsname + ".");
+							player.sendMessage("Your successfully gave "+ " $" + setamount + " to "  + targetsname + ".");
 							return true;
 						}
 						if (args[0].equalsIgnoreCase("take"))
@@ -293,13 +294,13 @@ public class CCEconomy extends JavaPlugin
 							if(intbal-amount>=0)
 							{
 								RemoveMoney(targetsname, amount);
-								player.sendMessage("Your successfully took "+ " $" + Double.toString(amount) + " from "  + targetsname + ".");
+								player.sendMessage("Your successfully took "+ " $" + setamount + " from "  + targetsname + ".");
 								return true;
 							}
 						}
 						if (args[0].equalsIgnoreCase("set"))
 						{
-							SetMoney(targetsname, amount);
+							SetMoney(targetsname, setamount);
 							player.sendMessage("Your successfully set the balance of " + targetsname + " to $" + Double.toString(amount) + ".");
 							return true;
 						}
@@ -330,7 +331,7 @@ public class CCEconomy extends JavaPlugin
 				}
 				if (args[0].equalsIgnoreCase("reset"))
 				{
-					SetMoney(targetsname, 0);
+					SetMoney(targetsname, "0");
 					sender.sendMessage("Your successfully reset the balance of " + targetsname + ".");
 					return true;
 				}
@@ -339,11 +340,12 @@ public class CCEconomy extends JavaPlugin
 					double amount = Double.parseDouble(args[2]);
 					String balance = Bal(targetsname);
 					double intbal = Double.parseDouble(balance);
-					amount = roundTwoDecimals(amount);
+					amount = Double.parseDouble(roundTwoDecimals(amount));
+					String setamount = roundTwoDecimals(amount);
 					if (args[0].equalsIgnoreCase("give"))
 					{
 						AddMoney(targetsname, amount);
-						sender.sendMessage("Your successfully gave "+ " $" + Double.toString(amount) + " to "  + targetsname + ".");
+						sender.sendMessage("Your successfully gave "+ " $" + setamount + " to "  + targetsname + ".");
 						return true;
 					}
 					if (args[0].equalsIgnoreCase("take"))
@@ -351,13 +353,13 @@ public class CCEconomy extends JavaPlugin
 						if(intbal-amount>=0)
 						{
 							RemoveMoney(targetsname, amount);
-							sender.sendMessage("Your successfully took "+ " $" + Double.toString(amount) + " from "  + targetsname + ".");
+							sender.sendMessage("Your successfully took "+ " $" + setamount + " from "  + targetsname + ".");
 							return true;
 						}
 					}
 					if (args[0].equalsIgnoreCase("set"))
 					{
-						SetMoney(targetsname, amount);
+						SetMoney(targetsname, setamount);
 						sender.sendMessage("Your successfully set the balance of " + targetsname + " to $" + Double.toString(amount) + ".");
 						return true;
 					}
@@ -412,7 +414,7 @@ public class CCEconomy extends JavaPlugin
 		        }
 		        list.add(inputText);
 		    }
-		    list.add(name + " 0");
+		    list.add(name + " 0.00");
 		}
 		catch (IOException ex)
 		{
@@ -499,7 +501,6 @@ public class CCEconomy extends JavaPlugin
 		{
 			return null;
 		}
-		double temp = roundTwoDecimals(balsort.get(page + time));
 		int occurrence = 1;
 		for (int i = 0; i < page+time; i++)
 		{
@@ -508,7 +509,7 @@ public class CCEconomy extends JavaPlugin
 				occurrence++;
 			}
 		}
-		String StrBal = Double.toString(temp);
+		String StrBal = roundTwoDecimals(balsort.get(page+time));
 		int BalSpot = BaltopCords(StrBal, occurrence);
 		if (BalSpot == -1)
 		{
@@ -551,7 +552,7 @@ public class CCEconomy extends JavaPlugin
 				counter++;
 			}
 		}
-		return 0;
+		return 0;//should this be -1?
 	}
 	
 	static int BaltopPages()
@@ -583,15 +584,15 @@ public class CCEconomy extends JavaPlugin
 		return (list.size()/10) + rounder;
 	}
 	
-	static double roundTwoDecimals(double d)
+	static String roundTwoDecimals(double d)
 	{
-		DecimalFormat twoDForm = new DecimalFormat("#.##");
-        return Double.valueOf(twoDForm.format(d));
+		DecimalFormat df = new DecimalFormat("0.00");
+		String newdf = df.format(d);
+        return newdf;
 	}
 	
-	public static void SetMoney(String name, double amount)
+	public static void SetMoney(String name, String amount)
 	{
-		amount = roundTwoDecimals(amount);
 		ArrayList<String> list = new ArrayList<String>();
 		String file = "plugins/CCEconomy/moneytracker.txt";
 		try
@@ -613,7 +614,7 @@ public class CCEconomy extends JavaPlugin
 		}
 		int spotinlist = list.indexOf(name + " " + Bal(name));
 		String newbal;
-		newbal = name + " " + Double.toString(amount);
+		newbal = name + " " + amount;
 		list.set(spotinlist, newbal);
 		try
 		{
@@ -637,8 +638,8 @@ public class CCEconomy extends JavaPlugin
 		double intbal = Double.parseDouble(bal);
 		double newamount;
 		newamount = intbal - amount;
-		newamount = roundTwoDecimals(newamount);
-		SetMoney(name, newamount);
+		String news = roundTwoDecimals(newamount);
+		SetMoney(name, news);
 	}
 	
 	public static void AddMoney(String name, double amount)
@@ -647,8 +648,8 @@ public class CCEconomy extends JavaPlugin
 		double intbal = Double.parseDouble(bal);
 		double newamount;
 		newamount = intbal + amount;
-		newamount = roundTwoDecimals(newamount);
-		SetMoney(name, newamount);
+		String news = roundTwoDecimals(newamount);
+		SetMoney(name, news);
 	}
 	
 	
