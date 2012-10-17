@@ -23,7 +23,7 @@ public class CCEconomy extends JavaPlugin
 	@Override
     public void onEnable()
 	{	
-		getLogger().info("CCEconomy has been enable, you now have an advanced economy system.");
+		getLogger().info("CCEconomy has been enabled, you now have an advanced economy system.");
 		getServer().getPluginManager().registerEvents(new LoginListener(), this);
 		InitiateFiles();
     }
