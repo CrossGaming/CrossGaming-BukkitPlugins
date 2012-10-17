@@ -97,7 +97,7 @@ public class CCEconomy extends JavaPlugin
 	        		   AddPlayerToList(player.getName());
 	        		   return true;
 	        	   }
-	        	   player.sendMessage("Your balance is: $" + balance + ".");
+	        	   player.sendMessage("$" + balance + ".");
 	        	   return true;
 	           }
 	        } 
