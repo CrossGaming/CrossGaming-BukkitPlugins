@@ -205,7 +205,7 @@ public class CCEconomy extends JavaPlugin
 			if (sender instanceof Player)
 			{
 	           Player player = (Player) sender;
-	           if (args.length > 2)
+	           if (args.length > 2 || args.length == 0)
 	           {
 	        	   return false;
 	           }
@@ -252,7 +252,7 @@ public class CCEconomy extends JavaPlugin
 			if (sender instanceof Player)
 			{
 				Player player = (Player) sender;
-				if (args.length > 3)
+				if (args.length > 3 || args.length == 0)
 				{
 					return false;
 				}
@@ -313,7 +313,7 @@ public class CCEconomy extends JavaPlugin
 			} 	
 			else
 			{
-				if (args.length > 3)
+				if (args.length > 3 || args.length == 0)
 		        {
 					return false;
 		        }
