@@ -138,6 +138,10 @@ public class CCEconomy extends JavaPlugin
 	           Player player = (Player) sender;
 	           if(player.hasPermission("CCEconomy.baltop"))
 		       {
+	        	   if(!isLegal(args[0]))
+					{
+						return false;
+					}
 		           	int page = 0;
 		           	if (args.length == 1)
 		           	{
@@ -211,6 +215,10 @@ public class CCEconomy extends JavaPlugin
 	           }
 	           if(player.hasPermission("CCEconomy.pay"))
 	           {
+	        	   if(!isLegal(args[1]))
+					{
+						return false;
+					}
 	        	   String targetsname;
 	        	   try
 					{
@@ -238,6 +246,13 @@ public class CCEconomy extends JavaPlugin
 					RemoveMoney(player.getName(), payamount);
 					AddMoney(targetsname, payamount);
 					player.sendMessage("Your payed " + targetsname + " $" + roundTwoDecimals(payamount) + ".");
+					
+					try
+					{
+						Player target = sender.getServer().getPlayer(args[0]);
+						target.sendMessage("You received $" + roundTwoDecimals(payamount) + " from " + player.getName() + ".");
+					}
+					catch (Exception e){}
 					return true;
 	           }
 	        } 
@@ -281,6 +296,10 @@ public class CCEconomy extends JavaPlugin
 					}
 					if (args.length == 3)
 					{
+						if(!isLegal(args[2]))
+						{
+							return false;
+						}
 						double amount = Double.parseDouble(args[2]);
 						String balance = Bal(targetsname);
 						double intbal = Double.parseDouble(balance);
@@ -310,6 +329,7 @@ public class CCEconomy extends JavaPlugin
 						return false;
 					}
 				}
+				return false;
 			} 	
 			else
 			{
@@ -340,6 +360,10 @@ public class CCEconomy extends JavaPlugin
 				}
 				if (args.length == 3)
 				{
+					if(!isLegal(args[2]))
+					{
+						return false;
+					}
 					double amount = Double.parseDouble(args[2]);
 					String balance = Bal(targetsname);
 					double intbal = Double.parseDouble(balance);
@@ -368,6 +392,7 @@ public class CCEconomy extends JavaPlugin
 					}
 					return false;
 				}
+				return false;
 			}
 		}
 		return false; 
@@ -433,6 +458,19 @@ public class CCEconomy extends JavaPlugin
 			bw.close();
 		}
 		catch (Exception e){}
+	}
+	
+	public boolean isLegal(String input)  
+	{  
+	   try  
+	   {  
+	      Double.parseDouble(input);  
+	      return true;  
+	   }  
+	   catch(Exception e)  
+	   {  
+	      return false;  
+	   }  
 	}
 	
 	public static String Bal(String name)
