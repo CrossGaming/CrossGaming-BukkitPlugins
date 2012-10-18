@@ -361,6 +361,134 @@ public class CCEconomy extends JavaPlugin
 				return false;
 			}
 		}
+		if(cmd.getName().equalsIgnoreCase("setprice"))
+		{
+			if (sender instanceof Player)
+			{
+				Player player = (Player) sender;
+				if (args.length != 2)
+				{
+					return false;
+				}
+				if(player.hasPermission("CCEconomy.setprice"))
+				{
+					return true;
+				}
+			}
+			else
+			{
+				if (args.length != 2)
+				{
+					return false;
+				}
+			}
+		}
+		if(cmd.getName().equalsIgnoreCase("setcost"))
+		{
+			if (sender instanceof Player)
+			{
+				Player player = (Player) sender;
+				if (args.length != 2)
+				{
+					return false;
+				}
+				if(player.hasPermission("CCEconomy.setcost"))
+				{
+					return true;
+				}
+			}
+			else
+			{
+				if (args.length != 2)
+				{
+					return false;
+				}
+			}
+		}
+		if(cmd.getName().equalsIgnoreCase("price"))
+		{
+			if (sender instanceof Player)
+			{
+				Player player = (Player) sender;
+				if (args.length != 1)
+				{
+					return false;
+				}
+				if(player.hasPermission("CCEconomy.price"))
+				{
+					return true;
+				}
+			}
+			else
+			{
+				if (args.length != 1)
+				{
+					return false;
+				}
+			}
+		}
+		if(cmd.getName().equalsIgnoreCase("cost"))
+		{
+			if (sender instanceof Player)
+			{
+				Player player = (Player) sender;
+				if (args.length != 1)
+				{
+					return false;
+				}
+				if(player.hasPermission("CCEconomy.cost"))
+				{
+					return true;
+				}
+			}
+			else
+			{
+				if (args.length != 1)
+				{
+					return false;
+				}
+			}
+		}
+		if(cmd.getName().equalsIgnoreCase("buy"))
+		{
+			if (sender instanceof Player)
+			{
+				Player player = (Player) sender;
+				if (args.length != 2)
+				{
+					return false;
+				}
+				if(player.hasPermission("CCEconomy.buy"))
+				{
+					return true;
+				}
+			}
+			else
+			{
+				sender.sendMessage("Log in to use this command");
+				return true;
+			}
+		}
+		if(cmd.getName().equalsIgnoreCase("sell"))
+		{
+			if (sender instanceof Player)
+			{
+				Player player = (Player) sender;
+				if (args.length != 2)
+				{
+					return false;
+				}
+				if(player.hasPermission("CCEconomy.buy"))
+				{
+					return true;
+				}
+			}
+			else
+			{
+				sender.sendMessage("Log in to use this command");
+				return true;
+			}
+		}
 		return false; 
 	}	
 	

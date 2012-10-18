@@ -23,12 +23,48 @@ commands:
       usage: /<command> <name> <amount>
       permission: CCEconomy.pay
       aliases: [sendmoney, ccepay]
-      
+   
    cce:
       description: A variaty of commands to edit someones bal <set>, <take>, <give>, and <reset>
       usage: /<command> <sub command> <name> <amount>
       permission: CCEconomy.editbal
       aliases: [cceconomy]
+      
+   setcost:
+      description: Sets the cost of buying an item
+      usage: /<command> <itemname:id> <price>
+      permission: CCEconomy.setcost
+      aliases: [scost, sc, setc, ccescost, ccesc, ccesetc, ccesetcost]
+      
+   setprice:
+      description: Sets the price of an to sell
+      usage: /<command> <itemname:id> <price>
+      permission: 
+      aliases: [sprice, sp, setp, ccesprice, ccesp, ccesetp, ccesetprice]
+   
+   cost:
+      description: Shows the cost of buying <itemname>
+      usage: /<command> <itemname:id>
+      permission: CCEconomy.cost
+      aliases: [ccecost]
+      
+   price:
+      description: Shows how much money <itemname> is worth to sell
+      usage: /<command> <itemname:id>
+      permission: CCEconomy.price
+      aliases: [cceprice]
+      
+   buy:
+      description: Shows the cost of buying <itemname>
+      usage: /<command> <itemname:id> <amount>
+      permission: CCEconomy.buy
+      aliases: [ccebuy]
+      
+   sell:
+      description: Sells item with the given amount default is all
+      usage: /<command> <itemname:id> <amount:all>
+      permission: CCEconomy.sell
+      aliases: [ccesell]   
 
 permissions:
     CCEconomy.*:
@@ -37,8 +73,14 @@ permissions:
             CCEconomy.bal: true
             CCEconomy.baltop: true
             CCEconomy.pay: true
-            CCEconomy.balothers: ops
-            CCEconomy.editbal: ops
+            CCEconomy.cost: true
+            CCEconomy.price: true
+            CCEconomy.buy: true
+            CCEconomy.sell: true
+            CCEconomy.setprice: true
+            CCEconomy.setcost: true
+            CCEconomy.balothers: true
+            CCEconomy.editbal: true
     CCEconomy.bal:
         description: Lets you see your own balance.
         default: true
@@ -48,10 +90,27 @@ permissions:
     CCEconomy.pay:
         description: Pays someone some money.
         default: true
+    CCEconomy.cost:
+        description: Allows you to see the cost of buying an item.
+        default: true
+    CCEconomy.price:
+        description: Allows you to see the worth of an item.
+        default: true
+    CCEconomy.buy:
+        description: Allows you to buy items.
+        default: true
+    CCEconomy.sell:
+        description: Allows you to sell items.
+        default: true
+    CCEconomy.setprice:
+        description: Allows you to set selling cost of an item.
+        default: op
+    CCEconomy.setcost:
+        description: Allows you to set buying cost of an item.
+        default: op
     CCEconomy.balothers:
         description: Allows you to look at other peoples balances.
-        default: ops
+        default: op
     CCEconomy.editbal:
         description: Allows you to edit other players balances.
-        default: ops
-        
+        default: op
