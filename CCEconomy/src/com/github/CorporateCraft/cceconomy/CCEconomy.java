@@ -267,7 +267,7 @@ public class CCEconomy extends JavaPlugin
 			if (sender instanceof Player)
 			{
 				Player player = (Player) sender;
-				if (args.length > 3 || args.length == 0)
+				if (args.length > 3 || args.length == 0 || args.length == 1)
 				{
 					return false;
 				}
