@@ -32,37 +32,37 @@ commands:
       
    setcost:
       description: Sets the cost of buying an item
-      usage: /<command> <itemname:id> <price>
+      usage: /<command> <itemname:id:hand> <price>
       permission: CCEconomy.setcost
       aliases: [scost, sc, setc, ccescost, ccesc, ccesetc, ccesetcost]
       
    setprice:
       description: Sets the price of an to sell
-      usage: /<command> <itemname:id> <price>
+      usage: /<command> <itemname:id:hand> <price>
       permission: 
       aliases: [sprice, sp, setp, ccesprice, ccesp, ccesetp, ccesetprice]
    
    cost:
       description: Shows the cost of buying <itemname>
-      usage: /<command> <itemname:id>
+      usage: /<command> <itemname:id:hand>
       permission: CCEconomy.cost
       aliases: [ccecost]
       
    price:
       description: Shows how much money <itemname> is worth to sell
-      usage: /<command> <itemname:id>
+      usage: /<command> <itemname:id:hand>
       permission: CCEconomy.price
       aliases: [cceprice]
       
    buy:
       description: Shows the cost of buying <itemname>
-      usage: /<command> <itemname:id> <amount>
+      usage: /<command> <itemname:id:hand> <amount>
       permission: CCEconomy.buy
       aliases: [ccebuy]
       
    sell:
       description: Sells item with the given amount default is all
-      usage: /<command> <itemname:id> <amount:all>
+      usage: /<command> <itemname:id:hand> <amount:all>
       permission: CCEconomy.sell
       aliases: [ccesell]   
 

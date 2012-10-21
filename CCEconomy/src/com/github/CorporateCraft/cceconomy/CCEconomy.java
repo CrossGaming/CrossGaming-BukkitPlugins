@@ -361,61 +361,38 @@ public class CCEconomy extends JavaPlugin
 				return false;
 			}
 		}
-		if(cmd.getName().equalsIgnoreCase("setprice"))
-		{
-			if (sender instanceof Player)
-			{
-				Player player = (Player) sender;
-				if (args.length != 2)
-				{
-					return false;
-				}
-				if(player.hasPermission("CCEconomy.setprice"))
-				{
-					return true;
-				}
-			}
-			else
-			{
-				if (args.length != 2)
-				{
-					return false;
-				}
-			}
-		}
-		if(cmd.getName().equalsIgnoreCase("setcost"))
-		{
-			if (sender instanceof Player)
-			{
-				Player player = (Player) sender;
-				if (args.length != 2)
-				{
-					return false;
-				}
-				if(player.hasPermission("CCEconomy.setcost"))
-				{
-					return true;
-				}
-			}
-			else
-			{
-				if (args.length != 2)
-				{
-					return false;
-				}
-			}
-		}
 		if(cmd.getName().equalsIgnoreCase("price"))
 		{
 			if (sender instanceof Player)
 			{
 				Player player = (Player) sender;
-				if (args.length != 1)
+				if (args.length > 1)
 				{
 					return false;
 				}
 				if(player.hasPermission("CCEconomy.price"))
 				{
+					String ItemName = "";
+					try
+					{
+						ItemName = args[0];
+					}
+					catch (Exception e)
+					{
+						ItemName = Integer.toString(player.getItemInHand().getTypeId());
+					}
+					if(Formatter.isLegal(ItemName))
+					{
+						ItemName = Materials.idToName(Integer.parseInt(ItemName));
+					}
+					String cost = Prices.Cost("plugins/CCEconomy/sellprices.txt", ItemName);
+					ItemName = Formatter.CapFirst(ItemName);
+					if(cost == null || cost.equalsIgnoreCase("null"))
+					{
+						player.sendMessage(ItemName + " cannot be sold to the server");
+						return true;
+					}
+					player.sendMessage(ItemName + " can be sold for $" + cost);
 					return true;
 				}
 			}
@@ -425,6 +402,20 @@ public class CCEconomy extends JavaPlugin
 				{
 					return false;
 				}
+				String ItemName = args[0];
+				if(Formatter.isLegal(ItemName))
+				{
+					ItemName = Materials.idToName(Integer.parseInt(ItemName));
+				}
+				String cost = Prices.Cost("plugins/CCEconomy/sellprices.txt", ItemName);
+				ItemName = Formatter.CapFirst(ItemName);
+				if(cost == null || cost.equalsIgnoreCase("null"))
+				{
+					sender.sendMessage(ItemName + " cannot be sold to the server");
+					return true;
+				}
+				sender.sendMessage(ItemName + " can be sold for $" + cost);
+				return true;
 			}
 		}
 		if(cmd.getName().equalsIgnoreCase("cost"))
@@ -432,12 +423,33 @@ public class CCEconomy extends JavaPlugin
 			if (sender instanceof Player)
 			{
 				Player player = (Player) sender;
-				if (args.length != 1)
+				if (args.length > 1)
 				{
 					return false;
 				}
 				if(player.hasPermission("CCEconomy.cost"))
 				{
+					String ItemName = "";
+					try
+					{
+						ItemName = args[0];
+					}
+					catch (Exception e)
+					{
+						ItemName = Integer.toString(player.getItemInHand().getTypeId());
+					}
+					if(Formatter.isLegal(ItemName))
+					{
+						ItemName = Materials.idToName(Integer.parseInt(ItemName));
+					}
+					String cost = Prices.Cost("plugins/CCEconomy/buyprices.txt", ItemName);
+					ItemName = Formatter.CapFirst(ItemName);
+					if(cost == null || cost.equalsIgnoreCase("null"))
+					{
+						player.sendMessage(ItemName + " cannot be bought from the server");
+						return true;
+					}
+					player.sendMessage(ItemName + " costs $" + cost);
 					return true;
 				}
 			}
@@ -447,6 +459,152 @@ public class CCEconomy extends JavaPlugin
 				{
 					return false;
 				}
+				String ItemName = args[0];
+				if(Formatter.isLegal(ItemName))
+				{
+					ItemName = Materials.idToName(Integer.parseInt(ItemName));
+				}
+				String cost = Prices.Cost("plugins/CCEconomy/buyprices.txt", ItemName);
+				ItemName = Formatter.CapFirst(ItemName);
+				if(cost == null || cost.equalsIgnoreCase("null"))
+				{
+					sender.sendMessage(ItemName + " cannot be bought from the server");
+					return true;
+				}
+				sender.sendMessage(ItemName + " costs $" + cost);
+				return true;
+			}
+		}
+		if(cmd.getName().equalsIgnoreCase("setprice"))
+		{
+			if (sender instanceof Player)
+			{
+				Player player = (Player) sender;
+				if (args.length > 2 && args.length != 0)
+				{
+					return false;
+				}
+				if(player.hasPermission("CCEconomy.setprice"))
+				{
+					String ItemName = "";					
+					if(args.length == 2)
+					{
+						ItemName = args[0];
+						if(Formatter.isLegal(ItemName))
+						{
+							ItemName = Materials.idToName(Integer.parseInt(ItemName));
+						}
+						if(!Formatter.isLegal(args[1]))
+						{
+							return false;
+						}
+						ItemName = Formatter.CapFirst(ItemName);
+						Prices.SetCost("plugins/CCEconomy/sellprices.txt", ItemName, Formatter.roundTwoDecimals(Double.parseDouble(args[1])));
+						player.sendMessage(ItemName + "'s price was set to $" + Formatter.roundTwoDecimals(Double.parseDouble(args[1])));
+					}
+					else
+					{
+						ItemName = Integer.toString(player.getItemInHand().getTypeId());
+						if(Formatter.isLegal(ItemName))
+						{
+							ItemName = Materials.idToName(Integer.parseInt(ItemName));
+						}
+						if(!Formatter.isLegal(args[0]))
+						{
+							return false;
+						}
+						ItemName = Formatter.CapFirst(ItemName);
+						Prices.SetCost("plugins/CCEconomy/sellprices.txt", ItemName, Formatter.roundTwoDecimals(Double.parseDouble(args[0])));
+						player.sendMessage(ItemName + "'s price was set to $" + Formatter.roundTwoDecimals(Double.parseDouble(args[0])));
+					}
+					return true;
+				}
+			}
+			else
+			{
+				if (args.length > 2 && args.length != 0)
+				{
+					return false;
+				}
+				String ItemName;
+				ItemName = args[0];
+				if(Formatter.isLegal(ItemName))
+				{
+					ItemName = Materials.idToName(Integer.parseInt(ItemName));
+				}
+				if(!Formatter.isLegal(args[1]))
+				{
+					return false;
+				}
+				ItemName = Formatter.CapFirst(ItemName);
+				Prices.SetCost("plugins/CCEconomy/sellprices.txt", ItemName, Formatter.roundTwoDecimals(Double.parseDouble(args[1])));
+				sender.sendMessage(ItemName + "'s price was set to $" + Formatter.roundTwoDecimals(Double.parseDouble(args[1])));
+			}
+		}
+		if(cmd.getName().equalsIgnoreCase("setcost"))
+		{
+			if (sender instanceof Player)
+			{
+				Player player = (Player) sender;
+				if (args.length > 2 && args.length != 0)
+				{
+					return false;
+				}
+				if(player.hasPermission("CCEconomy.setcost"))
+				{
+					String ItemName = "";					
+					if(args.length == 2)
+					{
+						ItemName = args[0];
+						if(Formatter.isLegal(ItemName))
+						{
+							ItemName = Materials.idToName(Integer.parseInt(ItemName));
+						}
+						if(!Formatter.isLegal(args[1]))
+						{
+							return false;
+						}
+						ItemName = Formatter.CapFirst(ItemName);
+						Prices.SetCost("plugins/CCEconomy/buyprices.txt", ItemName, Formatter.roundTwoDecimals(Double.parseDouble(args[1])));
+						player.sendMessage(ItemName + "'s cost was set to $" + Formatter.roundTwoDecimals(Double.parseDouble(args[1])));
+					}
+					else
+					{
+						ItemName = Integer.toString(player.getItemInHand().getTypeId());
+						if(Formatter.isLegal(ItemName))
+						{
+							ItemName = Materials.idToName(Integer.parseInt(ItemName));
+						}
+						if(!Formatter.isLegal(args[0]))
+						{
+							return false;
+						}
+						ItemName = Formatter.CapFirst(ItemName);
+						Prices.SetCost("plugins/CCEconomy/buyprices.txt", ItemName, Formatter.roundTwoDecimals(Double.parseDouble(args[0])));
+						player.sendMessage(ItemName + "'s cost was set to $" + Formatter.roundTwoDecimals(Double.parseDouble(args[0])));
+					}
+					return true;
+				}
+			}
+			else
+			{
+				if (args.length > 2 && args.length != 0)
+				{
+					return false;
+				}
+				String ItemName;
+				ItemName = args[0];
+				if(Formatter.isLegal(ItemName))
+				{
+					ItemName = Materials.idToName(Integer.parseInt(ItemName));
+				}
+				if(!Formatter.isLegal(args[1]))
+				{
+					return false;
+				}
+				ItemName = Formatter.CapFirst(ItemName);
+				Prices.SetCost("plugins/CCEconomy/buyprices.txt", ItemName, Formatter.roundTwoDecimals(Double.parseDouble(args[1])));
+				sender.sendMessage(ItemName + "'s cost was set to $" + Formatter.roundTwoDecimals(Double.parseDouble(args[1])));
 			}
 		}
 		if(cmd.getName().equalsIgnoreCase("buy"))

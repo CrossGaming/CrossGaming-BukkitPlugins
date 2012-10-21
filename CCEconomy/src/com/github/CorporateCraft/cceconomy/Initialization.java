@@ -49,5 +49,9 @@ public class Initialization
 			}
 			catch (IOException e){}
 		}
+		Materials.StartFiles();
+		Materials.UpdateIds();
+		Materials.UpdateSell();
+		Materials.UpdateBuy();
 	}
 }
