@@ -1,12 +1,15 @@
 package com.github.CorporateCraft.cceconomy;
 
 import org.bukkit.ChatColor;
+import org.bukkit.Material;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
+import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.PlayerInventory;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public class CCEconomy extends JavaPlugin
@@ -480,7 +483,7 @@ public class CCEconomy extends JavaPlugin
 			if (sender instanceof Player)
 			{
 				Player player = (Player) sender;
-				if (args.length > 2 && args.length != 0)
+				if (args.length > 2 || args.length != 0)
 				{
 					return false;
 				}
@@ -502,12 +505,16 @@ public class CCEconomy extends JavaPlugin
 						if(args[1].equalsIgnoreCase("null"))
 						{
 							Prices.SetCost("plugins/CCEconomy/sellprices.txt", ItemName, args[1]);
+							ItemName = ItemName.replaceAll("_", " ");
 							player.sendMessage(ItemName + " can no longer be sold");
+							return true;
 						}
 						else
 						{
 							Prices.SetCost("plugins/CCEconomy/sellprices.txt", ItemName, Formatter.roundTwoDecimals(Double.parseDouble(args[1])));
+							ItemName = ItemName.replaceAll("_", " ");
 							player.sendMessage(ItemName + "'s price was set to $" + Formatter.roundTwoDecimals(Double.parseDouble(args[1])));
+							return true;
 						}
 					}
 					else
@@ -525,20 +532,23 @@ public class CCEconomy extends JavaPlugin
 						if(args[0].equalsIgnoreCase("null"))
 						{
 							Prices.SetCost("plugins/CCEconomy/sellprices.txt", ItemName, args[0]);
+							ItemName = ItemName.replaceAll("_", " ");
 							player.sendMessage(ItemName + " can no longer be sold");
+							return true;
 						}
 						else
 						{
 							Prices.SetCost("plugins/CCEconomy/sellprices.txt", ItemName, Formatter.roundTwoDecimals(Double.parseDouble(args[0])));
+							ItemName = ItemName.replaceAll("_", " ");
 							player.sendMessage(ItemName + "'s price was set to $" + Formatter.roundTwoDecimals(Double.parseDouble(args[0])));
+							return true;
 						}
 					}
-					return true;
 				}
 			}
 			else
 			{
-				if (args.length > 2 && args.length != 0)
+				if (args.length != 2)
 				{
 					return false;
 				}
@@ -556,12 +566,16 @@ public class CCEconomy extends JavaPlugin
 				if(args[1].equalsIgnoreCase("null"))
 				{
 					Prices.SetCost("plugins/CCEconomy/sellprices.txt", ItemName, args[1]);
+					ItemName = ItemName.replaceAll("_", " ");
 					sender.sendMessage(ItemName + " can no longer be sold");
+					return true;
 				}
 				else
 				{
 					Prices.SetCost("plugins/CCEconomy/sellprices.txt", ItemName, Formatter.roundTwoDecimals(Double.parseDouble(args[1])));
+					ItemName = ItemName.replaceAll("_", " ");
 					sender.sendMessage(ItemName + "'s price was set to $" + Formatter.roundTwoDecimals(Double.parseDouble(args[1])));
+					return true;
 				}
 			}
 		}
@@ -570,7 +584,7 @@ public class CCEconomy extends JavaPlugin
 			if (sender instanceof Player)
 			{
 				Player player = (Player) sender;
-				if (args.length > 2 && args.length != 0)
+				if (args.length > 2 || args.length != 0)
 				{
 					return false;
 				}
@@ -592,12 +606,16 @@ public class CCEconomy extends JavaPlugin
 						if(args[1].equalsIgnoreCase("null"))
 						{
 							Prices.SetCost("plugins/CCEconomy/buyprices.txt", ItemName, args[1]);
+							ItemName = ItemName.replaceAll("_", " ");
 							player.sendMessage(ItemName + " can no longer be bought");
+							return true;
 						}
 						else
 						{
 							Prices.SetCost("plugins/CCEconomy/buyprices.txt", ItemName, Formatter.roundTwoDecimals(Double.parseDouble(args[1])));
+							ItemName = ItemName.replaceAll("_", " ");
 							player.sendMessage(ItemName + "'s cost was set to $" + Formatter.roundTwoDecimals(Double.parseDouble(args[1])));
+							return true;
 						}
 					}
 					else
@@ -615,20 +633,23 @@ public class CCEconomy extends JavaPlugin
 						if(args[0].equalsIgnoreCase("null"))
 						{
 							Prices.SetCost("plugins/CCEconomy/buyprices.txt", ItemName, args[0]);
+							ItemName = ItemName.replaceAll("_", " ");
 							player.sendMessage(ItemName + " can no longer be bought");
+							return true;
 						}
 						else
 						{
 							Prices.SetCost("plugins/CCEconomy/buyprices.txt", ItemName, Formatter.roundTwoDecimals(Double.parseDouble(args[0])));
+							ItemName = ItemName.replaceAll("_", " ");
 							player.sendMessage(ItemName + "'s cost was set to $" + Formatter.roundTwoDecimals(Double.parseDouble(args[0])));
+							return true;
 						}
 					}
-					return true;
 				}
 			}
 			else
 			{
-				if (args.length > 2 && args.length != 0)
+				if (args.length != 2)
 				{
 					return false;
 				}
@@ -646,12 +667,16 @@ public class CCEconomy extends JavaPlugin
 				if(args[1].equalsIgnoreCase("null"))
 				{
 					Prices.SetCost("plugins/CCEconomy/buyprices.txt", ItemName, args[1]);
+					ItemName = ItemName.replaceAll("_", " ");
 					sender.sendMessage(ItemName + " can no longer be bought");
+					return true;
 				}
 				else
 				{
 					Prices.SetCost("plugins/CCEconomy/buyprices.txt", ItemName, Formatter.roundTwoDecimals(Double.parseDouble(args[1])));
+					ItemName = ItemName.replaceAll("_", " ");
 					sender.sendMessage(ItemName + "'s cost was set to $" + Formatter.roundTwoDecimals(Double.parseDouble(args[1])));
+					return true;
 				}
 			}
 		}
@@ -660,13 +685,65 @@ public class CCEconomy extends JavaPlugin
 			if (sender instanceof Player)
 			{
 				Player player = (Player) sender;
-				if (args.length != 2)
+				if (args.length > 2 || args.length != 0)
 				{
 					return false;
 				}
 				if(player.hasPermission("CCEconomy.buy"))
 				{
-					return true;
+					PlayerInventory inventory = player.getInventory();
+					String balance = BalChecks.Bal(player.getName());
+					double intbal = Double.parseDouble(balance);
+					int amount = 0;					
+				    String ItemName = "";
+					if(args.length == 2)
+					{
+						ItemName = args[0];
+						if(Formatter.isLegal(ItemName))
+						{
+							ItemName = Materials.idToName(Integer.parseInt(ItemName));
+						}
+						if(!Formatter.isLegal(args[1]))
+						{
+							return false;
+						}
+						ItemName = Formatter.CapFirst(ItemName);
+						amount = Integer.parseInt(args[1]);
+					}
+					else
+					{
+						ItemName = Integer.toString(player.getItemInHand().getTypeId());
+						if(Formatter.isLegal(ItemName))
+						{
+							ItemName = Materials.idToName(Integer.parseInt(ItemName));
+						}
+						if(!Formatter.isLegal(args[0]))
+						{
+							return false;
+						}
+						ItemName = Formatter.CapFirst(ItemName);
+						amount = Integer.parseInt(args[0]);
+					}
+					Double Cost = Prices.GetCost("plugins/CCEconomy/buyprices.txt", ItemName, amount);
+					if(Cost == null)
+					{
+						player.sendMessage(ItemName + " cannot be bought from the server.");
+						return true;
+					}
+					else
+					{
+						if (intbal < Cost)
+						{
+							player.sendMessage("You dont have enough money to buy that item.");
+							return true;
+						}
+						EditPlayerMoney.RemoveMoney(player.getName(), Cost);
+						ItemStack itemstack = new ItemStack(Material.getMaterial(ItemName), amount);
+						inventory.addItem(itemstack);
+						ItemName = ItemName.replaceAll("_", " ");
+						sender.sendMessage("You bought " + Integer.toString(amount) + " of " + ItemName + ".");
+						return true;
+					}
 				}
 			}
 			else
@@ -680,13 +757,65 @@ public class CCEconomy extends JavaPlugin
 			if (sender instanceof Player)
 			{
 				Player player = (Player) sender;
-				if (args.length != 2)
+				if (args.length > 2 || args.length != 0)
 				{
 					return false;
 				}
-				if(player.hasPermission("CCEconomy.buy"))
+				if(player.hasPermission("CCEconomy.sell"))
 				{
-					return true;
+					PlayerInventory inventory = player.getInventory();
+					String balance = BalChecks.Bal(player.getName());
+					double intbal = Double.parseDouble(balance);
+					int amount = 0;					
+				    String ItemName = "";
+					if(args.length == 2)
+					{
+						ItemName = args[0];
+						if(Formatter.isLegal(ItemName))
+						{
+							ItemName = Materials.idToName(Integer.parseInt(ItemName));
+						}
+						if(!Formatter.isLegal(args[1]))
+						{
+							return false;
+						}
+						ItemName = Formatter.CapFirst(ItemName);
+						amount = Integer.parseInt(args[1]);
+					}
+					else
+					{
+						ItemName = Integer.toString(player.getItemInHand().getTypeId());
+						if(Formatter.isLegal(ItemName))
+						{
+							ItemName = Materials.idToName(Integer.parseInt(ItemName));
+						}
+						if(!Formatter.isLegal(args[0]))
+						{
+							return false;
+						}
+						ItemName = Formatter.CapFirst(ItemName);
+						amount = Integer.parseInt(args[0]);
+					}
+					Double Cost = Prices.GetCost("plugins/CCEconomy/sellprices.txt", ItemName, amount);
+					if(Cost == null)
+					{
+						player.sendMessage(ItemName + " cannot be sold to the server.");
+						return true;
+					}
+					else
+					{
+						if (intbal < Cost)
+						{
+							player.sendMessage("You dont have enough money to sell that item.");
+							return true;
+						}
+						EditPlayerMoney.AddMoney(player.getName(), Cost);
+						ItemStack itemstack = new ItemStack(Material.getMaterial(ItemName), amount);
+						inventory.removeItem(itemstack);
+						ItemName = ItemName.replaceAll("_", " ");
+						sender.sendMessage("You sold " + Integer.toString(amount) + " of " + ItemName + ".");
+						return true;
+					}
 				}
 			}
 			else

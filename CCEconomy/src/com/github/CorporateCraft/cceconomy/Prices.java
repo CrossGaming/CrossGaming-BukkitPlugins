@@ -36,6 +36,17 @@ public class Prices
 		return null;
 	}
 	
+	public static Double GetCost(String file, String ItemName, int Amount)
+	{
+		String CostPerUnit = Cost(file, ItemName);
+		if(CostPerUnit == null || CostPerUnit.equalsIgnoreCase("null"))
+		{
+			return null;
+		}
+		Double Cost = Double.parseDouble(CostPerUnit) * Amount;
+		return Cost;
+	}
+	
 	public static void SetCost(String file, String itemname, String amount)
 	{
 		itemname = itemname.toUpperCase();
