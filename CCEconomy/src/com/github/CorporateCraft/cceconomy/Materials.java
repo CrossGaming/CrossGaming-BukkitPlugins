@@ -11,20 +11,7 @@ import org.bukkit.Material;
 
 public class Materials
 {
-	public static final int MaxItems = 2366;
-	public static void UpdateIds()
-	{
-		ArrayList<String> MatList = new ArrayList<String>();
-		for(int i = 0; i < MaxItems; i++)
-		{
-			try
-			{
-				MatList.add(idToName(Material.getMaterial(i).getId()).replaceAll("_", "") + " " + Material.getMaterial(i).getId());
-			}
-			catch(Exception e){}
-		}
-		WriteFile("plugins/CCEconomy/itemids.txt", MatList);
-	}
+	private static final int MaxItems = 2366;
 	
 	public static void UpdateSell()
 	{
@@ -42,10 +29,6 @@ public class Materials
 	
 	public static void StartFiles()
 	{
-		if(FileEmpty("plugins/CCEconomy/itemids.txt"))
-		{
-			UpdateIds();
-		}
 		if(FileEmpty("plugins/CCEconomy/sellprices.txt"))
 		{
 			ArrayList<String> SellList = new ArrayList<String>();

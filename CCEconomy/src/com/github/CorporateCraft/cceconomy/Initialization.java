@@ -10,7 +10,6 @@ public class Initialization
 		File f1 = new File("plugins/CCEconomy/moneytracker.txt");
 		File f2 = new File("plugins/CCEconomy/sellprices.txt");
 		File f3 = new File("plugins/CCEconomy/buyprices.txt");
-		File f4 = new File("plugins/CCEconomy/itemids.txt");
 		File d = new File("plugins/CCEconomy");
 		if(!d.exists())
 		{
@@ -41,16 +40,7 @@ public class Initialization
 			}
 			catch (IOException e){}
 		}
-		if(!f4.exists())
-		{
-			try
-			{
-				f4.createNewFile();
-			}
-			catch (IOException e){}
-		}
 		Materials.StartFiles();
-		Materials.UpdateIds();
 		Materials.UpdateSell();
 		Materials.UpdateBuy();
 	}

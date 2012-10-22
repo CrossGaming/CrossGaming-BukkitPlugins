@@ -39,6 +39,7 @@ public class Prices
 	public static void SetCost(String file, String itemname, String amount)
 	{
 		itemname = itemname.toUpperCase();
+		itemname = itemname.replaceAll("_", "");
 		ArrayList<String> list = new ArrayList<String>();
 		try
 		{
