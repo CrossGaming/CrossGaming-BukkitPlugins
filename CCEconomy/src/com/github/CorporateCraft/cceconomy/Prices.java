@@ -24,7 +24,6 @@ public class Prices
 		        {
 		         	break;
 		        }
-		        //STONE null
 		        if(inputText.startsWith((ItemName + " ")))
 		        {
 		        	ItemCost = inputText.replace(ItemName + " ", "");
@@ -39,9 +38,13 @@ public class Prices
 	public static Double GetCost(String file, String ItemName, int Amount)
 	{
 		String CostPerUnit = Cost(file, ItemName);
-		if(CostPerUnit == null || CostPerUnit.equalsIgnoreCase("null"))
+		if(CostPerUnit == null)
 		{
-			return null;
+			return -1.00;
+		}
+		if(CostPerUnit.equalsIgnoreCase("null"))
+		{
+			return -1.00;
 		}
 		Double Cost = Double.parseDouble(CostPerUnit) * Amount;
 		return Cost;

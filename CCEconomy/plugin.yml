@@ -62,7 +62,7 @@ commands:
       
    sell:
       description: Sells item with the given amount default is all
-      usage: /<command> <itemname:id:hand> <amount:all>
+      usage: /<command> <itemname:id:hand> <amount>
       permission: CCEconomy.sell
       aliases: [ccesell]   
 
