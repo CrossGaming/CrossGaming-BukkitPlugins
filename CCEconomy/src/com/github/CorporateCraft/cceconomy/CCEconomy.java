@@ -50,7 +50,7 @@ public class CCEconomy extends JavaPlugin
 	        		   String balance = BalChecks.Bal(playersname);
 		        	   if(balance == null)
 		        	   {
-		        		   player.sendMessage("That player is not in my records if player is ofline please type in full name.");
+		        		   player.sendMessage("That player is not in my records. If the player is offline, please use the full name.");
 		        		   return true;
 		        	   }
 		        	   player.sendMessage(playersname + "'s balance is: $" + balance);
@@ -87,7 +87,7 @@ public class CCEconomy extends JavaPlugin
 						String balance = BalChecks.Bal(playersname);
 						if(balance == null)
 						{
-							sender.sendMessage("That player is not in my records if player is ofline please type in full name.");
+							sender.sendMessage("That player is not in my records. If the player is offline, please use the full name.");
 							return true;
 						}
 						sender.sendMessage(playersname + "'s balance is: $" + balance);
