@@ -53,7 +53,6 @@ public class ArrayLists
 		    }
 		}
 		catch (IOException ex){}
-		Collections.sort(SellPrices);
 	}
 	
 	public static void UpdateBuyCosts()
@@ -75,6 +74,5 @@ public class ArrayLists
 		    }
 		}
 		catch (IOException ex){}
-		Collections.sort(BuyPrices);
 	}
 }

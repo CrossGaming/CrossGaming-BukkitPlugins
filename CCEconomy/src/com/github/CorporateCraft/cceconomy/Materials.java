@@ -1,9 +1,7 @@
 package com.github.CorporateCraft.cceconomy;
 
 import java.io.BufferedReader;
-import java.io.BufferedWriter;
 import java.io.FileReader;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -17,19 +15,19 @@ public class Materials
 	{
 		ArrayList<String> SellList = new ArrayList<String>();
 		SellList = GetNew("plugins/CCEconomy/sellprices.txt");
-		WriteFile("plugins/CCEconomy/sellprices.txt", SellList);
+		Formatter.WriteFile("plugins/CCEconomy/sellprices.txt", SellList);
 	}
 	
 	public static void UpdateBuy()
 	{
 		ArrayList<String> BuyList = new ArrayList<String>();
 		BuyList = GetNew("plugins/CCEconomy/buyprices.txt");
-		WriteFile("plugins/CCEconomy/buyprices.txt", BuyList);
+		Formatter.WriteFile("plugins/CCEconomy/buyprices.txt", BuyList);
 	}
 	
 	public static void StartFiles()
 	{
-		if(FileEmpty("plugins/CCEconomy/sellprices.txt"))
+		if(Formatter.FileEmpty("plugins/CCEconomy/sellprices.txt"))
 		{
 			ArrayList<String> SellList = new ArrayList<String>();
 			for(int i = 0; i < MaxItems; i++)
@@ -40,9 +38,9 @@ public class Materials
 				}
 				catch(Exception e){}
 			}
-			WriteFile("plugins/CCEconomy/sellprices.txt", SellList);
+			Formatter.WriteFile("plugins/CCEconomy/sellprices.txt", SellList);
 		}
-		if(FileEmpty("plugins/CCEconomy/buyprices.txt"))
+		if(Formatter.FileEmpty("plugins/CCEconomy/buyprices.txt"))
 		{
 			ArrayList<String> BuyList = new ArrayList<String>();
 			for(int i = 0; i < MaxItems; i++)
@@ -53,43 +51,8 @@ public class Materials
 				}
 				catch(Exception e){}
 			}
-			WriteFile("plugins/CCEconomy/buyprices.txt", BuyList);
+			Formatter.WriteFile("plugins/CCEconomy/buyprices.txt", BuyList);
 		}
-	}
-	
-	public static Boolean FileEmpty(String file)
-	{
-		try
-		{
-		    FileReader reader = new FileReader(file);
-		    BufferedReader buff = new BufferedReader(reader);
-		    String inputText = buff.readLine();
-		    if(inputText == null)
-		    {
-		    	return true;
-		    }
-		}
-		catch (IOException ex)
-		{
-			return false;
-		}
-		return false;
-	}
-	
-	public static void WriteFile(String file, ArrayList<String> Info)
-	{
-		try
-		{
-			FileWriter writer = new FileWriter(file);
-			BufferedWriter bw = new BufferedWriter(writer);
-			for (int i = 0; i < Info.size(); i++)
-			{
-				bw.write(Info.get(i));
-				bw.newLine();
-			}
-			bw.close();
-		}
-		catch (Exception e){}
 	}
 	
 	public static ArrayList<String> GetNew(String file)

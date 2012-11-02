@@ -1,12 +1,5 @@
 package com.github.CorporateCraft.cceconomy;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.util.ArrayList;
-
 public class Prices
 {
 	public static String Cost(String file, String ItemName)
@@ -54,45 +47,21 @@ public class Prices
 	{
 		itemname = itemname.toUpperCase();
 		itemname = itemname.replaceAll("_", "");
-		ArrayList<String> list = new ArrayList<String>();
-		try
-		{
-		    FileReader reader = new FileReader(file);
-		    BufferedReader buff = new BufferedReader(reader);
-		    while(true)
-		    {
-		    	String inputText = buff.readLine();
-		        if(inputText == null)
-		        {
-		         	break;
-		        }
-		        list.add(inputText);
-		    }
-		}
-		catch (IOException ex){}
-		int spotinlist = list.indexOf(itemname + " " + Cost(file, itemname));
-		String newcost;
-		newcost = itemname + " " + amount;
-		list.set(spotinlist, newcost);
-		try
-		{
-			FileWriter writer = new FileWriter(file);
-			BufferedWriter bw = new BufferedWriter(writer);
-			for (int i = 0; i < list.size(); i++)
-			{
-				bw.write(list.get(i));
-				bw.newLine();
-			}
-			bw.close();
-		}
-		catch (Exception e){}
 		if(file.equals("plugins/CCEconomy/sellprices.txt"))
 		{
-			ArrayLists.UpdateSellPrices();
+			int spotinlist = ArrayLists.SellPrices.indexOf(itemname + " " + Cost(file, itemname));
+			String newcost;
+			newcost = itemname + " " + amount;
+			ArrayLists.SellPrices.set(spotinlist, newcost);
+			Formatter.WriteFile(file, ArrayLists.SellPrices);
 		}
 		if(file.equals("plugins/CCEconomy/buyprices.txt"))
 		{
-			ArrayLists.UpdateBuyCosts();
+			int spotinlist = ArrayLists.BuyPrices.indexOf(itemname + " " + Cost(file, itemname));
+			String newcost;
+			newcost = itemname + " " + amount;
+			ArrayLists.BuyPrices.set(spotinlist, newcost);
+			Formatter.WriteFile(file, ArrayLists.BuyPrices);
 		}
 	}
 }

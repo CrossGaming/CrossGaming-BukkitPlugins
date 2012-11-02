@@ -1,5 +1,10 @@
 package com.github.CorporateCraft.cceconomy;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 
@@ -50,5 +55,40 @@ public class Formatter
 			New = New + NewWord.get(i);
 		}
 		return New;
+	}
+	
+	public static void WriteFile(String file, ArrayList<String> Info)
+	{
+		try
+		{
+			FileWriter writer = new FileWriter(file);
+			BufferedWriter bw = new BufferedWriter(writer);
+			for (int i = 0; i < Info.size(); i++)
+			{
+				bw.write(Info.get(i));
+				bw.newLine();
+			}
+			bw.close();
+		}
+		catch (Exception e){}
+	}
+	
+	public static Boolean FileEmpty(String file)
+	{
+		try
+		{
+		    FileReader reader = new FileReader(file);
+		    BufferedReader buff = new BufferedReader(reader);
+		    String inputText = buff.readLine();
+		    if(inputText == null)
+		    {
+		    	return true;
+		    }
+		}
+		catch (IOException ex)
+		{
+			return false;
+		}
+		return false;
 	}
 }
