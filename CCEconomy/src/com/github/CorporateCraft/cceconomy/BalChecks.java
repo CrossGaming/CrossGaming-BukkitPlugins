@@ -19,18 +19,15 @@ public class BalChecks
 	
 	public static String BalTop(int page, int time)
 	{
-		ArrayList<String> list = new ArrayList<String>();
 		ArrayList<Double> balsort = new ArrayList<Double>();
 		for(int i = 0; i < ArrayLists.Balances.size(); i++)
 		{
-			list.add(ArrayLists.Balances.get(i));
 	        balsort.add(Double.parseDouble(ArrayLists.Balances.get(i).split(" ")[1]));
 		}
-		Collections.sort(list);
 		Collections.sort(balsort);
 		Collections.reverse(balsort);
 		page = page * 10;
-		if (list.size() < time + page + 1)
+		if (ArrayLists.Balances.size() < time + page + 1)
 		{
 			return null;
 		}
@@ -52,21 +49,15 @@ public class BalChecks
 		{
 			return null;
 		}
-		return list.get(BalSpot);
+		return ArrayLists.Balances.get(BalSpot);
 	}
 	
 	public static int BaltopCords(String money, int occurrence)
 	{
-		ArrayList<String> list = new ArrayList<String>();
+		int counter = 1;
 		for(int i = 0; i < ArrayLists.Balances.size(); i++)
 		{
-			list.add(ArrayLists.Balances.get(i));
-		}
-		Collections.sort(list);
-		int counter = 1;
-		for(int i = 0; i < list.size(); i++)
-		{
-			if(list.get(i).contains(" " + money))
+			if(ArrayLists.Balances.get(i).contains(" " + money))
 			{
 				if(counter == occurrence)
 				{

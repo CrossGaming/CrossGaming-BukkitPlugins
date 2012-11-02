@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class ArrayLists
 {
@@ -12,21 +13,6 @@ public class ArrayLists
 	public static ArrayList<String> BuyPrices = new ArrayList<String>();
 	
 	public static void UpdateBalances()
-	{
-		GetBalances();
-	}
-	
-	public static void UpdateSellPrices()
-	{
-		GetSellPrices();
-	}
-	
-	public static void UpdateBuyCosts()
-	{
-		GetBuyCosts();
-	}
-	
-	private static void GetBalances()
 	{
 		Balances.clear();
 		String file = "plugins/CCEconomy/moneytracker.txt";
@@ -45,9 +31,10 @@ public class ArrayLists
 		    }
 		}
 		catch (IOException ex){}
+		Collections.sort(Balances);
 	}
 	
-	private static void GetSellPrices()
+	public static void UpdateSellPrices()
 	{
 		SellPrices.clear();
 		String file = "plugins/CCEconomy/sellprices.txt";
@@ -66,9 +53,10 @@ public class ArrayLists
 		    }
 		}
 		catch (IOException ex){}
+		Collections.sort(SellPrices);
 	}
 	
-	private static void GetBuyCosts()
+	public static void UpdateBuyCosts()
 	{
 		BuyPrices.clear();
 		String file = "plugins/CCEconomy/buyprices.txt";
@@ -87,5 +75,6 @@ public class ArrayLists
 		    }
 		}
 		catch (IOException ex){}
+		Collections.sort(BuyPrices);
 	}
 }
