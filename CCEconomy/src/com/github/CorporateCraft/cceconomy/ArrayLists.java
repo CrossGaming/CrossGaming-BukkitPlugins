@@ -71,7 +71,7 @@ public class ArrayLists
 		        {
 		         	break;
 		        }
-		        SellPrices.add(inputText);
+		        BuyPrices.add(inputText);
 		    }
 		}
 		catch (IOException ex){}
