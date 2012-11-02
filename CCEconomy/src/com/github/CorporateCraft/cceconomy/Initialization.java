@@ -43,5 +43,8 @@ public class Initialization
 		Materials.StartFiles();
 		Materials.UpdateSell();
 		Materials.UpdateBuy();
+		ArrayLists.UpdateBalances();
+		ArrayLists.UpdateBuyCosts();
+		ArrayLists.UpdateSellPrices();
 	}
 }

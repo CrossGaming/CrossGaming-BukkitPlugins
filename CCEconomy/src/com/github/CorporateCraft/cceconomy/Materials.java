@@ -69,7 +69,10 @@ public class Materials
 		    	return true;
 		    }
 		}
-		catch (IOException ex){}
+		catch (IOException ex)
+		{
+			return false;
+		}
 		return false;
 	}
 	

@@ -44,6 +44,7 @@ public class EditPlayerMoney
 			bw.close();
 		}
 		catch (Exception e){}
+		ArrayLists.UpdateBalances();
 	}
 	
 	public static void RemoveMoney(String name, double amount)

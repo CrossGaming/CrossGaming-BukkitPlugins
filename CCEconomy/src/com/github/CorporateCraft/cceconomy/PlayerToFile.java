@@ -12,29 +12,14 @@ public class PlayerToFile
 {
 	public static boolean DoesPlayerExist(String name)
 	{
-		String file;
-		file = "plugins/CCEconomy/moneytracker.txt";
-		try
+		for(int i = 0; i < ArrayLists.Balances.size(); i++)
 		{
-		    FileReader reader = new FileReader(file);
-		    BufferedReader buff = new BufferedReader(reader);
-		    while(true)
-		    {
-		    	String inputText = buff.readLine();
-		        if(inputText == null)
-		        {
-		         	return false;
-		        }
-		        if(inputText.startsWith((name + " ")))
-		        {
-		        	return true;
-		        }
-		    }
+			if(ArrayLists.Balances.get(i).startsWith(name))
+			{
+				return true;
+			}
 		}
-		catch (IOException ex)
-		{
-		    return false;
-		}
+		return false;
 	}
 	
 	public static void AddPlayerToList(String name)
@@ -70,5 +55,6 @@ public class PlayerToFile
 			bw.close();
 		}
 		catch (Exception e){}
+		ArrayLists.UpdateBalances();
 	}
 }

@@ -1,8 +1,5 @@
 package com.github.CorporateCraft.cceconomy;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 
@@ -10,30 +7,12 @@ public class BalChecks
 {
 	public static String Bal(String name)
 	{
-		String file;
-		file = "plugins/CCEconomy/moneytracker.txt";
-		String playersbal= "";
-		try
+		for(int i = 0; i < ArrayLists.Balances.size(); i++)
 		{
-		    FileReader reader = new FileReader(file);
-		    BufferedReader buff = new BufferedReader(reader);
-		    while(true)
-		    {
-		    	String inputText = buff.readLine();
-		        if(inputText == null)
-		        {
-		         	break;
-		        }
-		        if(inputText.startsWith((name + " ")))
-		        {
-		        	playersbal = inputText.replace(name + " ", "");
-		        	return playersbal;
-		        }
-		    }
-		}
-		catch (IOException ex)
-		{
-		    return null;
+			if(ArrayLists.Balances.get(i).startsWith(name))
+			{
+				return ArrayLists.Balances.get(i).split(" ")[1];
+			}
 		}
 		return null;
 	}
@@ -42,23 +21,11 @@ public class BalChecks
 	{
 		ArrayList<String> list = new ArrayList<String>();
 		ArrayList<Double> balsort = new ArrayList<Double>();
-		String file = "plugins/CCEconomy/moneytracker.txt";
-		try
+		for(int i = 0; i < ArrayLists.Balances.size(); i++)
 		{
-		    FileReader reader = new FileReader(file);
-		    BufferedReader buff = new BufferedReader(reader);
-		    while(true)
-		    {
-		    	String inputText = buff.readLine();
-		        if(inputText == null)
-		        {
-		         	break;
-		        }
-		        list.add(inputText);
-		        balsort.add(Double.parseDouble(inputText.split(" ")[1]));
-		    }
+			list.add(ArrayLists.Balances.get(i));
+	        balsort.add(Double.parseDouble(ArrayLists.Balances.get(i).split(" ")[1]));
 		}
-		catch (IOException ex){}
 		Collections.sort(list);
 		Collections.sort(balsort);
 		Collections.reverse(balsort);
@@ -91,22 +58,10 @@ public class BalChecks
 	public static int BaltopCords(String money, int occurrence)
 	{
 		ArrayList<String> list = new ArrayList<String>();
-		String file = "plugins/CCEconomy/moneytracker.txt";
-		try
+		for(int i = 0; i < ArrayLists.Balances.size(); i++)
 		{
-		    FileReader reader = new FileReader(file);
-		    BufferedReader buff = new BufferedReader(reader);
-		    while(true)
-		    {
-		    	String inputText = buff.readLine();
-		        if(inputText == null)
-		        {
-		         	break;
-		        }
-		        list.add(inputText);
-		    }
+			list.add(ArrayLists.Balances.get(i));
 		}
-		catch (IOException ex){}
 		Collections.sort(list);
 		int counter = 1;
 		for(int i = 0; i < list.size(); i++)
@@ -125,28 +80,11 @@ public class BalChecks
 	
 	public static int BaltopPages()
 	{
-		ArrayList<String> list = new ArrayList<String>();
-		String file = "plugins/CCEconomy/moneytracker.txt";
-		try
-		{
-		    FileReader reader = new FileReader(file);
-		    BufferedReader buff = new BufferedReader(reader);
-		    while(true)
-		    {
-		    	String inputText = buff.readLine();
-		        if(inputText == null)
-		        {
-		         	break;
-		        }
-		        list.add(inputText);
-		    }
-		}
-		catch (IOException ex){}
 		int rounder = 0;
-		if (list.size()%10 != 0)
+		if (ArrayLists.Balances.size()%10 != 0)
 		{
 			rounder = 1;
 		}
-		return (list.size()/10) + rounder;
+		return (ArrayLists.Balances.size()/10) + rounder;
 	}
 }

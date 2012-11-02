@@ -11,27 +11,27 @@ public class Prices
 {
 	public static String Cost(String file, String ItemName)
 	{
-		String ItemCost = "";
 		ItemName.toUpperCase();
-		try
+		if(file.equals("plugins/CCEconomy/sellprices.txt"))
 		{
-		    FileReader reader = new FileReader(file);
-		    BufferedReader buff = new BufferedReader(reader);
-		    while(true)
-		    {
-		    	String inputText = buff.readLine();
-		        if(inputText == null)
-		        {
-		         	break;
-		        }
-		        if(inputText.startsWith((ItemName + " ")))
-		        {
-		        	ItemCost = inputText.replace(ItemName + " ", "");
-		        	return ItemCost;
-		        }
-		    }
+			for(int i = 0; i < ArrayLists.SellPrices.size(); i++)
+			{
+				if(ArrayLists.SellPrices.get(i).startsWith(ItemName))
+				{
+					return ArrayLists.SellPrices.get(i).split(" ")[1];
+				}
+			}
 		}
-		catch (IOException ex){}
+		if(file.equals("plugins/CCEconomy/buyprices.txt"))
+		{
+			for(int i = 0; i < ArrayLists.BuyPrices.size(); i++)
+			{
+				if(ArrayLists.BuyPrices.get(i).startsWith(ItemName))
+				{
+					return ArrayLists.BuyPrices.get(i).split(" ")[1];
+				}
+			}
+		}
 		return null;
 	}
 	
@@ -86,5 +86,13 @@ public class Prices
 			bw.close();
 		}
 		catch (Exception e){}
+		if(file.equals("plugins/CCEconomy/sellprices.txt"))
+		{
+			ArrayLists.UpdateSellPrices();
+		}
+		if(file.equals("plugins/CCEconomy/buyprices.txt"))
+		{
+			ArrayLists.UpdateBuyCosts();
+		}
 	}
 }

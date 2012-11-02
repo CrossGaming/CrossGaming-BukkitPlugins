@@ -2,6 +2,7 @@ CorporateCraft-BukkitPlugins
 ============================
 
 Plugins made for Bukkit by CorporateCraft
+Only CCEconomy's download has been updated for 1.4 dev build the rest will be updated when the RB for 1.4 is released.
 
 [CorporateCraft Plugin List][3]
 
