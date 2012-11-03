@@ -7,10 +7,17 @@ public class Initialization
 {
 	public static void InitiateFiles()
 	{
-		File f1 = new File(CCEconomy.balfile);
-		File f2 = new File(CCEconomy.sellfile);
-		File f3 = new File(CCEconomy.buyfile);
-		File d = new File("plugins/CCEconomy");
+		DirCreate("plugins/CCEconomy");
+		FileCreate(CCEconomy.balfile);
+		FileCreate(CCEconomy.sellfile);
+		FileCreate(CCEconomy.buyfile);
+		Materials.UpdateMats();
+		ArrayLists.StartLists();
+	}
+	
+	private static void DirCreate(String directory)
+	{
+		File d = new File(directory);
 		if(!d.exists())
 		{
 			try
@@ -19,32 +26,18 @@ public class Initialization
 			}
 			catch (Exception e){}
 		}
-		if(!f1.exists())
+	}
+	
+	private static void FileCreate(String file)
+	{
+		File f = new File(file);
+		if(!f.exists())
 		{
 			try
 			{
-				f1.createNewFile();
+				f.createNewFile();
 			}
 			catch (IOException e){}
 		}
-		if(!f2.exists())
-		{
-			try
-			{
-				f2.createNewFile();
-			}
-			catch (IOException e){}
-		}
-		if(!f3.exists())
-		{
-			try
-			{
-				f3.createNewFile();
-			}
-			catch (IOException e){}
-		}
-		Materials.UpdateSell();
-		Materials.UpdateBuy();
-		ArrayLists.StartLists();
 	}
 }

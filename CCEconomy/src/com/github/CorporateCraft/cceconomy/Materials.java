@@ -4,64 +4,57 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
-
 import org.bukkit.Material;
 
 public class Materials
 {
 	private static final int MaxItems = 2366;
+	private static ArrayList<String> Materials = new ArrayList<String>();
 	
-	public static void UpdateSell()
+	public static void UpdateMats()
+	{
+		SetMaterials();
+		UpdateFiles();
+	}
+	
+	private static void UpdateFiles()
 	{
 		if(Formatter.FileEmpty(CCEconomy.sellfile))
 		{
-			ArrayList<String> SellList = new ArrayList<String>();
-			for(int i = 0; i < MaxItems; i++)
-			{
-				try
-				{
-					SellList.add(idToName(Material.getMaterial(i).getId()).replaceAll("_", "") + " null");
-				}
-				catch(Exception e){}
-			}
+			Formatter.WriteFile(CCEconomy.sellfile, Materials);
+		}
+		else
+		{
+			ArrayList<String> SellList = UpdateForNew(CCEconomy.sellfile);
 			Formatter.WriteFile(CCEconomy.sellfile, SellList);
 		}
-		ArrayList<String> SellList = UpdateForNew(CCEconomy.sellfile);
-		Formatter.WriteFile(CCEconomy.sellfile, SellList);
-	}
-	
-	public static void UpdateBuy()
-	{
 		if(Formatter.FileEmpty(CCEconomy.buyfile))
 		{
-			ArrayList<String> BuyList = new ArrayList<String>();
-			for(int i = 0; i < MaxItems; i++)
-			{
-				try
-				{
-					BuyList.add(idToName(Material.getMaterial(i).getId()).replaceAll("_", "") + " null");
-				}
-				catch(Exception e){}
-			}
+			Formatter.WriteFile(CCEconomy.buyfile, Materials);
+		}
+		else
+		{
+			ArrayList<String> BuyList = UpdateForNew(CCEconomy.buyfile);
 			Formatter.WriteFile(CCEconomy.buyfile, BuyList);
 		}
-		ArrayList<String> BuyList = UpdateForNew(CCEconomy.buyfile);
-		Formatter.WriteFile(CCEconomy.buyfile, BuyList);
+	}
+	
+	private static void SetMaterials()
+	{
+		for(int i = 0; i < MaxItems; i++)
+		{
+			try
+			{
+				Materials.add(idToName(Material.getMaterial(i).getId()).replaceAll("_", "") + " null");
+			}
+			catch(Exception e){}
+		}
 	}
 	
 	private static ArrayList<String> UpdateForNew(String file)
 	{
 		ArrayList<String> New = new ArrayList<String>();
 		ArrayList<String> Current = new ArrayList<String>();
-		ArrayList<String> MatList = new ArrayList<String>();
-		for(int i = 0; i < MaxItems; i++)
-		{
-			try
-			{
-				MatList.add(idToName(Material.getMaterial(i).getId()));
-			}
-			catch(Exception e){}
-		}
 		try
 		{
 		    FileReader reader = new FileReader(file);
@@ -73,29 +66,24 @@ public class Materials
 		        {
 		         	break;
 		        }
-		        Current.add(inputText);
+		        Current.add(inputText.replaceAll("_", ""));
 		    }
 		}
 		catch (IOException ex){}
-		Boolean count = false;
-		for(int i = 0; i < MatList.size(); i++)
+		for(int i = 0; i < Materials.size(); i++)
 		{
 			for(int j = 0; j < Current.size(); j++)
 			{
-				if(MatList.get(i).equalsIgnoreCase(Current.get(j).split(" ")[0]))
+				if(Materials.get(i).split(" ")[0].equalsIgnoreCase(Current.get(j).split(" ")[0]))
 				{
-					New.add(Current.get(j).replaceAll("_", ""));
-					count = true;
+					New.add(Current.get(j));
+					break;
 				}
-				if(count == false)
+				if(j + 1 == Current.size())
 				{
-					if(j + 1 == Current.size())
-					{
-						New.add(MatList.get(i).replaceAll("_", "") + " null");
-					}
+					New.add(Materials.get(i));
 				}
 			}
-			count = false;
 		}
 		return New;
 	}
