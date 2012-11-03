@@ -1,8 +1,5 @@
 package com.github.CorporateCraft.cceconomy;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
 import java.util.ArrayList;
 import org.bukkit.Material;
 
@@ -25,8 +22,7 @@ public class Materials
 		}
 		else
 		{
-			ArrayList<String> SellList = UpdateForNew(CCEconomy.sellfile);
-			Formatter.WriteFile(CCEconomy.sellfile, SellList);
+			Formatter.WriteFile(CCEconomy.sellfile, UpdateForNew(CCEconomy.sellfile));
 		}
 		if(Formatter.FileEmpty(CCEconomy.buyfile))
 		{
@@ -34,8 +30,7 @@ public class Materials
 		}
 		else
 		{
-			ArrayList<String> BuyList = UpdateForNew(CCEconomy.buyfile);
-			Formatter.WriteFile(CCEconomy.buyfile, BuyList);
+			Formatter.WriteFile(CCEconomy.buyfile, UpdateForNew(CCEconomy.buyfile));
 		}
 	}
 	
@@ -55,21 +50,11 @@ public class Materials
 	{
 		ArrayList<String> New = new ArrayList<String>();
 		ArrayList<String> Current = new ArrayList<String>();
-		try
+		Formatter.ReadFile(file, Current);
+		for(int i = 0; i < Current.size(); i++)
 		{
-		    FileReader reader = new FileReader(file);
-		    BufferedReader buff = new BufferedReader(reader);
-		    while(true)
-		    {
-		    	String inputText = buff.readLine();
-		        if(inputText == null)
-		        {
-		         	break;
-		        }
-		        Current.add(inputText.replaceAll("_", ""));
-		    }
+			Current.get(i).replaceAll("_", "");
 		}
-		catch (IOException ex){}
 		for(int i = 0; i < Materials.size(); i++)
 		{
 			for(int j = 0; j < Current.size(); j++)

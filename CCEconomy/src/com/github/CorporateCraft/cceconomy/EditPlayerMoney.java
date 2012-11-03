@@ -15,19 +15,15 @@ public class EditPlayerMoney
 	{
 		String bal = BalChecks.Bal(name);
 		double intbal = Double.parseDouble(bal);
-		double newamount;
-		newamount = intbal - amount;
-		String news = Formatter.roundTwoDecimals(newamount);
-		SetMoney(name, news);
+		double newamount = intbal - amount;
+		SetMoney(name, Formatter.roundTwoDecimals(newamount));
 	}
 	
 	public static void AddMoney(String name, double amount)
 	{
 		String bal = BalChecks.Bal(name);
 		double intbal = Double.parseDouble(bal);
-		double newamount;
-		newamount = intbal + amount;
-		String news = Formatter.roundTwoDecimals(newamount);
-		SetMoney(name, news);
+		double newamount = intbal + amount;
+		SetMoney(name, Formatter.roundTwoDecimals(newamount));
 	}
 }

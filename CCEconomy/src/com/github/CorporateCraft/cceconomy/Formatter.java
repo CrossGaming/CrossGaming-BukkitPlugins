@@ -2,6 +2,9 @@ package com.github.CorporateCraft.cceconomy;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -57,6 +60,26 @@ public class Formatter
 		return New;
 	}
 	
+	public static void ReadFile(String file, ArrayList<String> Info)
+	{
+		Info.clear();
+		try
+		{
+		    FileReader reader = new FileReader(file);
+		    BufferedReader buff = new BufferedReader(reader);
+		    while(true)
+		    {
+		    	String inputText = buff.readLine();
+		        if(inputText == null)
+		        {
+		         	break;
+		        }
+		        Info.add(inputText);
+		    }
+		}
+		catch (IOException ex){}
+	}
+	
 	public static void WriteFile(String file, ArrayList<String> Info)
 	{
 		try
@@ -77,18 +100,14 @@ public class Formatter
 	{
 		try
 		{
-		    FileReader reader = new FileReader(file);
-		    BufferedReader buff = new BufferedReader(reader);
-		    String inputText = buff.readLine();
-		    if(inputText == null)
-		    {
-		    	return true;
-		    }
+			FileInputStream fi = new FileInputStream(new File(file));
+			if (fi.read() == -1)  
+			{  
+				return true;
+			} 
 		}
-		catch (IOException ex)
-		{
-			return false;
-		}
+		catch (FileNotFoundException e){}
+		catch(IOException e){}  
 		return false;
 	}
 }

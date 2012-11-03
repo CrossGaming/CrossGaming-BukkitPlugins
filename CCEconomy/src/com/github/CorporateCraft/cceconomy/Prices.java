@@ -45,21 +45,17 @@ public class Prices
 	
 	public static void SetCost(String file, String itemname, String amount)
 	{
-		itemname = itemname.toUpperCase();
-		itemname = itemname.replaceAll("_", "");
+		itemname = itemname.toUpperCase().replaceAll("_", "");
+		String newcost = itemname + " " + amount;
 		if(file.equals(CCEconomy.sellfile))
 		{
 			int spotinlist = ArrayLists.SellPrices.indexOf(itemname + " " + Cost(file, itemname));
-			String newcost;
-			newcost = itemname + " " + amount;
 			ArrayLists.SellPrices.set(spotinlist, newcost);
 			Formatter.WriteFile(file, ArrayLists.SellPrices);
 		}
 		if(file.equals(CCEconomy.buyfile))
 		{
 			int spotinlist = ArrayLists.BuyPrices.indexOf(itemname + " " + Cost(file, itemname));
-			String newcost;
-			newcost = itemname + " " + amount;
 			ArrayLists.BuyPrices.set(spotinlist, newcost);
 			Formatter.WriteFile(file, ArrayLists.BuyPrices);
 		}
