@@ -40,11 +40,8 @@ public class Initialization
 			}
 			catch (IOException e){}
 		}
-		Materials.StartFiles();
 		Materials.UpdateSell();
 		Materials.UpdateBuy();
-		ArrayLists.UpdateBalances();
-		ArrayLists.UpdateBuyCosts();
-		ArrayLists.UpdateSellPrices();
+		ArrayLists.StartLists();
 	}
 }

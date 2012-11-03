@@ -12,7 +12,14 @@ public class ArrayLists
 	public static ArrayList<String> SellPrices = new ArrayList<String>();
 	public static ArrayList<String> BuyPrices = new ArrayList<String>();
 	
-	public static void UpdateBalances()
+	public static void StartLists()
+	{
+		UpdateBalances();
+		UpdateSellPrices();
+		UpdateBuyCosts();
+	}
+	
+	private static void UpdateBalances()
 	{
 		Balances.clear();
 		String file = "plugins/CCEconomy/moneytracker.txt";
@@ -34,7 +41,7 @@ public class ArrayLists
 		Collections.sort(Balances);
 	}
 	
-	public static void UpdateSellPrices()
+	private static void UpdateSellPrices()
 	{
 		SellPrices.clear();
 		String file = "plugins/CCEconomy/sellprices.txt";
@@ -55,7 +62,7 @@ public class ArrayLists
 		catch (IOException ex){}
 	}
 	
-	public static void UpdateBuyCosts()
+	private static void UpdateBuyCosts()
 	{
 		BuyPrices.clear();
 		String file = "plugins/CCEconomy/buyprices.txt";
