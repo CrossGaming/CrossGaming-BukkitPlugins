@@ -4,8 +4,7 @@ import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-import com.github.CorporateCraft.cceconomy.BalChecks;
-import com.github.CorporateCraft.cceconomy.Formatter;
+import com.github.CorporateCraft.cceconomy.*;
 
 
 public class CmdBaltop

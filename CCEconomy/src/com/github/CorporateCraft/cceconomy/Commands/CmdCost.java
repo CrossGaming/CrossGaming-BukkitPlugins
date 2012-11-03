@@ -3,9 +3,7 @@ package com.github.CorporateCraft.cceconomy.Commands;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-import com.github.CorporateCraft.cceconomy.Formatter;
-import com.github.CorporateCraft.cceconomy.Materials;
-import com.github.CorporateCraft.cceconomy.Prices;
+import com.github.CorporateCraft.cceconomy.*;
 
 public class CmdCost
 {
@@ -34,7 +32,7 @@ public class CmdCost
 					ItemName = Materials.idToName(Integer.parseInt(ItemName));
 				}
 				ItemName = ItemName.toUpperCase();
-				String cost = Prices.Cost("plugins/CCEconomy/buyprices.txt", ItemName);
+				String cost = Prices.Cost(CCEconomy.buyfile, ItemName);
 				ItemName = Formatter.CapFirst(ItemName);
 				if(cost == null)
 				{
@@ -62,7 +60,7 @@ public class CmdCost
 				ItemName = Materials.idToName(Integer.parseInt(ItemName));
 			}
 			ItemName = ItemName.toUpperCase();
-			String cost = Prices.Cost("plugins/CCEconomy/buyprices.txt", ItemName);
+			String cost = Prices.Cost(CCEconomy.buyfile, ItemName);
 			ItemName = Formatter.CapFirst(ItemName);
 			if(cost == null)
 			{

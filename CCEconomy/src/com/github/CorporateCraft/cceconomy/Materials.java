@@ -13,7 +13,7 @@ public class Materials
 	
 	public static void UpdateSell()
 	{
-		if(Formatter.FileEmpty("plugins/CCEconomy/sellprices.txt"))
+		if(Formatter.FileEmpty(CCEconomy.sellfile))
 		{
 			ArrayList<String> SellList = new ArrayList<String>();
 			for(int i = 0; i < MaxItems; i++)
@@ -24,16 +24,16 @@ public class Materials
 				}
 				catch(Exception e){}
 			}
-			Formatter.WriteFile("plugins/CCEconomy/sellprices.txt", SellList);
+			Formatter.WriteFile(CCEconomy.sellfile, SellList);
 		}
 		ArrayList<String> SellList = new ArrayList<String>();
-		SellList = UpdateForNew("plugins/CCEconomy/sellprices.txt");
-		Formatter.WriteFile("plugins/CCEconomy/sellprices.txt", SellList);
+		SellList = UpdateForNew(CCEconomy.sellfile);
+		Formatter.WriteFile(CCEconomy.sellfile, SellList);
 	}
 	
 	public static void UpdateBuy()
 	{
-		if(Formatter.FileEmpty("plugins/CCEconomy/buyprices.txt"))
+		if(Formatter.FileEmpty(CCEconomy.buyfile))
 		{
 			ArrayList<String> BuyList = new ArrayList<String>();
 			for(int i = 0; i < MaxItems; i++)
@@ -44,11 +44,11 @@ public class Materials
 				}
 				catch(Exception e){}
 			}
-			Formatter.WriteFile("plugins/CCEconomy/buyprices.txt", BuyList);
+			Formatter.WriteFile(CCEconomy.buyfile, BuyList);
 		}
 		ArrayList<String> BuyList = new ArrayList<String>();
-		BuyList = UpdateForNew("plugins/CCEconomy/buyprices.txt");
-		Formatter.WriteFile("plugins/CCEconomy/buyprices.txt", BuyList);
+		BuyList = UpdateForNew(CCEconomy.buyfile);
+		Formatter.WriteFile(CCEconomy.buyfile, BuyList);
 	}
 	
 	private static ArrayList<String> UpdateForNew(String file)

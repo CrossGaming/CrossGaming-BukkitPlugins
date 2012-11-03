@@ -22,10 +22,9 @@ public class ArrayLists
 	private static void UpdateBalances()
 	{
 		Balances.clear();
-		String file = "plugins/CCEconomy/moneytracker.txt";
 		try
 		{
-		    FileReader reader = new FileReader(file);
+		    FileReader reader = new FileReader(CCEconomy.balfile);
 		    BufferedReader buff = new BufferedReader(reader);
 		    while(true)
 		    {
@@ -44,10 +43,9 @@ public class ArrayLists
 	private static void UpdateSellPrices()
 	{
 		SellPrices.clear();
-		String file = "plugins/CCEconomy/sellprices.txt";
 		try
 		{
-		    FileReader reader = new FileReader(file);
+		    FileReader reader = new FileReader(CCEconomy.sellfile);
 		    BufferedReader buff = new BufferedReader(reader);
 		    while(true)
 		    {
@@ -65,10 +63,9 @@ public class ArrayLists
 	private static void UpdateBuyCosts()
 	{
 		BuyPrices.clear();
-		String file = "plugins/CCEconomy/buyprices.txt";
 		try
 		{
-		    FileReader reader = new FileReader(file);
+		    FileReader reader = new FileReader(CCEconomy.buyfile);
 		    BufferedReader buff = new BufferedReader(reader);
 		    while(true)
 		    {

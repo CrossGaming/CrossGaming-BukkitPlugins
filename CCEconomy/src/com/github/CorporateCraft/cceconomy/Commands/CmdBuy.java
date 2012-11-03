@@ -6,11 +6,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.PlayerInventory;
-import com.github.CorporateCraft.cceconomy.BalChecks;
-import com.github.CorporateCraft.cceconomy.EditPlayerMoney;
-import com.github.CorporateCraft.cceconomy.Formatter;
-import com.github.CorporateCraft.cceconomy.Materials;
-import com.github.CorporateCraft.cceconomy.Prices;
+import com.github.CorporateCraft.cceconomy.*;
 
 public class CmdBuy
 {
@@ -62,7 +58,7 @@ public class CmdBuy
 				}
 				ItemName = ItemName.toUpperCase();
 				Double Cost = 0.00;
-				Cost = Prices.GetCost("plugins/CCEconomy/buyprices.txt", ItemName, amount);
+				Cost = Prices.GetCost(CCEconomy.buyfile, ItemName, amount);
 				ItemName = Formatter.CapFirst(ItemName);
 				if(Cost == null)
 				{

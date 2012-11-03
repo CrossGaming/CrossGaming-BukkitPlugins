@@ -7,14 +7,17 @@ public class Initialization
 {
 	public static void InitiateFiles()
 	{
-		File f1 = new File("plugins/CCEconomy/moneytracker.txt");
-		File f2 = new File("plugins/CCEconomy/sellprices.txt");
-		File f3 = new File("plugins/CCEconomy/buyprices.txt");
+		File f1 = new File(CCEconomy.balfile);
+		File f2 = new File(CCEconomy.sellfile);
+		File f3 = new File(CCEconomy.buyfile);
 		File d = new File("plugins/CCEconomy");
 		if(!d.exists())
 		{
-			boolean success = d.mkdir();
-			if (!success){}
+			try
+			{
+				d.mkdir();
+			}
+			catch (Exception e){}
 		}
 		if(!f1.exists())
 		{

@@ -2,25 +2,15 @@ package com.github.CorporateCraft.cceconomy;
 
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
-import org.bukkit.entity.Player;
-import org.bukkit.event.EventHandler;
-import org.bukkit.event.Listener;
-import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.plugin.java.JavaPlugin;
-import com.github.CorporateCraft.cceconomy.Commands.CmdBalance;
-import com.github.CorporateCraft.cceconomy.Commands.CmdBaltop;
-import com.github.CorporateCraft.cceconomy.Commands.CmdBuy;
-import com.github.CorporateCraft.cceconomy.Commands.CmdCCE;
-import com.github.CorporateCraft.cceconomy.Commands.CmdCost;
-import com.github.CorporateCraft.cceconomy.Commands.CmdPay;
-import com.github.CorporateCraft.cceconomy.Commands.CmdPrice;
-import com.github.CorporateCraft.cceconomy.Commands.CmdSell;
-import com.github.CorporateCraft.cceconomy.Commands.CmdSetCost;
-import com.github.CorporateCraft.cceconomy.Commands.CmdSetPrice;
-
+import com.github.CorporateCraft.cceconomy.Commands.*;
 
 public class CCEconomy extends JavaPlugin
 {
+	public static final String balfile = "plugins/CCEconomy/moneytracker.txt";
+	public static final String sellfile = "plugins/CCEconomy/sellprices.txt";
+	public static final String buyfile = "plugins/CCEconomy/buyprices.txt";
+	
 	@Override
     public void onEnable()
 	{	
@@ -73,20 +63,6 @@ public class CCEconomy extends JavaPlugin
 		}
 		return false; 
 	}	
-	
-	public class LoginListener implements Listener
-	{
-		@EventHandler
-		public void onPlayerJoin(PlayerJoinEvent event)
-		{
-        	Player player = event.getPlayer();
-        	String playername = player.getName();
-        	if (!PlayerToFile.DoesPlayerExist(playername))
-        	{
-        		PlayerToFile.AddPlayerToList(playername);
-        	}
-		}
-	}
 	
     @Override
     public void onDisable()

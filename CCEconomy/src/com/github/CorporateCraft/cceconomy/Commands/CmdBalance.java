@@ -3,8 +3,7 @@ package com.github.CorporateCraft.cceconomy.Commands;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-import com.github.CorporateCraft.cceconomy.BalChecks;
-import com.github.CorporateCraft.cceconomy.PlayerToFile;
+import com.github.CorporateCraft.cceconomy.*;
 
 public class CmdBalance
 {

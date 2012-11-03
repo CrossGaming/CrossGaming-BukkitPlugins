@@ -18,9 +18,8 @@ public class PlayerToFile
 	
 	public static void AddPlayerToList(String name)
 	{
-		String file = "plugins/CCEconomy/moneytracker.txt";
 		ArrayLists.Balances.add(name + " 0.00");
 		Collections.sort(ArrayLists.Balances);
-		Formatter.WriteFile(file, ArrayLists.Balances);
+		Formatter.WriteFile(CCEconomy.balfile, ArrayLists.Balances);
 	}
 }

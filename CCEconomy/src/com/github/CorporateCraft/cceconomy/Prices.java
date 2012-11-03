@@ -5,7 +5,7 @@ public class Prices
 	public static String Cost(String file, String ItemName)
 	{
 		ItemName.toUpperCase();
-		if(file.equals("plugins/CCEconomy/sellprices.txt"))
+		if(file.equals(CCEconomy.sellfile))
 		{
 			for(int i = 0; i < ArrayLists.SellPrices.size(); i++)
 			{
@@ -15,7 +15,7 @@ public class Prices
 				}
 			}
 		}
-		if(file.equals("plugins/CCEconomy/buyprices.txt"))
+		if(file.equals(CCEconomy.buyfile))
 		{
 			for(int i = 0; i < ArrayLists.BuyPrices.size(); i++)
 			{
@@ -47,7 +47,7 @@ public class Prices
 	{
 		itemname = itemname.toUpperCase();
 		itemname = itemname.replaceAll("_", "");
-		if(file.equals("plugins/CCEconomy/sellprices.txt"))
+		if(file.equals(CCEconomy.sellfile))
 		{
 			int spotinlist = ArrayLists.SellPrices.indexOf(itemname + " " + Cost(file, itemname));
 			String newcost;
@@ -55,7 +55,7 @@ public class Prices
 			ArrayLists.SellPrices.set(spotinlist, newcost);
 			Formatter.WriteFile(file, ArrayLists.SellPrices);
 		}
-		if(file.equals("plugins/CCEconomy/buyprices.txt"))
+		if(file.equals(CCEconomy.buyfile))
 		{
 			int spotinlist = ArrayLists.BuyPrices.indexOf(itemname + " " + Cost(file, itemname));
 			String newcost;

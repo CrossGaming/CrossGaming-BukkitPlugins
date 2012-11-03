@@ -3,9 +3,7 @@ package com.github.CorporateCraft.cceconomy.Commands;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-import com.github.CorporateCraft.cceconomy.Formatter;
-import com.github.CorporateCraft.cceconomy.Materials;
-import com.github.CorporateCraft.cceconomy.Prices;
+import com.github.CorporateCraft.cceconomy.*;
 
 public class CmdSetPrice
 {
@@ -39,7 +37,7 @@ public class CmdSetPrice
 					ItemName = ItemName.toUpperCase();
 					if(args[1].equalsIgnoreCase("null"))
 					{
-						Prices.SetCost("plugins/CCEconomy/sellprices.txt", ItemName, args[1]);
+						Prices.SetCost(CCEconomy.sellfile, ItemName, args[1]);
 						ItemName = ItemName.replaceAll("_", " ");
 						ItemName = Formatter.CapFirst(ItemName);
 						player.sendMessage(ItemName + " can no longer be sold");
@@ -47,7 +45,7 @@ public class CmdSetPrice
 					}
 					else
 					{
-						Prices.SetCost("plugins/CCEconomy/sellprices.txt", ItemName, Formatter.roundTwoDecimals(Double.parseDouble(args[1])));
+						Prices.SetCost(CCEconomy.sellfile, ItemName, Formatter.roundTwoDecimals(Double.parseDouble(args[1])));
 						ItemName = ItemName.replaceAll("_", " ");
 						ItemName = Formatter.CapFirst(ItemName);
 						player.sendMessage(ItemName + "'s price was set to $" + Formatter.roundTwoDecimals(Double.parseDouble(args[1])));
@@ -68,7 +66,7 @@ public class CmdSetPrice
 					ItemName = ItemName.toUpperCase();
 					if(args[0].equalsIgnoreCase("null"))
 					{
-						Prices.SetCost("plugins/CCEconomy/sellprices.txt", ItemName, args[0]);
+						Prices.SetCost(CCEconomy.sellfile, ItemName, args[0]);
 						ItemName = ItemName.replaceAll("_", " ");
 						ItemName = Formatter.CapFirst(ItemName);
 						player.sendMessage(ItemName + " can no longer be sold");
@@ -76,7 +74,7 @@ public class CmdSetPrice
 					}
 					else
 					{
-						Prices.SetCost("plugins/CCEconomy/sellprices.txt", ItemName, Formatter.roundTwoDecimals(Double.parseDouble(args[0])));
+						Prices.SetCost(CCEconomy.sellfile, ItemName, Formatter.roundTwoDecimals(Double.parseDouble(args[0])));
 						ItemName = ItemName.replaceAll("_", " ");
 						ItemName = Formatter.CapFirst(ItemName);
 						player.sendMessage(ItemName + "'s price was set to $" + Formatter.roundTwoDecimals(Double.parseDouble(args[0])));
@@ -104,7 +102,7 @@ public class CmdSetPrice
 			ItemName = ItemName.toUpperCase();
 			if(args[1].equalsIgnoreCase("null"))
 			{
-				Prices.SetCost("plugins/CCEconomy/sellprices.txt", ItemName, args[1]);
+				Prices.SetCost(CCEconomy.sellfile, ItemName, args[1]);
 				ItemName = ItemName.replaceAll("_", " ");
 				ItemName = Formatter.CapFirst(ItemName);
 				sender.sendMessage(ItemName + " can no longer be sold");
@@ -112,7 +110,7 @@ public class CmdSetPrice
 			}
 			else
 			{
-				Prices.SetCost("plugins/CCEconomy/sellprices.txt", ItemName, Formatter.roundTwoDecimals(Double.parseDouble(args[1])));
+				Prices.SetCost(CCEconomy.sellfile, ItemName, Formatter.roundTwoDecimals(Double.parseDouble(args[1])));
 				ItemName = ItemName.replaceAll("_", " ");
 				ItemName = Formatter.CapFirst(ItemName);
 				sender.sendMessage(ItemName + "'s price was set to $" + Formatter.roundTwoDecimals(Double.parseDouble(args[1])));
