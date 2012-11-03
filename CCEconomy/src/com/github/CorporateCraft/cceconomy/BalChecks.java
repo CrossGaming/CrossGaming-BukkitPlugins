@@ -52,7 +52,7 @@ public class BalChecks
 		return ArrayLists.Balances.get(BalSpot);
 	}
 	
-	public static int BaltopCords(String money, int occurrence)
+	private static int BaltopCords(String money, int occurrence)
 	{
 		int counter = 1;
 		for(int i = 0; i < ArrayLists.Balances.size(); i++)

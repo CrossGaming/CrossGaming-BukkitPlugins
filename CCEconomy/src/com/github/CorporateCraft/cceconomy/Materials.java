@@ -26,8 +26,7 @@ public class Materials
 			}
 			Formatter.WriteFile(CCEconomy.sellfile, SellList);
 		}
-		ArrayList<String> SellList = new ArrayList<String>();
-		SellList = UpdateForNew(CCEconomy.sellfile);
+		ArrayList<String> SellList = UpdateForNew(CCEconomy.sellfile);
 		Formatter.WriteFile(CCEconomy.sellfile, SellList);
 	}
 	
@@ -46,8 +45,7 @@ public class Materials
 			}
 			Formatter.WriteFile(CCEconomy.buyfile, BuyList);
 		}
-		ArrayList<String> BuyList = new ArrayList<String>();
-		BuyList = UpdateForNew(CCEconomy.buyfile);
+		ArrayList<String> BuyList = UpdateForNew(CCEconomy.buyfile);
 		Formatter.WriteFile(CCEconomy.buyfile, BuyList);
 	}
 	
