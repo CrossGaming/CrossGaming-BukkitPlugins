@@ -5,6 +5,8 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.PlayerInventory;
+
+import com.github.CorporateCraft.cceconomy.CCEconomy;
 import com.github.CorporateCraft.cceconomy.Formatter;
 import com.github.CorporateCraft.cceconomy.Materials;
 import com.github.CorporateCraft.cceconomy.Trade;
@@ -45,25 +47,33 @@ public class CmdTradeItems
 			}
 			PlayerInventory thereinventory = target.getInventory();
 			PlayerInventory yourinventory = player.getInventory();
+			if(!Materials.ItemExists(itemoffering))
+			{
+				return false;
+			}
+			if(!Materials.ItemExists(itemgetting))
+			{
+				return false;
+			}
 			if(!yourinventory.contains(Material.matchMaterial(itemoffering.toUpperCase()), Integer.parseInt(amountoffering)))
 			{
-				player.sendMessage("You do not have that much " + itemoffering);
+				player.sendMessage(CCEconomy.messages + "You do not have that much " + itemoffering);
 				return true;
 			}
 			if(!thereinventory.contains(Material.matchMaterial(itemgetting.toUpperCase()), Integer.parseInt(amountgetting)))
 			{
-				player.sendMessage("They do not have that much " + itemgetting);
+				player.sendMessage(CCEconomy.messages + "They do not have that much " + itemgetting);
 				return true;
 			}
 			Trade.CreateTrade(offertopname + " " + pname + " " + itemgetting + " " + amountgetting + " " + itemoffering + " " + amountoffering);
-			player.sendMessage("You have offered a trade to " + offertopname);
-			target.sendMessage(pname + " has offered to trade you " + amountgetting + " of " + itemgetting + " for " + amountoffering + " of " + itemoffering);
-			target.sendMessage("Type /taccept " + pname + " or /tdeny " + pname + " to accept or deny their trade request");
+			player.sendMessage(CCEconomy.messages + "You have offered a trade to " + offertopname);
+			target.sendMessage(CCEconomy.messages + pname + " has offered to trade you " + amountgetting + " of " + itemgetting + " for " + amountoffering + " of " + itemoffering);
+			target.sendMessage(CCEconomy.messages + "Type /taccept " + pname + " or /tdeny " + pname + " to accept or deny their trade request");
 			return true;
 		}
 		else
 		{
-			sender.sendMessage("You don't have an inventory. Please log in to trade.");
+			sender.sendMessage(CCEconomy.messages + "You don't have an inventory. Please log in to trade.");
 			return true;
 		}
 	}

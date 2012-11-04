@@ -36,15 +36,15 @@ public class CmdPrice
 				ItemName = Formatter.CapFirst(ItemName);
 				if(cost == null)
 				{
-					player.sendMessage(ItemName + " cannot be sold to the server");
+					player.sendMessage(CCEconomy.messages + ItemName + " cannot be sold to the server");
 					return true;
 				}
 				if(cost.equalsIgnoreCase("null"))
 				{
-					player.sendMessage(ItemName + " cannot be sold to the server");
+					player.sendMessage(CCEconomy.messages + ItemName + " cannot be sold to the server");
 					return true;
 				}
-				player.sendMessage(ItemName + " can be sold for $" + cost);
+				player.sendMessage(CCEconomy.messages + ItemName + " can be sold for " + CCEconomy.money + "$" + cost);
 				return true;
 			}
 		}
@@ -64,15 +64,15 @@ public class CmdPrice
 			ItemName = Formatter.CapFirst(ItemName);
 			if(cost == null)
 			{
-				sender.sendMessage(ItemName + " cannot be sold to the server");
+				sender.sendMessage(CCEconomy.messages + ItemName + " cannot be sold to the server");
 				return true;
 			}
 			if(cost.equalsIgnoreCase("null"))
 			{
-				sender.sendMessage(ItemName + " cannot be sold to the server");
+				sender.sendMessage(CCEconomy.messages + ItemName + " cannot be sold to the server");
 				return true;
 			}
-			sender.sendMessage(ItemName + " can be sold for $" + cost);
+			sender.sendMessage(CCEconomy.messages + ItemName + " can be sold for " + CCEconomy.money + "$" + cost);
 			return true;
 		}
 		return false;

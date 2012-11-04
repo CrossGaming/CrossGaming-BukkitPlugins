@@ -30,7 +30,18 @@ public class Materials
 		}
 	}
 	
-	
+	public static Boolean ItemExists(String Item)
+	{
+		try
+		{
+			Material.matchMaterial(Item.toUpperCase());
+			return true;
+		}
+		catch(Exception e)
+		{
+			return false;
+		}
+	}
 	
 	private static ArrayList<String> UpdateForNew(String file)
 	{

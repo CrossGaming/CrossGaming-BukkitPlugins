@@ -48,12 +48,12 @@ public class CmdTAccept
 					PlayerInventory yourinventory = player.getInventory();
 					if(!yourinventory.contains(Material.matchMaterial(itemgetting.toUpperCase()), Integer.parseInt(amountgetting)))
 					{
-						player.sendMessage("You do not have that much " + itemgetting);
+						player.sendMessage(CCEconomy.messages + "You do not have that much " + itemgetting);
 						return true;
 					}
 					if(!thereinventory.contains(Material.matchMaterial(itemoffering.toUpperCase()), Integer.parseInt(amountoffering)))
 					{
-						player.sendMessage("They do not have that much " + itemoffering);
+						player.sendMessage(CCEconomy.messages + "They do not have that much " + itemoffering);
 						return true;
 					}
 					ItemStack itemstack = new ItemStack(Material.matchMaterial(itemgetting.toUpperCase()), Integer.parseInt(amountgetting));
@@ -67,14 +67,14 @@ public class CmdTAccept
 				{
 					if(Double.parseDouble(BalChecks.Bal(offerpname)) - Double.parseDouble(price) < 0)
 					{
-						player.sendMessage("They do not have $" + price);
+						player.sendMessage(CCEconomy.messages + "They do not have " + CCEconomy.money + "$" + price);
 						return true;
 					}
 					PlayerInventory thereinventory = target.getInventory();
 					PlayerInventory yourinventory = player.getInventory();
 					if(!yourinventory.contains(Material.matchMaterial(item.toUpperCase()), Integer.parseInt(amount)))
 					{
-						player.sendMessage("You do not have that much " + item);
+						player.sendMessage(CCEconomy.messages + "You do not have that much " + item);
 						return true;
 					}
 					EditPlayerMoney.RemoveMoney(offerpname, Double.parseDouble(price));
@@ -87,14 +87,14 @@ public class CmdTAccept
 				{
 					if(Double.parseDouble(BalChecks.Bal(pname)) - Double.parseDouble(price) < 0)
 					{
-						player.sendMessage("You do not have $" + price);
+						player.sendMessage(CCEconomy.messages + "You do not have " + CCEconomy.money + "$" + price);
 						return true;
 					}
 					PlayerInventory thereinventory = target.getInventory();
 					PlayerInventory yourinventory = player.getInventory();
 					if(!thereinventory.contains(Material.matchMaterial(item.toUpperCase()), Integer.parseInt(amount)))
 					{
-						player.sendMessage("They do not have that much " + item);
+						player.sendMessage(CCEconomy.messages + "They do not have that much " + item);
 						return true;
 					}
 					EditPlayerMoney.RemoveMoney(pname, Double.parseDouble(price));
@@ -103,19 +103,19 @@ public class CmdTAccept
 					yourinventory.addItem(itemstack);
 					thereinventory.removeItem(itemstack);
 				}
-				player.sendMessage("You have accepted the trade from " + offerpname);
-				target.sendMessage("Your trade to " + pname + " has been accepted");
+				player.sendMessage(CCEconomy.messages + "You have accepted the trade from " + offerpname);
+				target.sendMessage(CCEconomy.messages + "Your trade to " + pname + " has been accepted");
 				return true;
 			}
 			else
 			{
-				player.sendMessage("You do not have a trade offer from " + offerpname);
+				player.sendMessage(CCEconomy.messages + "You do not have a trade offer from " + offerpname);
 				return true;
 			}
 		}
 		else
 		{
-			sender.sendMessage("You don't have an inventory. Please log in to trade.");
+			sender.sendMessage(CCEconomy.messages + "You don't have an inventory. Please log in to trade.");
 			return true;
 		}
 	}

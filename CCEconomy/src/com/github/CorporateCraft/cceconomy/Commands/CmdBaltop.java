@@ -42,7 +42,7 @@ public class CmdBaltop
         	   	bal = BalChecks.BalTop(page, time);
         	   	while(bal != null)
         	   	{
-        	   		bal = Integer.toString((page*10) + time + 1) + ". " + bal.split(" ")[0] + " has: $" + bal.split(" ")[1];
+        	   		bal = ChatColor.GOLD + Integer.toString((page*10) + time + 1) + ". " + CCEconomy.messages + bal.split(" ")[0] + " has: " + CCEconomy.money + "$" + bal.split(" ")[1];
         	   		player.sendMessage(bal);
         	   		time++;
         	   		bal = BalChecks.BalTop(page, time);
@@ -74,7 +74,7 @@ public class CmdBaltop
     	   	bal = BalChecks.BalTop(page, time);
     	   	while(bal != null)
     	   	{
-    	   		bal = Integer.toString((page*10) + time + 1) + ". " + bal.split(" ")[0] + " has: $" + bal.split(" ")[1];
+    	   		bal = ChatColor.GOLD + Integer.toString((page*10) + time + 1) + ". " + CCEconomy.messages + bal.split(" ")[0] + " has: " + CCEconomy.money + "$" + bal.split(" ")[1];
     	   		sender.sendMessage(bal);
     	   		time++;
     	   		bal = BalChecks.BalTop(page, time);

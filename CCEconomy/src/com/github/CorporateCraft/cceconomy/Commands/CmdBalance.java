@@ -33,10 +33,10 @@ public class CmdBalance
 	       		   String balance = BalChecks.Bal(playersname);
 		       	   if(balance == null)
 		       	   {
-		       		   player.sendMessage("That player is not in my records. If the player is offline, please use the full name.");
+		       		   player.sendMessage(CCEconomy.messages + "That player is not in my records. If the player is offline, please use the full name.");
 		       		   return true;
 		       	   }
-		       	   player.sendMessage(playersname + "'s balance is: $" + balance);
+		       	   player.sendMessage(CCEconomy.messages + playersname + "'s balance is: " + CCEconomy.money + "$" + balance);
 		       	   return true;
 		       }
 	       }
@@ -45,11 +45,11 @@ public class CmdBalance
 	       	   String balance = BalChecks.Bal(player.getName());
 	       	   if(balance == null)
 	       	   {
-	       		   player.sendMessage("You do not seem to exist let me add you now.");
+	       		   player.sendMessage(CCEconomy.messages + "You do not seem to exist let me add you now.");
 	       		   PlayerToFile.AddPlayerToList(player.getName());
 	       		   return true;
 	       	   }
-	       	   player.sendMessage("$" + balance);
+	       	   player.sendMessage(CCEconomy.money + "$" + balance);
 	       	   return true;
 	       }
 	    } 
@@ -70,15 +70,15 @@ public class CmdBalance
 					String balance = BalChecks.Bal(playersname);
 					if(balance == null)
 					{
-						sender.sendMessage("That player is not in my records. If the player is offline, please use the full name.");
+						sender.sendMessage(CCEconomy.messages + "That player is not in my records. If the player is offline, please use the full name.");
 						return true;
 					}
-					sender.sendMessage(playersname + "'s balance is: $" + balance);
+					sender.sendMessage(CCEconomy.messages + playersname + "'s balance is: " + CCEconomy.money + "$" + balance);
 					return true;
 		       }
 			else
 			{
-				sender.sendMessage("Log in to use this command");
+				sender.sendMessage(CCEconomy.messages + "Log in to use this command");
 				return true;
 			}
 		}

@@ -1,5 +1,6 @@
 package com.github.CorporateCraft.cceconomy;
 
+import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -10,6 +11,8 @@ public class CCEconomy extends JavaPlugin
 	public static final String balfile = "plugins/CCEconomy/moneytracker.txt";
 	public static final String sellfile = "plugins/CCEconomy/sellprices.txt";
 	public static final String buyfile = "plugins/CCEconomy/buyprices.txt";
+	public static ChatColor messages = ChatColor.GREEN;
+	public static ChatColor money = ChatColor.AQUA;
 	
 	@Override
     public void onEnable()

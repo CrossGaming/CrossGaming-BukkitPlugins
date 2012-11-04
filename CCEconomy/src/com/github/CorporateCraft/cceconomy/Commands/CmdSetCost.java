@@ -34,13 +34,17 @@ public class CmdSetCost
 					{
 						return false;
 					}
+					if(!Materials.ItemExists(ItemName))
+					{
+						return false;
+					}
 					ItemName = ItemName.toUpperCase();
 					if(args[1].equalsIgnoreCase("null"))
 					{
 						Prices.SetCost(CCEconomy.buyfile, ItemName, args[1]);
 						ItemName = ItemName.replaceAll("_", " ");
 						ItemName = Formatter.CapFirst(ItemName);
-						player.sendMessage(ItemName + " can no longer be bought");
+						player.sendMessage(CCEconomy.messages + ItemName + " can no longer be bought");
 						return true;
 					}
 					else
@@ -48,7 +52,7 @@ public class CmdSetCost
 						Prices.SetCost(CCEconomy.buyfile, ItemName, Formatter.roundTwoDecimals(Double.parseDouble(args[1])));
 						ItemName = ItemName.replaceAll("_", " ");
 						ItemName = Formatter.CapFirst(ItemName);
-						player.sendMessage(ItemName + "'s cost was set to $" + Formatter.roundTwoDecimals(Double.parseDouble(args[1])));
+						player.sendMessage(CCEconomy.messages + ItemName + "'s cost was set to " + CCEconomy.money + "$" + Formatter.roundTwoDecimals(Double.parseDouble(args[1])));
 						return true;
 					}
 				}
@@ -63,13 +67,17 @@ public class CmdSetCost
 					{
 						return false;
 					}
+					if(!Materials.ItemExists(ItemName))
+					{
+						return false;
+					}
 					ItemName = ItemName.toUpperCase();
 					if(args[0].equalsIgnoreCase("null"))
 					{
 						Prices.SetCost(CCEconomy.buyfile, ItemName, args[0]);
 						ItemName = ItemName.replaceAll("_", " ");
 						ItemName = Formatter.CapFirst(ItemName);
-						player.sendMessage(ItemName + " can no longer be bought");
+						player.sendMessage(CCEconomy.messages + ItemName + " can no longer be bought");
 						return true;
 					}
 					else
@@ -77,7 +85,7 @@ public class CmdSetCost
 						Prices.SetCost(CCEconomy.buyfile, ItemName, Formatter.roundTwoDecimals(Double.parseDouble(args[0])));
 						ItemName = ItemName.replaceAll("_", " ");
 						ItemName = Formatter.CapFirst(ItemName);
-						player.sendMessage(ItemName + "'s cost was set to $" + Formatter.roundTwoDecimals(Double.parseDouble(args[0])));
+						player.sendMessage(CCEconomy.messages + ItemName + "'s cost was set to " + CCEconomy.money + "$" + Formatter.roundTwoDecimals(Double.parseDouble(args[0])));
 						return true;
 					}
 				}
@@ -105,7 +113,7 @@ public class CmdSetCost
 				Prices.SetCost(CCEconomy.buyfile, ItemName, args[1]);
 				ItemName = ItemName.replaceAll("_", " ");
 				ItemName = Formatter.CapFirst(ItemName);
-				sender.sendMessage(ItemName + " can no longer be bought");
+				sender.sendMessage(CCEconomy.messages + ItemName + " can no longer be bought");
 				return true;
 			}
 			else
@@ -113,7 +121,7 @@ public class CmdSetCost
 				Prices.SetCost(CCEconomy.buyfile, ItemName, Formatter.roundTwoDecimals(Double.parseDouble(args[1])));
 				ItemName = ItemName.replaceAll("_", " ");
 				ItemName = Formatter.CapFirst(ItemName);
-				sender.sendMessage(ItemName + "'s cost was set to $" + Formatter.roundTwoDecimals(Double.parseDouble(args[1])));
+				sender.sendMessage(CCEconomy.messages + ItemName + "'s cost was set to " + CCEconomy.money + "$" + Formatter.roundTwoDecimals(Double.parseDouble(args[1])));
 				return true;
 			}
 		}

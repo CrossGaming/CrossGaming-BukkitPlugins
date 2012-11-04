@@ -21,20 +21,20 @@ public class CmdTDeny
 			String offerpname = target.getName();
 			if(Trade.hasTrade(pname, offerpname))
 			{
-				player.sendMessage("You have denied the trade from " + offerpname);
-				target.sendMessage("Your trade to " + pname + " has been denied");
+				player.sendMessage(CCEconomy.messages + "You have denied the trade from " + offerpname);
+				target.sendMessage(CCEconomy.messages + "Your trade to " + pname + " has been denied");
 				Trade.DenyTrade(pname, offerpname);
 				return true;
 			}
 			else
 			{
-				player.sendMessage("You do not have a trade offer from " + offerpname);
+				player.sendMessage(CCEconomy.messages + "You do not have a trade offer from " + offerpname);
 				return true;
 			}
 		}
 		else
 		{
-			sender.sendMessage("You don't have an inventory. Please log in to trade.");
+			sender.sendMessage(CCEconomy.messages + "You don't have an inventory. Please log in to trade.");
 			return true;
 		}
 	}

@@ -30,13 +30,13 @@ public class CmdCCE
 				}
 				if(!PlayerToFile.DoesPlayerExist(targetsname))
 				{
-					player.sendMessage("Please enter a valid player to change the balance of.");
+					player.sendMessage(CCEconomy.messages + "Please enter a valid player to change the balance of.");
 					return true;
 				}
 				if (args[0].equalsIgnoreCase("reset"))
 				{
 					EditPlayerMoney.SetMoney(targetsname, "0");
-					player.sendMessage("Your successfully reset the balance of " + targetsname + ".");
+					player.sendMessage(CCEconomy.messages + "Your successfully reset the balance of " + targetsname + ".");
 					return true;
 				}
 				if (args.length == 3)
@@ -53,7 +53,7 @@ public class CmdCCE
 					if (args[0].equalsIgnoreCase("give"))
 					{
 						EditPlayerMoney.AddMoney(targetsname, amount);
-						player.sendMessage("Your successfully gave "+ " $" + setamount + " to "  + targetsname + ".");
+						player.sendMessage(CCEconomy.messages + "Your successfully gave "+ CCEconomy.money + " $" + setamount + CCEconomy.messages + " to "  + targetsname + ".");
 						return true;
 					}
 					if (args[0].equalsIgnoreCase("take"))
@@ -61,14 +61,14 @@ public class CmdCCE
 						if(intbal-amount>=0)
 						{
 							EditPlayerMoney.RemoveMoney(targetsname, amount);
-							player.sendMessage("Your successfully took "+ " $" + setamount + " from "  + targetsname + ".");
+							player.sendMessage(CCEconomy.messages + "Your successfully took "+ CCEconomy.money + " $" + setamount + CCEconomy.messages + " from "  + targetsname + ".");
 							return true;
 						}
 					}
 					if (args[0].equalsIgnoreCase("set"))
 					{
 						EditPlayerMoney.SetMoney(targetsname, setamount);
-						player.sendMessage("Your successfully set the balance of " + targetsname + " to $" + Formatter.roundTwoDecimals(amount));
+						player.sendMessage(CCEconomy.messages + "Your successfully set the balance of " + targetsname + " to " + CCEconomy.money + "$" + Formatter.roundTwoDecimals(amount));
 						return true;
 					}
 					return false;
@@ -94,13 +94,13 @@ public class CmdCCE
 			}
 			if(!PlayerToFile.DoesPlayerExist(targetsname))
 			{
-				sender.sendMessage("Please enter a valid player to change the balance of.");
+				sender.sendMessage(CCEconomy.messages + "Please enter a valid player to change the balance of.");
 				return true;
 			}
 			if (args[0].equalsIgnoreCase("reset"))
 			{
 				EditPlayerMoney.SetMoney(targetsname, "0");
-				sender.sendMessage("Your successfully reset the balance of " + targetsname + ".");
+				sender.sendMessage(CCEconomy.messages + "Your successfully reset the balance of " + targetsname + ".");
 				return true;
 			}
 			if (args.length == 3)
@@ -117,7 +117,7 @@ public class CmdCCE
 				if (args[0].equalsIgnoreCase("give"))
 				{
 					EditPlayerMoney.AddMoney(targetsname, amount);
-					sender.sendMessage("Your successfully gave "+ " $" + setamount + " to "  + targetsname + ".");
+					sender.sendMessage(CCEconomy.messages + "Your successfully gave "+ CCEconomy.money + " $" + setamount + CCEconomy.messages + " to "  + targetsname + ".");
 					return true;
 				}
 				if (args[0].equalsIgnoreCase("take"))
@@ -125,14 +125,14 @@ public class CmdCCE
 					if(intbal-amount>=0)
 					{
 						EditPlayerMoney.RemoveMoney(targetsname, amount);
-						sender.sendMessage("Your successfully took "+ " $" + setamount + " from "  + targetsname + ".");
+						sender.sendMessage(CCEconomy.messages + "Your successfully took "+ CCEconomy.money + " $" + setamount + CCEconomy.messages + " from "  + targetsname + ".");
 						return true;
 					}
 				}
 				if (args[0].equalsIgnoreCase("set"))
 				{
 					EditPlayerMoney.SetMoney(targetsname, setamount);
-					sender.sendMessage("Your successfully set the balance of " + targetsname + " to $" + Formatter.roundTwoDecimals(amount));
+					sender.sendMessage(CCEconomy.messages + "Your successfully set the balance of " + targetsname + " to " + CCEconomy.money + "$" + Formatter.roundTwoDecimals(amount));
 					return true;
 				}
 				return false;

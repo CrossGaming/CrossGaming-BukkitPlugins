@@ -34,7 +34,7 @@ public class CmdPay
 				}
 				if(!PlayerToFile.DoesPlayerExist(targetsname))
 				{
-					player.sendMessage("Please enter a valid player to send money to.");
+					player.sendMessage(CCEconomy.messages + "Please enter a valid player to send money to.");
 					return true;
 				}
 				String balance = BalChecks.Bal(player.getName());
@@ -42,18 +42,18 @@ public class CmdPay
 				double payamount = Math.abs(Double.parseDouble(args[1]));
 				if (intbal < payamount)
 				{
-					player.sendMessage("You dont have: $" + args[1]);
+					player.sendMessage(CCEconomy.messages + "You dont have: " + CCEconomy.money + "$" + args[1]);
 					return true;
 				}
 				payamount = Double.parseDouble(Formatter.roundTwoDecimals(payamount));
 				EditPlayerMoney.RemoveMoney(player.getName(), payamount);
 				EditPlayerMoney.AddMoney(targetsname, payamount);
-				player.sendMessage("Your payed " + targetsname + " $" + Formatter.roundTwoDecimals(payamount));
+				player.sendMessage(CCEconomy.messages + "Your payed " + targetsname + CCEconomy.money + " $" + Formatter.roundTwoDecimals(payamount));
 				
 				try
 				{
 					Player target = sender.getServer().getPlayer(args[0]);
-					target.sendMessage("You received $" + Formatter.roundTwoDecimals(payamount) + " from " + player.getName() + ".");
+					target.sendMessage(CCEconomy.messages + "You received " + CCEconomy.money + "$" + Formatter.roundTwoDecimals(payamount) + CCEconomy.messages + " from " + player.getName() + ".");
 				}
 				catch (Exception e){}
 				return true;
@@ -61,7 +61,7 @@ public class CmdPay
         } 
 		else
 		{
-			sender.sendMessage("Log in to use this command or use cce");
+			sender.sendMessage(CCEconomy.messages + "Log in to use this command or use cce");
 			return true;
 	    }
 		return false;

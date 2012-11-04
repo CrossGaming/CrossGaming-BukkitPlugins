@@ -56,35 +56,39 @@ public class CmdBuy
 					}
 					amount = Integer.parseInt(args[0]);
 				}
+				if(!Materials.ItemExists(ItemName))
+				{
+					return false;
+				}
 				ItemName = ItemName.toUpperCase();
 				Double Cost = 0.00;
 				Cost = Prices.GetCost(CCEconomy.buyfile, ItemName, amount);
 				ItemName = Formatter.CapFirst(ItemName);
 				if(Cost == null)
 				{
-					player.sendMessage(ItemName + " cannot be bought from the server.");
+					player.sendMessage(CCEconomy.messages + ItemName + " cannot be bought from the server.");
 					return true;
 				}
 				else
 				{
 					if (intbal < Cost)
 					{
-						player.sendMessage("You dont have enough money to buy that item.");
+						player.sendMessage(CCEconomy.messages + "You dont have enough money to buy that item.");
 						return true;
 					}
 					EditPlayerMoney.RemoveMoney(player.getName(), Cost);
 					ItemStack itemstack = new ItemStack(Material.matchMaterial(ItemName), amount);
 					inventory.addItem(itemstack);
 					ItemName = ItemName.replaceAll("_", " ");
-					player.sendMessage("You bought " + Integer.toString(amount) + " of " + ItemName + ".");
-					player.sendMessage("$" + Formatter.roundTwoDecimals(Cost) + " was removed from your acount.");
+					player.sendMessage(CCEconomy.messages + "You bought " + Integer.toString(amount) + " of " + ItemName + ".");
+					player.sendMessage(CCEconomy.money + "$" + Formatter.roundTwoDecimals(Cost) + CCEconomy.messages + " was removed from your acount.");
 					return true;
 				}
 			}
 		}
 		else
 		{
-			sender.sendMessage("Log in to use this command");
+			sender.sendMessage(CCEconomy.messages + "Log in to use this command");
 			return true;
 		}
 		return false;
