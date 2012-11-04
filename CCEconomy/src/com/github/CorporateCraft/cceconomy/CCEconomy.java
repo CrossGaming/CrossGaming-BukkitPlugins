@@ -61,6 +61,22 @@ public class CCEconomy extends JavaPlugin
 		{
 			return CmdSell.CommandUse(sender, cmd, label, args);
 		}
+		if(cmd.getName().equalsIgnoreCase("taccept"))
+		{
+			return CmdTAccept.CommandUse(sender, cmd, label, args);
+		}
+		if(cmd.getName().equalsIgnoreCase("tdeny"))
+		{
+			return CmdTDeny.CommandUse(sender, cmd, label, args);
+		}
+		if(cmd.getName().equalsIgnoreCase("trade"))
+		{
+			return CmdTrade.CommandUse(sender, cmd, label, args);
+		}
+		if(cmd.getName().equalsIgnoreCase("tradeitems"))
+		{
+			return CmdTradeItems.CommandUse(sender, cmd, label, args);
+		}
 		return false; 
 	}	
 	

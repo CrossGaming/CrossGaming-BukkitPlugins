@@ -1,6 +1,6 @@
 name: CCEconomy
 main: com.github.CorporateCraft.cceconomy.CCEconomy
-version: 1.1.1.1
+version: 1.2.0.0
 website: http://corporatecraft.net
 description: Adds an economy system
 authors: [CorporateCraft Development Team]
@@ -10,19 +10,19 @@ commands:
       description: Shows your balance
       usage: /<command> <name>
       permission: CCEconomy.bal
-      aliases: [balance,money,ccemoney,ccebalance,ccebal]
+      aliases: [balance,money]
    
    baltop:
       description: Shows the balance of the top players
       usage: /<command> <page>
       permission: CCEconomy.baltop
-      aliases: [balancetop,moneytop,ccemoneytop,ccebalancetop,ccebaltop]
+      aliases: [balancetop,moneytop]
       
    pay:
       description: Pays <name> $<amount>
       usage: /<command> <name> <amount>
       permission: CCEconomy.pay
-      aliases: [sendmoney, ccepay]
+      aliases: [sendmoney]
    
    cce:
       description: A variaty of commands to edit someones bal <set>, <take>, <give>, and <reset>
@@ -34,37 +34,56 @@ commands:
       description: Sets the cost of buying an item
       usage: /<command> <itemname:id:hand> <price>
       permission: CCEconomy.setcost
-      aliases: [scost, sc, setc, ccescost, ccesc, ccesetc, ccesetcost]
+      aliases: [scost, sc, setc]
       
    setprice:
       description: Sets the price of an to sell
       usage: /<command> <itemname:id:hand> <price>
       permission: 
-      aliases: [sprice, sp, setp, ccesprice, ccesp, ccesetp, ccesetprice]
+      aliases: [sprice, sp, setp]
    
    cost:
       description: Shows the cost of buying <itemname>
       usage: /<command> <itemname:id:hand>
       permission: CCEconomy.cost
-      aliases: [ccecost]
       
    price:
       description: Shows how much money <itemname> is worth to sell
       usage: /<command> <itemname:id:hand>
       permission: CCEconomy.price
-      aliases: [cceprice]
       
    buy:
       description: Shows the cost of buying <itemname>
       usage: /<command> <itemname:id:hand> <amount>
       permission: CCEconomy.buy
-      aliases: [ccebuy]
       
    sell:
       description: Sells item with the given amount default is all
       usage: /<command> <itemname:id:hand> <amount>
       permission: CCEconomy.sell
-      aliases: [ccesell]   
+   
+   taccept:
+      description: Accept a trade from a player
+      usage: /<command> <player who offered trade>
+      permission: CCEconomy.taccept
+      aliases: [tradeaccept]  
+   
+   tdeny:
+      description: Deny a trade from a player
+      usage: /<command> <player who offered trade>
+      permission: CCEconomy.tdeny
+      aliases: [tdecline, tradedeny, tradedecline]  
+   
+   trade:
+      description: Trades an item to someone for $<price> or trades to you
+      usage: /<command> <name> <itemname:id> <amount> <price> <theypay:ipay>
+      permission: CCEconomy.trade
+      
+   tradeitems:
+      description: Trades an item to someone for another item
+      usage: /<command> <name> <itemname:id> <amount> <itemname:id> <amount>
+      permission: CCEconomy.trade      
+      aliases: [tradei]
 
 permissions:
     CCEconomy.*:
@@ -81,6 +100,9 @@ permissions:
             CCEconomy.setcost: true
             CCEconomy.balothers: true
             CCEconomy.editbal: true
+            CCEconomy.taccept: true
+            CCEconomy.tdeny: true
+            CCEconomy.trade: true
     CCEconomy.bal:
         description: Lets you see your own balance.
         default: true
@@ -101,6 +123,15 @@ permissions:
         default: true
     CCEconomy.sell:
         description: Allows you to sell items.
+        default: true
+    CCEconomy.taccept:
+        description: Allows you to accept trades.
+        default: true
+    CCEconomy.tdeny:
+        description: Allows you to deny trades.
+        default: true
+    CCEconomy.trade:
+        description: Allows you to trade with players.
         default: true
     CCEconomy.setprice:
         description: Allows you to set selling cost of an item.

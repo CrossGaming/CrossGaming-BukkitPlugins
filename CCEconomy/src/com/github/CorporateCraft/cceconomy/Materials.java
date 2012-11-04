@@ -4,13 +4,9 @@ import java.util.ArrayList;
 import org.bukkit.Material;
 
 public class Materials
-{
-	private static final int MaxItems = 2366;
-	private static ArrayList<String> Materials = new ArrayList<String>();
-	
+{	
 	public static void UpdateMats()
 	{
-		SetMaterials();
 		UpdateFiles();
 	}
 	
@@ -18,7 +14,7 @@ public class Materials
 	{
 		if(Formatter.FileEmpty(CCEconomy.sellfile))
 		{
-			Formatter.WriteFile(CCEconomy.sellfile, Materials);
+			Formatter.WriteFile(CCEconomy.sellfile, ArrayLists.MaterialList);
 		}
 		else
 		{
@@ -26,7 +22,7 @@ public class Materials
 		}
 		if(Formatter.FileEmpty(CCEconomy.buyfile))
 		{
-			Formatter.WriteFile(CCEconomy.buyfile, Materials);
+			Formatter.WriteFile(CCEconomy.buyfile, ArrayLists.MaterialList);
 		}
 		else
 		{
@@ -34,17 +30,7 @@ public class Materials
 		}
 	}
 	
-	private static void SetMaterials()
-	{
-		for(int i = 0; i < MaxItems; i++)
-		{
-			try
-			{
-				Materials.add(idToName(Material.getMaterial(i).getId()).replaceAll("_", "") + " null");
-			}
-			catch(Exception e){}
-		}
-	}
+	
 	
 	private static ArrayList<String> UpdateForNew(String file)
 	{
@@ -55,18 +41,18 @@ public class Materials
 		{
 			Current.get(i).replaceAll("_", "");
 		}
-		for(int i = 0; i < Materials.size(); i++)
+		for(int i = 0; i < ArrayLists.MaterialList.size(); i++)
 		{
 			for(int j = 0; j < Current.size(); j++)
 			{
-				if(Materials.get(i).split(" ")[0].equalsIgnoreCase(Current.get(j).split(" ")[0]))
+				if(ArrayLists.MaterialList.get(i).split(" ")[0].equalsIgnoreCase(Current.get(j).split(" ")[0]))
 				{
 					New.add(Current.get(j));
 					break;
 				}
 				if(j + 1 == Current.size())
 				{
-					New.add(Materials.get(i));
+					New.add(ArrayLists.MaterialList.get(i));
 				}
 			}
 		}

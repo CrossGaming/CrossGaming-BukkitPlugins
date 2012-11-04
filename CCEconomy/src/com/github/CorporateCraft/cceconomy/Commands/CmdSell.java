@@ -65,10 +65,10 @@ public class CmdSell
 				}
 				else
 				{
-					EditPlayerMoney.AddMoney(player.getName(), Cost);
 					ItemStack itemstack = new ItemStack(Material.matchMaterial(ItemName), amount);
 					if(inventory.contains(Material.matchMaterial(ItemName), amount))
 					{
+						EditPlayerMoney.AddMoney(player.getName(), Cost);
 						inventory.removeItem(itemstack);
 						ItemName = ItemName.replaceAll("_", " ");
 						player.sendMessage("You sold " + Integer.toString(amount) + " of " + ItemName + ".");
