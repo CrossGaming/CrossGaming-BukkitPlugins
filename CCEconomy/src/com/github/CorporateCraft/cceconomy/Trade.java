@@ -14,13 +14,6 @@ public class Trade
 		ArrayLists.Trades.put(key, value);
 	}
 	
-	public static void CreateItemTrade(String Inform)
-	{
-		String key = Inform.split(" ")[0] + " " + Inform.split(" ")[1];
-		String value = Inform.split(" ")[2] + " " + Inform.split(" ")[3] + " " + Inform.split(" ")[4] + " " + Inform.split(" ")[5];
-		ArrayLists.Trades.put(key, value);
-	}
-	
 	public static String AcceptTrade(String pname, String offerpname)
 	{
 		String Info = ArrayLists.Trades.get(pname + " " + offerpname);

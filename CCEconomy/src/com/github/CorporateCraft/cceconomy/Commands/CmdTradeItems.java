@@ -55,7 +55,7 @@ public class CmdTradeItems
 				player.sendMessage("They do not have that much " + itemgetting);
 				return true;
 			}
-			Trade.CreateItemTrade(offertopname + " " + pname + " " + itemgetting + " " + amountgetting + " " + itemoffering + " " + amountoffering);
+			Trade.CreateTrade(offertopname + " " + pname + " " + itemgetting + " " + amountgetting + " " + itemoffering + " " + amountoffering);
 			player.sendMessage("You have offered a trade to " + offertopname);
 			target.sendMessage(pname + " has offered to trade you " + amountgetting + " of " + itemgetting + " for " + amountoffering + " of " + itemoffering);
 			target.sendMessage("Type /taccept " + pname + " or /tdeny " + pname + " to accept or deny their trade request");
