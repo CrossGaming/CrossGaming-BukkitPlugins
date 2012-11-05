@@ -18,7 +18,6 @@ public class ArrayLists
 		UpdateBalances();
 		UpdateSellPrices();
 		UpdateBuyCosts();
-		SetMaterials();
 	}
 	
 	private static void UpdateBalances()
@@ -37,7 +36,7 @@ public class ArrayLists
 		Formatter.ReadFile(CCEconomy.buyfile, BuyPrices);
 	}
 	
-	private static void SetMaterials()
+	public static void SetMaterials()
 	{
 		for(int i = 0; i < Materials.MaxItems; i++)
 		{

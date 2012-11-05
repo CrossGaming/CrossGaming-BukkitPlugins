@@ -10,6 +10,7 @@ public class Materials
 	
 	public static void UpdateMats()
 	{
+		ArrayLists.SetMaterials();
 		UpdateFiles();
 		SetMaterialNames();
 	}
