@@ -34,15 +34,15 @@ public class CmdSetPrice
 					{
 						return false;
 					}
+					ItemName = Materials.FindItem(ItemName);
 					if(!Materials.ItemExists(ItemName))
 					{
-						return false;
+						player.sendMessage(CCEconomy.messages + "That item does not exist");
+						return true;
 					}
-					ItemName = ItemName.toUpperCase();
 					if(args[1].equalsIgnoreCase("null"))
 					{
 						Prices.SetCost(CCEconomy.sellfile, ItemName, args[1]);
-						ItemName = ItemName.replaceAll("_", " ");
 						ItemName = Formatter.CapFirst(ItemName);
 						player.sendMessage(CCEconomy.messages + ItemName + " can no longer be sold");
 						return true;
@@ -50,7 +50,6 @@ public class CmdSetPrice
 					else
 					{
 						Prices.SetCost(CCEconomy.sellfile, ItemName, Formatter.roundTwoDecimals(Double.parseDouble(args[1])));
-						ItemName = ItemName.replaceAll("_", " ");
 						ItemName = Formatter.CapFirst(ItemName);
 						player.sendMessage(CCEconomy.messages + ItemName + "'s price was set to " + CCEconomy.money + "$" + Formatter.roundTwoDecimals(Double.parseDouble(args[1])));
 						return true;
@@ -67,15 +66,15 @@ public class CmdSetPrice
 					{
 						return false;
 					}
+					ItemName = Materials.FindItem(ItemName);
 					if(!Materials.ItemExists(ItemName))
 					{
-						return false;
+						player.sendMessage(CCEconomy.messages + "That item does not exist");
+						return true;
 					}
-					ItemName = ItemName.toUpperCase();
 					if(args[0].equalsIgnoreCase("null"))
 					{
 						Prices.SetCost(CCEconomy.sellfile, ItemName, args[0]);
-						ItemName = ItemName.replaceAll("_", " ");
 						ItemName = Formatter.CapFirst(ItemName);
 						player.sendMessage(CCEconomy.messages + ItemName + " can no longer be sold");
 						return true;
@@ -83,7 +82,6 @@ public class CmdSetPrice
 					else
 					{
 						Prices.SetCost(CCEconomy.sellfile, ItemName, Formatter.roundTwoDecimals(Double.parseDouble(args[0])));
-						ItemName = ItemName.replaceAll("_", " ");
 						ItemName = Formatter.CapFirst(ItemName);
 						player.sendMessage(CCEconomy.messages + ItemName + "'s price was set to " + CCEconomy.money + "$" + Formatter.roundTwoDecimals(Double.parseDouble(args[0])));
 						return true;
@@ -107,11 +105,15 @@ public class CmdSetPrice
 			{
 				return false;
 			}
-			ItemName = ItemName.toUpperCase();
+			ItemName = Materials.FindItem(ItemName);
+			if(!Materials.ItemExists(ItemName))
+			{
+				sender.sendMessage(CCEconomy.messages + "That item does not exist");
+				return true;
+			}
 			if(args[1].equalsIgnoreCase("null"))
 			{
 				Prices.SetCost(CCEconomy.sellfile, ItemName, args[1]);
-				ItemName = ItemName.replaceAll("_", " ");
 				ItemName = Formatter.CapFirst(ItemName);
 				sender.sendMessage(CCEconomy.messages + ItemName + " can no longer be sold");
 				return true;
@@ -119,7 +121,6 @@ public class CmdSetPrice
 			else
 			{
 				Prices.SetCost(CCEconomy.sellfile, ItemName, Formatter.roundTwoDecimals(Double.parseDouble(args[1])));
-				ItemName = ItemName.replaceAll("_", " ");
 				ItemName = Formatter.CapFirst(ItemName);
 				sender.sendMessage(CCEconomy.messages + ItemName + "'s price was set to " + CCEconomy.money + "$" + Formatter.roundTwoDecimals(Double.parseDouble(args[1])));
 				return true;

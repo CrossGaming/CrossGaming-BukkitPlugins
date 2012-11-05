@@ -5,9 +5,13 @@ import org.bukkit.Material;
 
 public class Materials
 {	
+	private static ArrayList<String> MaterialNames = new ArrayList<String>();
+	public static final int MaxItems = 2366;
+	
 	public static void UpdateMats()
 	{
 		UpdateFiles();
+		SetMaterialNames();
 	}
 	
 	private static void UpdateFiles()
@@ -32,14 +36,42 @@ public class Materials
 	
 	public static Boolean ItemExists(String Item)
 	{
-		try
-		{
-			Material.matchMaterial(Item.toUpperCase());
-			return true;
-		}
-		catch(Exception e)
+		if(Item == null)
 		{
 			return false;
+		}
+		if(Material.getMaterial(Item) == null)
+		{
+			return false;
+		}
+		return true;
+	}
+	
+	public static String FindItem(String Item)
+	{
+		for(int i = 0; i<ArrayLists.MaterialList.size(); i++)
+		{
+			if(ArrayLists.MaterialList.get(i).split(" ")[0].equalsIgnoreCase(Item))
+			{
+				return MaterialNames.get(i);
+			}
+			if(MaterialNames.get(i).equalsIgnoreCase(Item))
+			{
+				return MaterialNames.get(i);
+			}
+		}
+		return null;
+	}
+	
+	private static void SetMaterialNames()
+	{
+		for(int i = 0; i < MaxItems; i++)
+		{
+			try
+			{
+				MaterialNames.add(Materials.idToName(Material.getMaterial(i).getId()));
+			}
+			catch(Exception e){}
 		}
 	}
 	

@@ -56,15 +56,17 @@ public class CmdBuy
 					}
 					amount = Integer.parseInt(args[0]);
 				}
+				ItemName = Materials.FindItem(ItemName);
 				if(!Materials.ItemExists(ItemName))
 				{
-					return false;
+					player.sendMessage(CCEconomy.messages + "That item does not exist");
+					return true;
 				}
 				ItemName = ItemName.toUpperCase();
 				Double Cost = 0.00;
 				Cost = Prices.GetCost(CCEconomy.buyfile, ItemName, amount);
 				ItemName = Formatter.CapFirst(ItemName);
-				if(Cost == null)
+				if(Cost == -1.00)
 				{
 					player.sendMessage(CCEconomy.messages + ItemName + " cannot be bought from the server.");
 					return true;
@@ -77,9 +79,8 @@ public class CmdBuy
 						return true;
 					}
 					EditPlayerMoney.RemoveMoney(player.getName(), Cost);
-					ItemStack itemstack = new ItemStack(Material.matchMaterial(ItemName), amount);
+					ItemStack itemstack = new ItemStack(Material.matchMaterial(Materials.FindItem(ItemName)), amount);
 					inventory.addItem(itemstack);
-					ItemName = ItemName.replaceAll("_", " ");
 					player.sendMessage(CCEconomy.messages + "You bought " + Integer.toString(amount) + " of " + ItemName + ".");
 					player.sendMessage(CCEconomy.money + "$" + Formatter.roundTwoDecimals(Cost) + CCEconomy.messages + " was removed from your acount.");
 					return true;

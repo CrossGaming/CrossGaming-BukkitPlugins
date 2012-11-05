@@ -54,11 +54,12 @@ public class CmdSell
 					}
 					amount = Integer.parseInt(args[0]);
 				}
+				ItemName = Materials.FindItem(ItemName);
 				if(!Materials.ItemExists(ItemName))
 				{
-					return false;
+					player.sendMessage(CCEconomy.messages + "That item does not exist");
+					return true;
 				}
-				ItemName = ItemName.toUpperCase();
 				Double Cost = 0.00;
 				Cost = Prices.GetCost(CCEconomy.sellfile, ItemName, amount);
 				ItemName = Formatter.CapFirst(ItemName);
@@ -69,8 +70,8 @@ public class CmdSell
 				}
 				else
 				{
-					ItemStack itemstack = new ItemStack(Material.matchMaterial(ItemName), amount);
-					if(inventory.contains(Material.matchMaterial(ItemName), amount))
+					ItemStack itemstack = new ItemStack(Material.matchMaterial(Materials.FindItem(ItemName)), amount);
+					if(inventory.contains(Material.matchMaterial(Materials.FindItem(ItemName)), amount))
 					{
 						EditPlayerMoney.AddMoney(player.getName(), Cost);
 						inventory.removeItem(itemstack);

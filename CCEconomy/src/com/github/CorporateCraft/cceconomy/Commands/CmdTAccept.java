@@ -46,18 +46,18 @@ public class CmdTAccept
 					String itemoffering = price;
 					PlayerInventory thereinventory = target.getInventory();
 					PlayerInventory yourinventory = player.getInventory();
-					if(!yourinventory.contains(Material.matchMaterial(itemgetting.toUpperCase()), Integer.parseInt(amountgetting)))
+					if(!yourinventory.contains(Material.matchMaterial(Materials.FindItem(itemgetting)), Integer.parseInt(amountgetting)))
 					{
 						player.sendMessage(CCEconomy.messages + "You do not have that much " + itemgetting);
 						return true;
 					}
-					if(!thereinventory.contains(Material.matchMaterial(itemoffering.toUpperCase()), Integer.parseInt(amountoffering)))
+					if(!thereinventory.contains(Material.matchMaterial(Materials.FindItem(itemoffering)), Integer.parseInt(amountoffering)))
 					{
 						player.sendMessage(CCEconomy.messages + "They do not have that much " + itemoffering);
 						return true;
 					}
-					ItemStack itemstack = new ItemStack(Material.matchMaterial(itemgetting.toUpperCase()), Integer.parseInt(amountgetting));
-					ItemStack is = new ItemStack(Material.matchMaterial(itemoffering.toUpperCase()), Integer.parseInt(amountoffering));
+					ItemStack itemstack = new ItemStack(Material.matchMaterial(Materials.FindItem(itemgetting)), Integer.parseInt(amountgetting));
+					ItemStack is = new ItemStack(Material.matchMaterial(Materials.FindItem(itemoffering)), Integer.parseInt(amountoffering));
 					yourinventory.addItem(is);
 					yourinventory.removeItem(itemstack);
 					thereinventory.addItem(itemstack);
@@ -72,14 +72,14 @@ public class CmdTAccept
 					}
 					PlayerInventory thereinventory = target.getInventory();
 					PlayerInventory yourinventory = player.getInventory();
-					if(!yourinventory.contains(Material.matchMaterial(item.toUpperCase()), Integer.parseInt(amount)))
+					if(!yourinventory.contains(Material.matchMaterial(Materials.FindItem(item)), Integer.parseInt(amount)))
 					{
 						player.sendMessage(CCEconomy.messages + "You do not have that much " + item);
 						return true;
 					}
 					EditPlayerMoney.RemoveMoney(offerpname, Double.parseDouble(price));
 					EditPlayerMoney.AddMoney(pname, Double.parseDouble(price));
-					ItemStack itemstack = new ItemStack(Material.matchMaterial(item.toUpperCase()), Integer.parseInt(amount));
+					ItemStack itemstack = new ItemStack(Material.matchMaterial(Materials.FindItem(item)), Integer.parseInt(amount));
 					thereinventory.addItem(itemstack);
 					yourinventory.removeItem(itemstack);
 				}
@@ -92,14 +92,14 @@ public class CmdTAccept
 					}
 					PlayerInventory thereinventory = target.getInventory();
 					PlayerInventory yourinventory = player.getInventory();
-					if(!thereinventory.contains(Material.matchMaterial(item.toUpperCase()), Integer.parseInt(amount)))
+					if(!thereinventory.contains(Material.matchMaterial(Materials.FindItem(item)), Integer.parseInt(amount)))
 					{
 						player.sendMessage(CCEconomy.messages + "They do not have that much " + item);
 						return true;
 					}
 					EditPlayerMoney.RemoveMoney(pname, Double.parseDouble(price));
 					EditPlayerMoney.AddMoney(offerpname, Double.parseDouble(price));
-					ItemStack itemstack = new ItemStack(Material.matchMaterial(item.toUpperCase()), Integer.parseInt(amount));
+					ItemStack itemstack = new ItemStack(Material.matchMaterial(Materials.FindItem(item)), Integer.parseInt(amount));
 					yourinventory.addItem(itemstack);
 					thereinventory.removeItem(itemstack);
 				}

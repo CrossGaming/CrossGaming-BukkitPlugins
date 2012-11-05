@@ -47,25 +47,31 @@ public class CmdTradeItems
 			}
 			PlayerInventory thereinventory = target.getInventory();
 			PlayerInventory yourinventory = player.getInventory();
+			itemoffering = Materials.FindItem(itemoffering);
+			itemgetting = Materials.FindItem(itemgetting);
 			if(!Materials.ItemExists(itemoffering))
 			{
-				return false;
+				player.sendMessage(CCEconomy.messages + "That item does not exist");
+				return true;
 			}
 			if(!Materials.ItemExists(itemgetting))
 			{
-				return false;
-			}
-			if(!yourinventory.contains(Material.matchMaterial(itemoffering.toUpperCase()), Integer.parseInt(amountoffering)))
-			{
-				player.sendMessage(CCEconomy.messages + "You do not have that much " + itemoffering);
+				player.sendMessage(CCEconomy.messages + "That item does not exist");
 				return true;
 			}
-			if(!thereinventory.contains(Material.matchMaterial(itemgetting.toUpperCase()), Integer.parseInt(amountgetting)))
+			if(!yourinventory.contains(Material.matchMaterial(itemoffering), Integer.parseInt(amountoffering)))
 			{
-				player.sendMessage(CCEconomy.messages + "They do not have that much " + itemgetting);
+				player.sendMessage(CCEconomy.messages + "You do not have that much " + Formatter.CapFirst(itemoffering));
+				return true;
+			}
+			if(!thereinventory.contains(Material.matchMaterial(itemgetting), Integer.parseInt(amountgetting)))
+			{
+				player.sendMessage(CCEconomy.messages + "They do not have that much " + Formatter.CapFirst(itemgetting));
 				return true;
 			}
 			Trade.CreateTrade(offertopname + " " + pname + " " + itemgetting + " " + amountgetting + " " + itemoffering + " " + amountoffering);
+			itemgetting = Formatter.CapFirst(itemgetting);
+			itemoffering = Formatter.CapFirst(itemoffering);
 			player.sendMessage(CCEconomy.messages + "You have offered a trade to " + offertopname);
 			target.sendMessage(CCEconomy.messages + pname + " has offered to trade you " + amountgetting + " of " + itemgetting + " for " + amountoffering + " of " + itemoffering);
 			target.sendMessage(CCEconomy.messages + "Type /taccept " + pname + " or /tdeny " + pname + " to accept or deny their trade request");

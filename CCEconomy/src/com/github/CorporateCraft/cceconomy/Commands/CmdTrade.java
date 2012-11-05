@@ -38,9 +38,11 @@ public class CmdTrade
 				item = Materials.idToName(Integer.parseInt(item));
 			}
 			price = Formatter.roundTwoDecimals(Double.parseDouble(price));
+			item = Materials.FindItem(item);
 			if(!Materials.ItemExists(item))
 			{
-				return false;
+				player.sendMessage(CCEconomy.messages + "That item does not exist");
+				return true;
 			}
 			if(args[4].equalsIgnoreCase("theypay"))
 			{
@@ -50,12 +52,13 @@ public class CmdTrade
 					return true;
 				}
 				PlayerInventory inventory = player.getInventory();
-				if(!inventory.contains(Material.matchMaterial(item.toUpperCase()), Integer.parseInt(amount)))
+				if(!inventory.contains(Material.matchMaterial(item), Integer.parseInt(amount)))
 				{
-					player.sendMessage(CCEconomy.messages + "You do not have that much " + item);
+					player.sendMessage(CCEconomy.messages + "You do not have that much " + Formatter.CapFirst(item));
 					return true;
 				}
 				Trade.CreateTrade(offertopname + " " + pname + " " + item + " " + amount + " " + price + " " + pname);
+				item = Formatter.CapFirst(item);
 				player.sendMessage(CCEconomy.messages + "You have offered a trade to " + offertopname);
 				target.sendMessage(CCEconomy.messages + pname + " has offered to trade you " + amount + " of " + item + " for " + CCEconomy.money + "$" + price);
 				target.sendMessage(CCEconomy.messages + "Type /taccept or /tdeny to accept or deny their trade request");
@@ -68,12 +71,13 @@ public class CmdTrade
 					return true;
 				}
 				PlayerInventory inventory = target.getInventory();
-				if(!inventory.contains(Material.matchMaterial(item.toUpperCase()), Integer.parseInt(amount)))
+				if(!inventory.contains(Material.matchMaterial(item), Integer.parseInt(amount)))
 				{
-					player.sendMessage(CCEconomy.messages + "They do not have that much " + item);
+					player.sendMessage(CCEconomy.messages + "They do not have that much " + Formatter.CapFirst(item));
 					return true;
 				}
 				Trade.CreateTrade(offertopname + " " + pname + " " + item + " " + amount + " " + price + " " + offertopname);
+				item = Formatter.CapFirst(item);
 				player.sendMessage(CCEconomy.messages + "You have offered a trade to " + offertopname);
 				target.sendMessage(CCEconomy.messages + pname + " has offered to trade you " + CCEconomy.money + "$" + price + CCEconomy.messages + " for " + amount + " of " + item);
 				target.sendMessage(CCEconomy.messages + "Type /taccept " + pname + " or /tdeny " + pname + " to accept or deny their trade request");

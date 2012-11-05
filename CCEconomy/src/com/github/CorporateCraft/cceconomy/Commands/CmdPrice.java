@@ -31,7 +31,12 @@ public class CmdPrice
 				{
 					ItemName = Materials.idToName(Integer.parseInt(ItemName));
 				}
-				ItemName = ItemName.toUpperCase();
+				ItemName = Materials.FindItem(ItemName);
+				if(!Materials.ItemExists(ItemName))
+				{
+					player.sendMessage(CCEconomy.messages + "That item does not exist");
+					return true;
+				}
 				String cost = Prices.Cost(CCEconomy.sellfile, ItemName);
 				ItemName = Formatter.CapFirst(ItemName);
 				if(cost == null)
@@ -59,7 +64,12 @@ public class CmdPrice
 			{
 				ItemName = Materials.idToName(Integer.parseInt(ItemName));
 			}
-			ItemName = ItemName.toUpperCase();
+			ItemName = Materials.FindItem(ItemName);
+			if(!Materials.ItemExists(ItemName))
+			{
+				sender.sendMessage(CCEconomy.messages + "That item does not exist");
+				return true;
+			}
 			String cost = Prices.Cost(CCEconomy.sellfile, ItemName);
 			ItemName = Formatter.CapFirst(ItemName);
 			if(cost == null)

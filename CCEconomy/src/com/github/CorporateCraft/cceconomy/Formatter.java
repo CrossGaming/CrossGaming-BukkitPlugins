@@ -49,7 +49,18 @@ public class Formatter
 			}
 			else
 			{
-				NewWord.add(Character.toLowerCase(CurrentWord.get(i)));
+				if(CurrentWord.get(i).equals('_'))
+				{
+					NewWord.add(' ');
+				}
+				else if(CurrentWord.get(i-1).equals('_'))
+				{
+					NewWord.add(Character.toUpperCase(CurrentWord.get(i)));
+				}
+				else
+				{
+					NewWord.add(Character.toLowerCase(CurrentWord.get(i)));
+				}
 			}
 		}
 		String New = "";

@@ -12,7 +12,6 @@ public class ArrayLists
 	public static ArrayList<String> BuyPrices = new ArrayList<String>();
 	public static ArrayList<String> MaterialList = new ArrayList<String>();
 	public static HashMap<String,String> Trades = new HashMap<String,String>();
-	private static final int MaxItems = 2366;
 	
 	public static void StartLists()
 	{
@@ -40,7 +39,7 @@ public class ArrayLists
 	
 	private static void SetMaterials()
 	{
-		for(int i = 0; i < MaxItems; i++)
+		for(int i = 0; i < Materials.MaxItems; i++)
 		{
 			try
 			{
