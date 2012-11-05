@@ -3,7 +3,6 @@ package com.github.CorporateCraft.cceconomy;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
-
 import org.bukkit.Material;
 
 public class ArrayLists
@@ -25,7 +24,7 @@ public class ArrayLists
 	
 	private static void UpdateBalances()
 	{
-		Formatter.ReadFile(CCEconomy.balfile, Balances);
+		Formatter.ReadFile(CCEconomy.balfile,Balances);
 		Collections.sort(Balances);
 	}
 	

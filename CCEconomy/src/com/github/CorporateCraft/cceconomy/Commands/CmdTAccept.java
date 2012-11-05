@@ -58,10 +58,10 @@ public class CmdTAccept
 					}
 					ItemStack itemstack = new ItemStack(Material.matchMaterial(itemgetting.toUpperCase()), Integer.parseInt(amountgetting));
 					ItemStack is = new ItemStack(Material.matchMaterial(itemoffering.toUpperCase()), Integer.parseInt(amountoffering));
-					yourinventory.addItem(itemstack);
-					yourinventory.removeItem(is);
-					thereinventory.addItem(is);
-					thereinventory.removeItem(itemstack);
+					yourinventory.addItem(is);
+					yourinventory.removeItem(itemstack);
+					thereinventory.addItem(itemstack);
+					thereinventory.removeItem(is);
 				}
 				if(ToWhom.equalsIgnoreCase(pname))
 				{
