@@ -1,0 +1,68 @@
+name: Necessities
+main: com.github.CorporateCraft.necessities.Necessities
+version: 1.0.0.0
+website: http://corporatecraft.x10.mx
+description: Adds necessities of a server
+authors: [CorporateCraft Development Team]
+
+commands:   
+   tpaccept:
+      description: Accepts a teleport if player is not specified will use last offered tp request
+      usage: /<command> <player who offered tp>
+      permission: Necessities.tpaccept
+      aliases: [teleportaccept]  
+   
+   tpa:
+      description: Sends a request to <player> to let you teleport to them
+      usage: /<command> <player who offered tp>
+      permission: Necessities.tpa
+   
+   tpahere:
+      description: Sends a request to <player> to teleport to you
+      usage: /<command> <player>
+      permission: Necessities.tpahere
+   
+   tp:
+      description: Teleports to <player>
+      usage: /<command> <player>
+      permission: Necessities.tp
+   
+   tphere:
+      description: Teleports <player> to you
+      usage: /<command> <player>
+      permission: Necessities.tphere
+   
+   tpdeny:
+      description: Deny a teleport if player is not specified will use last offered tp request
+      usage: /<command> <player who offered tp>
+      permission: Necessities.tpdeny
+      aliases: [teleportdeny, tpdecline, teleportdecline]  
+
+permissions:
+    Necessities.*:
+        description: The Mainframe of Necessities' command structure
+        children:
+            Necessities.tpaccept: true
+            Necessities.tpdeny: true
+            Necessities.tpa: true
+            Necessities.tpahere: true
+            Necessities.tp: true
+            Necessities.tphere: true
+    Necessities.tpaccept:
+        description: Allows you to accept teleports.
+        default: true
+    Necessities.tpdeny:
+        description: Allows you to deny teleports.
+        default: true
+    Necessities.tpa:
+        description: Allows you to request teleportation.
+        default: true
+    Necessities.tpahere:
+        description: Allows you to request summons.
+        default: true
+    Necessities.tp:
+        description: Allows you to teleport to people.
+        default: op
+    Necessities.tphere:
+        description: Allows you to summon people.
+        default: op
