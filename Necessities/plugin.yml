@@ -38,6 +38,16 @@ commands:
       permission: Necessities.tpdeny
       aliases: [teleportdeny, tpdecline, teleportdecline]  
 
+   rules:
+      description: Shows you the rules
+      usage: /<command>
+      permission: Necessities.rules  
+      
+   motd:
+      description: Shows you the motd
+      usage: /<command>
+      permission: Necessities.motd
+
 permissions:
     Necessities.*:
         description: The Mainframe of Necessities' command structure
@@ -48,6 +58,8 @@ permissions:
             Necessities.tpahere: true
             Necessities.tp: true
             Necessities.tphere: true
+            Necessities.rules: true
+            Necessities.motd: true
     Necessities.tpaccept:
         description: Allows you to accept teleports.
         default: true
@@ -59,6 +71,12 @@ permissions:
         default: true
     Necessities.tpahere:
         description: Allows you to request summons.
+        default: true
+    Necessities.rules:
+        description: Allows you to read the rules.
+        default: true
+    Necessities.motd:
+        description: Allows you to read the motd.
         default: true
     Necessities.tp:
         description: Allows you to teleport to people.

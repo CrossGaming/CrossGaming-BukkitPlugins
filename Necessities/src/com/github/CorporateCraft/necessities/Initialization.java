@@ -1,12 +1,15 @@
 package com.github.CorporateCraft.necessities;
 
 import java.io.File;
+import java.io.IOException;
 
 public class Initialization
 {
 	public static void InitiateFiles()
 	{
 		DirCreate("plugins/Necessities");
+		FileCreate(Necessities.Motdfile);
+		FileCreate(Necessities.Rulesfile);
 		ArrayLists.StartLists();
 	}
 	
@@ -20,6 +23,19 @@ public class Initialization
 				d.mkdir();
 			}
 			catch (Exception e){}
+		}
+	}
+	
+	private static void FileCreate(String file)
+	{
+		File f = new File(file);
+		if(!f.exists())
+		{
+			try
+			{
+				f.createNewFile();
+			}
+			catch (IOException e){}
 		}
 	}
 }

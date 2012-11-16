@@ -8,12 +8,15 @@ import com.github.CorporateCraft.necessities.Commands.*;
 
 public class Necessities extends JavaPlugin
 {
+	public static final String Motdfile = "plugins/Necessities/MOTD.txt";
+	public static final String Rulesfile = "plugins/Necessities/Rules.txt";
 	public static ChatColor messages = ChatColor.GREEN;
 	
 	@Override
     public void onEnable()
 	{	
 		getLogger().info("The necessities your server has been needing are enabled.");
+		getServer().getPluginManager().registerEvents(new Listeners(), this);
 		Initialization.InitiateFiles();
     }
 	
@@ -42,6 +45,14 @@ public class Necessities extends JavaPlugin
 		if(cmd.getName().equalsIgnoreCase("tphere"))
 		{
 			return CmdTphere.CommandUse(sender, cmd, label, args);
+		}
+		if(cmd.getName().equalsIgnoreCase("motd"))
+		{
+			return CmdMotd.CommandUse(sender, cmd, label, args);
+		}
+		if(cmd.getName().equalsIgnoreCase("rules"))
+		{
+			return CmdRules.CommandUse(sender, cmd, label, args);
 		}
 		return false; 
 	}	
