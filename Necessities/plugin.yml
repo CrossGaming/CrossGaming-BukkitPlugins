@@ -11,42 +11,51 @@ commands:
       usage: /<command> <player who offered tp>
       permission: Necessities.tpaccept
       aliases: [teleportaccept]  
-   
    tpa:
       description: Sends a request to <player> to let you teleport to them
       usage: /<command> <player who offered tp>
       permission: Necessities.tpa
-   
    tpahere:
       description: Sends a request to <player> to teleport to you
       usage: /<command> <player>
       permission: Necessities.tpahere
-   
    tp:
       description: Teleports to <player>
       usage: /<command> <player>
       permission: Necessities.tp
-   
    tphere:
       description: Teleports <player> to you
       usage: /<command> <player>
       permission: Necessities.tphere
-   
    tpdeny:
       description: Deny a teleport if player is not specified will use last offered tp request
       usage: /<command> <player who offered tp>
       permission: Necessities.tpdeny
       aliases: [teleportdeny, tpdecline, teleportdecline]  
-
    rules:
       description: Shows you the rules
       usage: /<command>
       permission: Necessities.rules  
-      
    motd:
       description: Shows you the motd
       usage: /<command>
       permission: Necessities.motd
+   permissions:
+      description: Shows you the perm for <commandname>
+      usage: /<command> <commandname>
+      permission: Necessities.perms
+   ops:
+      description: Shows the server ops
+      usage: /<command>
+      permission: Necessities.ops
+   banned:
+      description: Shows who is banned from the server
+      usage: /<command>
+      permission: Necessities.banned
+   bannedips:
+      description: Shows the ips that are banned from a server
+      usage: /<command>
+      permission: Necessities.bannedips
 
 permissions:
     Necessities.*:
@@ -60,6 +69,10 @@ permissions:
             Necessities.tphere: true
             Necessities.rules: true
             Necessities.motd: true
+            Necessities.perms: true
+            Necessities.ops: true
+            Necessities.banned: true
+            Necessities.bannedips: true
     Necessities.tpaccept:
         description: Allows you to accept teleports.
         default: true
@@ -78,9 +91,21 @@ permissions:
     Necessities.motd:
         description: Allows you to read the motd.
         default: true
+    Necessities.ops:
+        description: Allows you to see the current oplist.
+        default: true
+    Necessities.banned:
+        description: Allows you to see the current banned players.
+        default: true
+    Necessities.bannedips:
+        description: Allows you to see the current banned ips.
+        default: true
     Necessities.tp:
         description: Allows you to teleport to people.
         default: op
     Necessities.tphere:
         description: Allows you to summon people.
+        default: op
+    Necessities.perms:
+        description: Allows you to see a commands permissions.
         default: op

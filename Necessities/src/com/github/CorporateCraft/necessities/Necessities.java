@@ -22,6 +22,18 @@ public class Necessities extends JavaPlugin
 	
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args)
 	{
+		if(cmd.getName().equalsIgnoreCase("ops"))
+		{	
+			return CmdOps.CommandUse(sender, cmd, label, args);
+		}
+		if(cmd.getName().equalsIgnoreCase("banned"))
+		{
+			return CmdBanned.CommandUse(sender, cmd, label, args);
+		}
+		if(cmd.getName().equalsIgnoreCase("bannedips"))
+		{
+			return CmdBannedips.CommandUse(sender, cmd, label, args);
+		}
 		if(cmd.getName().equalsIgnoreCase("tpaccept"))
 		{
 			return CmdTpAccept.CommandUse(sender, cmd, label, args);
@@ -53,6 +65,10 @@ public class Necessities extends JavaPlugin
 		if(cmd.getName().equalsIgnoreCase("rules"))
 		{
 			return CmdRules.CommandUse(sender, cmd, label, args);
+		}
+		if(cmd.getName().equalsIgnoreCase("permissions"))
+		{
+			return CmdPermissions.CommandUse(sender, cmd, label, args);
 		}
 		return false; 
 	}	

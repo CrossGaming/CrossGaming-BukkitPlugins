@@ -70,6 +70,40 @@ public class Formatter
 		catch (IOException ex){}
 	}
 	
+	public static String readFileStr(String file)
+	{
+		StringBuilder sb = new StringBuilder();
+		try
+		{
+		    FileReader reader = new FileReader(file);
+		    BufferedReader buff = new BufferedReader(reader);
+		    while(true)
+		    {
+		    	String inputText = buff.readLine();
+		        if(inputText == null)
+		        {
+		         	if (sb.length()>1)
+		          	{
+		          		sb.deleteCharAt(sb.length()-1);
+		           		sb.deleteCharAt(sb.length()-1);
+		           		sb.append(".");
+		           		break;
+		           	}
+		        }
+		        if(!inputText.startsWith("#"))
+		        {
+		        	sb.append(inputText).append(", ");
+		        }
+		    }
+		}
+		catch (IOException ex)
+		{
+		    return null;
+		}
+		String allFile = sb.toString();
+		return allFile;
+	}
+	
 	public static void WriteFile(String file, ArrayList<String> Info)
 	{
 		try
