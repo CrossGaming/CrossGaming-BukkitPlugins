@@ -1,15 +1,14 @@
 CorporateCraft BukkitPlugins list
 ---------------------
-[OpsAndBanned] [1] ~ Adds in a /ops and /banned and /bannedips 
-command.        
+[Necessities] [1] ~ Adds in the needed things.
 
-[KillWithMessage][2] ~ Adds ability to kill someone with a customizable message (shortcut is /killmsg).
+[CCEconomy] [2] ~ Adds in an advanced economy system.   
 
-[Ragequit] [3] ~ Adds in a /ragequit.   
+[KillWithMessage][3] ~ Adds ability to kill someone with a customizable message (shortcut is /killmsg).
 
-[CCEconomy] [4] ~ Adds in an advanced economy system.   
+[Ragequit] [4] ~ Adds in a /ragequit.   
 
-[1]: https://github.com/CorporateCraft/CorporateCraft-BukkitPlugins/tree/master/OpsAndBanned
-[2]: https://github.com/CorporateCraft/CorporateCraft-BukkitPlugins/tree/master/KillWithMessage
-[3]: https://github.com/CorporateCraft/CorporateCraft-BukkitPlugins/tree/master/Ragequit
-[4]: https://github.com/CorporateCraft/CorporateCraft-BukkitPlugins/tree/master/CCEconomy
+[1]: https://github.com/CorporateCraft/CorporateCraft-BukkitPlugins/tree/master/Necessities
+[2]: https://github.com/CorporateCraft/CorporateCraft-BukkitPlugins/tree/master/CCEconomy
+[3]: https://github.com/CorporateCraft/CorporateCraft-BukkitPlugins/tree/master/KillWithMessage
+[4]: https://github.com/CorporateCraft/CorporateCraft-BukkitPlugins/tree/master/Ragequit
