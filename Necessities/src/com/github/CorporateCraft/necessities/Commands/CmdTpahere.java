@@ -23,7 +23,7 @@ public class CmdTpahere
 			Teleports.CreateTp(rname + " " + pname, "tome");
 			player.sendMessage(Necessities.messages + "You sent a teleport request to " + rname);
 			target.sendMessage(Necessities.messages + pname + " is requesting that you teleport to them");
-			target.sendMessage(Necessities.messages + "Type /tpaccept or /tpdeny to accept or deny their trade request");
+			target.sendMessage(Necessities.messages + "Type /tpaccept or /tpdeny to accept or deny their teleport request");
 			return true;
 		}
 		else
