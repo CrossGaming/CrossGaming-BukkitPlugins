@@ -49,7 +49,7 @@ public class CmdBalance
 	       		   PlayerToFile.AddPlayerToList(player.getName());
 	       		   return true;
 	       	   }
-	       	   player.sendMessage(CCEconomy.money + "$" + balance);
+	       	   player.sendMessage(CCEconomy.messages + "Balance: " + CCEconomy.money + "$" + balance);
 	       	   return true;
 	       }
 	    } 
