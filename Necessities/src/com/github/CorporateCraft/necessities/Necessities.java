@@ -26,47 +26,55 @@ public class Necessities extends JavaPlugin
 		{	
 			return CmdOps.CommandUse(sender, cmd, label, args);
 		}
-		if(cmd.getName().equalsIgnoreCase("banned"))
+		else if(cmd.getName().equalsIgnoreCase("banned"))
 		{
 			return CmdBanned.CommandUse(sender, cmd, label, args);
 		}
-		if(cmd.getName().equalsIgnoreCase("bannedips"))
+		else if(cmd.getName().equalsIgnoreCase("bannedips"))
 		{
 			return CmdBannedips.CommandUse(sender, cmd, label, args);
 		}
-		if(cmd.getName().equalsIgnoreCase("tpaccept"))
+		else if(cmd.getName().equalsIgnoreCase("kill"))
+		{	
+			return CmdKill.CommandUse(sender, cmd, label, args);
+		}
+		else if(cmd.getName().equalsIgnoreCase("suicide"))
+		{	
+			return CmdSuicide.CommandUse(sender, cmd, label, args);
+		}
+		else if(cmd.getName().equalsIgnoreCase("tpaccept"))
 		{
 			return CmdTpAccept.CommandUse(sender, cmd, label, args);
 		}
-		if(cmd.getName().equalsIgnoreCase("tpdeny"))
+		else if(cmd.getName().equalsIgnoreCase("tpdeny"))
 		{
 			return CmdTpDeny.CommandUse(sender, cmd, label, args);
 		}
-		if(cmd.getName().equalsIgnoreCase("tpa"))
+		else if(cmd.getName().equalsIgnoreCase("tpa"))
 		{
 			return CmdTpa.CommandUse(sender, cmd, label, args);
 		}
-		if(cmd.getName().equalsIgnoreCase("tpahere"))
+		else if(cmd.getName().equalsIgnoreCase("tpahere"))
 		{
 			return CmdTpahere.CommandUse(sender, cmd, label, args);
 		}
-		if(cmd.getName().equalsIgnoreCase("tp"))
+		else if(cmd.getName().equalsIgnoreCase("tp"))
 		{
 			return CmdTp.CommandUse(sender, cmd, label, args);
 		}
-		if(cmd.getName().equalsIgnoreCase("tphere"))
+		else if(cmd.getName().equalsIgnoreCase("tphere"))
 		{
 			return CmdTphere.CommandUse(sender, cmd, label, args);
 		}
-		if(cmd.getName().equalsIgnoreCase("motd"))
+		else if(cmd.getName().equalsIgnoreCase("motd"))
 		{
 			return CmdMotd.CommandUse(sender, cmd, label, args);
 		}
-		if(cmd.getName().equalsIgnoreCase("rules"))
+		else if(cmd.getName().equalsIgnoreCase("rules"))
 		{
 			return CmdRules.CommandUse(sender, cmd, label, args);
 		}
-		if(cmd.getName().equalsIgnoreCase("permissions"))
+		else if(cmd.getName().equalsIgnoreCase("permissions"))
 		{
 			return CmdPermissions.CommandUse(sender, cmd, label, args);
 		}

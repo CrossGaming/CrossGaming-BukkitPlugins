@@ -56,6 +56,14 @@ commands:
       description: Shows the ips that are banned from a server
       usage: /<command>
       permission: Necessities.bannedips
+   kill:
+      description: Kills <name> with an optional message
+      usage: /<command> <name> <message>
+      permission: Necessities.kill
+   suicide:
+      description: Commits suicide
+      usage: /<command>
+      permission: Necessities.suicide
 
 permissions:
     Necessities.*:
@@ -73,6 +81,8 @@ permissions:
             Necessities.ops: true
             Necessities.banned: true
             Necessities.bannedips: true
+            Necessities.kill: true
+            Necessities.suicide: true
     Necessities.tpaccept:
         description: Allows you to accept teleports.
         default: true
@@ -91,6 +101,9 @@ permissions:
     Necessities.motd:
         description: Allows you to read the motd.
         default: true
+    Necessities.suicide:
+        description: Allows you to commit suicide.
+        default: true
     Necessities.ops:
         description: Allows you to see the current oplist.
         default: true
@@ -108,4 +121,7 @@ permissions:
         default: op
     Necessities.perms:
         description: Allows you to see a commands permissions.
+        default: op
+    Necessities.kill:
+        description: Allows you to kill someone with an optional message.
         default: op

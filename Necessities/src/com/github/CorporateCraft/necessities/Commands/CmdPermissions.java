@@ -18,11 +18,7 @@ public class CmdPermissions
 	        }
 			Command com;
 			com = player.getServer().getPluginCommand(args[0]);
-			try
-			{
-				com.getPermission();
-			}
-			catch(Exception e)
+			if(com == null)
 			{
 				player.sendMessage(Necessities.messages + "The command " + args[0] + " is a nonexistant or built in command permissions not able to read built in yet.");
 				return true;
@@ -37,11 +33,7 @@ public class CmdPermissions
 	      	   return false;
 	        }
 			Command com = sender.getServer().getPluginCommand(args[0]);
-			try
-			{
-				com.getPermission();
-			}
-			catch(Exception e)
+			if(com == null)
 			{
 				sender.sendMessage(Necessities.messages + "The command " + args[0] + " is a nonexistant or built in command permissions not able to read built in yet.");
 				return true;
