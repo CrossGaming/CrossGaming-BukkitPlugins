@@ -13,9 +13,9 @@ public class CmdPermissions
 		{
 			Player player = (Player) sender;
 			if (args.length != 1)
-	        {
-	      	   return false;
-	        }
+	        		{
+	      	  		 	return false;
+	        		}
 			Command com;
 			com = player.getServer().getPluginCommand(args[0]);
 			if(com == null)
@@ -29,9 +29,9 @@ public class CmdPermissions
 		else
 		{
 			if (args.length != 1)
-	        {
-	      	   return false;
-	        }
+	        	{
+	      	  		 return false;
+	       		}
 			Command com = sender.getServer().getPluginCommand(args[0]);
 			if(com == null)
 			{
