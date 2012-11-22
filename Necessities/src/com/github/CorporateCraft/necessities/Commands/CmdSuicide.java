@@ -20,7 +20,7 @@ public class CmdSuicide
 			String DeathMessage = player.getName() + " committed suicide";
 			DeathMessage = DeathMessage.trim();
 			player.setHealth(0);
-			Bukkit.broadcastMessage(Necessities.messages + DeathMessage);
+			Bukkit.broadcastMessage(DeathMessage);
 			return true;
         } 
 		else
