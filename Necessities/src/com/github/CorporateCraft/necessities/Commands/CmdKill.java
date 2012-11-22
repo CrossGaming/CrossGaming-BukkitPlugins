@@ -12,8 +12,12 @@ public class CmdKill
 	{
 		if (sender instanceof Player)
 		{
-			Player target = sender.getServer().getPlayer(args[0]);
 			if(args.length == 0)
+			{
+				return false;
+			}
+			Player target = sender.getServer().getPlayer(args[0]);
+			if(target == null)
 			{
 				return false;
 			}
@@ -37,8 +41,12 @@ public class CmdKill
         } 
 		else
 		{
-			Player target = sender.getServer().getPlayer(args[0]);
 			if(args.length == 0)
+			{
+				return false;
+			}
+			Player target = sender.getServer().getPlayer(args[0]);
+			if(target == null)
 			{
 				return false;
 			}
