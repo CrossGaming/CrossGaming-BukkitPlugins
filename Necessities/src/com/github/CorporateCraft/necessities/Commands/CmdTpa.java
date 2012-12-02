@@ -4,7 +4,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import com.github.CorporateCraft.necessities.*;
 
-public class CmdTpa
+public class CmdTpa extends Cmd
 {
 	ArrayLists arl = new ArrayLists();
 	public CmdTpa()

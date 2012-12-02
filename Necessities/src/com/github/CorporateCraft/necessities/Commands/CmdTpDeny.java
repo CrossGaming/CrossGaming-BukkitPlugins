@@ -4,7 +4,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import com.github.CorporateCraft.necessities.*;
 
-public class CmdTpDeny
+public class CmdTpDeny extends Cmd
 {
 	ArrayLists arl = new ArrayLists();
 	public CmdTpDeny()

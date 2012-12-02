@@ -5,7 +5,7 @@ import org.bukkit.entity.Player;
 
 import com.github.CorporateCraft.necessities.*;
 
-public class CmdTpahere
+public class CmdTpahere extends Cmd
 {
 	ArrayLists arl = new ArrayLists();
 	public CmdTpahere()

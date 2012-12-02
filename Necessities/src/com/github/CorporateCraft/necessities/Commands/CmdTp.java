@@ -5,7 +5,7 @@ import com.github.CorporateCraft.necessities.*;
 
 import org.bukkit.entity.Player;
 
-public class CmdTp
+public class CmdTp extends Cmd
 {
 	ArrayLists arl = new ArrayLists();
 	public CmdTp()

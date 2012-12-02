@@ -5,7 +5,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import com.github.CorporateCraft.necessities.*;
 
-public class CmdPermissions
+public class CmdPermissions extends Cmd
 {
 	ArrayLists arl = new ArrayLists();
 	public CmdPermissions()

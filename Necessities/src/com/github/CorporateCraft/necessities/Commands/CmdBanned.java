@@ -5,7 +5,7 @@ import org.bukkit.entity.Player;
 
 import com.github.CorporateCraft.necessities.*;
 
-public class CmdBanned
+public class CmdBanned extends Cmd
 {
 	ArrayLists arl = new ArrayLists();
 	public CmdBanned()

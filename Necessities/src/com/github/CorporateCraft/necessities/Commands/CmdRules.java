@@ -7,7 +7,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import com.github.CorporateCraft.necessities.*;
 
-public class CmdRules
+public class CmdRules extends Cmd
 {
 	ArrayLists arl = new ArrayLists();
 	public CmdRules()

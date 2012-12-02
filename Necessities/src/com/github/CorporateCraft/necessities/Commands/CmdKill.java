@@ -5,7 +5,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 //import com.github.CorporateCraft.necessities.*;
 
-public class CmdKill
+public class CmdKill extends Cmd
 {
 	public CmdKill()
 	{

@@ -4,7 +4,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import com.github.CorporateCraft.necessities.*;
 
-public class CmdBannedips
+public class CmdBannedips extends Cmd
 {
 	ArrayLists arl = new ArrayLists();
 	public CmdBannedips()
