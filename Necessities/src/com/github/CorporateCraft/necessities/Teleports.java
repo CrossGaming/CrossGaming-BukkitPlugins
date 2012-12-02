@@ -19,7 +19,7 @@ public class Teleports
 		{
 			if(arl.GetLastTp().get(i).startsWith(key.split(" ")[0] + " "))
 			{
-				arl.UpdateLastTp(i);
+				arl.RemoveLastTp(i);
 				break;
 			}
 		}
@@ -52,12 +52,12 @@ public class Teleports
 	
 	public void removeTp(String pname, String rname)
 	{
-		arl.UpdateTps(pname + " " + rname);
+		arl.RemoveTps(pname + " " + rname);
 		for(int i = 0; i<arl.GetLastTp().size(); i++)
 		{
 			if(arl.GetLastTp().get(i).equalsIgnoreCase(pname + " " + rname))
 			{
-				arl.UpdateLastTp(i);
+				arl.RemoveLastTp(i);
 				break;
 			}
 		}

@@ -42,7 +42,7 @@ public class ArrayLists
 	{
 		return this.messages;
 	}
-	public void UpdateTps(String key)
+	public void RemoveTps(String key)
 	{
 		this.Tps.remove(key);
 	}
@@ -50,7 +50,7 @@ public class ArrayLists
 	{
 		this.Tps.put(key, value);
 	}
-	public void UpdateLastTp(int i)
+	public void RemoveLastTp(int i)
 	{
 		this.LastTp.remove(i);
 	}
