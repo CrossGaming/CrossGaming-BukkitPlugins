@@ -87,7 +87,7 @@ public class Formatter
 		catch (Exception e){}
 	}
 	
-	public static Boolean FileEmpty(String file)
+	public Boolean FileEmpty(String file)
 	{
 		try
 		{
