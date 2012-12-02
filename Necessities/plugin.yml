@@ -64,6 +64,10 @@ commands:
       description: Commits suicide
       usage: /<command>
       permission: Necessities.suicide
+   ragequit:
+      description: Ragequits the server
+      usage: /<command>
+      permission: Necessities.ragequit
 
 permissions:
     Necessities.*:
@@ -83,6 +87,7 @@ permissions:
             Necessities.bannedips: true
             Necessities.kill: true
             Necessities.suicide: true
+            Necessities.ragequit: true
     Necessities.tpaccept:
         description: Allows you to accept teleports.
         default: true
@@ -112,6 +117,9 @@ permissions:
         default: true
     Necessities.bannedips:
         description: Allows you to see the current banned ips.
+        default: true
+    Necessities.ragequit:
+        description: Allows you to ragequit the server.
         default: true
     Necessities.tp:
         description: Allows you to teleport to people.

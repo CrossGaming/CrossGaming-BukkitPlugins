@@ -1,14 +1,18 @@
 package com.github.CorporateCraft.necessities.Commands;
 
 import org.bukkit.Bukkit;
-import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import com.github.CorporateCraft.necessities.*;
 
 public class CmdSuicide
 {
-	public static boolean CommandUse(CommandSender sender, Command cmd, String label, String[] args)
+	ArrayLists arl = new ArrayLists();
+	public CmdSuicide()
+	{
+
+	}
+	public boolean CommandUse(CommandSender sender, String[] args)
 	{
 		if (sender instanceof Player)
 		{
@@ -25,7 +29,7 @@ public class CmdSuicide
         } 
 		else
 		{
-			sender.sendMessage(Necessities.messages + "You are not a player you can not commit suicide");
+			sender.sendMessage(arl.messages + "You are not a player you can not commit suicide");
         	return true;
 	    }
 	}

@@ -2,57 +2,63 @@ package com.github.CorporateCraft.necessities;
 
 public class Teleports
 {
-	public static boolean hasTp(String pname, String rname)
+	ArrayLists arl = new ArrayLists();
+	public Teleports()
 	{
-		return ArrayLists.Tps.containsKey(pname + " " + rname);
+	
+	}
+	public boolean hasTp(String pname, String rname)
+	{
+		return arl.Tps.containsKey(pname + " " + rname);
 	}
 	
-	public static void CreateTp(String key, String value)
+	public void CreateTp(String key, String value)
 	{
-		ArrayLists.Tps.put(key, value);
-		for(int i = 0; i<ArrayLists.LastTp.size(); i++)
+		
+		arl.Tps.put(key, value);
+		for(int i = 0; i<arl.LastTp.size(); i++)
 		{
-			if(ArrayLists.LastTp.get(i).startsWith(key.split(" ")[0] + " "))
+			if(arl.LastTp.get(i).startsWith(key.split(" ")[0] + " "))
 			{
-				ArrayLists.LastTp.remove(i);
+				arl.LastTp.remove(i);
 				break;
 			}
 		}
-		ArrayLists.LastTp.add(key);
+		arl.LastTp.add(key);
 	}
 	
-	public static String LastOffer(String pname)
+	public String LastOffer(String pname)
 	{
-		for(int i = 0; i<ArrayLists.LastTp.size(); i++)
+		for(int i = 0; i<arl.LastTp.size(); i++)
 		{
-			if(ArrayLists.LastTp.get(i).startsWith(pname + " "))
+			if(arl.LastTp.get(i).startsWith(pname + " "))
 			{
-				return ArrayLists.LastTp.get(i).split(" ")[1];
+				return arl.LastTp.get(i).split(" ")[1];
 			}
 		}
 		return pname;
 	}
 	
-	public static String AcceptTp(String pname, String rname)
+	public String AcceptTp(String pname, String rname)
 	{
-		String Info = ArrayLists.Tps.get(pname + " " + rname);
+		String Info = arl.Tps.get(pname + " " + rname);
 		removeTp(pname, rname);
 		return Info;
 	}
 	
-	public static void DenyTp(String pname, String rname)
+	public void DenyTp(String pname, String rname)
 	{
 		removeTp(pname, rname);
 	}
 	
-	public static void removeTp(String pname, String rname)
+	public void removeTp(String pname, String rname)
 	{
-		ArrayLists.Tps.remove(pname + " " + rname);
-		for(int i = 0; i<ArrayLists.LastTp.size(); i++)
+		arl.Tps.remove(pname + " " + rname);
+		for(int i = 0; i<arl.LastTp.size(); i++)
 		{
-			if(ArrayLists.LastTp.get(i).equalsIgnoreCase(pname + " " + rname))
+			if(arl.LastTp.get(i).equalsIgnoreCase(pname + " " + rname))
 			{
-				ArrayLists.LastTp.remove(i);
+				arl.LastTp.remove(i);
 				break;
 			}
 		}

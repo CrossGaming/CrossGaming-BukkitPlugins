@@ -5,15 +5,21 @@ import java.io.IOException;
 
 public class Initialization
 {
-	public static void InitiateFiles()
+	ArrayLists arl = new ArrayLists();
+	public Initialization()
+	{
+		
+	}
+	public void InitiateFiles()
 	{
 		DirCreate("plugins/Necessities");
-		FileCreate(Necessities.Motdfile);
-		FileCreate(Necessities.Rulesfile);
-		ArrayLists.StartLists();
+		FileCreate(arl.Motdfile);
+		FileCreate(arl.Rulesfile);
+		ArrayLists ar = new ArrayLists();
+		ar.StartLists();
 	}
 	
-	private static void DirCreate(String directory)
+	private void DirCreate(String directory)
 	{
 		File d = new File(directory);
 		if(!d.exists())
@@ -26,7 +32,7 @@ public class Initialization
 		}
 	}
 	
-	private static void FileCreate(String file)
+	private void FileCreate(String file)
 	{
 		File f = new File(file);
 		if(!f.exists())

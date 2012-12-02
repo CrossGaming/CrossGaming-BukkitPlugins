@@ -3,21 +3,29 @@ package com.github.CorporateCraft.necessities.Commands;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
-import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import com.github.CorporateCraft.necessities.*;
 
 public class CmdMotd
 {
-	public static boolean CommandUse(CommandSender sender, Command cmd, String label, String[] args)
+	ArrayLists arl = new ArrayLists();
+	public CmdMotd()
+	{
+
+	}
+	public boolean CommandUse(CommandSender sender, String[] args)
 	{
 		if (sender instanceof Player)
 		{
+			if(args.length != 0)
+			{
+				return false;
+			}
 			Player player = (Player) sender;
 			try
 			{
-			    FileReader reader = new FileReader(Necessities.Motdfile);
+			    FileReader reader = new FileReader(arl.Motdfile);
 			    BufferedReader buff = new BufferedReader(reader);
 			    while(true)
 			    {
@@ -26,7 +34,7 @@ public class CmdMotd
 			        {
 			         	break;
 			        }
-			        player.sendMessage(Necessities.messages + inputText);
+			        player.sendMessage(arl.messages + inputText);
 			    }
 			}
 			catch (IOException ex){}
@@ -34,9 +42,13 @@ public class CmdMotd
 		}
 		else
 		{
+			if(args.length != 0)
+			{
+				return false;
+			}
 			try
 			{
-			    FileReader reader = new FileReader(Necessities.Motdfile);
+			    FileReader reader = new FileReader(arl.Motdfile);
 			    BufferedReader buff = new BufferedReader(reader);
 			    while(true)
 			    {
@@ -45,7 +57,7 @@ public class CmdMotd
 			        {
 			         	break;
 			        }
-			        sender.sendMessage(Necessities.messages + inputText);
+			        sender.sendMessage(arl.messages + inputText);
 			    }
 			}
 			catch (IOException ex){}

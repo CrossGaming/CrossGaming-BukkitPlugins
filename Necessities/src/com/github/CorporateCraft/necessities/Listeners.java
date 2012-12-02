@@ -10,6 +10,7 @@ import org.bukkit.event.player.PlayerJoinEvent;
 
 public class Listeners implements Listener
 {
+	ArrayLists arl = new ArrayLists();
 	@EventHandler
 	public void onPlayerJoin(PlayerJoinEvent event)
 	{
@@ -18,7 +19,7 @@ public class Listeners implements Listener
     	{
     		try
     		{
-    			FileReader reader = new FileReader(Necessities.Motdfile);
+    			FileReader reader = new FileReader(arl.Motdfile);
     			BufferedReader buff = new BufferedReader(reader);
     			while(true)
     			{
@@ -27,7 +28,7 @@ public class Listeners implements Listener
 		        	{
     					break;
 		        	}
-    				player.sendMessage(Necessities.messages + inputText);
+    				player.sendMessage(arl.messages + inputText);
     			}
     		}
     		catch (IOException ex){}

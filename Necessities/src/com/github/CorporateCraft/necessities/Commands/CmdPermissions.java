@@ -7,7 +7,12 @@ import com.github.CorporateCraft.necessities.*;
 
 public class CmdPermissions
 {
-	public static boolean CommandUse(CommandSender sender, Command cmd, String label, String[] args)
+	ArrayLists arl = new ArrayLists();
+	public CmdPermissions()
+	{
+
+	}
+	public boolean CommandUse(CommandSender sender, String[] args)
 	{
 		if (sender instanceof Player)
 		{
@@ -20,10 +25,10 @@ public class CmdPermissions
 			com = player.getServer().getPluginCommand(args[0]);
 			if(com == null)
 			{
-				player.sendMessage(Necessities.messages + "The command " + args[0] + " is a nonexistant or built in command permissions not able to read built in yet.");
+				player.sendMessage(arl.messages + "The command " + args[0] + " is a nonexistant or built in command permissions not able to read built in yet.");
 				return true;
 			}
-			player.sendMessage(Necessities.messages + com.getPermission());
+			player.sendMessage(arl.messages + com.getPermission());
 			return true;
 		}
 		else
@@ -35,10 +40,10 @@ public class CmdPermissions
 			Command com = sender.getServer().getPluginCommand(args[0]);
 			if(com == null)
 			{
-				sender.sendMessage(Necessities.messages + "The command " + args[0] + " is a nonexistant or built in command permissions not able to read built in yet.");
+				sender.sendMessage(arl.messages + "The command " + args[0] + " is a nonexistant or built in command permissions not able to read built in yet.");
 				return true;
 			}
-			sender.sendMessage(Necessities.messages + com.getPermission().toString());
+			sender.sendMessage(arl.messages + com.getPermission().toString());
 			return true;
 		}
 	}

@@ -12,45 +12,12 @@ import java.util.ArrayList;
 
 public class Formatter
 {
-	public static String CapFirst(String ToCap)
+	public Formatter()
 	{
-		ArrayList<Character> CurrentWord = new ArrayList<Character>();
-		ArrayList<Character> NewWord = new ArrayList<Character>();
-		for(int i =0; i < ToCap.length(); i++)
-		{
-			CurrentWord.add(ToCap.charAt(i));
-		}
-		for(int i = 0; i < CurrentWord.size(); i++)
-		{
-			if(i == 0)
-			{
-				NewWord.add(Character.toUpperCase(CurrentWord.get(i)));
-			}
-			else
-			{
-				if(CurrentWord.get(i).equals('_'))
-				{
-					NewWord.add(' ');
-				}
-				else if(CurrentWord.get(i-1).equals('_'))
-				{
-					NewWord.add(Character.toUpperCase(CurrentWord.get(i)));
-				}
-				else
-				{
-					NewWord.add(Character.toLowerCase(CurrentWord.get(i)));
-				}
-			}
-		}
-		String New = "";
-		for(int i = 0; i < NewWord.size(); i++)
-		{
-			New = New + NewWord.get(i);
-		}
-		return New;
+		
 	}
 	
-	public static void ReadFile(String file, ArrayList<String> Info)
+	public void ReadFile(String file, ArrayList<String> Info)
 	{
 		Info.clear();
 		try
@@ -70,7 +37,7 @@ public class Formatter
 		catch (IOException ex){}
 	}
 	
-	public static String readFileStr(String file)
+	public String readFileStr(String file)
 	{
 		StringBuilder sb = new StringBuilder();
 		try
@@ -104,7 +71,7 @@ public class Formatter
 		return allFile;
 	}
 	
-	public static void WriteFile(String file, ArrayList<String> Info)
+	public void WriteFile(String file, ArrayList<String> Info)
 	{
 		try
 		{
