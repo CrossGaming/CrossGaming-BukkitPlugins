@@ -19,7 +19,7 @@ public class Listeners implements Listener
     	{
     		try
     		{
-    			FileReader reader = new FileReader(arl.Motdfile);
+    			FileReader reader = new FileReader(arl.GetMotd());
     			BufferedReader buff = new BufferedReader(reader);
     			while(true)
     			{
@@ -28,7 +28,7 @@ public class Listeners implements Listener
 		        	{
     					break;
 		        	}
-    				player.sendMessage(arl.messages + inputText);
+    				player.sendMessage(arl.GetCol() + inputText);
     			}
     		}
     		catch (IOException ex){}

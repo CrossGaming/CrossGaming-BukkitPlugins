@@ -15,7 +15,6 @@ public class Necessities extends JavaPlugin
 		Initialization init = new Initialization();
 		init.InitiateFiles();
     }
-	Boolean IsCmd = false;
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args)
 	{
 		Cmd Com;
@@ -81,10 +80,9 @@ public class Necessities extends JavaPlugin
 		}
 		else
 		{
-			return IsCmd;
+			return false;
 		}
-		IsCmd = Com.CommandUse(sender, args);
-		return IsCmd; 
+		return Com.CommandUse(sender, args);
 	}	
 	
     @Override

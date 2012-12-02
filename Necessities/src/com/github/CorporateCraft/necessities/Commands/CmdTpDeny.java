@@ -35,20 +35,20 @@ public class CmdTpDeny extends Cmd
 			rname = target.getName();
 			if(telp.hasTp(pname, rname))
 			{
-				player.sendMessage(arl.messages + "Teleport Denied.");
-				target.sendMessage(arl.messages + "Your teleport offer has been denied");
+				player.sendMessage(arl.GetCol() + "Teleport Denied.");
+				target.sendMessage(arl.GetCol() + "Your teleport offer has been denied");
 				telp.DenyTp(pname, rname);
 				return true;
 			}
 			else
 			{
-				player.sendMessage(arl.messages + "You do not have a teleport request from " + rname);
+				player.sendMessage(arl.GetCol() + "You do not have a teleport request from " + rname);
 				return true;
 			}
 		}
 		else
 		{
-			sender.sendMessage(arl.messages + "You are not a player you can't teleport.");
+			sender.sendMessage(arl.GetCol() + "You are not a player you can't teleport.");
 			return true;
 		}
 	}

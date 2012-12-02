@@ -44,24 +44,24 @@ public class CmdTpAccept extends Cmd
 				{
 					player.teleport(target);
 				}
-				player.sendMessage(arl.messages + "Teleport Accepted.");
-				target.sendMessage(arl.messages + "Your teleport offer has been accepted");
+				player.sendMessage(arl.GetCol() + "Teleport Accepted.");
+				target.sendMessage(arl.GetCol() + "Your teleport offer has been accepted");
 				return true;
 			}
 			else
 			{
 				if(rname.equalsIgnoreCase(pname))
 				{
-					player.sendMessage(arl.messages + "You do not have a teleport request pending");
+					player.sendMessage(arl.GetCol() + "You do not have a teleport request pending");
 					return true;
 				}
-				player.sendMessage(arl.messages + "You do not have a teleport request from " + rname);
+				player.sendMessage(arl.GetCol() + "You do not have a teleport request from " + rname);
 				return true;
 			}
 		}
 		else
 		{
-			sender.sendMessage(arl.messages + "You are not a player you can't teleport.");
+			sender.sendMessage(arl.GetCol() + "You are not a player you can't teleport.");
 			return true;
 		}
 	}

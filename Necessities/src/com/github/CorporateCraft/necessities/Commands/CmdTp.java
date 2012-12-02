@@ -26,14 +26,14 @@ public class CmdTp extends Cmd
 			{
 				return false;
 			}
-			player.sendMessage(arl.messages + "Teleporting...");
-			target.sendMessage(arl.messages + "Teleporting...");
+			player.sendMessage(arl.GetCol() + "Teleporting...");
+			target.sendMessage(arl.GetCol() + "Teleporting...");
 			player.teleport(target);
 			return true;
 		}
 		else
 		{
-			sender.sendMessage(arl.messages + "You are not a player you can't teleport.");
+			sender.sendMessage(arl.GetCol() + "You are not a player you can't teleport.");
 			return true;
 		}
 	}

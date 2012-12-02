@@ -25,7 +25,7 @@ public class CmdRules extends Cmd
 			Player player = (Player) sender;
 			try
 			{
-			    FileReader reader = new FileReader(arl.Rulesfile);
+			    FileReader reader = new FileReader(arl.GetRules());
 			    BufferedReader buff = new BufferedReader(reader);
 			    while(true)
 			    {
@@ -34,7 +34,7 @@ public class CmdRules extends Cmd
 			        {
 			         	break;
 			        }
-			        player.sendMessage(arl.messages + inputText);
+			        player.sendMessage(arl.GetCol() + inputText);
 			    }
 			}
 			catch (IOException ex){}
@@ -48,7 +48,7 @@ public class CmdRules extends Cmd
 			}
 			try
 			{
-			    FileReader reader = new FileReader(arl.Rulesfile);
+			    FileReader reader = new FileReader(arl.GetRules());
 			    BufferedReader buff = new BufferedReader(reader);
 			    while(true)
 			    {
@@ -57,7 +57,7 @@ public class CmdRules extends Cmd
 			        {
 			         	break;
 			        }
-			        sender.sendMessage(arl.messages + inputText);
+			        sender.sendMessage(arl.GetCol() + inputText);
 			    }
 			}
 			catch (IOException ex){}

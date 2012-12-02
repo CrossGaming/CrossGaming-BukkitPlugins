@@ -24,10 +24,10 @@ public class CmdOps extends Cmd
 			String line = form.readFileStr("ops.txt");
 			if(line == null)
 			{
-				player.sendMessage(arl.messages + "There are no operators.");
+				player.sendMessage(arl.GetCol() + "There are no operators.");
 				return true;
 			}
-			player.sendMessage(arl.messages + "The Operators are: " + line);
+			player.sendMessage(arl.GetCol() + "The Operators are: " + line);
 			return true;
         } 
 		else
@@ -39,10 +39,10 @@ public class CmdOps extends Cmd
 			String line = form.readFileStr("ops.txt");
 			if(line == null)
 			{
-				sender.sendMessage(arl.messages + "There are no operators.");
+				sender.sendMessage(arl.GetCol() + "There are no operators.");
 				return true;
 			}
-			sender.sendMessage(arl.messages + "The Operators are: " + line);
+			sender.sendMessage(arl.GetCol() + "The Operators are: " + line);
 			return true;
 	    }
 	}

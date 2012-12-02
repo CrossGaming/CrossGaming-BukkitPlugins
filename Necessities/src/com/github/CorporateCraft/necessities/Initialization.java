@@ -13,8 +13,8 @@ public class Initialization
 	public void InitiateFiles()
 	{
 		DirCreate("plugins/Necessities");
-		FileCreate(arl.Motdfile);
-		FileCreate(arl.Rulesfile);
+		FileCreate(arl.GetMotd());
+		FileCreate(arl.GetRules());
 		ArrayLists ar = new ArrayLists();
 		ar.StartLists();
 	}

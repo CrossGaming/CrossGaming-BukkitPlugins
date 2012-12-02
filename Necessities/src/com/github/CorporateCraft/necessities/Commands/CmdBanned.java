@@ -26,10 +26,10 @@ public class CmdBanned extends Cmd
 			String line = form.readFileStr("banned-players");
 			if(line == null)
 			{
-				player.sendMessage(arl.messages + "There are no banned players.");
+				player.sendMessage(arl.GetCol() + "There are no banned players.");
 				return true;
 			}
-			player.sendMessage(arl.messages + "Banned Players: " + line);
+			player.sendMessage(arl.GetCol() + "Banned Players: " + line);
 			return true;
 		}
 		else
@@ -41,10 +41,10 @@ public class CmdBanned extends Cmd
 			String line = form.readFileStr("banned-players");
 			if(line == null)
 			{
-				sender.sendMessage(arl.messages + "There are no banned players.");
+				sender.sendMessage(arl.GetCol() + "There are no banned players.");
 				return true;
 			}
-			sender.sendMessage(arl.messages + "Banned Players: " + line);
+			sender.sendMessage(arl.GetCol() + "Banned Players: " + line);
 	        return true;
 	    }
 	}

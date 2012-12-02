@@ -21,13 +21,13 @@ public class CmdRagequit extends Cmd
 				return false;
 			}
 			Player player = (Player) sender;
-			player.kickPlayer(arl.messages + "RAGEQUIT!");
-			Bukkit.broadcastMessage(arl.messages + player.getName() + " RAGEQUIT the server!");
+			player.kickPlayer(arl.GetCol() + "RAGEQUIT!");
+			Bukkit.broadcastMessage(arl.GetCol() + player.getName() + " RAGEQUIT the server!");
 			return true;
         } 
 		else
 		{
-			sender.sendMessage(arl.messages + "You cannot ragequit you would kill the server.");
+			sender.sendMessage(arl.GetCol() + "You cannot ragequit you would kill the server.");
 			return true;
 	    }
 	}

@@ -29,7 +29,7 @@ public class CmdSuicide extends Cmd
         } 
 		else
 		{
-			sender.sendMessage(arl.messages + "You are not a player you can not commit suicide");
+			sender.sendMessage(arl.GetCol() + "You are not a player you can not commit suicide");
         	return true;
 	    }
 	}

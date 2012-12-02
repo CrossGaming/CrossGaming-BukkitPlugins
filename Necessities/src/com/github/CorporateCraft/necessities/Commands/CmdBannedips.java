@@ -24,10 +24,10 @@ public class CmdBannedips extends Cmd
 	    	String line = form.readFileStr("banned-ips");
 	       	if(line == null)
 			{
-				player.sendMessage(arl.messages + "There are no banned ips.");
+				player.sendMessage(arl.GetCol() + "There are no banned ips.");
 				return true;
 			}
-	       	player.sendMessage(arl.messages + "Banned Ips: " + line);
+	       	player.sendMessage(arl.GetCol() + "Banned Ips: " + line);
 	       	return true;
 		}
 		else
@@ -39,10 +39,10 @@ public class CmdBannedips extends Cmd
 			String line = form.readFileStr("banned-ips");
 			if(line == null)
 			{
-				sender.sendMessage(arl.messages + "There are no banned ips.");
+				sender.sendMessage(arl.GetCol() + "There are no banned ips.");
 				return true;
 			}
-			sender.sendMessage(arl.messages + "Banned Ips: " + line);
+			sender.sendMessage(arl.GetCol() + "Banned Ips: " + line);
 	        return true;
 	    }
 	}
