@@ -160,7 +160,7 @@ public class CCBot
             {
                 if (langList.get(i).toUpperCase().startsWith((Allowed.get(j)).toUpperCase()))
                 {
-                	Player player = Bukkit.getServer().getPlayer(Player) ;
+                	Player player = Bukkit.getServer().getPlayer(Player);
         			player.kickPlayer(arl.GetCol() + "Watch your language!");
         			Log.Log(player.getName() + " was kicked for using bad language.");
         			Bukkit.broadcastMessage(arl.GetCol() + player.getName() + " was kicked for using bad language.");
@@ -174,9 +174,13 @@ public class CCBot
 		String MessageOrig = Message;
 		Message = Player + ": " + Message;
 		Log.Log(Message);
+		Player player = Bukkit.getServer().getPlayer(Player);
 		SpamChatCheck(Player);
-		Caps(Player, MessageOrig);
-		LangCheck(Player, MessageOrig);
+		if(!player.isOp())
+		{
+			Caps(Player, MessageOrig);
+			LangCheck(Player, MessageOrig);
+		}
 	}
 	public void LogCom(String Player, String Message)
 	{
