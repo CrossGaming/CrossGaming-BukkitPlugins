@@ -3,10 +3,13 @@ package com.github.CorporateCraft.necessities;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.plugin.java.JavaPlugin;
+
+import com.github.CorporateCraft.necessities.CCBot.CCBot;
 import com.github.CorporateCraft.necessities.Commands.*;
 
 public class Necessities extends JavaPlugin
 {	
+	CCBot Bot = new CCBot();
 	@Override
     public void onEnable()
 	{	
@@ -14,6 +17,7 @@ public class Necessities extends JavaPlugin
 		getServer().getPluginManager().registerEvents(new Listeners(), this);
 		Initialization init = new Initialization();
 		init.InitiateFiles();
+		Bot.StartTimer();
     }
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args)
 	{
@@ -88,6 +92,7 @@ public class Necessities extends JavaPlugin
     @Override
     public void onDisable()
     {
+    	Bot.CancelTimer();
     	getLogger().info("The necessities your server needs are now missing.");
     }
 }

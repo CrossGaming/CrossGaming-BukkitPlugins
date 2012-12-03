@@ -18,10 +18,15 @@ public class Listeners implements Listener
 {
 	ArrayLists arl = new ArrayLists();
 	CCBot Bot = new CCBot();
+	public Listeners()
+	{
+		
+	}
 	@EventHandler
 	public void onPlayerJoin(PlayerJoinEvent event)
 	{
-    	Player player = event.getPlayer();
+		Player player = event.getPlayer();
+		Bot.LogIn(player.getName());
     	if(player.hasPermission("Necessities.motd"))
     	{
     		try
@@ -40,7 +45,6 @@ public class Listeners implements Listener
     		}
     		catch (IOException ex){}
     	}
-    	Bot.LogIn(player.getName());
 	}
 	@EventHandler
 	public void onPlayerQuit(PlayerQuitEvent event)

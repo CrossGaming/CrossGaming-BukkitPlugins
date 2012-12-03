@@ -16,6 +16,7 @@ public class Initialization
 		DirCreate("plugins/Necessities/Logs");
 		FileCreate(arl.GetMotd());
 		FileCreate(arl.GetRules());
+		FileCreate(arl.GetProf());
 		ArrayLists ar = new ArrayLists();
 		ar.StartLists();
 	}

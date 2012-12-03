@@ -13,14 +13,15 @@ public class ArrayLists
 	}
 	private HashMap<String,String> Tps = new HashMap<String,String>();
 	private ArrayList<String> LastTp = new ArrayList<String>();
-	//Not just lists now but more a variables file
+	private ArrayList<String> AllowedMsg = new ArrayList<String>();
 	private final String Motdfile = "plugins/Necessities/MOTD.txt";
 	private final String Rulesfile = "plugins/Necessities/Rules.txt";
+	private final String Profanityfile = "plugins/Necessities/BadWords.txt";
 	private ChatColor messages = ChatColor.GREEN;
 	
 	public void StartLists()
 	{
-
+		
 	}
 	public HashMap<String,String> GetTps()
 	{
@@ -30,6 +31,10 @@ public class ArrayLists
 	{
 		return this.LastTp;
 	}
+	public ArrayList<String> GetAllowed()
+	{
+		return this.AllowedMsg;
+	}
 	public String GetMotd()
 	{
 		return this.Motdfile;
@@ -37,6 +42,10 @@ public class ArrayLists
 	public String GetRules()
 	{
 		return this.Rulesfile;
+	}
+	public String GetProf()
+	{
+		return this.Profanityfile;
 	}
 	public ChatColor GetCol()
 	{
