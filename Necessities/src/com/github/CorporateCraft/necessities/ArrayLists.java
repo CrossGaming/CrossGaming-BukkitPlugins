@@ -11,9 +11,8 @@ public class ArrayLists
 	{
 		
 	}
-	private HashMap<String,String> Tps = new HashMap<String,String>();
-	private ArrayList<String> LastTp = new ArrayList<String>();
-	private ArrayList<String> AllowedMsg = new ArrayList<String>();
+	public HashMap<String,String> Tps = new HashMap<String,String>();
+	public ArrayList<String> LastTp = new ArrayList<String>();
 	private final String Motdfile = "plugins/Necessities/MOTD.txt";
 	private final String Rulesfile = "plugins/Necessities/Rules.txt";
 	private final String Profanityfile = "plugins/Necessities/BadWords.txt";
@@ -22,18 +21,6 @@ public class ArrayLists
 	public void StartLists()
 	{
 		
-	}
-	public HashMap<String,String> GetTps()
-	{
-		return this.Tps;
-	}
-	public ArrayList<String> GetLastTp()
-	{
-		return this.LastTp;
-	}
-	public ArrayList<String> GetAllowed()
-	{
-		return this.AllowedMsg;
 	}
 	public String GetMotd()
 	{

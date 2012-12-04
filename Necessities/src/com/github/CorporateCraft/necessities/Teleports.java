@@ -9,15 +9,15 @@ public class Teleports
 	}
 	public boolean hasTp(String pname, String rname)
 	{
-		return arl.GetTps().containsKey(pname + " " + rname);
+		return arl.Tps.containsKey(pname + " " + rname);
 	}
 	
 	public void CreateTp(String key, String value)
 	{
 		arl.AddTps(key, value);
-		for(int i = 0; i<arl.GetLastTp().size(); i++)
+		for(int i = 0; i<arl.LastTp.size(); i++)
 		{
-			if(arl.GetLastTp().get(i).startsWith(key.split(" ")[0] + " "))
+			if(arl.LastTp.get(i).startsWith(key.split(" ")[0] + " "))
 			{
 				arl.RemoveLastTp(i);
 				break;
@@ -28,11 +28,11 @@ public class Teleports
 	
 	public String LastOffer(String pname)
 	{
-		for(int i = 0; i<arl.GetLastTp().size(); i++)
+		for(int i = 0; i<arl.LastTp.size(); i++)
 		{
-			if(arl.GetLastTp().get(i).startsWith(pname + " "))
+			if(arl.LastTp.get(i).startsWith(pname + " "))
 			{
-				return arl.GetLastTp().get(i).split(" ")[1];
+				return arl.LastTp.get(i).split(" ")[1];
 			}
 		}
 		return pname;
@@ -40,7 +40,7 @@ public class Teleports
 	
 	public String AcceptTp(String pname, String rname)
 	{
-		String Info = arl.GetTps().get(pname + " " + rname);
+		String Info = arl.Tps.get(pname + " " + rname);
 		removeTp(pname, rname);
 		return Info;
 	}
@@ -53,9 +53,9 @@ public class Teleports
 	public void removeTp(String pname, String rname)
 	{
 		arl.RemoveTps(pname + " " + rname);
-		for(int i = 0; i<arl.GetLastTp().size(); i++)
+		for(int i = 0; i<arl.LastTp.size(); i++)
 		{
-			if(arl.GetLastTp().get(i).equalsIgnoreCase(pname + " " + rname))
+			if(arl.LastTp.get(i).equalsIgnoreCase(pname + " " + rname))
 			{
 				arl.RemoveLastTp(i);
 				break;
