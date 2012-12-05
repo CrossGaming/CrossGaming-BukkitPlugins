@@ -68,6 +68,10 @@ commands:
       description: Ragequits the server
       usage: /<command>
       permission: Necessities.ragequit
+   enchant:
+      description: Enchants the item in hand
+      usage: /<command> <enchantment_name> <level>
+      permission: Necessities.enchant
 
 permissions:
     Necessities.*:
@@ -88,6 +92,7 @@ permissions:
             Necessities.kill: true
             Necessities.suicide: true
             Necessities.ragequit: true
+            Necessities.enchant: true
     Necessities.tpaccept:
         description: Allows you to accept teleports.
         default: true
@@ -121,6 +126,9 @@ permissions:
     Necessities.ragequit:
         description: Allows you to ragequit the server.
         default: true
+    Necessities.enchant:
+        description: Allows you to enchant items.
+        default: op
     Necessities.tp:
         description: Allows you to teleport to people.
         default: op

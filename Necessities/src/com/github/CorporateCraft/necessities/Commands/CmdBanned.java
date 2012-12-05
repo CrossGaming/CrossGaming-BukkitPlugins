@@ -15,7 +15,6 @@ public class CmdBanned extends Cmd
 	public boolean CommandUse(CommandSender sender, String[] args)
 	{
 		Formatter form = new Formatter();
-		
 		if (sender instanceof Player)
 		{
 			if(args.length != 0)

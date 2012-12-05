@@ -34,6 +34,10 @@ public class Necessities extends JavaPlugin
 		{
 			Com = new CmdBannedips();
 		}
+		else if(cmd.getName().equalsIgnoreCase("enchant"))
+		{
+			Com = new CmdEnchant();
+		}
 		else if(cmd.getName().equalsIgnoreCase("kill"))
 		{	
 			Com = new CmdKill();
