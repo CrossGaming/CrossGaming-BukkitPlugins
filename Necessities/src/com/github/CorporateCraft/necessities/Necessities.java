@@ -3,13 +3,10 @@ package com.github.CorporateCraft.necessities;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.plugin.java.JavaPlugin;
-
-import com.github.CorporateCraft.necessities.CCBot.CCBot;
 import com.github.CorporateCraft.necessities.Commands.*;
 
 public class Necessities extends JavaPlugin
 {	
-	CCBot Bot = new CCBot();
 	@Override
     public void onEnable()
 	{	
@@ -17,11 +14,10 @@ public class Necessities extends JavaPlugin
 		getServer().getPluginManager().registerEvents(new Listeners(), this);
 		Initialization init = new Initialization();
 		init.InitiateFiles();
-		Bot.StartTimer();
     }
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args)
 	{
-		Cmd Com;
+		Cmd Com = new Cmd();
 		if(cmd.getName().equalsIgnoreCase("ops"))
 		{	
 			Com = new CmdOps();
@@ -33,6 +29,18 @@ public class Necessities extends JavaPlugin
 		else if(cmd.getName().equalsIgnoreCase("bannedips"))
 		{
 			Com = new CmdBannedips();
+		}
+		else if(cmd.getName().equalsIgnoreCase("gamemode"))
+		{
+			Com = new CmdGameMode();
+		}
+		else if(cmd.getName().equalsIgnoreCase("reload"))
+		{
+			Com = new CmdReload();
+		}
+		else if(cmd.getName().equalsIgnoreCase("warn"))
+		{
+			Com = new CmdWarn();
 		}
 		else if(cmd.getName().equalsIgnoreCase("enchant"))
 		{
@@ -86,17 +94,12 @@ public class Necessities extends JavaPlugin
 		{
 			Com = new CmdRagequit();
 		}
-		else
-		{
-			return false;
-		}
 		return Com.CommandUse(sender, args);
 	}	
 	
     @Override
     public void onDisable()
     {
-    	Bot.CancelTimer();
     	getLogger().info("The necessities your server needs are now missing.");
     }
 }

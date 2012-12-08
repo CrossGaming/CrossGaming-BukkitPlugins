@@ -1,8 +1,7 @@
 package com.github.CorporateCraft.necessities.CCBot;
 
 import java.util.ArrayList;
-import java.util.Timer;
-import java.util.TimerTask;
+import java.util.HashMap;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import com.github.CorporateCraft.necessities.*;
@@ -13,117 +12,57 @@ public class CCBot
 	CCBotLog Log = new CCBotLog();
 	Formatter form = new Formatter();
 	EditString Edit = new EditString();
-	private String[] LastChat = new String[10];
-	private String[] LastCmd = new String[20];
+	private HashMap<String,Long> LastChat = new HashMap<String,Long>();
+	private HashMap<String,Long> LastCmd = new HashMap<String,Long>();
 	private ArrayList<String> Allowed = new ArrayList<String>();
-	private final Timer timer = new Timer();
+	private int ChatSpam = 2;
+	private int CmdSpam = 3;
 	public CCBot()
 	{
 		form.ReadFile(arl.GetProf(), Allowed);
 	}
-	public void CancelTimer()
+	private void RemovePlayer(String name)
 	{
-		timer.cancel();
+		LastChat.remove(name);
+		LastCmd.remove(name);
 	}
-	public void StartTimer()
+	private void CheckChatSpam(String Player)
 	{
-		timer.schedule(new TimerTask() {public void run() {ResetSpam();}}, 15000/*15 seconds*/);
+		Long Time = System.currentTimeMillis();
+		if(!LastChat.containsKey(Player))
+		{
+			LastChat.put(Player, Time);
+			return;
+		}
+		Long LastTime = LastChat.get(Player);
+		if((Time - LastTime)/1000 > ChatSpam)
+		{
+			LastChat.put(Player, Time);
+			return;
+		}
+		Player player = Bukkit.getServer().getPlayer(Player) ;
+		player.kickPlayer(arl.GetCol() + "Don't spam the chat!");
+		Log.Log(player.getName() + " was kicked for spamming the chat.");
+		Bukkit.broadcastMessage(arl.GetCol() + player.getName() + " was kicked for spamming the chat.");
 	}
-	private void ResetSpam()
+	private void CheckCmdSpam(String Player)
 	{
-		for(int i = 0; i < LastCmd.length; i++)
+		Long Time = System.currentTimeMillis();
+		if(!LastCmd.containsKey(Player))
 		{
-			LastCmd[i] = "";
+			LastCmd.put(Player, Time);
+			return;
 		}
-		for(int i = 0; i < LastChat.length; i++)
+		Long LastTime = LastCmd.get(Player);
+		if((Time - LastTime)/1000 > CmdSpam)
 		{
-			LastChat[i] = "";
+			LastCmd.put(Player, Time);
+			return;
 		}
-		timer.schedule(new TimerTask() {public void run() {ResetSpam();}}, 15000/*15 seconds*/);
-	}
-	private void CheckChatSpam()
-	{
-		Boolean Spam = true;
-		for(int i = 0; i < LastChat.length; i++)
-		{
-			for(int j = i+1; j < LastChat.length; j++)
-			{
-				if(!LastChat[j].equalsIgnoreCase(LastChat[i]))
-				{
-					Spam = false;
-					break;
-				}
-			}
-		}
-		if(Spam)
-		{
-			Player player = Bukkit.getServer().getPlayer(LastChat[0]) ;
-			player.kickPlayer(arl.GetCol() + "Don't spam the chat!");
-			Log.Log(player.getName() + " was kicked for spamming the chat.");
-			Bukkit.broadcastMessage(arl.GetCol() + player.getName() + " was kicked for spamming the chat.");
-			for(int i = 0; i < LastChat.length; i++)
-			{
-				LastChat[i] = "";
-			}
-		}
-	}
-	private void CheckCmdSpam()
-	{
-		Boolean Spam = true;
-		for(int i = 0; i < LastCmd.length; i++)
-		{
-			for(int j = i+1; j < LastCmd.length; j++)
-			{
-				if(!LastCmd[j].equalsIgnoreCase(LastCmd[i]))
-				{
-					Spam = false;
-					break;
-				}
-			}
-		}
-		if(Spam)
-		{
-			Player player = Bukkit.getServer().getPlayer(LastCmd[0]) ;
-			player.kickPlayer(arl.GetCol() + "Don't spam commands!");
-			Log.Log(player.getName() + " was kicked for spamming commands.");
-			Bukkit.broadcastMessage(arl.GetCol() + player.getName() + " was kicked for spamming commands.");
-			for(int i = 0; i < LastCmd.length; i++)
-			{
-				LastCmd[i] = "";
-			}
-		}
-	}
-	private void SpamCmdCheck(String Player)
-	{
-		if(LastCmd[0] == null)
-		{
-			for(int i = 0; i < LastCmd.length; i++)
-			{
-				LastCmd[i] = "";
-			}
-		}
-		for(int i = LastCmd.length - 1; i > 0; i--)
-		{
-			LastCmd[i] = LastCmd[i-1];
-		}
-		LastCmd[0] = Player;
-		CheckCmdSpam();
-	}
-	private void SpamChatCheck(String Player)
-	{
-		if(LastChat[0] == null)
-		{
-			for(int i = 0; i < LastChat.length; i++)
-			{
-				LastChat[i] = "";
-			}
-		}
-		for(int i = LastChat.length - 1; i > 0; i--)
-		{
-			LastChat[i] = LastChat[i-1];
-		}
-		LastChat[0] = Player;
-		CheckChatSpam();
+		Player player = Bukkit.getServer().getPlayer(Player) ;
+		player.kickPlayer(arl.GetCol() + "Don't spam commands!");
+		Log.Log(player.getName() + " was kicked for spamming commands.");
+		Bukkit.broadcastMessage(arl.GetCol() + player.getName() + " was kicked for spamming commands.");
 	}
 	private void Caps(String Player, String Message)
 	{
@@ -173,20 +112,20 @@ public class CCBot
 	{
 		String MessageOrig = Message;
 		Message = Player + ": " + Message;
-		Log.Log(Message);
+		Log.Log(Message);		
 		Player player = Bukkit.getServer().getPlayer(Player);
-		SpamChatCheck(Player);
 		if(!player.isOp())
 		{
 			Caps(Player, MessageOrig);
 			LangCheck(Player, MessageOrig);
 		}
+		CheckChatSpam(Player);
 	}
 	public void LogCom(String Player, String Message)
 	{
 		Message = Player + " issued server command: " + Message;
 		Log.Log(Message);
-		SpamCmdCheck(Player);
+		CheckCmdSpam(Player);
 	}
 	public void LogConsole(String Message)
 	{
@@ -207,6 +146,7 @@ public class CCBot
 	} 
 	public void LogOut(String Player)
 	{
+		RemovePlayer(Player);
 		String Message = Player + " left the game.";
 		Log.Log(Message);
 	}

@@ -1,6 +1,6 @@
 name: Necessities
 main: com.github.CorporateCraft.necessities.Necessities
-version: 1.0.0.0
+version: 0.0.0.1
 website: http://corporatecraft.x10.mx
 description: Adds necessities of a server
 authors: [CorporateCraft Development Team]
@@ -48,6 +48,7 @@ commands:
       description: Shows the server ops
       usage: /<command>
       permission: Necessities.ops
+      aliases: [operators]
    banned:
       description: Shows who is banned from the server
       usage: /<command>
@@ -72,6 +73,19 @@ commands:
       description: Enchants the item in hand
       usage: /<command> <enchantment_name> <level>
       permission: Necessities.enchant
+   warn:
+      description: Warns a player for <reason>
+      usage: /<command> <player> <reason>
+      permission: Necessities.warn
+   gamemode:
+      description: Sets a players gamemode to <gamemode>
+      usage: /<command> <gamemode> <player>
+      permission: Necessities.gamemode
+      aliases: [gm]
+   reload:
+      description: Reloads the server or a plugin
+      usage: /<command> <plugin>
+      permission: Necessities.reload
 
 permissions:
     Necessities.*:
@@ -93,6 +107,9 @@ permissions:
             Necessities.suicide: true
             Necessities.ragequit: true
             Necessities.enchant: true
+            Necessities.warn: true
+            Necessities.gamemode: true
+            Necessities.reload: true
     Necessities.tpaccept:
         description: Allows you to accept teleports.
         default: true
@@ -129,6 +146,9 @@ permissions:
     Necessities.enchant:
         description: Allows you to enchant items.
         default: op
+    Necessities.warn:
+        description: Allows you to warn players.
+        default: op
     Necessities.tp:
         description: Allows you to teleport to people.
         default: op
@@ -140,4 +160,10 @@ permissions:
         default: op
     Necessities.kill:
         description: Allows you to kill someone with an optional message.
+        default: op
+    Necessities.gamemode:
+        description: Allows you to change someones gamemode
+        default: op
+    Necessities.reload:
+        description: Allows you to reload the server.
         default: op
