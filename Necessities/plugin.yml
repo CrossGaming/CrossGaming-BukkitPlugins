@@ -1,6 +1,6 @@
 name: Necessities
 main: com.github.CorporateCraft.necessities.Necessities
-version: 0.0.0.1
+version: 0.1
 website: http://corporatecraft.x10.mx
 description: Adds necessities of a server
 authors: [CorporateCraft Development Team]
