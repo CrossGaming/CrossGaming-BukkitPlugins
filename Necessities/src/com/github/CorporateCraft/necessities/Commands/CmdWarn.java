@@ -29,6 +29,11 @@ public class CmdWarn extends Cmd
 				p.sendMessage(arl.GetCol() + "Nonexistant player");
 				return true;
 			}
+			if(target.isOp())
+			{
+				p.sendMessage(arl.GetCol() + "You may not warn an op");
+				return true;
+			}
 			String Reason = "";
 			for(int i = 1; i < args.length; i++)
 			{
