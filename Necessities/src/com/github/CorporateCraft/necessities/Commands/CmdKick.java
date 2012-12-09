@@ -4,22 +4,18 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import com.github.CorporateCraft.necessities.ArrayLists;
-import com.github.CorporateCraft.necessities.CCBot.CCBotWarn;
+import com.github.CorporateCraft.necessities.CCBot.*;
 
-public class CmdWarn extends Cmd
+public class CmdKick extends Cmd
 {
 	CCBotWarn Warns = new CCBotWarn();
 	ArrayLists arl = new ArrayLists();
-	public CmdWarn()
+	public CmdKick()
 	{
 		
 	}
 	public boolean CommandUse(CommandSender sender, String[] args)
 	{
-		if(args.length < 2)
-		{
-			return false;
-		}
 		if (sender instanceof Player)
 		{
 			Player p = (Player) sender;
@@ -29,13 +25,27 @@ public class CmdWarn extends Cmd
 				p.sendMessage(arl.GetCol() + "Nonexistant player");
 				return true;
 			}
-			String Reason = "";
-			for(int i = 1; i < args.length; i++)
+			if(target.isOp())
 			{
-				Reason += args[i] + " ";
+				p.sendMessage(arl.GetCol() + "You may not kick an op");
+				return true;
 			}
-			Reason = Reason.trim();
-			Warns.warn(target.getName(), Reason, p.getName());	
+			String Reason = "";
+			if(args.length == 1)
+			{
+				Reason = "Was kicked by " + p.getName() + ".";
+				Reason = Reason.trim();
+			}
+			else
+			{
+				for(int i = 1; i < args.length; i++)
+				{
+					Reason += args[i] + " ";
+				}
+				Reason = Reason.trim();
+			}
+			Warns.Kick(target.getName(), Reason);
+			target.kickPlayer(Reason);
 			return true;
 		}
 		else
@@ -47,12 +57,21 @@ public class CmdWarn extends Cmd
 				return true;
 			}
 			String Reason = "";
-			for(int i = 1; i < args.length; i++)
+			if(args.length == 1)
 			{
-				Reason += args[i] + " ";
+				Reason = "Was kicked by the Console.";
+				Reason = Reason.trim();
 			}
-			Reason = Reason.trim();
-			Warns.warn(target.getName(), Reason, "Console");
+			else
+			{
+				for(int i = 1; i < args.length; i++)
+				{
+					Reason += args[i] + " ";
+				}
+				Reason = Reason.trim();
+			}
+			Warns.Kick(target.getName(), Reason);
+			target.kickPlayer(Reason);
 			return true;
 	    }
 	}

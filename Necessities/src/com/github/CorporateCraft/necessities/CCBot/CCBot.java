@@ -11,12 +11,12 @@ public class CCBot
 	ArrayLists arl = new ArrayLists();
 	CCBotLog Log = new CCBotLog();
 	Formatter form = new Formatter();
-	EditString Edit = new EditString();
+	CCBotWarn Warns = new CCBotWarn();
 	private HashMap<String,Long> LastChat = new HashMap<String,Long>();
 	private HashMap<String,Long> LastCmd = new HashMap<String,Long>();
 	private ArrayList<String> Allowed = new ArrayList<String>();
-	private int ChatSpam = 2;
-	private int CmdSpam = 3;
+	private double ChatSpam = 2;
+	private double CmdSpam = 2;
 	public CCBot()
 	{
 		form.ReadFile(arl.GetProf(), Allowed);
@@ -40,10 +40,7 @@ public class CCBot
 			LastChat.put(Player, Time);
 			return;
 		}
-		Player player = Bukkit.getServer().getPlayer(Player) ;
-		player.kickPlayer(arl.GetCol() + "Don't spam the chat!");
-		Log.Log(player.getName() + " was kicked for spamming the chat.");
-		Bukkit.broadcastMessage(arl.GetCol() + player.getName() + " was kicked for spamming the chat.");
+		Warns.warn(Player, "ChatSpam", "CCBot");
 	}
 	private void CheckCmdSpam(String Player)
 	{
@@ -59,29 +56,23 @@ public class CCBot
 			LastCmd.put(Player, Time);
 			return;
 		}
-		Player player = Bukkit.getServer().getPlayer(Player) ;
-		player.kickPlayer(arl.GetCol() + "Don't spam commands!");
-		Log.Log(player.getName() + " was kicked for spamming commands.");
-		Bukkit.broadcastMessage(arl.GetCol() + player.getName() + " was kicked for spamming commands.");
+		Warns.warn(Player, "CmdSpam", "CCBot");
 	}
 	private void Caps(String Player, String Message)
 	{
-		Message = Edit.RemoveNonLet(Message);
+		Message = Message.replaceAll("[^a-zA-Z]","");
 		if(Message.equals(Message.toUpperCase()))
 		{
 			if(Message.length() > 15)
 			{
-				Player player = Bukkit.getServer().getPlayer(Player) ;
-				player.kickPlayer(arl.GetCol() + "Don't use all caps!");
-				Log.Log(player.getName() + " was kicked for using caps.");
-				Bukkit.broadcastMessage(arl.GetCol() + player.getName() + " was kicked for using caps.");
+				Warns.warn(Player, "Caps", "CCBot");
 			}
 		}
 	}
 	private void LangCheck(String Player, String Message)
 	{
 		ArrayList<String> langList = new ArrayList<String>();
-		Message = Edit.RemoveNonLet(Message);
+		Message = Message.replaceAll("[^a-zA-Z]","");
 		for(int i = 0; i < Message.length(); i++)
 		{
 			try
@@ -99,10 +90,7 @@ public class CCBot
             {
                 if (langList.get(i).toUpperCase().startsWith((Allowed.get(j)).toUpperCase()))
                 {
-                	Player player = Bukkit.getServer().getPlayer(Player);
-        			player.kickPlayer(arl.GetCol() + "Watch your language!");
-        			Log.Log(player.getName() + " was kicked for using bad language.");
-        			Bukkit.broadcastMessage(arl.GetCol() + player.getName() + " was kicked for using bad language.");
+                	Warns.warn(Player, "Language", "CCBot");
                     break;
                 }
             }
@@ -147,6 +135,7 @@ public class CCBot
 	public void LogOut(String Player)
 	{
 		RemovePlayer(Player);
+		Warns.RemovePlayer(Player);
 		String Message = Player + " left the game.";
 		Log.Log(Message);
 	}

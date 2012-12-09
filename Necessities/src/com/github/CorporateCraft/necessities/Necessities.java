@@ -30,6 +30,18 @@ public class Necessities extends JavaPlugin
 		{
 			Com = new CmdBannedips();
 		}
+		else if(cmd.getName().equalsIgnoreCase("kick"))
+		{
+			Com = new CmdKick();
+		}
+		else if(cmd.getName().equalsIgnoreCase("ban"))
+		{
+			Com = new CmdBan();
+		}
+		else if(cmd.getName().equalsIgnoreCase("banip"))
+		{
+			Com = new CmdBanIp();
+		}
 		else if(cmd.getName().equalsIgnoreCase("gamemode"))
 		{
 			Com = new CmdGameMode();

@@ -62,11 +62,11 @@ public class CmdGameMode extends Cmd
             	target.setGameMode(mode);
                 if (target == sender)
                 {
-                	Command.broadcastCommandMessage(sender, "Set own game mode to " + mode.toString() + " mode");
+                	Command.broadcastCommandMessage(sender, arl.GetCol() + "Set own game mode to " + mode.toString() + " mode");
                 }
                 else
                 {
-                	Command.broadcastCommandMessage(sender, "Set " + target.getName() + "'s game mode to " + mode.toString() + " mode");
+                	Command.broadcastCommandMessage(sender, arl.GetCol() + "Set " + target.getName() + "'s game mode to " + mode.toString() + " mode");
                 }
             }
 			return true;
@@ -103,7 +103,7 @@ public class CmdGameMode extends Cmd
             if (mode != target.getGameMode())
             {
             	target.setGameMode(mode);
-                Command.broadcastCommandMessage(sender, "Set " + target.getName() + "'s game mode to " + mode.toString() + " mode");
+                Command.broadcastCommandMessage(sender, arl.GetCol() + "Set " + target.getName() + "'s game mode to " + mode.toString() + " mode");
             }
 	        return true;
 	    }
