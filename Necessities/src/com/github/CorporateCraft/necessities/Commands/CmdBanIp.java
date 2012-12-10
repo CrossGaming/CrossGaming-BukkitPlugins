@@ -14,7 +14,7 @@ public class CmdBanIp extends Cmd
 	{
 		
 	}
-	public boolean CommandUse(CommandSender sender, String[] args)
+	public boolean commandUse(CommandSender sender, String[] args)
 	{
 		if (sender instanceof Player)
 		{
@@ -23,12 +23,12 @@ public class CmdBanIp extends Cmd
 			if(target == null)
 			{
 				Bukkit.banIP(args[0]);
-				Warns.BanIp(args[0], "Was ipbanned by " + p.getName() + ".");
+				Warns.banIp(args[0], "Was ipbanned by " + p.getName() + ".");
 				return true;
 			}
 			if(target.isOp())
 			{
-				p.sendMessage(arl.GetCol() + "You may not ipban an op");
+				p.sendMessage(arl.getCol() + "You may not ipban an op");
 				return true;
 			}
 			String Reason = "";
@@ -45,7 +45,7 @@ public class CmdBanIp extends Cmd
 				}
 				Reason = Reason.trim();
 			}
-			Warns.BanIp(target.getName(), Reason);
+			Warns.banIp(target.getName(), Reason);
 			Bukkit.banIP(target.getAddress().getAddress().getHostAddress());
 			target.kickPlayer(Reason);
 			return true;
@@ -56,7 +56,7 @@ public class CmdBanIp extends Cmd
 			if(target == null)
 			{
 				Bukkit.banIP(args[0]);
-				Warns.BanIp(args[0], "Was ipbanned by the Console.");
+				Warns.banIp(args[0], "Was ipbanned by the Console.");
 				return true;
 			}
 			String Reason = "";
@@ -73,7 +73,7 @@ public class CmdBanIp extends Cmd
 				}
 				Reason = Reason.trim();
 			}
-			Warns.BanIp(target.getName(), Reason);
+			Warns.banIp(target.getName(), Reason);
 			Bukkit.banIP(target.getAddress().getAddress().getHostAddress());
 			target.kickPlayer(Reason);
 			return true;

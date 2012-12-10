@@ -12,7 +12,7 @@ public class CmdSuicide extends Cmd
 	{
 
 	}
-	public boolean CommandUse(CommandSender sender, String[] args)
+	public boolean commandUse(CommandSender sender, String[] args)
 	{
 		if (sender instanceof Player)
 		{
@@ -29,7 +29,7 @@ public class CmdSuicide extends Cmd
         } 
 		else
 		{
-			sender.sendMessage(arl.GetCol() + "You are not a player you can not commit suicide");
+			sender.sendMessage(arl.getCol() + "You are not a player you can not commit suicide");
         	return true;
 	    }
 	}

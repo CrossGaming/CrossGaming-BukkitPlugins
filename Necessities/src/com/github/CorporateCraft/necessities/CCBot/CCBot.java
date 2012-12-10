@@ -19,14 +19,14 @@ public class CCBot
 	private double CmdSpam = 2;
 	public CCBot()
 	{
-		form.ReadFile(arl.GetProf(), Allowed);
+		form.readFile(arl.getProf(), Allowed);
 	}
-	private void RemovePlayer(String name)
+	private void removePlayer(String name)
 	{
 		LastChat.remove(name);
 		LastCmd.remove(name);
 	}
-	private void CheckChatSpam(String Player)
+	private void checkChatSpam(String Player)
 	{
 		Long Time = System.currentTimeMillis();
 		if(!LastChat.containsKey(Player))
@@ -42,7 +42,7 @@ public class CCBot
 		}
 		Warns.warn(Player, "ChatSpam", "CCBot");
 	}
-	private void CheckCmdSpam(String Player)
+	private void checkCmdSpam(String Player)
 	{
 		Long Time = System.currentTimeMillis();
 		if(!LastCmd.containsKey(Player))
@@ -58,7 +58,7 @@ public class CCBot
 		}
 		Warns.warn(Player, "CmdSpam", "CCBot");
 	}
-	private void Caps(String Player, String Message)
+	private void caps(String Player, String Message)
 	{
 		Message = Message.replaceAll("[^a-zA-Z]","");
 		if(Message.equals(Message.toUpperCase()))
@@ -69,7 +69,7 @@ public class CCBot
 			}
 		}
 	}
-	private void LangCheck(String Player, String Message)
+	private void langCheck(String Player, String Message)
 	{
 		ArrayList<String> langList = new ArrayList<String>();
 		Message = Message.replaceAll("[^a-zA-Z]","");
@@ -96,26 +96,26 @@ public class CCBot
             }
         }
 	}
-	public void LogChat(String Player, String Message)
+	public void logChat(String Player, String Message)
 	{
 		String MessageOrig = Message;
 		Message = Player + ": " + Message;
-		Log.Log(Message);		
+		Log.log(Message);		
 		Player player = Bukkit.getServer().getPlayer(Player);
 		if(!player.isOp())
 		{
-			Caps(Player, MessageOrig);
-			LangCheck(Player, MessageOrig);
+			caps(Player, MessageOrig);
+			langCheck(Player, MessageOrig);
 		}
-		CheckChatSpam(Player);
+		checkChatSpam(Player);
 	}
-	public void LogCom(String Player, String Message)
+	public void logCom(String Player, String Message)
 	{
 		Message = Player + " issued server command: " + Message;
-		Log.Log(Message);
-		CheckCmdSpam(Player);
+		Log.log(Message);
+		checkCmdSpam(Player);
 	}
-	public void LogConsole(String Message)
+	public void logConsole(String Message)
 	{
 		if(Message.startsWith("say"))
 		{
@@ -125,18 +125,18 @@ public class CCBot
 		{
 			Message = "Console issued command: " + Message;
 		}
-		Log.Log(Message);
+		Log.log(Message);
 	}
-	public void LogIn(String Player)
+	public void logIn(String Player)
 	{
 		String Message = Player + " joined the game.";
-		Log.Log(Message);
+		Log.log(Message);
 	} 
-	public void LogOut(String Player)
+	public void logOut(String Player)
 	{
-		RemovePlayer(Player);
-		Warns.RemovePlayer(Player);
+		removePlayer(Player);
+		Warns.removePlayer(Player);
 		String Message = Player + " left the game.";
-		Log.Log(Message);
+		Log.log(Message);
 	}
 }

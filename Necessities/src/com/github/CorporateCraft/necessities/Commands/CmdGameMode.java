@@ -14,7 +14,7 @@ public class CmdGameMode extends Cmd
 	{
 		
 	}
-	public boolean CommandUse(CommandSender sender, String[] args)
+	public boolean commandUse(CommandSender sender, String[] args)
 	{
 		if(args.length == 0)
 		{
@@ -62,11 +62,11 @@ public class CmdGameMode extends Cmd
             	target.setGameMode(mode);
                 if (target == sender)
                 {
-                	Command.broadcastCommandMessage(sender, arl.GetCol() + "Set own game mode to " + mode.toString() + " mode");
+                	Command.broadcastCommandMessage(sender, arl.getCol() + "Set own game mode to " + capFirst(mode.toString()) + " mode");
                 }
                 else
                 {
-                	Command.broadcastCommandMessage(sender, arl.GetCol() + "Set " + target.getName() + "'s game mode to " + mode.toString() + " mode");
+                	Command.broadcastCommandMessage(sender, arl.getCol() + "Set " + target.getName() + "'s game mode to " + capFirst(mode.toString()) + " mode");
                 }
             }
 			return true;
@@ -103,9 +103,16 @@ public class CmdGameMode extends Cmd
             if (mode != target.getGameMode())
             {
             	target.setGameMode(mode);
-                Command.broadcastCommandMessage(sender, arl.GetCol() + "Set " + target.getName() + "'s game mode to " + mode.toString() + " mode");
+                Command.broadcastCommandMessage(sender, arl.getCol() + "Set " + target.getName() + "'s game mode to " + capFirst(mode.toString()) + " mode");
             }
 	        return true;
 	    }
+	}
+	private String capFirst(String mode)
+	{
+		String temp = mode.substring(0, 1);
+		mode = mode.toLowerCase();
+		mode = temp.toUpperCase() + mode.substring(1);
+		return mode;
 	}
 }

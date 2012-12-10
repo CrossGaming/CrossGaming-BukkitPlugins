@@ -14,7 +14,7 @@ public class CmdWarn extends Cmd
 	{
 		
 	}
-	public boolean CommandUse(CommandSender sender, String[] args)
+	public boolean commandUse(CommandSender sender, String[] args)
 	{
 		if(args.length < 2)
 		{
@@ -26,12 +26,12 @@ public class CmdWarn extends Cmd
 			Player target = sender.getServer().getPlayer(args[0]);
 			if(target == null)
 			{
-				p.sendMessage(arl.GetCol() + "Nonexistant player");
+				p.sendMessage(arl.getCol() + "Nonexistant player");
 				return true;
 			}
 			if(target.isOp())
 			{
-				p.sendMessage(arl.GetCol() + "You may not warn an op");
+				p.sendMessage(arl.getCol() + "You may not warn an op");
 				return true;
 			}
 			String Reason = "";
@@ -48,7 +48,7 @@ public class CmdWarn extends Cmd
 			Player target = sender.getServer().getPlayer(args[0]);
 			if(target == null)
 			{
-				sender.sendMessage(arl.GetCol() + "Nonexistant player");
+				sender.sendMessage(arl.getCol() + "Nonexistant player");
 				return true;
 			}
 			String Reason = "";

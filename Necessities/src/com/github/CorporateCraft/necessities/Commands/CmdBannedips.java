@@ -11,7 +11,7 @@ public class CmdBannedips extends Cmd
 	{
 		
 	}
-	public boolean CommandUse(CommandSender sender, String[] args)
+	public boolean commandUse(CommandSender sender, String[] args)
 	{
 		Formatter form = new Formatter();
 		if (sender instanceof Player)
@@ -24,10 +24,10 @@ public class CmdBannedips extends Cmd
 	    	String line = form.readFileStr("banned-ips");
 	       	if(line == null)
 			{
-				player.sendMessage(arl.GetCol() + "There are no banned ips.");
+				player.sendMessage(arl.getCol() + "There are no banned ips.");
 				return true;
 			}
-	       	player.sendMessage(arl.GetCol() + "Banned Ips: " + line);
+	       	player.sendMessage(arl.getCol() + "Banned Ips: " + line);
 	       	return true;
 		}
 		else
@@ -39,10 +39,10 @@ public class CmdBannedips extends Cmd
 			String line = form.readFileStr("banned-ips");
 			if(line == null)
 			{
-				sender.sendMessage(arl.GetCol() + "There are no banned ips.");
+				sender.sendMessage(arl.getCol() + "There are no banned ips.");
 				return true;
 			}
-			sender.sendMessage(arl.GetCol() + "Banned Ips: " + line);
+			sender.sendMessage(arl.getCol() + "Banned Ips: " + line);
 	        return true;
 	    }
 	}

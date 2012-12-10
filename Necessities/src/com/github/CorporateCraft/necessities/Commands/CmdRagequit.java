@@ -12,7 +12,7 @@ public class CmdRagequit extends Cmd
 	{
 		
 	}
-	public boolean CommandUse(CommandSender sender, String[] args)
+	public boolean commandUse(CommandSender sender, String[] args)
 	{
 		if (sender instanceof Player)
 		{
@@ -21,13 +21,13 @@ public class CmdRagequit extends Cmd
 				return false;
 			}
 			Player player = (Player) sender;
-			player.kickPlayer(arl.GetCol() + "RAGEQUIT!");
-			Bukkit.broadcastMessage(arl.GetCol() + player.getName() + " RAGEQUIT the server!");
+			player.kickPlayer(arl.getCol() + "RAGEQUIT!");
+			Bukkit.broadcastMessage(arl.getCol() + player.getName() + " RAGEQUIT the server!");
 			return true;
         } 
 		else
 		{
-			sender.sendMessage(arl.GetCol() + "You cannot ragequit you would kill the server.");
+			sender.sendMessage(arl.getCol() + "You cannot ragequit you would kill the server.");
 			return true;
 	    }
 	}

@@ -14,7 +14,7 @@ public class CmdRules extends Cmd
 	{
 
 	}
-	public boolean CommandUse(CommandSender sender, String[] args)
+	public boolean commandUse(CommandSender sender, String[] args)
 	{
 		if (sender instanceof Player)
 		{
@@ -25,7 +25,7 @@ public class CmdRules extends Cmd
 			Player player = (Player) sender;
 			try
 			{
-			    FileReader reader = new FileReader(arl.GetRules());
+			    FileReader reader = new FileReader(arl.getRules());
 			    BufferedReader buff = new BufferedReader(reader);
 			    while(true)
 			    {
@@ -34,7 +34,7 @@ public class CmdRules extends Cmd
 			        {
 			         	break;
 			        }
-			        player.sendMessage(arl.GetCol() + inputText);
+			        player.sendMessage(arl.getCol() + inputText);
 			    }
 			}
 			catch (IOException ex){}
@@ -48,7 +48,7 @@ public class CmdRules extends Cmd
 			}
 			try
 			{
-			    FileReader reader = new FileReader(arl.GetRules());
+			    FileReader reader = new FileReader(arl.getRules());
 			    BufferedReader buff = new BufferedReader(reader);
 			    while(true)
 			    {
@@ -57,7 +57,7 @@ public class CmdRules extends Cmd
 			        {
 			         	break;
 			        }
-			        sender.sendMessage(arl.GetCol() + inputText);
+			        sender.sendMessage(arl.getCol() + inputText);
 			    }
 			}
 			catch (IOException ex){}

@@ -98,6 +98,22 @@ commands:
       description: IpBans a player for <reason>
       usage: /<command> <name> <reason>
       permission: Necessities.banip
+   fly:
+      description: Toggles fly mode for youself or <name>
+      usage: /<command> <name>
+      permission: Necessities.fly
+   god:
+      description: Toggles god mode for youself or <name>
+      usage: /<command> <name>
+      permission: Necessities.god
+   feed:
+      description: Feeds youself or <name>
+      usage: /<command> <name>
+      permission: Necessities.feed
+   heal:
+      description: Heals youself or <name>
+      usage: /<command> <name>
+      permission: Necessities.heal
 
 permissions:
     Necessities.*:
@@ -125,6 +141,10 @@ permissions:
             Necessities.kick: true
             Necessities.ban: true
             Necessities.banip: true
+            Necessities.fly: true
+            Necessities.god: true
+            Necessities.feed: true
+            Necessities.heal: true
     Necessities.tpaccept:
         description: Allows you to accept teleports.
         default: true
@@ -190,4 +210,16 @@ permissions:
         default: op
     Necessities.banip:
         description: Allows you to ipban a player.
+        default: op
+    Necessities.fly:
+        description: Allows you to fly.
+        default: op
+    Necessities.god:
+        description: Allows you to become a god.
+        default: op
+    Necessities.feed:
+        description: Allows you to feed yourself.
+        default: op
+    Necessities.heal:
+        description: Allows you to heal yourself.
         default: op

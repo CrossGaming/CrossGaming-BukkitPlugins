@@ -11,7 +11,7 @@ public class CmdOps extends Cmd
 	{
 
 	}
-	public boolean CommandUse(CommandSender sender, String[] args)
+	public boolean commandUse(CommandSender sender, String[] args)
 	{
 		Formatter form = new Formatter();
 		if (sender instanceof Player)
@@ -24,10 +24,10 @@ public class CmdOps extends Cmd
 			String line = form.readFileStr("ops.txt");
 			if(line == null)
 			{
-				player.sendMessage(arl.GetCol() + "There are no operators.");
+				player.sendMessage(arl.getCol() + "There are no operators.");
 				return true;
 			}
-			player.sendMessage(arl.GetCol() + "The Operators are: " + line);
+			player.sendMessage(arl.getCol() + "The Operators are: " + line);
 			return true;
         } 
 		else
@@ -39,10 +39,10 @@ public class CmdOps extends Cmd
 			String line = form.readFileStr("ops.txt");
 			if(line == null)
 			{
-				sender.sendMessage(arl.GetCol() + "There are no operators.");
+				sender.sendMessage(arl.getCol() + "There are no operators.");
 				return true;
 			}
-			sender.sendMessage(arl.GetCol() + "The Operators are: " + line);
+			sender.sendMessage(arl.getCol() + "The Operators are: " + line);
 			return true;
 	    }
 	}

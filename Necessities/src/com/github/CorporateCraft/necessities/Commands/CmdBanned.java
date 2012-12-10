@@ -12,7 +12,7 @@ public class CmdBanned extends Cmd
 	{
 		
 	}
-	public boolean CommandUse(CommandSender sender, String[] args)
+	public boolean commandUse(CommandSender sender, String[] args)
 	{
 		Formatter form = new Formatter();
 		if (sender instanceof Player)
@@ -25,10 +25,10 @@ public class CmdBanned extends Cmd
 			String line = form.readFileStr("banned-players");
 			if(line == null)
 			{
-				player.sendMessage(arl.GetCol() + "There are no banned players.");
+				player.sendMessage(arl.getCol() + "There are no banned players.");
 				return true;
 			}
-			player.sendMessage(arl.GetCol() + "Banned Players: " + line);
+			player.sendMessage(arl.getCol() + "Banned Players: " + line);
 			return true;
 		}
 		else
@@ -40,10 +40,10 @@ public class CmdBanned extends Cmd
 			String line = form.readFileStr("banned-players");
 			if(line == null)
 			{
-				sender.sendMessage(arl.GetCol() + "There are no banned players.");
+				sender.sendMessage(arl.getCol() + "There are no banned players.");
 				return true;
 			}
-			sender.sendMessage(arl.GetCol() + "Banned Players: " + line);
+			sender.sendMessage(arl.getCol() + "Banned Players: " + line);
 	        return true;
 	    }
 	}

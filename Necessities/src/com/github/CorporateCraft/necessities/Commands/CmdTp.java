@@ -12,7 +12,7 @@ public class CmdTp extends Cmd
 	{
 		
 	}
-	public boolean CommandUse(CommandSender sender, String[] args)
+	public boolean commandUse(CommandSender sender, String[] args)
 	{
 		if (sender instanceof Player)
 		{
@@ -26,14 +26,13 @@ public class CmdTp extends Cmd
 			{
 				return false;
 			}
-			player.sendMessage(arl.GetCol() + "Teleporting...");
-			target.sendMessage(arl.GetCol() + "Teleporting...");
+			player.sendMessage(arl.getCol() + "Teleporting...");
 			player.teleport(target);
 			return true;
 		}
 		else
 		{
-			sender.sendMessage(arl.GetCol() + "You are not a player you can't teleport.");
+			sender.sendMessage(arl.getCol() + "You are not a player you can't teleport.");
 			return true;
 		}
 	}

@@ -12,7 +12,7 @@ public class CmdPermissions extends Cmd
 	{
 
 	}
-	public boolean CommandUse(CommandSender sender, String[] args)
+	public boolean commandUse(CommandSender sender, String[] args)
 	{
 		if (sender instanceof Player)
 		{
@@ -25,10 +25,10 @@ public class CmdPermissions extends Cmd
 			com = player.getServer().getPluginCommand(args[0]);
 			if(com == null)
 			{
-				player.sendMessage(arl.GetCol() + "The command " + args[0] + " is a nonexistant or built in command permissions not able to read built in yet.");
+				player.sendMessage(arl.getCol() + "The command " + args[0] + " is a nonexistant or built in command permissions not able to read built in yet.");
 				return true;
 			}
-			player.sendMessage(arl.GetCol() + com.getPermission());
+			player.sendMessage(arl.getCol() + com.getPermission());
 			return true;
 		}
 		else
@@ -40,10 +40,10 @@ public class CmdPermissions extends Cmd
 			Command com = sender.getServer().getPluginCommand(args[0]);
 			if(com == null)
 			{
-				sender.sendMessage(arl.GetCol() + "The command " + args[0] + " is a nonexistant or built in command permissions not able to read built in yet.");
+				sender.sendMessage(arl.getCol() + "The command " + args[0] + " is a nonexistant or built in command permissions not able to read built in yet.");
 				return true;
 			}
-			sender.sendMessage(arl.GetCol() + com.getPermission().toString());
+			sender.sendMessage(arl.getCol() + com.getPermission().toString());
 			return true;
 		}
 	}

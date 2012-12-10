@@ -12,7 +12,7 @@ public class CmdEnchant extends Cmd
 	{
 		
 	}
-	public boolean CommandUse(CommandSender sender, String[] args)
+	public boolean commandUse(CommandSender sender, String[] args)
 	{
 		if (sender instanceof Player)
 		{
@@ -30,24 +30,24 @@ public class CmdEnchant extends Cmd
 				Enchantment ench = Enchantment.getByName(args[0].toUpperCase());
 				if(ench == null)
 				{
-					player.sendMessage(arl.GetCol() + "Enchantment does not exist.");
+					player.sendMessage(arl.getCol() + "Enchantment does not exist.");
 					return true;
 				}
 				int level = 5;
 				if(ench.canEnchantItem(player.getInventory().getItemInHand()))
 				{
 					player.getInventory().getItemInHand().addUnsafeEnchantment(ench, level);
-					player.sendMessage(arl.GetCol() + "Added the enchantment " + ench.getName() + " at level " + Integer.toString(level) + ".");
+					player.sendMessage(arl.getCol() + "Added the enchantment " + ench.getName() + " at level " + Integer.toString(level) + ".");
 					return true;
 				}
-				player.sendMessage(arl.GetCol() + "This item can not support given enchantment.");
+				player.sendMessage(arl.getCol() + "This item can not support given enchantment.");
 	        }
 			if (args.length == 2)
 	        {
 				Enchantment ench = Enchantment.getByName(args[0].toUpperCase());
 				if(ench == null)
 				{
-					player.sendMessage(arl.GetCol() + "Enchantment does not exist.");
+					player.sendMessage(arl.getCol() + "Enchantment does not exist.");
 					return true;
 				}
 				try
@@ -66,16 +66,16 @@ public class CmdEnchant extends Cmd
 				if(ench.canEnchantItem(player.getInventory().getItemInHand()))
 				{
 					player.getInventory().getItemInHand().addUnsafeEnchantment(ench, level);
-					player.sendMessage(arl.GetCol() + "Added the enchantment " + ench.getName() + " at level " + Integer.toString(level) + ".");
+					player.sendMessage(arl.getCol() + "Added the enchantment " + ench.getName() + " at level " + Integer.toString(level) + ".");
 					return true;
 				}
-				player.sendMessage(arl.GetCol() + "This item can not support given enchantment.");
+				player.sendMessage(arl.getCol() + "This item can not support given enchantment.");
 	        }
 			return true;
 		}
 		else
 		{
-			sender.sendMessage(arl.GetCol() + "You are not a player  so you do not have an items.");
+			sender.sendMessage(arl.getCol() + "You are not a player  so you do not have an items.");
 			return true;
 		}
 	}

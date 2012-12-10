@@ -15,7 +15,7 @@ public class CmdReload extends Cmd
 	{
 		
 	}
-	public boolean CommandUse(CommandSender sender, String[] args)
+	public boolean commandUse(CommandSender sender, String[] args)
 	{
 		if(args.length > 1)
 		{
@@ -23,6 +23,7 @@ public class CmdReload extends Cmd
 		}
 		if (sender instanceof Player)
 		{
+			Player p = (Player) sender;
 			if(args.length == 0)
 			{
 				Bukkit.reload();
@@ -30,7 +31,8 @@ public class CmdReload extends Cmd
 			}
 			else
 			{
-				sender.getServer().getPluginManager().getPlugin(args[0]).reloadConfig();
+				p.getServer().getPluginManager().getPlugin(args[0]).reloadConfig();
+				Command.broadcastCommandMessage(sender, ChatColor.GREEN + "Reload complete.");
 			}
 			return true;
 		}
@@ -44,6 +46,7 @@ public class CmdReload extends Cmd
 			else
 			{
 				sender.getServer().getPluginManager().getPlugin(args[0]).reloadConfig();
+				Command.broadcastCommandMessage(sender, ChatColor.GREEN + "Reload complete.");
 			}
 	        return true;
 	    }

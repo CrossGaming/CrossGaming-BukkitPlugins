@@ -15,7 +15,7 @@ public class CmdBan extends Cmd
 	{
 		
 	}
-	public boolean CommandUse(CommandSender sender, String[] args)
+	public boolean commandUse(CommandSender sender, String[] args)
 	{
 		if (sender instanceof Player)
 		{
@@ -25,16 +25,16 @@ public class CmdBan extends Cmd
 			{
 				if(Bukkit.getOfflinePlayer(args[0]).isOp())
 				{
-					p.sendMessage(arl.GetCol() + "You may not ipban an op");
+					p.sendMessage(arl.getCol() + "You may not ipban an op");
 					return true;
 				}
 				Bukkit.getOfflinePlayer(args[0]).setBanned(true);
-				Warns.Ban(args[0], "Was banned by " + p.getName() + ".");
+				Warns.ban(args[0], "Was banned by " + p.getName() + ".");
 				return true;
 			}
 			if(target.isOp())
 			{
-				p.sendMessage(arl.GetCol() + "You may not ban an op");
+				p.sendMessage(arl.getCol() + "You may not ban an op");
 				return true;
 			}
 			String Reason = "";
@@ -51,7 +51,7 @@ public class CmdBan extends Cmd
 				}
 				Reason = Reason.trim();
 			}
-			Warns.Ban(target.getName(), Reason);
+			Warns.ban(target.getName(), Reason);
 			target.kickPlayer(Reason);
 			Bukkit.getOfflinePlayer(args[0]).setBanned(true);
 			return true;
@@ -62,7 +62,7 @@ public class CmdBan extends Cmd
 			if(target == null)
 			{
 				Bukkit.getOfflinePlayer(args[0]).setBanned(true);
-				Warns.Ban(args[0], "Was banned by the Console.");
+				Warns.ban(args[0], "Was banned by the Console.");
 				return true;
 			}
 			String Reason = "";
@@ -79,7 +79,7 @@ public class CmdBan extends Cmd
 				}
 				Reason = Reason.trim();
 			}
-			Warns.Ban(target.getName(), Reason);
+			Warns.ban(target.getName(), Reason);
 			target.kickPlayer(Reason);
 			Bukkit.getOfflinePlayer(args[0]).setBanned(true);
 			return true;

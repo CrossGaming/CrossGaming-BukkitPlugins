@@ -106,7 +106,23 @@ public class Necessities extends JavaPlugin
 		{
 			Com = new CmdRagequit();
 		}
-		return Com.CommandUse(sender, args);
+		else if(cmd.getName().equalsIgnoreCase("fly"))
+		{
+			Com = new CmdFly();
+		}
+		else if(cmd.getName().equalsIgnoreCase("god"))
+		{
+			Com = new CmdGod();
+		}
+		else if(cmd.getName().equalsIgnoreCase("feed"))
+		{
+			Com = new CmdFeed();
+		}
+		else if(cmd.getName().equalsIgnoreCase("heal"))
+		{
+			Com = new CmdHeal();
+		}
+		return Com.commandUse(sender, args);
 	}	
 	
     @Override

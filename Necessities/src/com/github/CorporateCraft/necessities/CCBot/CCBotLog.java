@@ -14,7 +14,7 @@ public class CCBotLog
 	{
 		
 	}
-	public void Log(String Message)
+	public void log(String Message)
 	{
 		Calendar c = Calendar.getInstance();
 		String Second = Integer.toString(c.get(Calendar.SECOND));
@@ -24,15 +24,15 @@ public class CCBotLog
 		String Month = Integer.toString(c.get(Calendar.MONTH));
 		String Year = Integer.toString(c.get(Calendar.YEAR));
 		String date = Month + "-" + Day + "-" + Year;
-		Hour = CorTime(Hour);
-		Minute = CorTime(Minute);
-		Second = CorTime(Second);
+		Hour = corTime(Hour);
+		Minute = corTime(Minute);
+		Second = corTime(Second);
 		String time = "(" + Hour + ":" + Minute + ":" + Second + ")";
 		String file = "plugins/Necessities/Logs/" + date + ".txt";
 		File f = new File(file);
 		if(!f.exists())
 		{
-			FileCreate(file);
+			fileCreate(file);
 		}
 		try
 		{
@@ -44,7 +44,7 @@ public class CCBotLog
 		}
 		catch (Exception e){}
 	}
-	private String CorTime(String Time)
+	private String corTime(String Time)
 	{
 		if(Time.length() == 1)
 		{
@@ -52,7 +52,7 @@ public class CCBotLog
 		}
 		return Time;
 	}
-	private void FileCreate(String file)
+	private void fileCreate(String file)
 	{
 		File f = new File(file);
 		try

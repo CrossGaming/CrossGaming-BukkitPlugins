@@ -1,7 +1,6 @@
 package com.github.CorporateCraft.necessities.CCBot;
 
 import java.util.HashMap;
-
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
@@ -20,24 +19,24 @@ public class CCBotWarn
 	{
 		
 	}
-	public void RemovePlayer(String name)
+	public void removePlayer(String name)
 	{
 		WarnCount.remove(name);
 	}
-	public void Ban(String name, String r)
+	public void ban(String name, String r)
 	{
+		Log.log(CCBotLogName + name + " was banned for " + r + ".");
 		Bukkit.broadcastMessage(CCBotName + name + " was banned for " + r + ".");
-		Log.Log(CCBotLogName + name + " was banned for " + r + ".");
 	}
-	public void BanIp(String ip, String r)
+	public void banIp(String ip, String r)
 	{
+		Log.log(CCBotLogName + "the ip " + ip + " was banned for " + r + ".");
 		Bukkit.broadcastMessage(CCBotName + "the ip " + ip + " was banned for " + r + ".");
-		Log.Log(CCBotLogName + "the ip " + ip + " was banned for " + r + ".");
 	}
-	public void Kick(String name, String r)
+	public void kick(String name, String r)
 	{
+		Log.log(CCBotLogName + name + " was kicked for " + r + ".");
 		Bukkit.broadcastMessage(CCBotName + name + " was kicked for " + r + ".");
-		Log.Log(CCBotLogName + name + " was kicked for " + r + ".");
 	}
 	public void warn(String name, String r, String Warner)
 	{
@@ -46,25 +45,25 @@ public class CCBotWarn
 			WarnCount.put(name, 1);
 			if(r.equals("Caps"))
 			{
-				CapsMsg(name);
+				capsMsg(name);
 			}
 			else if(r.equals("Language"))
 			{
-				LangMsg(name);
+				langMsg(name);
 			}
 			else if(r.equals("ChatSpam"))
 			{
-				ChatMsg(name);
+				chatMsg(name);
 			}
 			else if(r.equals("CmdSpam"))
 			{
-				CmdMsg(name);
+				cmdMsg(name);
 			}
 			else
 			{
-				WarnMessage(name, r, Warner);
+				warnMessage(name, r, Warner);
 			}
-			TimesLeft(name);
+			timesLeft(name);
 		}
 		else
 		{
@@ -73,120 +72,120 @@ public class CCBotWarn
 			{
 				if(r.equals("Caps"))
 				{
-					Caps(name);
+					caps(name);
 				}
 				else if(r.equals("Language"))
 				{
-					Language(name);
+					language(name);
 				}
 				else if(r.equals("ChatSpam"))
 				{
-					ChatSpam(name);
+					chatSpam(name);
 				}
 				else if(r.equals("CmdSpam"))
 				{
-					CmdSpam(name);
+					cmdSpam(name);
 				}
 				else
 				{
-					Other(name,r);
+					other(name,r);
 				}
 			}
 			else
 			{
 				if(r.equals("Caps"))
 				{
-					CapsMsg(name);
+					capsMsg(name);
 				}
 				else if(r.equals("Language"))
 				{
-					LangMsg(name);
+					langMsg(name);
 				}
 				else if(r.equals("ChatSpam"))
 				{
-					ChatMsg(name);
+					chatMsg(name);
 				}
 				else if(r.equals("CmdSpam"))
 				{
-					CmdMsg(name);
+					cmdMsg(name);
 				}
 				else
 				{
-					WarnMessage(name, r, Warner);
+					warnMessage(name, r, Warner);
 				}
-				TimesLeft(name);
+				timesLeft(name);
 			}
 		}
 	}
-	private void TimesLeft(String name)
+	private void timesLeft(String name)
 	{
 		String left = Integer.toString(Warns-WarnCount.get(name));
 		Bukkit.broadcastMessage(CCBotName + "Do it " + left + " more times and you will be kicked.");
-		Log.Log(CCBotLogName + "Do it " + left + " more times and you will be kicked.");
+		Log.log(CCBotLogName + "Do it " + left + " more times and you will be kicked.");
 	}
-	private void CapsMsg(String name)
+	private void capsMsg(String name)
 	{
 		Player player = Bukkit.getServer().getPlayer(name);
 		Bukkit.broadcastMessage(CCBotName + player.getName() + " was warned for using caps.");
-		Log.Log(CCBotLogName + player.getName() + " was warned for using caps.");
+		Log.log(CCBotLogName + player.getName() + " was warned for using caps.");
 	}
-	private void LangMsg(String name)
+	private void langMsg(String name)
 	{
 		Player player = Bukkit.getServer().getPlayer(name);
 		Bukkit.broadcastMessage(CCBotName + player.getName() + " was warned for using bad language.");
-		Log.Log(CCBotLogName + player.getName() + " was warned for using bad language.");
+		Log.log(CCBotLogName + player.getName() + " was warned for using bad language.");
 	}
-	private void ChatMsg(String name)
+	private void chatMsg(String name)
 	{
 		Player player = Bukkit.getServer().getPlayer(name);
 		Bukkit.broadcastMessage(CCBotName + player.getName() + " was warned for spamming the chat.");
-		Log.Log(CCBotLogName + player.getName() + " was warned for spamming the chat.");
+		Log.log(CCBotLogName + player.getName() + " was warned for spamming the chat.");
 	}
-	private void CmdMsg(String name)
+	private void cmdMsg(String name)
 	{
 		Player player = Bukkit.getServer().getPlayer(name);
 		Bukkit.broadcastMessage(CCBotName + player.getName() + " was warned for spamming commands.");
-		Log.Log(CCBotLogName + player.getName() + " was warned for spamming commands.");
+		Log.log(CCBotLogName + player.getName() + " was warned for spamming commands.");
 	}
-	private void WarnMessage(String name, String Reason, String Warner)
+	private void warnMessage(String name, String Reason, String Warner)
 	{
 		Player player = Bukkit.getServer().getPlayer(name);
 		Bukkit.broadcastMessage(CCBotName + player.getName() + " was warned by " + Warner + " for " + Reason + ".");
-		Log.Log(player.getName() + " was warned by " + Warner + " for " + Reason + ".");
+		Log.log(player.getName() + " was warned by " + Warner + " for " + Reason + ".");
 	}
-	private void Other(String name, String reason)
+	private void other(String name, String reason)
 	{
 		Player player = Bukkit.getServer().getPlayer(name);
 		player.kickPlayer("Don't " + reason);
-		Log.Log(CCBotLogName + player.getName() + " was kicked for " + reason + ".");
 		Bukkit.broadcastMessage(CCBotName + player.getName() + " was kicked for " + reason + ".");
+		Log.log(CCBotLogName + player.getName() + " was kicked for " + reason + ".");
 	}
-	private void ChatSpam(String name)
+	private void chatSpam(String name)
 	{
 		Player player = Bukkit.getServer().getPlayer(name) ;
 		player.kickPlayer("Don't spam the chat!");
-		Log.Log(CCBotLogName + player.getName() + " was kicked for spamming the chat.");
 		Bukkit.broadcastMessage(CCBotName + player.getName() + " was kicked for spamming the chat.");
+		Log.log(CCBotLogName + player.getName() + " was kicked for spamming the chat.");
 	}
-	private void CmdSpam(String name)
+	private void cmdSpam(String name)
 	{
-		Player player = Bukkit.getServer().getPlayer(name) ;
+		Player player = Bukkit.getServer().getPlayer(name);
 		player.kickPlayer("Don't spam commands!");
-		Log.Log(CCBotLogName + player.getName() + " was kicked for spamming commands.");
 		Bukkit.broadcastMessage(CCBotName + player.getName() + " was kicked for spamming commands.");
+		Log.log(CCBotLogName + player.getName() + " was kicked for spamming commands.");
 	}
-	private void Caps(String name)
+	private void caps(String name)
 	{
 		Player player = Bukkit.getServer().getPlayer(name) ;
 		player.kickPlayer("Don't use all caps!");
-		Log.Log(CCBotLogName + player.getName() + " was kicked for using caps.");
 		Bukkit.broadcastMessage(CCBotName + player.getName() + " was kicked for using caps.");
+		Log.log(CCBotLogName + player.getName() + " was kicked for using caps.");
 	}
-	private void Language(String name)
+	private void language(String name)
 	{
 		Player player = Bukkit.getServer().getPlayer(name);
-		player.kickPlayer("Watch your language!");
-		Log.Log(CCBotLogName + player.getName() + " was kicked for using bad language.");
+		player.kickPlayer("Watch your language!");		
 		Bukkit.broadcastMessage(CCBotName + player.getName() + " was kicked for using bad language.");
+		Log.log(CCBotLogName + player.getName() + " was kicked for using bad language.");
 	}
 }

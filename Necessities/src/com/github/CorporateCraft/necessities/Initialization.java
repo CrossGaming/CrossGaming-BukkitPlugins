@@ -12,16 +12,14 @@ public class Initialization
 	}
 	public void InitiateFiles()
 	{
-		DirCreate("plugins/Necessities");
-		DirCreate("plugins/Necessities/Logs");
-		FileCreate(arl.GetMotd());
-		FileCreate(arl.GetRules());
-		FileCreate(arl.GetProf());
-		ArrayLists ar = new ArrayLists();
-		ar.StartLists();
+		dirCreate("plugins/Necessities");
+		dirCreate("plugins/Necessities/Logs");
+		fileCreate(arl.getMotd());
+		fileCreate(arl.getRules());
+		fileCreate(arl.getProf());
 	}
 	
-	private void DirCreate(String directory)
+	private void dirCreate(String directory)
 	{
 		File d = new File(directory);
 		if(!d.exists())
@@ -34,7 +32,7 @@ public class Initialization
 		}
 	}
 	
-	private void FileCreate(String file)
+	private void fileCreate(String file)
 	{
 		File f = new File(file);
 		if(!f.exists())

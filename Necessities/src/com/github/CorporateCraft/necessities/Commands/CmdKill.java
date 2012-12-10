@@ -3,7 +3,6 @@ package com.github.CorporateCraft.necessities.Commands;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-//import com.github.CorporateCraft.necessities.*;
 
 public class CmdKill extends Cmd
 {
@@ -11,7 +10,7 @@ public class CmdKill extends Cmd
 	{
 
 	}
-	public boolean CommandUse(CommandSender sender, String[] args)
+	public boolean commandUse(CommandSender sender, String[] args)
 	{
 		if (sender instanceof Player)
 		{
@@ -38,7 +37,7 @@ public class CmdKill extends Cmd
 			}        	   
 			DeathMessage = DeathMessage.trim();
 			target.setHealth(0);
-			Bukkit.broadcastMessage(DeathMessage + ".");
+			Bukkit.broadcastMessage(DeathMessage);
 			return true;
         } 
 		else
@@ -66,7 +65,7 @@ public class CmdKill extends Cmd
 			}        	   
 			DeathMessage = DeathMessage.trim();
 			target.setHealth(0);
-			Bukkit.broadcastMessage(DeathMessage + ".");
+			Bukkit.broadcastMessage(DeathMessage);
         	return true;
 	    }
 	}

@@ -16,7 +16,7 @@ public class Teleports
 		return Tps.containsKey(pname + " " + rname);
 	}
 	
-	public void CreateTp(String key, String value)
+	public void createTp(String key, String value)
 	{
 		Tps.put(key, value);
 		for(int i = 0; i<LastTp.size(); i++)
@@ -30,7 +30,7 @@ public class Teleports
 		LastTp.add(key);
 	}
 	
-	public String LastOffer(String pname)
+	public String lastOffer(String pname)
 	{
 		for(int i = 0; i<LastTp.size(); i++)
 		{
@@ -42,14 +42,14 @@ public class Teleports
 		return pname;
 	}
 	
-	public String AcceptTp(String pname, String rname)
+	public String acceptTp(String pname, String rname)
 	{
 		String Info = Tps.get(pname + " " + rname);
 		removeTp(pname, rname);
 		return Info;
 	}
 	
-	public void DenyTp(String pname, String rname)
+	public void denyTp(String pname, String rname)
 	{
 		removeTp(pname, rname);
 	}

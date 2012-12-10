@@ -11,7 +11,7 @@ public class CmdTpDeny extends Cmd
 	{
 
 	}
-	public boolean CommandUse(CommandSender sender, String[] args)
+	public boolean commandUse(CommandSender sender, String[] args)
 	{
 		if (sender instanceof Player)
 		{
@@ -26,7 +26,7 @@ public class CmdTpDeny extends Cmd
 			Teleports telp = new Teleports();
 			if(args.length == 0)
 			{
-				target = sender.getServer().getPlayer(telp.LastOffer(pname));
+				target = sender.getServer().getPlayer(telp.lastOffer(pname));
 			}
 			else
 			{
@@ -35,20 +35,20 @@ public class CmdTpDeny extends Cmd
 			rname = target.getName();
 			if(telp.hasTp(pname, rname))
 			{
-				player.sendMessage(arl.GetCol() + "Teleport Denied.");
-				target.sendMessage(arl.GetCol() + "Your teleport offer has been denied");
-				telp.DenyTp(pname, rname);
+				player.sendMessage(arl.getCol() + "Teleport Denied.");
+				target.sendMessage(arl.getCol() + "Your teleport offer has been denied");
+				telp.denyTp(pname, rname);
 				return true;
 			}
 			else
 			{
-				player.sendMessage(arl.GetCol() + "You do not have a teleport request from " + rname);
+				player.sendMessage(arl.getCol() + "You do not have a teleport request from " + rname);
 				return true;
 			}
 		}
 		else
 		{
-			sender.sendMessage(arl.GetCol() + "You are not a player you can't teleport.");
+			sender.sendMessage(arl.getCol() + "You are not a player you can't teleport.");
 			return true;
 		}
 	}

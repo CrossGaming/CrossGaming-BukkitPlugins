@@ -17,7 +17,7 @@ public class Formatter
 		
 	}
 	
-	public void ReadFile(String file, ArrayList<String> Info)
+	public void readFile(String file, ArrayList<String> Info)
 	{
 		Info.clear();
 		try
@@ -71,7 +71,7 @@ public class Formatter
 		return allFile;
 	}
 	
-	public void WriteFile(String file, ArrayList<String> Info)
+	public void writeFile(String file, ArrayList<String> Info)
 	{
 		try
 		{

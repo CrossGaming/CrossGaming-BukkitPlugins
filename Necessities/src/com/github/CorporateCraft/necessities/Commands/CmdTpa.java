@@ -11,7 +11,7 @@ public class CmdTpa extends Cmd
 	{
 
 	}
-	public boolean CommandUse(CommandSender sender, String[] args)
+	public boolean commandUse(CommandSender sender, String[] args)
 	{
 		if (sender instanceof Player)
 		{
@@ -28,15 +28,15 @@ public class CmdTpa extends Cmd
 			}
 			String rname = target.getName();
 			Teleports telp = new Teleports();
-			telp.CreateTp(rname + " " + pname, "tothem");
-			player.sendMessage(arl.GetCol() + "You sent a teleport request to " + rname);
-			target.sendMessage(arl.GetCol() + pname + " is requesting to teleport to you");
-			target.sendMessage(arl.GetCol() + "Type /tpaccept or /tpdeny to accept or deny their teleport request");
+			telp.createTp(rname + " " + pname, "tothem");
+			player.sendMessage(arl.getCol() + "You sent a teleport request to " + rname);
+			target.sendMessage(arl.getCol() + pname + " is requesting to teleport to you");
+			target.sendMessage(arl.getCol() + "Type /tpaccept or /tpdeny to accept or deny their teleport request");
 			return true;
 		}
 		else
 		{
-			sender.sendMessage(arl.GetCol() + "You are not a player you can't teleport.");
+			sender.sendMessage(arl.getCol() + "You are not a player you can't teleport.");
 			return true;
 		}
 	}
