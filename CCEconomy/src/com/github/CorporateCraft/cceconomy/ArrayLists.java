@@ -18,6 +18,7 @@ public class ArrayLists
 		UpdateBalances();
 		UpdateSellPrices();
 		UpdateBuyCosts();
+		Prices.updateList();
 	}
 	
 	private static void UpdateBalances()

@@ -28,55 +28,51 @@ public class CCEconomy extends JavaPlugin
 		{
 			return CmdBalance.CommandUse(sender, cmd, label, args);
 		}
-		if(cmd.getName().equalsIgnoreCase("baltop"))
+		else if(cmd.getName().equalsIgnoreCase("baltop"))
 		{			
 			return CmdBaltop.CommandUse(sender, cmd, label, args);
 		}
-		if(cmd.getName().equalsIgnoreCase("pay"))
+		else if(cmd.getName().equalsIgnoreCase("pricelist"))
+		{			
+			return CmdPriceList.CommandUse(sender, cmd, label, args);
+		}
+		else if(cmd.getName().equalsIgnoreCase("pay"))
 		{			
 			return CmdPay.CommandUse(sender, cmd, label, args);
 		}
-		if(cmd.getName().equalsIgnoreCase("cce"))
+		else if(cmd.getName().equalsIgnoreCase("cce"))
 		{			
 			return CmdCCE.CommandUse(sender, cmd, label, args);
 		}
-		if(cmd.getName().equalsIgnoreCase("price"))
+		else if(cmd.getName().equalsIgnoreCase("price"))
 		{
 			return CmdPrice.CommandUse(sender, cmd, label, args);
 		}
-		if(cmd.getName().equalsIgnoreCase("cost"))
-		{
-			return CmdCost.CommandUse(sender, cmd, label, args);
-		}
-		if(cmd.getName().equalsIgnoreCase("setprice"))
+		else if(cmd.getName().equalsIgnoreCase("setprice"))
 		{
 			return CmdSetPrice.CommandUse(sender, cmd, label, args);
 		}
-		if(cmd.getName().equalsIgnoreCase("setcost"))
-		{
-			return CmdSetCost.CommandUse(sender, cmd, label, args);
-		}
-		if(cmd.getName().equalsIgnoreCase("buy"))
+		else if(cmd.getName().equalsIgnoreCase("buy"))
 		{
 			return CmdBuy.CommandUse(sender, cmd, label, args);
 		}
-		if(cmd.getName().equalsIgnoreCase("sell"))
+		else if(cmd.getName().equalsIgnoreCase("sell"))
 		{
 			return CmdSell.CommandUse(sender, cmd, label, args);
 		}
-		if(cmd.getName().equalsIgnoreCase("taccept"))
+		else if(cmd.getName().equalsIgnoreCase("taccept"))
 		{
 			return CmdTAccept.CommandUse(sender, cmd, label, args);
 		}
-		if(cmd.getName().equalsIgnoreCase("tdeny"))
+		else if(cmd.getName().equalsIgnoreCase("tdeny"))
 		{
 			return CmdTDeny.CommandUse(sender, cmd, label, args);
 		}
-		if(cmd.getName().equalsIgnoreCase("trade"))
+		else if(cmd.getName().equalsIgnoreCase("trade"))
 		{
 			return CmdTrade.CommandUse(sender, cmd, label, args);
 		}
-		if(cmd.getName().equalsIgnoreCase("tradeitems"))
+		else if(cmd.getName().equalsIgnoreCase("tradeitems"))
 		{
 			return CmdTradeItems.CommandUse(sender, cmd, label, args);
 		}

@@ -38,5 +38,4 @@ public class CmdTDeny
 			return true;
 		}
 	}
-	
 }

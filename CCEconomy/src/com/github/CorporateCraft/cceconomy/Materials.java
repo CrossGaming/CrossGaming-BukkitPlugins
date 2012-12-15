@@ -50,13 +50,10 @@ public class Materials
 	
 	public static String FindItem(String Item)
 	{
+		Item = Item.toUpperCase().replaceAll("_", "");
 		for(int i = 0; i<ArrayLists.MaterialList.size(); i++)
 		{
 			if(ArrayLists.MaterialList.get(i).split(" ")[0].equalsIgnoreCase(Item))
-			{
-				return MaterialNames.get(i);
-			}
-			if(MaterialNames.get(i).equalsIgnoreCase(Item))
 			{
 				return MaterialNames.get(i);
 			}

@@ -12,20 +12,39 @@ public class CmdPrice
 		if (sender instanceof Player)
 		{
 			Player player = (Player) sender;
-			if (args.length > 1)
+			if (args.length > 2)
 			{
 				return false;
 			}
 			if(player.hasPermission("CCEconomy.price"))
 			{
 				String ItemName = "";
-				try
+				String Oper = "";
+				if (args.length == 1)
 				{
-					ItemName = args[0];
-				}
-				catch (Exception e)
-				{
+					if(!args[0].equalsIgnoreCase("buy"))
+					{
+						if(!args[0].equalsIgnoreCase("sell"))
+						{
+							player.sendMessage(CCEconomy.messages + "Input either sell or buy");
+							return false;
+						}
+					}
 					ItemName = Integer.toString(player.getItemInHand().getTypeId());
+					Oper = args[0];
+				}
+				if (args.length == 2)
+				{
+					if(!args[1].equalsIgnoreCase("buy"))
+					{
+						if(!args[1].equalsIgnoreCase("sell"))
+						{
+							player.sendMessage(CCEconomy.messages + "Input either sell or buy");
+							return false;
+						}
+					}
+					ItemName = args[0];
+					Oper = args[1];
 				}
 				if(Formatter.isLegal(ItemName))
 				{
@@ -37,16 +56,44 @@ public class CmdPrice
 					player.sendMessage(CCEconomy.messages + "That item does not exist");
 					return true;
 				}
-				String cost = Prices.Cost(CCEconomy.sellfile, ItemName);
+				String file = "";
+				if(Oper.equalsIgnoreCase("buy"))
+				{
+					file = CCEconomy.buyfile;
+				}
+				else if(Oper.equalsIgnoreCase("sell"))
+				{
+					file = CCEconomy.sellfile;
+				}
+				else
+				{
+					player.sendMessage(CCEconomy.messages + "Input either sell or buy");
+					return false;
+				}
+				String cost = Prices.Cost(file, ItemName);
 				ItemName = Formatter.CapFirst(ItemName);
 				if(cost == null)
 				{
-					player.sendMessage(CCEconomy.messages + ItemName + " cannot be sold to the server");
+					if(Oper.equalsIgnoreCase("buy"))
+					{
+						player.sendMessage(CCEconomy.messages + ItemName + " cannot be bought from the server");
+					}
+					else
+					{
+						player.sendMessage(CCEconomy.messages + ItemName + " cannot be sold to the server");
+					}
 					return true;
 				}
 				if(cost.equalsIgnoreCase("null"))
 				{
-					player.sendMessage(CCEconomy.messages + ItemName + " cannot be sold to the server");
+					if(Oper.equalsIgnoreCase("buy"))
+					{
+						player.sendMessage(CCEconomy.messages + ItemName + " cannot be bought from the server");
+					}
+					else
+					{
+						player.sendMessage(CCEconomy.messages + ItemName + " cannot be sold to the server");
+					}
 					return true;
 				}
 				player.sendMessage(CCEconomy.messages + ItemName + " can be sold for " + CCEconomy.money + "$" + cost);
@@ -55,7 +102,7 @@ public class CmdPrice
 		}
 		else
 		{
-			if (args.length != 1)
+			if (args.length != 2)
 			{
 				return false;
 			}
@@ -70,16 +117,44 @@ public class CmdPrice
 				sender.sendMessage(CCEconomy.messages + "That item does not exist");
 				return true;
 			}
-			String cost = Prices.Cost(CCEconomy.sellfile, ItemName);
+			String file;
+			if(args[1].equalsIgnoreCase("buy"))
+			{
+				file = CCEconomy.buyfile;
+			}
+			else if(args[1].equalsIgnoreCase("sell"))
+			{
+				file = CCEconomy.sellfile;
+			}
+			else
+			{
+				sender.sendMessage(CCEconomy.messages + "Input either sell or buy");
+				return false;
+			}
+			String cost = Prices.Cost(file, ItemName);
 			ItemName = Formatter.CapFirst(ItemName);
 			if(cost == null)
 			{
-				sender.sendMessage(CCEconomy.messages + ItemName + " cannot be sold to the server");
+				if(args[1].equalsIgnoreCase("buy"))
+				{
+					sender.sendMessage(CCEconomy.messages + ItemName + " cannot be bought from the server");
+				}
+				else
+				{
+					sender.sendMessage(CCEconomy.messages + ItemName + " cannot be sold to the server");
+				}
 				return true;
 			}
 			if(cost.equalsIgnoreCase("null"))
 			{
-				sender.sendMessage(CCEconomy.messages + ItemName + " cannot be sold to the server");
+				if(args[1].equalsIgnoreCase("buy"))
+				{
+					sender.sendMessage(CCEconomy.messages + ItemName + " cannot be bought from the server");
+				}
+				else
+				{
+					sender.sendMessage(CCEconomy.messages + ItemName + " cannot be sold to the server");
+				}
 				return true;
 			}
 			sender.sendMessage(CCEconomy.messages + ItemName + " can be sold for " + CCEconomy.money + "$" + cost);

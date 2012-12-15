@@ -11,80 +11,63 @@ commands:
       usage: /<command> <name>
       permission: CCEconomy.bal
       aliases: [balance,money]
-   
    baltop:
       description: Shows the balance of the top players
       usage: /<command> <page>
       permission: CCEconomy.baltop
-      aliases: [balancetop,moneytop]
-      
+      aliases: [balancetop,moneytop]     
    pay:
       description: Pays <name> $<amount>
       usage: /<command> <name> <amount>
       permission: CCEconomy.pay
       aliases: [sendmoney]
-   
    cce:
       description: A variaty of commands to edit someones bal <set>, <take>, <give>, and <reset>
       usage: /<command> <sub command> <name> <amount>
-      permission: CCEconomy.editbal
-      aliases: [cceconomy]
-      
-   setcost:
-      description: Sets the cost of buying an item
-      usage: /<command> <itemname:id:hand> <price>
-      permission: CCEconomy.setcost
-      aliases: [scost, sc, setc]
-      
+      permission: CCEconomy.editbal   
    setprice:
       description: Sets the price of an to sell
-      usage: /<command> <itemname:id:hand> <price>
+      usage: /<command> <itemname:id:hand> <price> <sell/buy>
       permission: 
-      aliases: [sprice, sp, setp]
-   
-   cost:
-      description: Shows the cost of buying <itemname>
-      usage: /<command> <itemname:id:hand>
-      permission: CCEconomy.cost
-      
+      aliases: [setcost]
    price:
       description: Shows how much money <itemname> is worth to sell
-      usage: /<command> <itemname:id:hand>
+      usage: /<command> <itemname:id:hand> <sell/buy>
       permission: CCEconomy.price
-      
+      aliases: [cost]
    buy:
       description: Shows the cost of buying <itemname>
       usage: /<command> <itemname:id:hand> <amount>
       permission: CCEconomy.buy
-      
    sell:
       description: Sells item with the given amount default is all
       usage: /<command> <itemname:id:hand> <amount>
-      permission: CCEconomy.sell
-   
+      permission: CCEconomy.sell   
+   pricelist:
+      description: Shows the prices of the sellable items on the server
+      usage: /<command> <page>
+      permission: CCEconomy.pricelist
+      aliases: [listprices, prices]   
    taccept:
       description: Accept a trade from a player
       usage: /<command> <player who offered trade>
       permission: CCEconomy.taccept
-      aliases: [tradeaccept]  
-   
+      aliases: [tradeaccept]     
    tdeny:
       description: Deny a trade from a player
       usage: /<command> <player who offered trade>
       permission: CCEconomy.tdeny
-      aliases: [tdecline, tradedeny, tradedecline]  
-   
+      aliases: [tdecline, tradedeny, tradedecline]     
    trade:
       description: Trades an item to someone for $<price> or trades to you
       usage: /<command> <name> <itemname:id> <amount> <price> <theypay:ipay>
-      permission: CCEconomy.trade
-      
+      permission: CCEconomy.trade      
    tradeitems:
       description: Trades an item to someone for another item
       usage: /<command> <name> <itemname:id> <amount> <itemname:id> <amount>
       permission: CCEconomy.trade      
       aliases: [tradei]
-
+      
 permissions:
     CCEconomy.*:
         description: The Mainframe of CCEconomy's command structure
@@ -92,17 +75,16 @@ permissions:
             CCEconomy.bal: true
             CCEconomy.baltop: true
             CCEconomy.pay: true
-            CCEconomy.cost: true
             CCEconomy.price: true
             CCEconomy.buy: true
             CCEconomy.sell: true
             CCEconomy.setprice: true
-            CCEconomy.setcost: true
             CCEconomy.balothers: true
             CCEconomy.editbal: true
             CCEconomy.taccept: true
             CCEconomy.tdeny: true
             CCEconomy.trade: true
+            CCEconomy.pricelist: true
     CCEconomy.bal:
         description: Lets you see your own balance.
         default: true
@@ -112,11 +94,8 @@ permissions:
     CCEconomy.pay:
         description: Pays someone some money.
         default: true
-    CCEconomy.cost:
-        description: Allows you to see the cost of buying an item.
-        default: true
     CCEconomy.price:
-        description: Allows you to see the worth of an item.
+        description: Allows you to see the price of an item.
         default: true
     CCEconomy.buy:
         description: Allows you to buy items.
@@ -133,11 +112,11 @@ permissions:
     CCEconomy.trade:
         description: Allows you to trade with players.
         default: true
+    CCEconomy.pricelist:
+        description: Allows you to see the pricelist.
+        default: true
     CCEconomy.setprice:
-        description: Allows you to set selling cost of an item.
-        default: op
-    CCEconomy.setcost:
-        description: Allows you to set buying cost of an item.
+        description: Allows you to set cost of an item.
         default: op
     CCEconomy.balothers:
         description: Allows you to look at other peoples balances.
