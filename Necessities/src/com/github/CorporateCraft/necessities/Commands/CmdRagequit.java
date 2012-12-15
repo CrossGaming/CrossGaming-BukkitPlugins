@@ -4,10 +4,12 @@ import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import com.github.CorporateCraft.necessities.*;
+import com.github.CorporateCraft.necessities.CCBot.CCBotLog;
 
 public class CmdRagequit extends Cmd
 {
 	ArrayLists arl = new ArrayLists();
+	CCBotLog log = new CCBotLog();
 	public CmdRagequit()
 	{
 		
@@ -22,6 +24,7 @@ public class CmdRagequit extends Cmd
 			}
 			Player player = (Player) sender;
 			player.kickPlayer(arl.getCol() + "RAGEQUIT!");
+			log.log(player.getName() + " RAGEQUIT the server!");
 			Bukkit.broadcastMessage(arl.getCol() + player.getName() + " RAGEQUIT the server!");
 			return true;
         } 

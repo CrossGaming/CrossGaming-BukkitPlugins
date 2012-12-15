@@ -3,26 +3,19 @@ package com.github.CorporateCraft.necessities;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
-
-import org.bukkit.entity.Entity;
-import org.bukkit.entity.Player;
-import org.bukkit.event.EventHandler;
-import org.bukkit.event.Listener;
+import org.bukkit.entity.*;
+import org.bukkit.event.*;
 import org.bukkit.event.entity.EntityDamageEvent;
-import org.bukkit.event.player.AsyncPlayerChatEvent;
-import org.bukkit.event.player.PlayerCommandPreprocessEvent;
-import org.bukkit.event.player.PlayerJoinEvent;
-import org.bukkit.event.player.PlayerQuitEvent;
+import org.bukkit.event.player.*;
 import org.bukkit.event.server.ServerCommandEvent;
-
 import com.github.CorporateCraft.necessities.CCBot.*;
-import com.github.CorporateCraft.necessities.Commands.CmdGod;
+import com.github.CorporateCraft.necessities.Commands.*;
 
 public class Listeners implements Listener
 {
 	ArrayLists arl = new ArrayLists();
-	CCBot Bot = new CCBot();
-	CmdGod God = new CmdGod();
+	CCBot bot = new CCBot();
+	CmdGod god = new CmdGod();
 	public Listeners()
 	{
 		
@@ -31,8 +24,8 @@ public class Listeners implements Listener
 	public void onPlayerJoin(PlayerJoinEvent event)
 	{
 		Player player = event.getPlayer();
-		Bot.logIn(player.getName());
-		God.addP(player.getName());
+		bot.logIn(player.getName());
+		god.addP(player.getName());
     	if(player.hasPermission("Necessities.motd"))
     	{
     		try
@@ -56,8 +49,8 @@ public class Listeners implements Listener
 	public void onPlayerQuit(PlayerQuitEvent event)
 	{
     	Player player = event.getPlayer();
-    	Bot.logOut(player.getName());
-    	God.remP(player.getName());
+    	bot.logOut(player.getName());
+    	god.remP(player.getName());
 	}
 	@EventHandler
 	public void onEntityDamage(EntityDamageEvent event)
@@ -65,27 +58,28 @@ public class Listeners implements Listener
 		Entity entity = event.getEntity();
 		if (entity instanceof Player)
 		{
-			event.setCancelled(God.isGod((Player) entity));
+			((Player) entity).sendMessage(god.godlist());
+			event.setCancelled(god.isGod((Player) entity));
 		}
 	}
 	@EventHandler
 	public void onChat(AsyncPlayerChatEvent event)
 	{
 		Player player = event.getPlayer();
-		String Message = event.getMessage();
-		Bot.logChat(player.getName(), Message);
+		String message = event.getMessage();
+		bot.logChat(player.getName(), message);
 	}
 	@EventHandler
 	public void onCommand(PlayerCommandPreprocessEvent event)
 	{
 		Player player = event.getPlayer();
-		String Message = event.getMessage();
-		Bot.logCom(player.getName(), Message);
+		String message = event.getMessage();
+		bot.logCom(player.getName(), message);
 	}
 	@EventHandler
 	public void onCommand(ServerCommandEvent event)
 	{
-		String Message = event.getCommand();
-		Bot.logConsole(Message);
+		String message = event.getCommand();
+		bot.logConsole(message);
 	}
 }

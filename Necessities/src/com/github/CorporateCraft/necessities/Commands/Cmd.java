@@ -6,7 +6,7 @@ public class Cmd
 {
 	public Cmd()
 	{
-		
+
 	}
 	public boolean commandUse(CommandSender sender, String[] args)
 	{

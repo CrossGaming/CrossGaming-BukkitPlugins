@@ -8,7 +8,7 @@ import com.github.CorporateCraft.necessities.CCBot.*;
 
 public class CmdKick extends Cmd
 {
-	CCBotWarn Warns = new CCBotWarn();
+	CCBotWarn warns = new CCBotWarn();
 	ArrayLists arl = new ArrayLists();
 	public CmdKick()
 	{
@@ -30,22 +30,22 @@ public class CmdKick extends Cmd
 				p.sendMessage(arl.getCol() + "You may not kick an op");
 				return true;
 			}
-			String Reason = "";
+			String reason = "";
 			if(args.length == 1)
 			{
-				Reason = "Was kicked by " + p.getName() + ".";
-				Reason = Reason.trim();
+				reason = "Was kicked by " + p.getName() + ".";
+				reason = reason.trim();
 			}
 			else
 			{
 				for(int i = 1; i < args.length; i++)
 				{
-					Reason += args[i] + " ";
+					reason += args[i] + " ";
 				}
-				Reason = Reason.trim();
+				reason = reason.trim();
 			}
-			Warns.kick(target.getName(), Reason);
-			target.kickPlayer(Reason);
+			warns.kick(target.getName(), reason);
+			target.kickPlayer(reason);
 			return true;
 		}
 		else
@@ -56,22 +56,22 @@ public class CmdKick extends Cmd
 				sender.sendMessage(arl.getCol() + "Nonexistant player");
 				return true;
 			}
-			String Reason = "";
+			String reason = "";
 			if(args.length == 1)
 			{
-				Reason = "Was kicked by the Console.";
-				Reason = Reason.trim();
+				reason = "Was kicked by the Console.";
+				reason = reason.trim();
 			}
 			else
 			{
 				for(int i = 1; i < args.length; i++)
 				{
-					Reason += args[i] + " ";
+					reason += args[i] + " ";
 				}
-				Reason = Reason.trim();
+				reason = reason.trim();
 			}
-			Warns.kick(target.getName(), Reason);
-			target.kickPlayer(Reason);
+			warns.kick(target.getName(), reason);
+			target.kickPlayer(reason);
 			return true;
 	    }
 	}

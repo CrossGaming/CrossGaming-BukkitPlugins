@@ -7,6 +7,7 @@ import com.github.CorporateCraft.necessities.*;
 public class CmdTpDeny extends Cmd
 {
 	ArrayLists arl = new ArrayLists();
+	Teleports telp = new Teleports();
 	public CmdTpDeny()
 	{
 
@@ -23,7 +24,6 @@ public class CmdTpDeny extends Cmd
 			String pname = player.getName();
 			String rname;
 			Player target;
-			Teleports telp = new Teleports();
 			if(args.length == 0)
 			{
 				target = sender.getServer().getPlayer(telp.lastOffer(pname));

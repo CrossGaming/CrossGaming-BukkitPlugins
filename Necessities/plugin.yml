@@ -84,7 +84,7 @@ commands:
       aliases: [gm]
    reload:
       description: Reloads the server or a plugin
-      usage: /<command> <plugin>
+      usage: /<command> <pluginname>
       permission: Necessities.reload
    kick:
       description: Kicks a player for <reason>

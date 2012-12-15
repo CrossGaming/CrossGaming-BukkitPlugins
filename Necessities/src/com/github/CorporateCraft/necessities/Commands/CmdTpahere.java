@@ -8,6 +8,7 @@ import com.github.CorporateCraft.necessities.*;
 public class CmdTpahere extends Cmd
 {
 	ArrayLists arl = new ArrayLists();
+	Teleports telp = new Teleports();
 	public CmdTpahere()
 	{
 		
@@ -28,7 +29,6 @@ public class CmdTpahere extends Cmd
 				return false;
 			}
 			String rname = target.getName();
-			Teleports telp = new Teleports();
 			telp.createTp(rname + " " + pname, "tome");
 			player.sendMessage(arl.getCol() + "You sent a teleport request to " + rname);
 			target.sendMessage(arl.getCol() + pname + " is requesting that you teleport to them");

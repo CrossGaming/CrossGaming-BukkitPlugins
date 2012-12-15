@@ -13,116 +13,116 @@ public class Necessities extends JavaPlugin
 		getLogger().info("The necessities your server has been needing are enabled.");
 		getServer().getPluginManager().registerEvents(new Listeners(), this);
 		Initialization init = new Initialization();
-		init.InitiateFiles();
+		init.initiateFiles();
     }
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args)
 	{
-		Cmd Com = new Cmd();
+		Cmd com = new Cmd();
 		if(cmd.getName().equalsIgnoreCase("ops"))
 		{	
-			Com = new CmdOps();
+			com = new CmdOps();
 		}
 		else if(cmd.getName().equalsIgnoreCase("banned"))
 		{
-			Com = new CmdBanned();
+			com = new CmdBanned();
 		} 
 		else if(cmd.getName().equalsIgnoreCase("bannedips"))
 		{
-			Com = new CmdBannedips();
+			com = new CmdBannedips();
 		}
 		else if(cmd.getName().equalsIgnoreCase("kick"))
 		{
-			Com = new CmdKick();
+			com = new CmdKick();
 		}
 		else if(cmd.getName().equalsIgnoreCase("ban"))
 		{
-			Com = new CmdBan();
+			com = new CmdBan();
 		}
 		else if(cmd.getName().equalsIgnoreCase("banip"))
 		{
-			Com = new CmdBanIp();
+			com = new CmdBanIp();
 		}
 		else if(cmd.getName().equalsIgnoreCase("gamemode"))
 		{
-			Com = new CmdGameMode();
+			com = new CmdGameMode();
 		}
 		else if(cmd.getName().equalsIgnoreCase("reload"))
 		{
-			Com = new CmdReload();
+			com = new CmdReload();
 		}
 		else if(cmd.getName().equalsIgnoreCase("warn"))
 		{
-			Com = new CmdWarn();
+			com = new CmdWarn();
 		}
 		else if(cmd.getName().equalsIgnoreCase("enchant"))
 		{
-			Com = new CmdEnchant();
+			com = new CmdEnchant();
 		}
 		else if(cmd.getName().equalsIgnoreCase("kill"))
 		{	
-			Com = new CmdKill();
+			com = new CmdKill();
 		}
 		else if(cmd.getName().equalsIgnoreCase("suicide"))
 		{	
-			Com = new CmdSuicide();
+			com = new CmdSuicide();
 		}
 		else if(cmd.getName().equalsIgnoreCase("tpaccept"))
 		{
-			Com = new CmdTpAccept();
+			com = new CmdTpAccept();
 		}
 		else if(cmd.getName().equalsIgnoreCase("tpdeny"))
 		{
-			Com = new CmdTpDeny();
+			com = new CmdTpDeny();
 		}
 		else if(cmd.getName().equalsIgnoreCase("tpa"))
 		{
-			Com = new CmdTpa();
+			com = new CmdTpa();
 		}
 		else if(cmd.getName().equalsIgnoreCase("tpahere"))
 		{
-			Com = new CmdTpahere();
+			com = new CmdTpahere();
 		}
 		else if(cmd.getName().equalsIgnoreCase("tp"))
 		{
-			Com = new CmdTp();
+			com = new CmdTp();
 		}
 		else if(cmd.getName().equalsIgnoreCase("tphere"))
 		{
-			Com = new CmdTphere();
+			com = new CmdTphere();
 		}
 		else if(cmd.getName().equalsIgnoreCase("motd"))
 		{
-			Com = new CmdMotd();
+			com = new CmdMotd();
 		}
 		else if(cmd.getName().equalsIgnoreCase("rules"))
 		{
-			Com = new CmdRules();
+			com = new CmdRules();
 		}
 		else if(cmd.getName().equalsIgnoreCase("permissions"))
 		{
-			Com = new CmdPermissions();
+			com = new CmdPermissions();
 		}
 		else if(cmd.getName().equalsIgnoreCase("ragequit"))
 		{
-			Com = new CmdRagequit();
+			com = new CmdRagequit();
 		}
 		else if(cmd.getName().equalsIgnoreCase("fly"))
 		{
-			Com = new CmdFly();
+			com = new CmdFly();
 		}
 		else if(cmd.getName().equalsIgnoreCase("god"))
 		{
-			Com = new CmdGod();
+			com = new CmdGod();
 		}
 		else if(cmd.getName().equalsIgnoreCase("feed"))
 		{
-			Com = new CmdFeed();
+			com = new CmdFeed();
 		}
 		else if(cmd.getName().equalsIgnoreCase("heal"))
 		{
-			Com = new CmdHeal();
+			com = new CmdHeal();
 		}
-		return Com.commandUse(sender, args);
+		return com.commandUse(sender, args);
 	}	
 	
     @Override

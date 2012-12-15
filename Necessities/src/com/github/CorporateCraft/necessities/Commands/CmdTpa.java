@@ -7,6 +7,7 @@ import com.github.CorporateCraft.necessities.*;
 public class CmdTpa extends Cmd
 {
 	ArrayLists arl = new ArrayLists();
+	Teleports telp = new Teleports();
 	public CmdTpa()
 	{
 
@@ -27,7 +28,6 @@ public class CmdTpa extends Cmd
 				return false;
 			}
 			String rname = target.getName();
-			Teleports telp = new Teleports();
 			telp.createTp(rname + " " + pname, "tothem");
 			player.sendMessage(arl.getCol() + "You sent a teleport request to " + rname);
 			target.sendMessage(arl.getCol() + pname + " is requesting to teleport to you");

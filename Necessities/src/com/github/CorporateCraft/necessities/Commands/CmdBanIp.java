@@ -8,7 +8,7 @@ import com.github.CorporateCraft.necessities.CCBot.*;
 
 public class CmdBanIp extends Cmd
 {
-	CCBotWarn Warns = new CCBotWarn();
+	CCBotWarn warns = new CCBotWarn();
 	ArrayLists arl = new ArrayLists();
 	public CmdBanIp()
 	{
@@ -23,7 +23,7 @@ public class CmdBanIp extends Cmd
 			if(target == null)
 			{
 				Bukkit.banIP(args[0]);
-				Warns.banIp(args[0], "Was ipbanned by " + p.getName() + ".");
+				warns.banIp(args[0], "Was ipbanned by " + p.getName() + ".");
 				return true;
 			}
 			if(target.isOp())
@@ -31,23 +31,23 @@ public class CmdBanIp extends Cmd
 				p.sendMessage(arl.getCol() + "You may not ipban an op");
 				return true;
 			}
-			String Reason = "";
+			String reason = "";
 			if(args.length == 1)
 			{
-				Reason = "Was ipbanned by " + p.getName() + ".";
-				Reason = Reason.trim();
+				reason = "Was ipbanned by " + p.getName() + ".";
+				reason = reason.trim();
 			}
 			else
 			{
 				for(int i = 1; i < args.length; i++)
 				{
-					Reason += args[i] + " ";
+					reason += args[i] + " ";
 				}
-				Reason = Reason.trim();
+				reason = reason.trim();
 			}
-			Warns.banIp(target.getName(), Reason);
+			warns.banIp(target.getName(), reason);
 			Bukkit.banIP(target.getAddress().getAddress().getHostAddress());
-			target.kickPlayer(Reason);
+			target.kickPlayer(reason);
 			return true;
 		}
 		else
@@ -56,26 +56,26 @@ public class CmdBanIp extends Cmd
 			if(target == null)
 			{
 				Bukkit.banIP(args[0]);
-				Warns.banIp(args[0], "Was ipbanned by the Console.");
+				warns.banIp(args[0], "Was ipbanned by the Console.");
 				return true;
 			}
-			String Reason = "";
+			String reason = "";
 			if(args.length == 1)
 			{
-				Reason = "Was ipbanned by the Console.";
-				Reason = Reason.trim();
+				reason = "Was ipbanned by the Console.";
+				reason = reason.trim();
 			}
 			else
 			{
 				for(int i = 1; i < args.length; i++)
 				{
-					Reason += args[i] + " ";
+					reason += args[i] + " ";
 				}
-				Reason = Reason.trim();
+				reason = reason.trim();
 			}
-			Warns.banIp(target.getName(), Reason);
+			warns.banIp(target.getName(), reason);
 			Bukkit.banIP(target.getAddress().getAddress().getHostAddress());
-			target.kickPlayer(Reason);
+			target.kickPlayer(reason);
 			return true;
 	    }
 	}

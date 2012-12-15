@@ -8,36 +8,36 @@ public class ArrayLists
 	{
 		
 	}
-	private final String Motdfile = "plugins/Necessities/MOTD.txt";
-	private final String Rulesfile = "plugins/Necessities/Rules.txt";
-	private final String Profanityfile = "plugins/Necessities/BadWords.txt";
+	private final String motdFile = "plugins/Necessities/MOTD.txt";
+	private final String rulesFile = "plugins/Necessities/Rules.txt";
+	private final String profanityFile = "plugins/Necessities/BadWords.txt";
 	private ChatColor messages = ChatColor.GREEN;
-	private ChatColor Error = ChatColor.DARK_RED;
-	private ChatColor ErrorMsg = ChatColor.RED;
+	private ChatColor error = ChatColor.DARK_RED;
+	private ChatColor errorMsg = ChatColor.RED;
 	
 	
 	public String getMotd()
 	{
-		return this.Motdfile;
+		return motdFile;
 	}
 	public String getRules()
 	{
-		return this.Rulesfile;
+		return rulesFile;
 	}
 	public String getProf()
 	{
-		return this.Profanityfile;
+		return profanityFile;
 	}
 	public ChatColor getCol()
 	{
-		return this.messages;
+		return messages;
 	}
 	public ChatColor getEr()
 	{
-		return this.Error;
+		return error;
 	}
 	public ChatColor getErMsg()
 	{
-		return this.ErrorMsg;
+		return errorMsg;
 	}
 }

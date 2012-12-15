@@ -14,20 +14,20 @@ public class CCBotLog
 	{
 		
 	}
-	public void log(String Message)
+	public void log(String message)
 	{
 		Calendar c = Calendar.getInstance();
-		String Second = Integer.toString(c.get(Calendar.SECOND));
-		String Minute = Integer.toString(c.get(Calendar.MINUTE));
-		String Hour = Integer.toString(c.get(Calendar.HOUR_OF_DAY));
-		String Day = Integer.toString(c.get(Calendar.DATE));
-		String Month = Integer.toString(c.get(Calendar.MONTH));
-		String Year = Integer.toString(c.get(Calendar.YEAR));
-		String date = Month + "-" + Day + "-" + Year;
-		Hour = corTime(Hour);
-		Minute = corTime(Minute);
-		Second = corTime(Second);
-		String time = "(" + Hour + ":" + Minute + ":" + Second + ")";
+		String second = Integer.toString(c.get(Calendar.SECOND));
+		String minute = Integer.toString(c.get(Calendar.MINUTE));
+		String hour = Integer.toString(c.get(Calendar.HOUR_OF_DAY));
+		String day = Integer.toString(c.get(Calendar.DATE));
+		String month = Integer.toString(c.get(Calendar.MONTH));
+		String year = Integer.toString(c.get(Calendar.YEAR));
+		String date = month + "-" + day + "-" + year;
+		hour = corTime(hour);
+		minute = corTime(minute);
+		second = corTime(second);
+		String time = "(" + hour + ":" + minute + ":" + second + ")";
 		String file = "plugins/Necessities/Logs/" + date + ".txt";
 		File f = new File(file);
 		if(!f.exists())
@@ -38,19 +38,19 @@ public class CCBotLog
 		{
 			FileWriter writer = new FileWriter(file, true);
 			BufferedWriter bw = new BufferedWriter(writer);
-			bw.write(time + " " + Message);
+			bw.write(time + " " + message);
 			bw.newLine();
 			bw.close();
 		}
 		catch (Exception e){}
 	}
-	private String corTime(String Time)
+	private String corTime(String time)
 	{
-		if(Time.length() == 1)
+		if(time.length() == 1)
 		{
-			return "0" + Time;
+			return "0" + time;
 		}
-		return Time;
+		return time;
 	}
 	private void fileCreate(String file)
 	{

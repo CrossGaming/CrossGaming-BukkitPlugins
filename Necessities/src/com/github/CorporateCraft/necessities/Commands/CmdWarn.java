@@ -8,7 +8,7 @@ import com.github.CorporateCraft.necessities.CCBot.CCBotWarn;
 
 public class CmdWarn extends Cmd
 {
-	CCBotWarn Warns = new CCBotWarn();
+	CCBotWarn warns = new CCBotWarn();
 	ArrayLists arl = new ArrayLists();
 	public CmdWarn()
 	{
@@ -34,13 +34,13 @@ public class CmdWarn extends Cmd
 				p.sendMessage(arl.getCol() + "You may not warn an op");
 				return true;
 			}
-			String Reason = "";
+			String reason = "";
 			for(int i = 1; i < args.length; i++)
 			{
-				Reason += args[i] + " ";
+				reason += args[i] + " ";
 			}
-			Reason = Reason.trim();
-			Warns.warn(target.getName(), Reason, p.getName());	
+			reason = reason.trim();
+			warns.warn(target.getName(), reason, p.getName());	
 			return true;
 		}
 		else
@@ -51,13 +51,13 @@ public class CmdWarn extends Cmd
 				sender.sendMessage(arl.getCol() + "Nonexistant player");
 				return true;
 			}
-			String Reason = "";
+			String reason = "";
 			for(int i = 1; i < args.length; i++)
 			{
-				Reason += args[i] + " ";
+				reason += args[i] + " ";
 			}
-			Reason = Reason.trim();
-			Warns.warn(target.getName(), Reason, "Console");
+			reason = reason.trim();
+			warns.warn(target.getName(), reason, "Console");
 			return true;
 	    }
 	}

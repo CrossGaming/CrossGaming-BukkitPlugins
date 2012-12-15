@@ -3,12 +3,12 @@ package com.github.CorporateCraft.necessities.Commands;
 import java.util.HashMap;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-import com.github.CorporateCraft.necessities.ArrayLists;
+import com.github.CorporateCraft.necessities.*;
 
 public class CmdGod extends Cmd
 {
-	private HashMap<String,Boolean> Gods = new HashMap<String,Boolean>();
 	ArrayLists arl = new ArrayLists();
+	private HashMap<String,Boolean> gods = new HashMap<String,Boolean>();
 	public CmdGod()
 	{
 		
@@ -35,9 +35,9 @@ public class CmdGod extends Cmd
 			{
 				target = p;
 			}
-			p.sendMessage(arl.getCol() + Gods.toString());
+			p.sendMessage(arl.getCol() + godlist());
 			setGod(target);
-			p.sendMessage(arl.getCol() + Gods.toString());
+			p.sendMessage(arl.getCol() + godlist());
 			if(p == target)
 			{
 				p.sendMessage(arl.getCol() + "God mode " + enabled(target).toLowerCase() + ".");
@@ -66,36 +66,44 @@ public class CmdGod extends Cmd
 			return true;
 		}
 	}
+	public String godlist()
+	{
+		return gods.toString();
+	}
 	private void setGod(Player target)
 	{
-		if(!Gods.containsKey(target))
+		if(!gods.containsKey(target))
 		{
-			Gods.put(target.getName(), false);
+			gods.put(target.getName(), false);
 		}
-		if(Gods.get(target.getName()))
+		if(gods.get(target.getName()))
 		{
-			Gods.put(target.getName(), false);
+			gods.put(target.getName(), false);
 		}
 		else
 		{
-			Gods.put(target.getName(), true);
+			gods.put(target.getName(), true);
 		}
 	}
 	public void remP(String name)
 	{
-		Gods.remove(name);
+		gods.remove(name);
 	}
 	public void addP(String name)
 	{
-		Gods.put(name, false);
+		gods.put(name, false);
 	}
-	public Boolean isGod(Player p)
+	public boolean isGod(Player p)
 	{
-		return Gods.containsKey(p.getName());
+		if(!gods.containsKey(p))
+		{
+			gods.put(p.getName(), false);
+		}
+		return gods.get(p.getName());
 	}
 	private String enabled(Player target)
 	{
-		if(Gods.get(target.getName()))
+		if(gods.get(target.getName()))
 		{
 			return "Enabled";
 		}

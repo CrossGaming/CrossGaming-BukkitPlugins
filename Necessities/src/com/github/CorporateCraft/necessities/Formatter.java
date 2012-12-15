@@ -17,9 +17,9 @@ public class Formatter
 		
 	}
 	
-	public void readFile(String file, ArrayList<String> Info)
+	public void readFile(String file, ArrayList<String> info)
 	{
-		Info.clear();
+		info.clear();
 		try
 		{
 		    FileReader reader = new FileReader(file);
@@ -31,7 +31,7 @@ public class Formatter
 		        {
 		         	break;
 		        }
-		        Info.add(inputText);
+		        info.add(inputText);
 		    }
 		}
 		catch (IOException ex){}
@@ -71,15 +71,15 @@ public class Formatter
 		return allFile;
 	}
 	
-	public void writeFile(String file, ArrayList<String> Info)
+	public void writeFile(String file, ArrayList<String> info)
 	{
 		try
 		{
 			FileWriter writer = new FileWriter(file);
 			BufferedWriter bw = new BufferedWriter(writer);
-			for (int i = 0; i < Info.size(); i++)
+			for (int i = 0; i < info.size(); i++)
 			{
-				bw.write(Info.get(i));
+				bw.write(info.get(i));
 				bw.newLine();
 			}
 			bw.close();
@@ -87,7 +87,7 @@ public class Formatter
 		catch (Exception e){}
 	}
 	
-	public Boolean FileEmpty(String file)
+	public boolean fileEmpty(String file)
 	{
 		try
 		{

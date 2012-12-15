@@ -10,7 +10,7 @@ public class Initialization
 	{
 		
 	}
-	public void InitiateFiles()
+	public void initiateFiles()
 	{
 		dirCreate("plugins/Necessities");
 		dirCreate("plugins/Necessities/Logs");

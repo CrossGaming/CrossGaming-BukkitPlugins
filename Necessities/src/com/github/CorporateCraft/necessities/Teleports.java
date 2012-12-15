@@ -5,38 +5,38 @@ import java.util.HashMap;
 
 public class Teleports
 {
-	private HashMap<String,String> Tps = new HashMap<String,String>();
-	private ArrayList<String> LastTp = new ArrayList<String>();
+	private HashMap<String,String> tps = new HashMap<String,String>();
+	private ArrayList<String> lastTp = new ArrayList<String>();
 	public Teleports()
 	{
 	
 	}
 	public boolean hasTp(String pname, String rname)
 	{
-		return Tps.containsKey(pname + " " + rname);
+		return tps.containsKey(pname + " " + rname);
 	}
 	
 	public void createTp(String key, String value)
 	{
-		Tps.put(key, value);
-		for(int i = 0; i<LastTp.size(); i++)
+		tps.put(key, value);
+		for(int i = 0; i<lastTp.size(); i++)
 		{
-			if(LastTp.get(i).startsWith(key.split(" ")[0] + " "))
+			if(lastTp.get(i).startsWith(key.split(" ")[0] + " "))
 			{
-				LastTp.remove(i);
+				lastTp.remove(i);
 				break;
 			}
 		}
-		LastTp.add(key);
+		lastTp.add(key);
 	}
 	
 	public String lastOffer(String pname)
 	{
-		for(int i = 0; i<LastTp.size(); i++)
+		for(int i = 0; i<lastTp.size(); i++)
 		{
-			if(LastTp.get(i).startsWith(pname + " "))
+			if(lastTp.get(i).startsWith(pname + " "))
 			{
-				return LastTp.get(i).split(" ")[1];
+				return lastTp.get(i).split(" ")[1];
 			}
 		}
 		return pname;
@@ -44,7 +44,7 @@ public class Teleports
 	
 	public String acceptTp(String pname, String rname)
 	{
-		String Info = Tps.get(pname + " " + rname);
+		String Info = tps.get(pname + " " + rname);
 		removeTp(pname, rname);
 		return Info;
 	}
@@ -56,12 +56,12 @@ public class Teleports
 	
 	public void removeTp(String pname, String rname)
 	{
-		Tps.remove(pname + " " + rname);
-		for(int i = 0; i<LastTp.size(); i++)
+		tps.remove(pname + " " + rname);
+		for(int i = 0; i<lastTp.size(); i++)
 		{
-			if(LastTp.get(i).equalsIgnoreCase(pname + " " + rname))
+			if(lastTp.get(i).equalsIgnoreCase(pname + " " + rname))
 			{
-				LastTp.remove(i);
+				lastTp.remove(i);
 				break;
 			}
 		}

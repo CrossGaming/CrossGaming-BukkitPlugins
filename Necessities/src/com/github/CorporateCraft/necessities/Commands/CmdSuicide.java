@@ -21,10 +21,10 @@ public class CmdSuicide extends Cmd
 			{
 				return false;
 			}
-			String DeathMessage = player.getName() + " committed suicide";
-			DeathMessage = DeathMessage.trim();
+			String deathMessage = player.getName() + " committed suicide";
+			deathMessage = deathMessage.trim();
 			player.setHealth(0);
-			Bukkit.broadcastMessage(DeathMessage);
+			Bukkit.broadcastMessage(deathMessage);
 			return true;
         } 
 		else

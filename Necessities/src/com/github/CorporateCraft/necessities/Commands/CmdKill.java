@@ -29,15 +29,15 @@ public class CmdKill extends Cmd
 				return true;
 			}
 			int i = 1;
-			String DeathMessage = target.getName() + " ";
+			String deathMessage = target.getName() + " ";
 			while (i < args.length)
 			{
-				DeathMessage += args[i] + " ";
+				deathMessage += args[i] + " ";
 				i++;
 			}        	   
-			DeathMessage = DeathMessage.trim();
+			deathMessage = deathMessage.trim();
 			target.setHealth(0);
-			Bukkit.broadcastMessage(DeathMessage);
+			Bukkit.broadcastMessage(deathMessage);
 			return true;
         } 
 		else
@@ -57,15 +57,15 @@ public class CmdKill extends Cmd
 				return true;
 			}
 			int i = 1;
-			String DeathMessage = target.getName() + " ";
+			String deathMessage = target.getName() + " ";
 			while (i < args.length)
 			{
-				DeathMessage += args[i] + " ";
+				deathMessage += args[i] + " ";
 				i++;
 			}        	   
-			DeathMessage = DeathMessage.trim();
+			deathMessage = deathMessage.trim();
 			target.setHealth(0);
-			Bukkit.broadcastMessage(DeathMessage);
+			Bukkit.broadcastMessage(deathMessage);
         	return true;
 	    }
 	}

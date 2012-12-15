@@ -9,75 +9,75 @@ import com.github.CorporateCraft.necessities.*;
 public class CCBot
 {
 	ArrayLists arl = new ArrayLists();
-	CCBotLog Log = new CCBotLog();
+	CCBotLog log = new CCBotLog();
 	Formatter form = new Formatter();
-	CCBotWarn Warns = new CCBotWarn();
-	private HashMap<String,Long> LastChat = new HashMap<String,Long>();
-	private HashMap<String,Long> LastCmd = new HashMap<String,Long>();
-	private ArrayList<String> Allowed = new ArrayList<String>();
-	private double ChatSpam = 2;
-	private double CmdSpam = 2;
+	CCBotWarn warns = new CCBotWarn();
+	private HashMap<String,Long> lastChat = new HashMap<String,Long>();
+	private HashMap<String,Long> lastCmd = new HashMap<String,Long>();
+	private ArrayList<String> allowed = new ArrayList<String>();
+	private double chatSpam = 2;
+	private double cmdSpam = 2;
 	public CCBot()
 	{
-		form.readFile(arl.getProf(), Allowed);
+		form.readFile(arl.getProf(), allowed);
 	}
 	private void removePlayer(String name)
 	{
-		LastChat.remove(name);
-		LastCmd.remove(name);
+		lastChat.remove(name);
+		lastCmd.remove(name);
 	}
-	private void checkChatSpam(String Player)
+	private void checkChatSpam(String player)
 	{
 		Long Time = System.currentTimeMillis();
-		if(!LastChat.containsKey(Player))
+		if(!lastChat.containsKey(player))
 		{
-			LastChat.put(Player, Time);
+			lastChat.put(player, Time);
 			return;
 		}
-		Long LastTime = LastChat.get(Player);
-		if((Time - LastTime)/1000 > ChatSpam)
+		Long LastTime = lastChat.get(player);
+		if((Time - LastTime)/1000 > chatSpam)
 		{
-			LastChat.put(Player, Time);
+			lastChat.put(player, Time);
 			return;
 		}
-		Warns.warn(Player, "ChatSpam", "CCBot");
+		warns.warn(player, "ChatSpam", "CCBot");
 	}
-	private void checkCmdSpam(String Player)
+	private void checkCmdSpam(String player)
 	{
-		Long Time = System.currentTimeMillis();
-		if(!LastCmd.containsKey(Player))
+		Long time = System.currentTimeMillis();
+		if(!lastCmd.containsKey(player))
 		{
-			LastCmd.put(Player, Time);
+			lastCmd.put(player, time);
 			return;
 		}
-		Long LastTime = LastCmd.get(Player);
-		if((Time - LastTime)/1000 > CmdSpam)
+		Long LastTime = lastCmd.get(player);
+		if((time - LastTime)/1000 > cmdSpam)
 		{
-			LastCmd.put(Player, Time);
+			lastCmd.put(player, time);
 			return;
 		}
-		Warns.warn(Player, "CmdSpam", "CCBot");
+		warns.warn(player, "CmdSpam", "CCBot");
 	}
-	private void caps(String Player, String Message)
+	private void caps(String player, String message)
 	{
-		Message = Message.replaceAll("[^a-zA-Z]","");
-		if(Message.equals(Message.toUpperCase()))
+		message = message.replaceAll("[^a-zA-Z]","");
+		if(message.equals(message.toUpperCase()))
 		{
-			if(Message.length() > 15)
+			if(message.length() > 15)
 			{
-				Warns.warn(Player, "Caps", "CCBot");
+				warns.warn(player, "Caps", "CCBot");
 			}
 		}
 	}
-	private void langCheck(String Player, String Message)
+	private void langCheck(String player, String message)
 	{
 		ArrayList<String> langList = new ArrayList<String>();
-		Message = Message.replaceAll("[^a-zA-Z]","");
-		for(int i = 0; i < Message.length(); i++)
+		message = message.replaceAll("[^a-zA-Z]","");
+		for(int i = 0; i < message.length(); i++)
 		{
 			try
 			{
-				langList.add(Message.split(" ")[i]);
+				langList.add(message.split(" ")[i]);
 			}
 			catch(Exception e)
 			{
@@ -86,57 +86,57 @@ public class CCBot
 		}
         for(int i = 0; i < langList.size(); i++)
         {
-            for(int j = 0; j < Allowed.size(); j++)
+            for(int j = 0; j < allowed.size(); j++)
             {
-                if (langList.get(i).toUpperCase().startsWith((Allowed.get(j)).toUpperCase()))
+                if (langList.get(i).toUpperCase().startsWith((allowed.get(j)).toUpperCase()))
                 {
-                	Warns.warn(Player, "Language", "CCBot");
+                	warns.warn(player, "Language", "CCBot");
                     break;
                 }
             }
         }
 	}
-	public void logChat(String Player, String Message)
+	public void logChat(String player, String message)
 	{
-		String MessageOrig = Message;
-		Message = Player + ": " + Message;
-		Log.log(Message);		
-		Player player = Bukkit.getServer().getPlayer(Player);
-		if(!player.isOp())
+		String messageOrig = message;
+		message = player + ": " + message;
+		log.log(message);		
+		Player p = Bukkit.getServer().getPlayer(player);
+		if(!p.isOp())
 		{
-			caps(Player, MessageOrig);
-			langCheck(Player, MessageOrig);
+			caps(player, messageOrig);
+			langCheck(player, messageOrig);
 		}
-		checkChatSpam(Player);
+		checkChatSpam(player);
 	}
-	public void logCom(String Player, String Message)
+	public void logCom(String player, String message)
 	{
-		Message = Player + " issued server command: " + Message;
-		Log.log(Message);
-		checkCmdSpam(Player);
+		message = player + " issued server command: " + message;
+		log.log(message);
+		checkCmdSpam(player);
 	}
-	public void logConsole(String Message)
+	public void logConsole(String message)
 	{
-		if(Message.startsWith("say"))
+		if(message.startsWith("say"))
 		{
-			Message = "Console:" + Message.replaceFirst("say", "");
+			message = "Console:" + message.replaceFirst("say", "");
 		}
 		else
 		{
-			Message = "Console issued command: " + Message;
+			message = "Console issued command: " + message;
 		}
-		Log.log(Message);
+		log.log(message);
 	}
-	public void logIn(String Player)
+	public void logIn(String player)
 	{
-		String Message = Player + " joined the game.";
-		Log.log(Message);
+		String message = player + " joined the game.";
+		log.log(message);
 	} 
-	public void logOut(String Player)
+	public void logOut(String player)
 	{
-		removePlayer(Player);
-		Warns.removePlayer(Player);
-		String Message = Player + " left the game.";
-		Log.log(Message);
+		removePlayer(player);
+		warns.removePlayer(player);
+		String message = player + " left the game.";
+		log.log(message);
 	}
 }

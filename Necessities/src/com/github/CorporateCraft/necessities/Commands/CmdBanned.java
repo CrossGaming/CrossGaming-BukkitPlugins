@@ -8,13 +8,13 @@ import com.github.CorporateCraft.necessities.*;
 public class CmdBanned extends Cmd
 {
 	ArrayLists arl = new ArrayLists();
+	Formatter form = new Formatter();
 	public CmdBanned()
 	{
 		
 	}
 	public boolean commandUse(CommandSender sender, String[] args)
 	{
-		Formatter form = new Formatter();
 		if (sender instanceof Player)
 		{
 			if(args.length != 0)

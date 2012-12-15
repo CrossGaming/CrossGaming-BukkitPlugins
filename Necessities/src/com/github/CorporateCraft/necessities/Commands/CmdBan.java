@@ -9,7 +9,7 @@ import com.github.CorporateCraft.necessities.CCBot.*;
 
 public class CmdBan extends Cmd
 {
-	CCBotWarn Warns = new CCBotWarn();
+	CCBotWarn warns = new CCBotWarn();
 	ArrayLists arl = new ArrayLists();
 	public CmdBan()
 	{
@@ -29,7 +29,7 @@ public class CmdBan extends Cmd
 					return true;
 				}
 				Bukkit.getOfflinePlayer(args[0]).setBanned(true);
-				Warns.ban(args[0], "Was banned by " + p.getName() + ".");
+				warns.ban(args[0], "Was banned by " + p.getName() + ".");
 				return true;
 			}
 			if(target.isOp())
@@ -37,22 +37,22 @@ public class CmdBan extends Cmd
 				p.sendMessage(arl.getCol() + "You may not ban an op");
 				return true;
 			}
-			String Reason = "";
+			String reason = "";
 			if(args.length == 1)
 			{
-				Reason = "Was banned by " + p.getName() + ".";
-				Reason = Reason.trim();
+				reason = "Was banned by " + p.getName() + ".";
+				reason = reason.trim();
 			}
 			else
 			{
 				for(int i = 1; i < args.length; i++)
 				{
-					Reason += args[i] + " ";
+					reason += args[i] + " ";
 				}
-				Reason = Reason.trim();
+				reason = reason.trim();
 			}
-			Warns.ban(target.getName(), Reason);
-			target.kickPlayer(Reason);
+			warns.ban(target.getName(), reason);
+			target.kickPlayer(reason);
 			Bukkit.getOfflinePlayer(args[0]).setBanned(true);
 			return true;
 		}
@@ -62,25 +62,25 @@ public class CmdBan extends Cmd
 			if(target == null)
 			{
 				Bukkit.getOfflinePlayer(args[0]).setBanned(true);
-				Warns.ban(args[0], "Was banned by the Console.");
+				warns.ban(args[0], "Was banned by the Console.");
 				return true;
 			}
-			String Reason = "";
+			String reason = "";
 			if(args.length == 1)
 			{
-				Reason = "Was banned by the Console.";
-				Reason = Reason.trim();
+				reason = "Was banned by the Console.";
+				reason = reason.trim();
 			}
 			else
 			{
 				for(int i = 1; i < args.length; i++)
 				{
-					Reason += args[i] + " ";
+					reason += args[i] + " ";
 				}
-				Reason = Reason.trim();
+				reason = reason.trim();
 			}
-			Warns.ban(target.getName(), Reason);
-			target.kickPlayer(Reason);
+			warns.ban(target.getName(), reason);
+			target.kickPlayer(reason);
 			Bukkit.getOfflinePlayer(args[0]).setBanned(true);
 			return true;
 	    }
