@@ -71,6 +71,7 @@ public class CmdPrice
 					return false;
 				}
 				String cost = Prices.Cost(file, ItemName);
+				ItemName = ItemName.replaceAll("_ITEM", "");
 				ItemName = Formatter.CapFirst(ItemName);
 				if(cost == null)
 				{
@@ -132,6 +133,7 @@ public class CmdPrice
 				return false;
 			}
 			String cost = Prices.Cost(file, ItemName);
+			ItemName = ItemName.replaceAll("_ITEM", "");
 			ItemName = Formatter.CapFirst(ItemName);
 			if(cost == null)
 			{

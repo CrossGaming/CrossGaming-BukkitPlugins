@@ -51,14 +51,20 @@ public class Materials
 	public static String FindItem(String Item)
 	{
 		Item = Item.toUpperCase().replaceAll("_", "");
+		String temp = null;
 		for(int i = 0; i<ArrayLists.MaterialList.size(); i++)
 		{
 			if(ArrayLists.MaterialList.get(i).split(" ")[0].equalsIgnoreCase(Item))
 			{
-				return MaterialNames.get(i);
+				temp = MaterialNames.get(i);
+			}
+			if(ArrayLists.MaterialList.get(i).split(" ")[0].equalsIgnoreCase(Item + "item"))
+			{
+				temp = MaterialNames.get(i);
+				break;
 			}
 		}
-		return null;
+		return temp;
 	}
 	
 	private static void SetMaterialNames()

@@ -88,11 +88,22 @@ public class CmdPriceList
 			return true;
 		}
 	}
-	private static String Form(String item, String sell, String buy, String numb)
+	private static String Form(String item, String buy, String sell, String numb)
 	{
 		String selling = "     sell price: ";
 	   	String buying = "     buy price: ";
 		String price = "";
+		try
+		{
+			if(item.split(" ")[1].equalsIgnoreCase("Item"))
+			{
+				item = item.split(" ")[0];
+			}
+		}
+		catch(Exception e)//no spaces
+		{
+			
+		}
 		if(!numb.equalsIgnoreCase("10."))
 		{
 			numb += " ";
@@ -112,8 +123,8 @@ public class CmdPriceList
    		}
 	   	price = ChatColor.GOLD + numb +
 	   			CCEconomy.messages + item +
-	   			selling + CCEconomy.money + sell + CCEconomy.messages +
-	   			buying + CCEconomy.money + buy;
+	   			buying + CCEconomy.money + buy + CCEconomy.messages +
+	   			selling + CCEconomy.money + sell;
    		return price;
 	}
 }

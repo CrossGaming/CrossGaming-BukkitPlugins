@@ -65,9 +65,10 @@ public class CmdBuy
 				ItemName = ItemName.toUpperCase();
 				Double Cost = 0.00;
 				Cost = Prices.GetCost(CCEconomy.buyfile, ItemName, amount);
-				ItemName = Formatter.CapFirst(ItemName);
 				if(Cost == -1.00)
 				{
+					ItemName = ItemName.replaceAll("_ITEM", "");
+					ItemName = Formatter.CapFirst(ItemName);
 					player.sendMessage(CCEconomy.messages + ItemName + " cannot be bought from the server.");
 					return true;
 				}
@@ -81,6 +82,8 @@ public class CmdBuy
 					EditPlayerMoney.RemoveMoney(player.getName(), Cost);
 					ItemStack itemstack = new ItemStack(Material.matchMaterial(Materials.FindItem(ItemName)), amount);
 					inventory.addItem(itemstack);
+					ItemName = ItemName.replaceAll("_ITEM", "");
+					ItemName = Formatter.CapFirst(ItemName);
 					player.sendMessage(CCEconomy.messages + "You bought " + Integer.toString(amount) + " of " + ItemName + ".");
 					player.sendMessage(CCEconomy.money + "$" + Formatter.roundTwoDecimals(Cost) + CCEconomy.messages + " was removed from your acount.");
 					return true;

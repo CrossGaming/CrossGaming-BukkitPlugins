@@ -29,12 +29,12 @@ commands:
       description: Sets the price of an to sell
       usage: /<command> <itemname:id:hand> <price> <sell/buy>
       permission: 
-      aliases: [setcost]
+      aliases: [setcost, setworth]
    price:
       description: Shows how much money <itemname> is worth to sell
       usage: /<command> <itemname:id:hand> <sell/buy>
       permission: CCEconomy.price
-      aliases: [cost]
+      aliases: [cost, worth]
    buy:
       description: Shows the cost of buying <itemname>
       usage: /<command> <itemname:id:hand> <amount>
@@ -47,7 +47,7 @@ commands:
       description: Shows the prices of the sellable items on the server
       usage: /<command> <page>
       permission: CCEconomy.pricelist
-      aliases: [listprices, prices]   
+      aliases: [listprices, prices, worths]   
    taccept:
       description: Accept a trade from a player
       usage: /<command> <player who offered trade>

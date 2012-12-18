@@ -4,11 +4,13 @@ import java.util.HashMap;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import com.github.CorporateCraft.necessities.*;
+import com.github.CorporateCraft.necessities.CCBot.CCBotLog;
 
 public class CmdGod extends Cmd
 {
 	ArrayLists arl = new ArrayLists();
-	private HashMap<String,Boolean> gods = new HashMap<String,Boolean>();
+	CCBotLog log = new CCBotLog();
+	private static HashMap<String,Boolean> gods = new HashMap<String,Boolean>();
 	public CmdGod()
 	{
 		
@@ -35,16 +37,18 @@ public class CmdGod extends Cmd
 			{
 				target = p;
 			}
-			p.sendMessage(arl.getCol() + godlist());
 			setGod(target);
-			p.sendMessage(arl.getCol() + godlist());
+			String enab = enabled(target);
 			if(p == target)
 			{
-				p.sendMessage(arl.getCol() + "God mode " + enabled(target).toLowerCase() + ".");
+				p.sendMessage(arl.getCol() + "God mode " + enab.toLowerCase() + ".");
+				log.log(enab + " god mode for player " + target.getName() + ".");
 			}
 			else
 			{
-				p.sendMessage(arl.getCol() + enabled(target) + " god mode for player " + target.getName() + ".");
+				p.sendMessage(arl.getCol() + enab + " god mode for player " + target.getName() + ".");
+				log.log(enab + " god mode for player " + target.getName() + ".");
+				target.sendMessage(arl.getCol() + "God mode " + enab.toLowerCase() + ".");
 			}
 			return true;
 		}
@@ -62,28 +66,18 @@ public class CmdGod extends Cmd
 				return true;
 			}
 			setGod(target);
-			sender.sendMessage(arl.getCol() + enabled(target) + " god mode for player " + target.getName() + ".");
+			String enab = enabled(target);
+			sender.sendMessage(arl.getCol() + enab + " god mode for player " + target.getName() + ".");
+			log.log(enabled(target) + " god mode for player " + target.getName() + ".");
+			target.sendMessage(arl.getCol() + "God mode " + enab.toLowerCase() + ".");
 			return true;
 		}
 	}
-	public String godlist()
-	{
-		return gods.toString();
-	}
 	private void setGod(Player target)
 	{
-		if(!gods.containsKey(target))
-		{
-			gods.put(target.getName(), false);
-		}
-		if(gods.get(target.getName()))
-		{
-			gods.put(target.getName(), false);
-		}
-		else
-		{
-			gods.put(target.getName(), true);
-		}
+		String name = target.getName();
+		addP(name);
+		gods.put(name, !gods.get(name));
 	}
 	public void remP(String name)
 	{
@@ -91,15 +85,19 @@ public class CmdGod extends Cmd
 	}
 	public void addP(String name)
 	{
-		gods.put(name, false);
+		if(!gods.containsKey(name))
+		{
+			gods.put(name, false);
+		}
 	}
 	public boolean isGod(Player p)
 	{
-		if(!gods.containsKey(p))
+		String name = p.getName();
+		if(!gods.containsKey(name))
 		{
-			gods.put(p.getName(), false);
+			gods.put(name, false);
 		}
-		return gods.get(p.getName());
+		return gods.get(name);
 	}
 	private String enabled(Player target)
 	{

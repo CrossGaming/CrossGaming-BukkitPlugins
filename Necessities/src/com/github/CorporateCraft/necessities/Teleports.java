@@ -5,11 +5,11 @@ import java.util.HashMap;
 
 public class Teleports
 {
-	private HashMap<String,String> tps = new HashMap<String,String>();
+	private static HashMap<String,String> tps = new HashMap<String,String>();
 	private ArrayList<String> lastTp = new ArrayList<String>();
 	public Teleports()
 	{
-	
+
 	}
 	public boolean hasTp(String pname, String rname)
 	{

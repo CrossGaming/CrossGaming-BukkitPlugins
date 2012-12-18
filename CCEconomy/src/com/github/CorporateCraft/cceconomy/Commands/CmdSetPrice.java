@@ -61,6 +61,7 @@ public class CmdSetPrice
 					if(args[1].equalsIgnoreCase("null"))
 					{
 						Prices.SetCost(file, ItemName, args[1]);
+						ItemName = ItemName.replaceAll("_ITEM", "");
 						ItemName = Formatter.CapFirst(ItemName);
 						if(args[2].equalsIgnoreCase("buy"))
 						{
@@ -75,6 +76,7 @@ public class CmdSetPrice
 					else
 					{
 						Prices.SetCost(file, ItemName, Formatter.roundTwoDecimals(Double.parseDouble(args[1])));
+						ItemName = ItemName.replaceAll("_ITEM", "");
 						ItemName = Formatter.CapFirst(ItemName);
 						if(args[2].equalsIgnoreCase("buy"))
 						{
@@ -129,6 +131,7 @@ public class CmdSetPrice
 					if(args[0].equalsIgnoreCase("null"))
 					{
 						Prices.SetCost(file, ItemName, args[0]);
+						ItemName = ItemName.replaceAll("_ITEM", "");
 						ItemName = Formatter.CapFirst(ItemName);
 						if(args[1].equalsIgnoreCase("buy"))
 						{
@@ -143,6 +146,7 @@ public class CmdSetPrice
 					else
 					{
 						Prices.SetCost(file, ItemName, Formatter.roundTwoDecimals(Double.parseDouble(args[0])));
+						ItemName = ItemName.replaceAll("_ITEM", "");
 						ItemName = Formatter.CapFirst(ItemName);
 						if(args[1].equalsIgnoreCase("buy"))
 						{
@@ -196,6 +200,7 @@ public class CmdSetPrice
 			if(args[1].equalsIgnoreCase("null"))
 			{
 				Prices.SetCost(file, ItemName, args[1]);
+				ItemName = ItemName.replaceAll("_ITEM", "");
 				ItemName = Formatter.CapFirst(ItemName);
 				if(args[2].equalsIgnoreCase("buy"))
 				{
@@ -210,6 +215,7 @@ public class CmdSetPrice
 			else
 			{
 				Prices.SetCost(file, ItemName, Formatter.roundTwoDecimals(Double.parseDouble(args[1])));
+				ItemName = ItemName.replaceAll("_ITEM", "");
 				ItemName = Formatter.CapFirst(ItemName);
 				if(args[2].equalsIgnoreCase("buy"))
 				{

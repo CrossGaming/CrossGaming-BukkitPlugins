@@ -62,25 +62,29 @@ public class CmdSell
 				}
 				Double Cost = 0.00;
 				Cost = Prices.GetCost(CCEconomy.sellfile, ItemName, amount);
-				ItemName = Formatter.CapFirst(ItemName);
 				if(Cost == -1.00)
 				{
+					ItemName = ItemName.replaceAll("_ITEM", "");
+					ItemName = Formatter.CapFirst(ItemName);
 					player.sendMessage(CCEconomy.messages + ItemName + " cannot be sold to the server.");
 					return true;
 				}
 				else
 				{
-					ItemStack itemstack = new ItemStack(Material.matchMaterial(Materials.FindItem(ItemName)), amount);
+					ItemStack itemstack = new ItemStack(Material.matchMaterial(ItemName), amount);
 					if(inventory.contains(Material.matchMaterial(Materials.FindItem(ItemName)), amount))
 					{
 						EditPlayerMoney.AddMoney(player.getName(), Cost);
 						inventory.removeItem(itemstack);
-						ItemName = ItemName.replaceAll("_", " ");
+						ItemName = ItemName.replaceAll("_ITEM", "");
+						ItemName = Formatter.CapFirst(ItemName);
 						player.sendMessage(CCEconomy.messages + "You sold " + Integer.toString(amount) + " of " + ItemName + ".");
 						player.sendMessage(CCEconomy.money + "$" + Formatter.roundTwoDecimals(Cost) + CCEconomy.messages + " was added to your acount.");
 					}
 					else
 					{
+						ItemName = ItemName.replaceAll("_ITEM", "");
+						ItemName = Formatter.CapFirst(ItemName);
 						player.sendMessage(CCEconomy.messages + "You do not have that many " + ItemName + "s");
 					}
 					return true;

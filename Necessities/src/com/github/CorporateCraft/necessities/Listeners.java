@@ -58,7 +58,6 @@ public class Listeners implements Listener
 		Entity entity = event.getEntity();
 		if (entity instanceof Player)
 		{
-			((Player) entity).sendMessage(god.godlist());
 			event.setCancelled(god.isGod((Player) entity));
 		}
 	}
