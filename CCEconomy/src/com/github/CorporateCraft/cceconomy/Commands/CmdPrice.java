@@ -1,13 +1,20 @@
 package com.github.CorporateCraft.cceconomy.Commands;
 
-import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import com.github.CorporateCraft.cceconomy.*;
 
-public class CmdPrice
+public class CmdPrice extends Cmd
 {
-	public static boolean CommandUse(CommandSender sender, Command cmd, String label, String[] args)
+	ArrayLists arl = new ArrayLists();
+	Formatter form = new Formatter();
+	Prices pr = new Prices();
+	Materials mat = new Materials();
+	public CmdPrice()
+	{
+		
+	}
+	public boolean commandUse(CommandSender sender, String[] args)
 	{
 		if (sender instanceof Player)
 		{
@@ -18,20 +25,20 @@ public class CmdPrice
 			}
 			if(player.hasPermission("CCEconomy.price"))
 			{
-				String ItemName = "";
-				String Oper = "";
+				String itemName = "";
+				String oper = "";
 				if (args.length == 1)
 				{
 					if(!args[0].equalsIgnoreCase("buy"))
 					{
 						if(!args[0].equalsIgnoreCase("sell"))
 						{
-							player.sendMessage(CCEconomy.messages + "Input either sell or buy");
+							player.sendMessage(arl.getMessages() + "Input either sell or buy");
 							return false;
 						}
 					}
-					ItemName = Integer.toString(player.getItemInHand().getTypeId());
-					Oper = args[0];
+					itemName = Integer.toString(player.getItemInHand().getTypeId());
+					oper = args[0];
 				}
 				if (args.length == 2)
 				{
@@ -39,65 +46,65 @@ public class CmdPrice
 					{
 						if(!args[1].equalsIgnoreCase("sell"))
 						{
-							player.sendMessage(CCEconomy.messages + "Input either sell or buy");
+							player.sendMessage(arl.getMessages() + "Input either sell or buy");
 							return false;
 						}
 					}
-					ItemName = args[0];
-					Oper = args[1];
+					itemName = args[0];
+					oper = args[1];
 				}
-				if(Formatter.isLegal(ItemName))
+				if(form.isLegal(itemName))
 				{
-					ItemName = Materials.idToName(Integer.parseInt(ItemName));
+					itemName = mat.idToName(Integer.parseInt(itemName));
 				}
-				ItemName = Materials.FindItem(ItemName);
-				if(!Materials.ItemExists(ItemName))
+				itemName = mat.findItem(itemName);
+				if(!mat.itemExists(itemName))
 				{
-					player.sendMessage(CCEconomy.messages + "That item does not exist");
+					player.sendMessage(arl.getMessages() + "That item does not exist");
 					return true;
 				}
 				String file = "";
-				if(Oper.equalsIgnoreCase("buy"))
+				if(oper.equalsIgnoreCase("buy"))
 				{
-					file = CCEconomy.buyfile;
+					file = arl.getBuyFile();
 				}
-				else if(Oper.equalsIgnoreCase("sell"))
+				else if(oper.equalsIgnoreCase("sell"))
 				{
-					file = CCEconomy.sellfile;
+					file = arl.getSellFile();
 				}
 				else
 				{
-					player.sendMessage(CCEconomy.messages + "Input either sell or buy");
+					player.sendMessage(arl.getMessages() + "Input either sell or buy");
 					return false;
 				}
-				String cost = Prices.Cost(file, ItemName);
-				ItemName = ItemName.replaceAll("_ITEM", "");
-				ItemName = Formatter.CapFirst(ItemName);
+				String cost = pr.cost(file, itemName);
+				itemName = itemName.replaceAll("_ITEM", "");
+				itemName = form.capFirst(itemName);
 				if(cost == null)
 				{
-					if(Oper.equalsIgnoreCase("buy"))
+					if(oper.equalsIgnoreCase("buy"))
 					{
-						player.sendMessage(CCEconomy.messages + ItemName + " cannot be bought from the server");
+						player.sendMessage(arl.getMessages() + itemName + " cannot be bought from the server");
 					}
 					else
 					{
-						player.sendMessage(CCEconomy.messages + ItemName + " cannot be sold to the server");
+						player.sendMessage(arl.getMessages() + itemName + " cannot be sold to the server");
 					}
 					return true;
 				}
 				if(cost.equalsIgnoreCase("null"))
 				{
-					if(Oper.equalsIgnoreCase("buy"))
+					if(oper.equalsIgnoreCase("buy"))
 					{
-						player.sendMessage(CCEconomy.messages + ItemName + " cannot be bought from the server");
+						player.sendMessage(arl.getMessages() + itemName + " cannot be bought from the server");
 					}
 					else
 					{
-						player.sendMessage(CCEconomy.messages + ItemName + " cannot be sold to the server");
+						player.sendMessage(arl.getMessages() + itemName + " cannot be sold to the server");
 					}
 					return true;
 				}
-				player.sendMessage(CCEconomy.messages + ItemName + " can be sold for " + CCEconomy.money + "$" + cost);
+				player.sendMessage(arl.getMessages() + itemName + " can be sold for " + arl.getMoney() + "$" + cost);
 				return true;
 			}
 		}
@@ -107,59 +114,60 @@ public class CmdPrice
 			{
 				return false;
 			}
-			String ItemName = args[0];
-			if(Formatter.isLegal(ItemName))
+			String itemName = args[0];
+			if(form.isLegal(itemName))
 			{
-				ItemName = Materials.idToName(Integer.parseInt(ItemName));
+				itemName = mat.idToName(Integer.parseInt(itemName));
 			}
-			ItemName = Materials.FindItem(ItemName);
-			if(!Materials.ItemExists(ItemName))
+			itemName = mat.findItem(itemName);
+			if(!mat.itemExists(itemName))
 			{
-				sender.sendMessage(CCEconomy.messages + "That item does not exist");
+				sender.sendMessage(arl.getMessages() + "That item does not exist");
 				return true;
 			}
 			String file;
-			if(args[1].equalsIgnoreCase("buy"))
+			String oper = args[1];
+			if(oper.equalsIgnoreCase("buy"))
 			{
-				file = CCEconomy.buyfile;
+				file = arl.getBuyFile();
 			}
-			else if(args[1].equalsIgnoreCase("sell"))
+			else if(oper.equalsIgnoreCase("sell"))
 			{
-				file = CCEconomy.sellfile;
+				file = arl.getSellFile();
 			}
 			else
 			{
-				sender.sendMessage(CCEconomy.messages + "Input either sell or buy");
+				sender.sendMessage(arl.getMessages() + "Input either sell or buy");
 				return false;
 			}
-			String cost = Prices.Cost(file, ItemName);
-			ItemName = ItemName.replaceAll("_ITEM", "");
-			ItemName = Formatter.CapFirst(ItemName);
+			String cost = pr.cost(file, itemName);
+			itemName = itemName.replaceAll("_ITEM", "");
+			itemName = form.capFirst(itemName);
 			if(cost == null)
 			{
-				if(args[1].equalsIgnoreCase("buy"))
+				if(oper.equalsIgnoreCase("buy"))
 				{
-					sender.sendMessage(CCEconomy.messages + ItemName + " cannot be bought from the server");
+					sender.sendMessage(arl.getMessages() + itemName + " cannot be bought from the server");
 				}
 				else
 				{
-					sender.sendMessage(CCEconomy.messages + ItemName + " cannot be sold to the server");
+					sender.sendMessage(arl.getMessages() + itemName + " cannot be sold to the server");
 				}
 				return true;
 			}
 			if(cost.equalsIgnoreCase("null"))
 			{
-				if(args[1].equalsIgnoreCase("buy"))
+				if(oper.equalsIgnoreCase("buy"))
 				{
-					sender.sendMessage(CCEconomy.messages + ItemName + " cannot be bought from the server");
+					sender.sendMessage(arl.getMessages() + itemName + " cannot be bought from the server");
 				}
 				else
 				{
-					sender.sendMessage(CCEconomy.messages + ItemName + " cannot be sold to the server");
+					sender.sendMessage(arl.getMessages() + itemName + " cannot be sold to the server");
 				}
 				return true;
 			}
-			sender.sendMessage(CCEconomy.messages + ItemName + " can be sold for " + CCEconomy.money + "$" + cost);
+			sender.sendMessage(arl.getMessages() + itemName + " can be sold for " + arl.getMoney() + "$" + cost);
 			return true;
 		}
 		return false;

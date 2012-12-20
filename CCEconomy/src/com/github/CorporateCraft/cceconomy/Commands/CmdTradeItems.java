@@ -1,19 +1,22 @@
 package com.github.CorporateCraft.cceconomy.Commands;
 
 import org.bukkit.Material;
-import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.PlayerInventory;
+import com.github.CorporateCraft.cceconomy.*;
 
-import com.github.CorporateCraft.cceconomy.CCEconomy;
-import com.github.CorporateCraft.cceconomy.Formatter;
-import com.github.CorporateCraft.cceconomy.Materials;
-import com.github.CorporateCraft.cceconomy.Trade;
-
-public class CmdTradeItems
+public class CmdTradeItems extends Cmd
 {
-	public static boolean CommandUse(CommandSender sender, Command cmd, String label, String[] args)
+	Formatter form = new Formatter();
+	Trade tr = new Trade();
+	Materials mat = new Materials();
+	ArrayLists arl = new ArrayLists();
+	public CmdTradeItems()
+	{
+		
+	}
+	public boolean commandUse(CommandSender sender, String[] args)
 	{
 		if (sender instanceof Player)
 		{
@@ -25,61 +28,85 @@ public class CmdTradeItems
 			Player target = sender.getServer().getPlayer(args[0]);
 			String pname = player.getName();
 			String offertopname = target.getName();
-			if(!Formatter.isLegal(args[4]))
+			if(!form.isLegal(args[4]))
 			{
 				return false;
 			}
-			if(!Formatter.isLegal(args[2]))
+			if(!form.isLegal(args[2]))
 			{
 				return false;
 			}
 			String amountgetting = args[2];
-			String itemgetting = args[1];
+			String itemgetting = "";
 			String amountoffering = args[4];
-			String itemoffering = args[3];
-			if(Formatter.isLegal(itemgetting))
+			String itemoffering = "";
+			short dataget = 0;
+			short dataoff = 0;
+			String tempget = "";
+			tempget = args[1].replaceAll(":", " ");
+			itemgetting = tempget.split(" ")[0];
+			String tempoff = "";
+			tempoff = args[3].replaceAll(":", " ");
+			itemoffering = tempget.split(" ")[0];
+			if(form.isLegal(itemgetting))
 			{
-				itemgetting = Materials.idToName(Integer.parseInt(itemgetting));
+				itemgetting = mat.idToName(Integer.parseInt(itemgetting));
+				try
+				{
+					dataget = Short.parseShort(tempget.split(" ")[1]);
+				}
+				catch(Exception e)
+				{
+					dataget = 0;
+				}
 			}
-			if(Formatter.isLegal(itemoffering))
+			if(form.isLegal(itemoffering))
 			{
-				itemoffering = Materials.idToName(Integer.parseInt(itemoffering));
+				itemoffering = mat.idToName(Integer.parseInt(itemoffering));
+				try
+				{
+					dataoff = Short.parseShort(tempoff.split(" ")[1]);
+				}
+				catch(Exception e)
+				{
+					dataoff = 0;
+				}
 			}
 			PlayerInventory thereinventory = target.getInventory();
 			PlayerInventory yourinventory = player.getInventory();
-			itemoffering = Materials.FindItem(itemoffering);
-			itemgetting = Materials.FindItem(itemgetting);
-			if(!Materials.ItemExists(itemoffering))
+			itemoffering = mat.findItem(itemoffering);
+			itemgetting = mat.findItem(itemgetting);
+			if(!mat.itemExists(itemoffering))
 			{
-				player.sendMessage(CCEconomy.messages + "That item does not exist");
+				player.sendMessage(arl.getMessages() + "That item does not exist");
 				return true;
 			}
-			if(!Materials.ItemExists(itemgetting))
+			if(!mat.itemExists(itemgetting))
 			{
-				player.sendMessage(CCEconomy.messages + "That item does not exist");
+				player.sendMessage(arl.getMessages() + "That item does not exist");
 				return true;
 			}
 			if(!yourinventory.contains(Material.matchMaterial(itemoffering), Integer.parseInt(amountoffering)))
 			{
-				player.sendMessage(CCEconomy.messages + "You do not have that much " + Formatter.CapFirst(itemoffering));
+				player.sendMessage(arl.getMessages() + "You do not have that much " + form.capFirst(itemoffering));
 				return true;
 			}
 			if(!thereinventory.contains(Material.matchMaterial(itemgetting), Integer.parseInt(amountgetting)))
 			{
-				player.sendMessage(CCEconomy.messages + "They do not have that much " + Formatter.CapFirst(itemgetting));
+				player.sendMessage(arl.getMessages() + "They do not have that much " + form.capFirst(itemgetting));
 				return true;
 			}
-			Trade.CreateTrade(offertopname + " " + pname + " " + itemgetting + " " + amountgetting + " " + itemoffering + " " + amountoffering);
-			itemgetting = Formatter.CapFirst(itemgetting);
-			itemoffering = Formatter.CapFirst(itemoffering);
-			player.sendMessage(CCEconomy.messages + "You have offered a trade to " + offertopname);
-			target.sendMessage(CCEconomy.messages + pname + " has offered to trade you " + amountgetting + " of " + itemgetting + " for " + amountoffering + " of " + itemoffering);
-			target.sendMessage(CCEconomy.messages + "Type /taccept " + pname + " or /tdeny " + pname + " to accept or deny their trade request");
+			tr.createTrade(offertopname + " " + pname + " " + itemgetting + ":" + Short.toString(dataget) + " " + amountgetting + " " + itemoffering + ":" + Short.toString(dataoff) + " " + amountoffering);
+			itemgetting = form.capFirst(itemgetting);
+			itemoffering = form.capFirst(itemoffering);
+			player.sendMessage(arl.getMessages() + "You have offered a trade to " + offertopname);
+			target.sendMessage(arl.getMessages() + pname + " has offered to trade you " + amountgetting + " of " + itemgetting + " for " + amountoffering + " of " + itemoffering);
+			target.sendMessage(arl.getMessages() + "Type /taccept " + pname + " or /tdeny " + pname + " to accept or deny their trade request");
 			return true;
 		}
 		else
 		{
-			sender.sendMessage(CCEconomy.messages + "You don't have an inventory. Please log in to trade.");
+			sender.sendMessage(arl.getMessages() + "You don't have an inventory. Please log in to trade.");
 			return true;
 		}
 	}

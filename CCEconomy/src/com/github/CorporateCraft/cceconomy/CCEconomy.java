@@ -1,82 +1,77 @@
 package com.github.CorporateCraft.cceconomy;
 
-import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.plugin.java.JavaPlugin;
 import com.github.CorporateCraft.cceconomy.Commands.*;
 
 public class CCEconomy extends JavaPlugin
-{
-	public static final String balfile = "plugins/CCEconomy/moneytracker.txt";
-	public static final String sellfile = "plugins/CCEconomy/sellprices.txt";
-	public static final String buyfile = "plugins/CCEconomy/buyprices.txt";
-	public static ChatColor messages = ChatColor.GREEN;
-	public static ChatColor money = ChatColor.AQUA;
-	
+{	
 	@Override
     public void onEnable()
 	{	
 		getLogger().info("CCEconomy has been enabled. You now have an advanced economy system.");
 		getServer().getPluginManager().registerEvents(new LoginListener(), this);
-		Initialization.InitiateFiles();
+		Initialization init = new Initialization();
+		init.initiateFiles();
     }
 	
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args)
 	{
+		Cmd com = new Cmd();
 		if(cmd.getName().equalsIgnoreCase("bal"))
 		{
-			return CmdBalance.CommandUse(sender, cmd, label, args);
+			com = new CmdBalance();
 		}
 		else if(cmd.getName().equalsIgnoreCase("baltop"))
 		{			
-			return CmdBaltop.CommandUse(sender, cmd, label, args);
+			com = new CmdBaltop();
 		}
 		else if(cmd.getName().equalsIgnoreCase("pricelist"))
 		{			
-			return CmdPriceList.CommandUse(sender, cmd, label, args);
+			com = new CmdPriceList();
 		}
 		else if(cmd.getName().equalsIgnoreCase("pay"))
 		{			
-			return CmdPay.CommandUse(sender, cmd, label, args);
+			com = new CmdPay();
 		}
 		else if(cmd.getName().equalsIgnoreCase("cce"))
 		{			
-			return CmdCCE.CommandUse(sender, cmd, label, args);
+			com = new CmdCCE();
 		}
 		else if(cmd.getName().equalsIgnoreCase("price"))
 		{
-			return CmdPrice.CommandUse(sender, cmd, label, args);
+			com = new CmdPrice();
 		}
 		else if(cmd.getName().equalsIgnoreCase("setprice"))
 		{
-			return CmdSetPrice.CommandUse(sender, cmd, label, args);
+			com = new CmdSetPrice();
 		}
 		else if(cmd.getName().equalsIgnoreCase("buy"))
 		{
-			return CmdBuy.CommandUse(sender, cmd, label, args);
+			com = new CmdBuy();
 		}
 		else if(cmd.getName().equalsIgnoreCase("sell"))
 		{
-			return CmdSell.CommandUse(sender, cmd, label, args);
+			com = new CmdSell();
 		}
 		else if(cmd.getName().equalsIgnoreCase("taccept"))
 		{
-			return CmdTAccept.CommandUse(sender, cmd, label, args);
+			com = new CmdTAccept();
 		}
 		else if(cmd.getName().equalsIgnoreCase("tdeny"))
 		{
-			return CmdTDeny.CommandUse(sender, cmd, label, args);
+			com = new CmdTDeny();
 		}
 		else if(cmd.getName().equalsIgnoreCase("trade"))
 		{
-			return CmdTrade.CommandUse(sender, cmd, label, args);
+			com = new CmdTrade();
 		}
 		else if(cmd.getName().equalsIgnoreCase("tradeitems"))
 		{
-			return CmdTradeItems.CommandUse(sender, cmd, label, args);
+			com = new CmdTradeItems();
 		}
-		return false; 
+		return com.commandUse(sender, args); 
 	}	
 	
     @Override

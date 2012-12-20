@@ -5,108 +5,118 @@ import org.bukkit.Material;
 
 public class Materials
 {	
-	private static ArrayList<String> MaterialNames = new ArrayList<String>();
-	public static final int MaxItems = 2366;
-	
-	public static void UpdateMats()
+	ArrayLists arl = new ArrayLists();
+	Formatter form = new Formatter();
+	private static ArrayList<String> materialNames = new ArrayList<String>();
+	private static ArrayList<String> materialList = new ArrayList<String>();
+	private final int maxItems = 2366;
+	public Materials()
 	{
-		ArrayLists.SetMaterials();
-		UpdateFiles();
-		SetMaterialNames();
+		
 	}
-	
-	private static void UpdateFiles()
+	public void updateMats()
 	{
-		if(Formatter.FileEmpty(CCEconomy.sellfile))
+		setMaterials();
+		updateFiles();
+	}
+	private void updateFiles()
+	{
+		String sell = arl.getSellFile();
+		String buy = arl.getBuyFile();
+		if(form.fileEmpty(sell))
 		{
-			Formatter.WriteFile(CCEconomy.sellfile, ArrayLists.MaterialList);
+			form.writeFile(sell, materialList);
 		}
 		else
 		{
-			Formatter.WriteFile(CCEconomy.sellfile, UpdateForNew(CCEconomy.sellfile));
+			form.writeFile(sell, updateForNew(sell));
 		}
-		if(Formatter.FileEmpty(CCEconomy.buyfile))
+		if(form.fileEmpty(buy))
 		{
-			Formatter.WriteFile(CCEconomy.buyfile, ArrayLists.MaterialList);
+			form.writeFile(buy, materialList);
 		}
 		else
 		{
-			Formatter.WriteFile(CCEconomy.buyfile, UpdateForNew(CCEconomy.buyfile));
+			form.writeFile(buy, updateForNew(buy));
 		}
 	}
 	
-	public static Boolean ItemExists(String Item)
+	public boolean itemExists(String item)
 	{
-		if(Item == null)
+		if(item == null)
 		{
 			return false;
 		}
-		if(Material.getMaterial(Item) == null)
+		if(Material.getMaterial(item) == null)
 		{
 			return false;
 		}
 		return true;
 	}
 	
-	public static String FindItem(String Item)
+	public String findItem(String item)
 	{
-		Item = Item.toUpperCase().replaceAll("_", "");
+		item = item.toUpperCase().replaceAll("_", "");
 		String temp = null;
-		for(int i = 0; i<ArrayLists.MaterialList.size(); i++)
+		for(int i = 0; i < materialList.size(); i++)
 		{
-			if(ArrayLists.MaterialList.get(i).split(" ")[0].equalsIgnoreCase(Item))
+			if(materialList.get(i).split(" ")[0].equalsIgnoreCase(item))
 			{
-				temp = MaterialNames.get(i);
+				temp = materialNames.get(i);
 			}
-			if(ArrayLists.MaterialList.get(i).split(" ")[0].equalsIgnoreCase(Item + "item"))
+			if(materialList.get(i).split(" ")[0].equalsIgnoreCase(item + "item"))
 			{
-				temp = MaterialNames.get(i);
+				temp = materialNames.get(i);
 				break;
 			}
 		}
 		return temp;
 	}
 	
-	private static void SetMaterialNames()
+	private void setMaterials()
 	{
-		for(int i = 0; i < MaxItems; i++)
+		for(int i = 0; i < maxItems; i++)
 		{
 			try
 			{
-				MaterialNames.add(Materials.idToName(Material.getMaterial(i).getId()));
+				materialList.add(idToName(Material.getMaterial(i).getId()).replaceAll("_", "") + " null");
+			}
+			catch(Exception e){}
+			try
+			{
+				materialNames.add(idToName(Material.getMaterial(i).getId()));
 			}
 			catch(Exception e){}
 		}
 	}
 	
-	private static ArrayList<String> UpdateForNew(String file)
+	private ArrayList<String> updateForNew(String file)
 	{
-		ArrayList<String> New = new ArrayList<String>();
-		ArrayList<String> Current = new ArrayList<String>();
-		Formatter.ReadFile(file, Current);
-		for(int i = 0; i < Current.size(); i++)
+		ArrayList<String> neww = new ArrayList<String>();
+		ArrayList<String> current = new ArrayList<String>();
+		form.readFile(file, current);
+		for(int i = 0; i < current.size(); i++)
 		{
-			Current.get(i).replaceAll("_", "");
+			current.get(i).replaceAll("_", "");
 		}
-		for(int i = 0; i < ArrayLists.MaterialList.size(); i++)
+		for(int i = 0; i < materialList.size(); i++)
 		{
-			for(int j = 0; j < Current.size(); j++)
+			for(int j = 0; j < current.size(); j++)
 			{
-				if(ArrayLists.MaterialList.get(i).split(" ")[0].equalsIgnoreCase(Current.get(j).split(" ")[0]))
+				if(materialList.get(i).split(" ")[0].equalsIgnoreCase(current.get(j).split(" ")[0]))
 				{
-					New.add(Current.get(j));
+					neww.add(current.get(j));
 					break;
 				}
-				if(j + 1 == Current.size())
+				if(j + 1 == current.size())
 				{
-					New.add(ArrayLists.MaterialList.get(i));
+					neww.add(materialList.get(i));
 				}
 			}
 		}
-		return New;
+		return neww;
 	}
-	
-	public static String idToName(int id)
+	public String idToName(int id)
 	{
 	    return Material.getMaterial(id).name();
 	}

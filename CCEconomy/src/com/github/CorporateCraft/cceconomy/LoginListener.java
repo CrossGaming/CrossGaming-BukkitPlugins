@@ -7,14 +7,19 @@ import org.bukkit.event.player.PlayerJoinEvent;
 
 public class LoginListener implements Listener
 {
+	BalChecks balc = new BalChecks();
+	public LoginListener()
+	{
+		
+	}
 	@EventHandler
 	public void onPlayerJoin(PlayerJoinEvent event)
 	{
     	Player player = event.getPlayer();
     	String playername = player.getName();
-    	if (!PlayerToFile.DoesPlayerExist(playername))
+    	if (!balc.doesPlayerExist(playername))
     	{
-    		PlayerToFile.AddPlayerToList(playername);
+    		balc.addPlayerToList(playername);
     	}
 	}
 }

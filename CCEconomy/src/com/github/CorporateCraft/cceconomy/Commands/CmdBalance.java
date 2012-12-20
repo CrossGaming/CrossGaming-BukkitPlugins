@@ -1,13 +1,18 @@
 package com.github.CorporateCraft.cceconomy.Commands;
 
-import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import com.github.CorporateCraft.cceconomy.*;
 
-public class CmdBalance
+public class CmdBalance extends Cmd
 {
-	public static boolean CommandUse(CommandSender sender, Command cmd, String label, String[] args)
+	ArrayLists arl = new ArrayLists();
+	BalChecks balc = new BalChecks();
+	public CmdBalance()
+	{
+		
+	}
+	public boolean commandUse(CommandSender sender, String[] args)
 	{
 		if (sender instanceof Player)
 		{
@@ -30,26 +35,26 @@ public class CmdBalance
 	       		   {
 	       			   playersname = args[0];
 	       		   }
-	       		   String balance = BalChecks.Bal(playersname);
+	       		   String balance = balc.bal(playersname);
 		       	   if(balance == null)
 		       	   {
-		       		   player.sendMessage(CCEconomy.messages + "That player is not in my records. If the player is offline, please use the full name.");
+		       		   player.sendMessage(arl.getMessages() + "That player is not in my records. If the player is offline, please use the full name.");
 		       		   return true;
 		       	   }
-		       	   player.sendMessage(CCEconomy.messages + playersname + "'s balance is: " + CCEconomy.money + "$" + balance);
+		       	   player.sendMessage(arl.getMessages() + playersname + "'s balance is: " + arl.getMoney() + "$" + balance);
 		       	   return true;
 		       }
 	       }
 	       if(player.hasPermission("CCEconomy.bal"))
 	       {
-	       	   String balance = BalChecks.Bal(player.getName());
+	       	   String balance = balc.bal(player.getName());
 	       	   if(balance == null)
 	       	   {
-	       		   player.sendMessage(CCEconomy.messages + "You do not seem to exist let me add you now.");
-	       		   PlayerToFile.AddPlayerToList(player.getName());
+	       		   player.sendMessage(arl.getMessages() + "You do not seem to exist let me add you now.");
+	       		balc.addPlayerToList(player.getName());
 	       		   return true;
 	       	   }
-	       	   player.sendMessage(CCEconomy.messages + "Balance: " + CCEconomy.money + "$" + balance);
+	       	   player.sendMessage(arl.getMessages() + "Balance: " + arl.getMoney() + "$" + balance);
 	       	   return true;
 	       }
 	    } 
@@ -67,18 +72,18 @@ public class CmdBalance
 					{
 						playersname = args[0];
 					}
-					String balance = BalChecks.Bal(playersname);
+					String balance = balc.bal(playersname);
 					if(balance == null)
 					{
-						sender.sendMessage(CCEconomy.messages + "That player is not in my records. If the player is offline, please use the full name.");
+						sender.sendMessage(arl.getMessages() + "That player is not in my records. If the player is offline, please use the full name.");
 						return true;
 					}
-					sender.sendMessage(CCEconomy.messages + playersname + "'s balance is: " + CCEconomy.money + "$" + balance);
+					sender.sendMessage(arl.getMessages() + playersname + "'s balance is: " + arl.getMoney() + "$" + balance);
 					return true;
 		       }
 			else
 			{
-				sender.sendMessage(CCEconomy.messages + "Log in to use this command");
+				sender.sendMessage(arl.getMessages() + "Log in to use this command");
 				return true;
 			}
 		}

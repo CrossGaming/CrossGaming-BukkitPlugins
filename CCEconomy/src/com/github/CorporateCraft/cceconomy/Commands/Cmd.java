@@ -1,4 +1,4 @@
-package com.github.CorporateCraft.necessities.Commands;
+package com.github.CorporateCraft.cceconomy.Commands;
 
 import org.bukkit.command.CommandSender;
 

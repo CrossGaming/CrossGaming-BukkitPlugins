@@ -4,100 +4,113 @@ import java.util.ArrayList;
 
 public class Prices
 {
-	private static ArrayList<String> Prices = new ArrayList<String>();
-	public static String Cost(String file, String ItemName)
+	ArrayLists arl = new ArrayLists();
+	Formatter form = new Formatter();
+	private static ArrayList<String> sellPrices = new ArrayList<String>();
+	private static ArrayList<String> buyPrices = new ArrayList<String>();
+	private static ArrayList<String> price = new ArrayList<String>();
+	public Prices()
 	{
-		ItemName = ItemName.toUpperCase().replaceAll("_", "");
-		if(file.equals(CCEconomy.sellfile))
+		
+	}
+	public void updateL()
+	{
+		form.readFile(arl.getSellFile(), sellPrices);
+		form.readFile(arl.getBuyFile(), buyPrices);
+		updateList();
+	}
+	public String cost(String file, String itemName)
+	{
+		itemName = itemName.toUpperCase().replaceAll("_", "");
+		if(file.equals(arl.getSellFile()))
 		{
-			for(int i = 0; i < ArrayLists.SellPrices.size(); i++)
+			for(int i = 0; i < sellPrices.size(); i++)
 			{
-				if(ArrayLists.SellPrices.get(i).split(" ")[0].equalsIgnoreCase(ItemName))
+				if(sellPrices.get(i).split(" ")[0].equalsIgnoreCase(itemName))
 				{
-					return ArrayLists.SellPrices.get(i).split(" ")[1];
+					return sellPrices.get(i).split(" ")[1];
 				}
 			}
 		}
-		if(file.equals(CCEconomy.buyfile))
+		if(file.equals(arl.getBuyFile()))
 		{
-			for(int i = 0; i < ArrayLists.BuyPrices.size(); i++)
+			for(int i = 0; i < buyPrices.size(); i++)
 			{
-				if(ArrayLists.BuyPrices.get(i).split(" ")[0].equalsIgnoreCase(ItemName))
+				if(buyPrices.get(i).split(" ")[0].equalsIgnoreCase(itemName))
 				{
-					return ArrayLists.BuyPrices.get(i).split(" ")[1];
+					return buyPrices.get(i).split(" ")[1];
 				}
 			}
 		}
 		return null;
 	}
-	
-	public static Double GetCost(String file, String ItemName, int Amount)
+	public double getCost(String file, String itemName, int amount)
 	{
-		String CostPerUnit = Cost(file, ItemName);
-		if(CostPerUnit == null)
+		String costPerUnit = cost(file, itemName);
+		if(costPerUnit == null)
 		{
 			return -1.00;
 		}
-		if(CostPerUnit.equalsIgnoreCase("null"))
+		if(costPerUnit.equalsIgnoreCase("null"))
 		{
 			return -1.00;
 		}
-		Double Cost = Double.parseDouble(CostPerUnit) * Amount;
-		return Cost;
+		double cost = Double.parseDouble(costPerUnit) * amount;
+		return cost;
 	}
 	
-	public static void SetCost(String file, String itemname, String amount)
+	public void setCost(String file, String itemName, String amount)
 	{
-		itemname = itemname.toUpperCase().replaceAll("_", "");
-		String newcost = itemname + " " + amount;
-		if(file.equals(CCEconomy.sellfile))
+		itemName = itemName.toUpperCase().replaceAll("_", "");
+		String newcost = itemName + " " + amount;
+		if(file.equals(arl.getSellFile()))
 		{
-			int spotinlist = ArrayLists.SellPrices.indexOf(itemname + " " + Cost(file, itemname));
-			ArrayLists.SellPrices.set(spotinlist, newcost);
-			Formatter.WriteFile(file, ArrayLists.SellPrices);
+			int spotinlist = sellPrices.indexOf(itemName + " " + cost(file, itemName));
+			sellPrices.set(spotinlist, newcost);
+			form.writeFile(file, sellPrices);
 			updateList();
 		}
-		if(file.equals(CCEconomy.buyfile))
+		if(file.equals(arl.getBuyFile()))
 		{
-			int spotinlist = ArrayLists.BuyPrices.indexOf(itemname + " " + Cost(file, itemname));
-			ArrayLists.BuyPrices.set(spotinlist, newcost);
-			Formatter.WriteFile(file, ArrayLists.BuyPrices);
+			int spotinlist = buyPrices.indexOf(itemName + " " + cost(file, itemName));
+			buyPrices.set(spotinlist, newcost);
+			form.writeFile(file, buyPrices);
 			updateList();
 		}
 	}
-	public static void updateList()
+	public void updateList()
 	{
-		Prices.clear();
+		price.clear();
 		boolean temp = false;
-		for(int i = 0; i<ArrayLists.SellPrices.size(); i++)
+		for(int i = 0; i < sellPrices.size(); i++)
 		{
-			if(ArrayLists.BuyPrices.get(i).split(" ")[1].equalsIgnoreCase("null"))
+			if(buyPrices.get(i).split(" ")[1].equalsIgnoreCase("null"))
 			{
-				if(ArrayLists.SellPrices.get(i).split(" ")[1].equalsIgnoreCase("null"))
+				if(sellPrices.get(i).split(" ")[1].equalsIgnoreCase("null"))
 				{
 					temp = true;
 				}
 			}
 			if(!temp)
 			{
-				Prices.add(ArrayLists.SellPrices.get(i) + " " + ArrayLists.BuyPrices.get(i).split(" ")[1]);
+				price.add(sellPrices.get(i) + " " + buyPrices.get(i).split(" ")[1]);
 			}
 			temp = false;
 		}
 	}
-	public static int PriceListPages()
+	public int priceListPages()
 	{
 		int rounder = 0;
-		if (Prices.size()%10 != 0)
+		if (price.size()%10 != 0)
 		{
 			rounder = 1;
 		}
-		return (Prices.size()/10) + rounder;
+		return (price.size()/10) + rounder;
 	}
-	public static String PriceLists(int page, int time)
+	public String priceLists(int page, int time)
 	{
 		page = page * 10;
-		if (Prices.size() < time + page + 1)
+		if (price.size() < time + page + 1)
 		{
 			return null;
 		}
@@ -105,6 +118,6 @@ public class Prices
 		{
 			return null;
 		}
-		return Prices.get(page+time);
+		return price.get(page+time);
 	}
 }

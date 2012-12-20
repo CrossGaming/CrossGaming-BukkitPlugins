@@ -5,29 +5,41 @@ import java.util.Collections;
 
 public class BalChecks
 {
-	public static String Bal(String name)
+	Formatter form = new Formatter();
+	ArrayLists arl = new ArrayLists();
+	private static ArrayList<String> balances = new ArrayList<String>();
+	public BalChecks()
 	{
-		for(int i = 0; i < ArrayLists.Balances.size(); i++)
+		
+	}
+	public void updateB()
+	{
+		form.readFile(arl.getBalFile(), balances);
+		Collections.sort(balances);
+	}
+	public String bal(String name)
+	{
+		for(int i = 0; i < balances.size(); i++)
 		{
-			if(ArrayLists.Balances.get(i).startsWith(name))
+			if(balances.get(i).startsWith(name))
 			{
-				return ArrayLists.Balances.get(i).split(" ")[1];
+				return balances.get(i).split(" ")[1];
 			}
 		}
 		return null;
 	}
 	
-	public static String BalTop(int page, int time)
+	public String balTop(int page, int time)
 	{
 		ArrayList<Double> balsort = new ArrayList<Double>();
-		for(int i = 0; i < ArrayLists.Balances.size(); i++)
+		for(int i = 0; i < balances.size(); i++)
 		{
-	        balsort.add(Double.parseDouble(ArrayLists.Balances.get(i).split(" ")[1]));
+	        balsort.add(Double.parseDouble(balances.get(i).split(" ")[1]));
 		}
 		Collections.sort(balsort);
 		Collections.reverse(balsort);
 		page = page * 10;
-		if (ArrayLists.Balances.size() < time + page + 1)
+		if (balances.size() < time + page + 1)
 		{
 			return null;
 		}
@@ -43,21 +55,21 @@ public class BalChecks
 				occurrence++;
 			}
 		}
-		String StrBal = Formatter.roundTwoDecimals(balsort.get(page+time));
-		int BalSpot = BaltopCords(StrBal, occurrence);
-		if (BalSpot == -1)
+		String strBal = form.roundTwoDecimals(balsort.get(page+time));
+		int balSpot = baltopCords(strBal, occurrence);
+		if (balSpot == -1)
 		{
 			return null;
 		}
-		return ArrayLists.Balances.get(BalSpot);
+		return balances.get(balSpot);
 	}
 	
-	private static int BaltopCords(String money, int occurrence)
+	private int baltopCords(String money, int occurrence)
 	{
 		int counter = 1;
-		for(int i = 0; i < ArrayLists.Balances.size(); i++)
+		for(int i = 0; i < balances.size(); i++)
 		{
-			if(ArrayLists.Balances.get(i).contains(" " + money))
+			if(balances.get(i).contains(" " + money))
 			{
 				if(counter == occurrence)
 				{
@@ -69,13 +81,54 @@ public class BalChecks
 		return -1;
 	}
 	
-	public static int BaltopPages()
+	public int baltopPages()
 	{
 		int rounder = 0;
-		if (ArrayLists.Balances.size()%10 != 0)
+		if (balances.size()%10 != 0)
 		{
 			rounder = 1;
 		}
-		return (ArrayLists.Balances.size()/10) + rounder;
+		return (balances.size()/10) + rounder;
+	}
+	
+	public boolean doesPlayerExist(String name)
+	{
+		for(int i = 0; i < balances.size(); i++)
+		{
+			if(balances.get(i).startsWith(name))
+			{
+				return true;
+			}
+		}
+		return false;
+	}
+	public void addPlayerToList(String name)
+	{
+		balances.add(name + " 0.00");
+		Collections.sort(balances);
+		form.writeFile(arl.getBalFile(), balances);
+	}
+	
+	public void setMoney(String name, String amount)
+	{
+		int spotinlist = balances.indexOf(name + " " + bal(name));
+		String newbal;
+		newbal = name + " " + amount;
+		balances.set(spotinlist, newbal);
+		form.writeFile(arl.getBalFile(), balances);
+	}
+	public void removeMoney(String name, double amount)
+	{
+		String bal = bal(name);
+		double intbal = Double.parseDouble(bal);
+		double newamount = intbal - amount;
+		setMoney(name, form.roundTwoDecimals(newamount));
+	}
+	public void addMoney(String name, double amount)
+	{
+		String bal = bal(name);
+		double intbal = Double.parseDouble(bal);
+		double newamount = intbal + amount;
+		setMoney(name, form.roundTwoDecimals(newamount));
 	}
 }

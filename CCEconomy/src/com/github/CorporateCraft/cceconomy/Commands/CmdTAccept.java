@@ -1,17 +1,24 @@
 package com.github.CorporateCraft.cceconomy.Commands;
 
 import org.bukkit.Material;
-import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.PlayerInventory;
-
 import com.github.CorporateCraft.cceconomy.*;
 
-public class CmdTAccept
+public class CmdTAccept extends Cmd
 {
-	public static boolean CommandUse(CommandSender sender, Command cmd, String label, String[] args)
+	Trade tr = new Trade();
+	Formatter form = new Formatter();
+	Materials mat = new Materials();
+	ArrayLists arl = new ArrayLists();
+	BalChecks balc = new BalChecks();
+	public CmdTAccept()
+	{
+		
+	}
+	public boolean commandUse(CommandSender sender, String[] args)
 	{
 		if (sender instanceof Player)
 		{
@@ -23,99 +30,127 @@ public class CmdTAccept
 			Player target = sender.getServer().getPlayer(args[0]);
 			String pname = player.getName();
 			String offerpname = target.getName();
-			if(Trade.hasTrade(pname, offerpname))
+			if(tr.hasTrade(pname, offerpname))
 			{
-				String Info = Trade.AcceptTrade(pname, offerpname);
-				String item = Info.split(" ")[0];
-				String amount = Info.split(" ")[1];
-				String price = Info.split(" ")[2];
-				String ToWhom = Info.split(" ")[3];
-				if(Formatter.isLegal(price))
+				String info = tr.acceptTrade(pname, offerpname);
+				String item = "";
+				String amount = info.split(" ")[1];
+				String price = info.split(" ")[2];
+				String toWhom = info.split(" ")[3];
+				String temp = "";
+			    short data = 0;
+			    temp = info.split(" ")[0].replaceAll(":", " ");
+				item = temp.split(" ")[0];
+				if(form.isLegal(price))
 				{
-					price = Formatter.roundTwoDecimals(Double.parseDouble(price));
+					price = form.roundTwoDecimals(Double.parseDouble(price));
 				}
-				if(Formatter.isLegal(item))
+				if(form.isLegal(item))
 				{
-					item = Materials.idToName(Integer.parseInt(item));
+					item = mat.idToName(Integer.parseInt(item));
+					try
+					{
+						data = Short.parseShort(temp.split(" ")[1]);
+					}
+					catch(Exception e)
+					{
+						data = 0;
+					}
 				}
-				if(!ToWhom.equalsIgnoreCase(pname) && !ToWhom.equalsIgnoreCase(offerpname))
+				if(!toWhom.equalsIgnoreCase(pname) && !toWhom.equalsIgnoreCase(offerpname))
 				{
 					String amountgetting = amount;
 					String itemgetting = item;
-					String amountoffering = ToWhom;
-					String itemoffering = price;
+					String amountoffering = toWhom;
+					String itemoffering = "";
+					short dataget = data;
+					short dataoff = 0;
+					String temp2 = "";
+				    temp2 = price.replaceAll(":", " ");
+				    itemoffering = temp.split(" ")[0];
+					if(form.isLegal(itemoffering))
+					{
+						try
+						{
+							dataoff = Short.parseShort(temp2.split(" ")[1]);
+						}
+						catch(Exception e)
+						{
+							dataoff = 0;
+						}
+					}
 					PlayerInventory thereinventory = target.getInventory();
 					PlayerInventory yourinventory = player.getInventory();
-					if(!yourinventory.contains(Material.matchMaterial(Materials.FindItem(itemgetting)), Integer.parseInt(amountgetting)))
+					ItemStack itemstack = new ItemStack(Material.matchMaterial(mat.findItem(itemgetting)), Integer.parseInt(amountgetting), dataget);
+					ItemStack is = new ItemStack(Material.matchMaterial(mat.findItem(itemoffering)), Integer.parseInt(amountoffering), dataoff);
+					if(!yourinventory.contains(itemstack))
 					{
-						player.sendMessage(CCEconomy.messages + "You do not have that much " + itemgetting);
+						player.sendMessage(arl.getMessages() + "You do not have that much " + itemgetting);
 						return true;
 					}
-					if(!thereinventory.contains(Material.matchMaterial(Materials.FindItem(itemoffering)), Integer.parseInt(amountoffering)))
+					if(!thereinventory.contains(is))
 					{
-						player.sendMessage(CCEconomy.messages + "They do not have that much " + itemoffering);
+						player.sendMessage(arl.getMessages() + "They do not have that much " + itemoffering);
 						return true;
 					}
-					ItemStack itemstack = new ItemStack(Material.matchMaterial(Materials.FindItem(itemgetting)), Integer.parseInt(amountgetting));
-					ItemStack is = new ItemStack(Material.matchMaterial(Materials.FindItem(itemoffering)), Integer.parseInt(amountoffering));
 					yourinventory.addItem(is);
 					yourinventory.removeItem(itemstack);
 					thereinventory.addItem(itemstack);
 					thereinventory.removeItem(is);
 				}
-				if(ToWhom.equalsIgnoreCase(pname))
+				if(toWhom.equalsIgnoreCase(pname))
 				{
-					if(Double.parseDouble(BalChecks.Bal(offerpname)) - Double.parseDouble(price) < 0)
+					if(Double.parseDouble(balc.bal(offerpname)) - Double.parseDouble(price) < 0)
 					{
-						player.sendMessage(CCEconomy.messages + "They do not have " + CCEconomy.money + "$" + price);
+						player.sendMessage(arl.getMessages() + "They do not have " + arl.getMoney() + "$" + price);
 						return true;
 					}
 					PlayerInventory thereinventory = target.getInventory();
 					PlayerInventory yourinventory = player.getInventory();
-					if(!yourinventory.contains(Material.matchMaterial(Materials.FindItem(item)), Integer.parseInt(amount)))
+					ItemStack itemstack = new ItemStack(Material.matchMaterial(mat.findItem(item)), Integer.parseInt(amount), data);
+					if(!yourinventory.contains(itemstack))
 					{
-						player.sendMessage(CCEconomy.messages + "You do not have that much " + item);
+						player.sendMessage(arl.getMessages() + "You do not have that much " + item);
 						return true;
 					}
-					EditPlayerMoney.RemoveMoney(offerpname, Double.parseDouble(price));
-					EditPlayerMoney.AddMoney(pname, Double.parseDouble(price));
-					ItemStack itemstack = new ItemStack(Material.matchMaterial(Materials.FindItem(item)), Integer.parseInt(amount));
+					balc.removeMoney(offerpname, Double.parseDouble(price));
+					balc.addMoney(pname, Double.parseDouble(price));
 					thereinventory.addItem(itemstack);
 					yourinventory.removeItem(itemstack);
 				}
-				if(ToWhom.equalsIgnoreCase(offerpname))
+				if(toWhom.equalsIgnoreCase(offerpname))
 				{
-					if(Double.parseDouble(BalChecks.Bal(pname)) - Double.parseDouble(price) < 0)
+					if(Double.parseDouble(balc.bal(pname)) - Double.parseDouble(price) < 0)
 					{
-						player.sendMessage(CCEconomy.messages + "You do not have " + CCEconomy.money + "$" + price);
+						player.sendMessage(arl.getMessages() + "You do not have " + arl.getMoney() + "$" + price);
 						return true;
 					}
 					PlayerInventory thereinventory = target.getInventory();
 					PlayerInventory yourinventory = player.getInventory();
-					if(!thereinventory.contains(Material.matchMaterial(Materials.FindItem(item)), Integer.parseInt(amount)))
+					ItemStack itemstack = new ItemStack(Material.matchMaterial(mat.findItem(item)), Integer.parseInt(amount), data);
+					if(!thereinventory.contains(itemstack))
 					{
-						player.sendMessage(CCEconomy.messages + "They do not have that much " + item);
+						player.sendMessage(arl.getMessages() + "They do not have that much " + item);
 						return true;
 					}
-					EditPlayerMoney.RemoveMoney(pname, Double.parseDouble(price));
-					EditPlayerMoney.AddMoney(offerpname, Double.parseDouble(price));
-					ItemStack itemstack = new ItemStack(Material.matchMaterial(Materials.FindItem(item)), Integer.parseInt(amount));
+					balc.removeMoney(pname, Double.parseDouble(price));
+					balc.addMoney(offerpname, Double.parseDouble(price));
 					yourinventory.addItem(itemstack);
 					thereinventory.removeItem(itemstack);
 				}
-				player.sendMessage(CCEconomy.messages + "You have accepted the trade from " + offerpname);
-				target.sendMessage(CCEconomy.messages + "Your trade to " + pname + " has been accepted");
+				player.sendMessage(arl.getMessages() + "You have accepted the trade from " + offerpname);
+				target.sendMessage(arl.getMessages() + "Your trade to " + pname + " has been accepted");
 				return true;
 			}
 			else
 			{
-				player.sendMessage(CCEconomy.messages + "You do not have a trade offer from " + offerpname);
+				player.sendMessage(arl.getMessages() + "You do not have a trade offer from " + offerpname);
 				return true;
 			}
 		}
 		else
 		{
-			sender.sendMessage(CCEconomy.messages + "You don't have an inventory. Please log in to trade.");
+			sender.sendMessage(arl.getMessages() + "You don't have an inventory. Please log in to trade.");
 			return true;
 		}
 	}

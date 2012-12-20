@@ -1,51 +1,38 @@
 package com.github.CorporateCraft.cceconomy;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
-import org.bukkit.Material;
+import org.bukkit.ChatColor;
 
 public class ArrayLists
 {
-	public static ArrayList<String> Balances = new ArrayList<String>();
-	public static ArrayList<String> SellPrices = new ArrayList<String>();
-	public static ArrayList<String> BuyPrices = new ArrayList<String>();
-	public static ArrayList<String> MaterialList = new ArrayList<String>();
-	public static HashMap<String,String> Trades = new HashMap<String,String>();
-	
-	public static void StartLists()
+	public ArrayLists()
 	{
-		UpdateBalances();
-		UpdateSellPrices();
-		UpdateBuyCosts();
-		Prices.updateList();
+		
 	}
+	Formatter form = new Formatter();
+	private final String balFile = "plugins/CCEconomy/moneytracker.txt";
+	private final String sellFile = "plugins/CCEconomy/sellprices.txt";
+	private final String buyFile = "plugins/CCEconomy/buyprices.txt";
+	private ChatColor messages = ChatColor.GREEN;
+	private ChatColor money = ChatColor.AQUA;
 	
-	private static void UpdateBalances()
+	public ChatColor getMoney()
 	{
-		Formatter.ReadFile(CCEconomy.balfile,Balances);
-		Collections.sort(Balances);
+		return money;
 	}
-	
-	private static void UpdateSellPrices()
+	public ChatColor getMessages()
 	{
-		Formatter.ReadFile(CCEconomy.sellfile, SellPrices);
+		return messages;
 	}
-	
-	private static void UpdateBuyCosts()
+	public String getBalFile()
 	{
-		Formatter.ReadFile(CCEconomy.buyfile, BuyPrices);
+		return balFile;
 	}
-	
-	public static void SetMaterials()
+	public String getSellFile()
 	{
-		for(int i = 0; i < Materials.MaxItems; i++)
-		{
-			try
-			{
-				MaterialList.add(Materials.idToName(Material.getMaterial(i).getId()).replaceAll("_", "") + " null");
-			}
-			catch(Exception e){}
-		}
+		return sellFile;
+	}
+	public String getBuyFile()
+	{
+		return buyFile;
 	}
 }

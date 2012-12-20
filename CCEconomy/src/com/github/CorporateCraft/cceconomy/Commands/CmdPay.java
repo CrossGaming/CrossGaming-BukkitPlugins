@@ -1,13 +1,19 @@
 package com.github.CorporateCraft.cceconomy.Commands;
 
-import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import com.github.CorporateCraft.cceconomy.*;
 
-public class CmdPay
+public class CmdPay extends Cmd
 {
-	public static boolean CommandUse(CommandSender sender, Command cmd, String label, String[] args)
+	Formatter form = new Formatter();
+	ArrayLists arl = new ArrayLists();
+	BalChecks balc = new BalChecks();
+	public CmdPay()
+	{
+		
+	}
+	public boolean commandUse(CommandSender sender, String[] args)
 	{
 		if (sender instanceof Player)
 		{
@@ -18,7 +24,7 @@ public class CmdPay
            }
            if(player.hasPermission("CCEconomy.pay"))
            {
-        	   	if(!Formatter.isLegal(args[1]))
+        	   	if(!form.isLegal(args[1]))
 				{
 					return false;
 				}
@@ -32,28 +38,28 @@ public class CmdPay
 				{
 					targetsname = args[0];
 				}
-				if(!PlayerToFile.DoesPlayerExist(targetsname))
+				if(!balc.doesPlayerExist(targetsname))
 				{
-					player.sendMessage(CCEconomy.messages + "Please enter a valid player to send money to.");
+					player.sendMessage(arl.getMessages() + "Please enter a valid player to send money to.");
 					return true;
 				}
-				String balance = BalChecks.Bal(player.getName());
+				String balance = balc.bal(player.getName());
 				double intbal = Double.parseDouble(balance);
 				double payamount = Math.abs(Double.parseDouble(args[1]));
 				if (intbal < payamount)
 				{
-					player.sendMessage(CCEconomy.messages + "You dont have: " + CCEconomy.money + "$" + args[1]);
+					player.sendMessage(arl.getMessages() + "You dont have: " + arl.getMoney() + "$" + args[1]);
 					return true;
 				}
-				payamount = Double.parseDouble(Formatter.roundTwoDecimals(payamount));
-				EditPlayerMoney.RemoveMoney(player.getName(), payamount);
-				EditPlayerMoney.AddMoney(targetsname, payamount);
-				player.sendMessage(CCEconomy.messages + "Your payed " + targetsname + CCEconomy.money + " $" + Formatter.roundTwoDecimals(payamount));
+				payamount = Double.parseDouble(form.roundTwoDecimals(payamount));
+				balc.removeMoney(player.getName(), payamount);
+				balc.addMoney(targetsname, payamount);
+				player.sendMessage(arl.getMessages() + "Your payed " + targetsname + arl.getMoney() + " $" + form.roundTwoDecimals(payamount));
 				
 				try
 				{
 					Player target = sender.getServer().getPlayer(args[0]);
-					target.sendMessage(CCEconomy.messages + "You received " + CCEconomy.money + "$" + Formatter.roundTwoDecimals(payamount) + CCEconomy.messages + " from " + player.getName() + ".");
+					target.sendMessage(arl.getMessages() + "You received " + arl.getMoney() + "$" + form.roundTwoDecimals(payamount) + arl.getMessages() + " from " + player.getName() + ".");
 				}
 				catch (Exception e){}
 				return true;
@@ -61,7 +67,7 @@ public class CmdPay
         } 
 		else
 		{
-			sender.sendMessage(CCEconomy.messages + "Log in to use this command or use cce");
+			sender.sendMessage(arl.getMessages() + "Log in to use this command or use cce");
 			return true;
 	    }
 		return false;

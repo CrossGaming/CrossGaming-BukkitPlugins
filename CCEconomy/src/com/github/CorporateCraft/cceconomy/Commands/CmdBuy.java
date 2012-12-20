@@ -1,16 +1,24 @@
 package com.github.CorporateCraft.cceconomy.Commands;
 
 import org.bukkit.Material;
-import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.PlayerInventory;
 import com.github.CorporateCraft.cceconomy.*;
 
-public class CmdBuy
+public class CmdBuy extends Cmd
 {
-	public static boolean CommandUse(CommandSender sender, Command cmd, String label, String[] args)
+	Formatter form = new Formatter();
+	BalChecks balc = new BalChecks();
+	ArrayLists arl = new ArrayLists();
+	Materials mat = new Materials();
+	Prices pr = new Prices();
+	public CmdBuy()
+	{
+		
+	}
+	public boolean commandUse(CommandSender sender, String[] args)
 	{
 		if (sender instanceof Player)
 		{
@@ -26,18 +34,29 @@ public class CmdBuy
 			if(player.hasPermission("CCEconomy.buy"))
 			{
 				PlayerInventory inventory = player.getInventory();
-				String balance = BalChecks.Bal(player.getName());
+				String balance = balc.bal(player.getName());
 				double intbal = Double.parseDouble(balance);
 				int amount = 0;					
-			    String ItemName = "";
+			    String itemName = "";
+			    String temp = "";
+			    short data = 0;
 				if(args.length == 2)
 				{
-					ItemName = args[0];
-					if(Formatter.isLegal(ItemName))
+					temp = args[0].replaceAll(":", " ");
+					itemName = temp.split(" ")[0];
+					if(form.isLegal(itemName))
 					{
-						ItemName = Materials.idToName(Integer.parseInt(ItemName));
+						itemName = mat.idToName(Integer.parseInt(itemName));
+						try
+						{
+							data = Short.parseShort(temp.split(" ")[1]);
+						}
+						catch(Exception e)
+						{
+							data = 0;
+						}
 					}
-					if(!Formatter.isLegal(args[1]))
+					if(!form.isLegal(args[1]))
 					{
 						return false;
 					}
@@ -45,54 +64,55 @@ public class CmdBuy
 				}
 				else
 				{
-					ItemName = Integer.toString(player.getItemInHand().getTypeId());
-					if(Formatter.isLegal(ItemName))
+					itemName = Integer.toString(player.getItemInHand().getTypeId());
+					if(form.isLegal(itemName))
 					{
-						ItemName = Materials.idToName(Integer.parseInt(ItemName));
+						itemName = mat.idToName(Integer.parseInt(itemName));
 					}
-					if(!Formatter.isLegal(args[0]))
+					if(!form.isLegal(args[0]))
 					{
 						return false;
 					}
+					data = player.getItemInHand().getDurability();
 					amount = Integer.parseInt(args[0]);
 				}
-				ItemName = Materials.FindItem(ItemName);
-				if(!Materials.ItemExists(ItemName))
+				itemName = mat.findItem(itemName);
+				if(!mat.itemExists(itemName))
 				{
-					player.sendMessage(CCEconomy.messages + "That item does not exist");
+					player.sendMessage(arl.getMessages() + "That item does not exist");
 					return true;
 				}
-				ItemName = ItemName.toUpperCase();
-				Double Cost = 0.00;
-				Cost = Prices.GetCost(CCEconomy.buyfile, ItemName, amount);
-				if(Cost == -1.00)
+				itemName = itemName.toUpperCase();
+				double cost = 0.00;
+				cost = pr.getCost(arl.getBuyFile(), itemName, amount);
+				if(cost == -1.00)
 				{
-					ItemName = ItemName.replaceAll("_ITEM", "");
-					ItemName = Formatter.CapFirst(ItemName);
-					player.sendMessage(CCEconomy.messages + ItemName + " cannot be bought from the server.");
+					itemName = itemName.replaceAll("_ITEM", "");
+					itemName = form.capFirst(itemName);
+					player.sendMessage(arl.getMessages() + itemName + " cannot be bought from the server.");
 					return true;
 				}
 				else
 				{
-					if (intbal < Cost)
+					if (intbal < cost)
 					{
-						player.sendMessage(CCEconomy.messages + "You dont have enough money to buy that item.");
+						player.sendMessage(arl.getMessages() + "You dont have enough money to buy that item.");
 						return true;
 					}
-					EditPlayerMoney.RemoveMoney(player.getName(), Cost);
-					ItemStack itemstack = new ItemStack(Material.matchMaterial(Materials.FindItem(ItemName)), amount);
+					balc.removeMoney(player.getName(), cost);
+					ItemStack itemstack = new ItemStack(Material.matchMaterial(mat.findItem(itemName)), amount, data);
 					inventory.addItem(itemstack);
-					ItemName = ItemName.replaceAll("_ITEM", "");
-					ItemName = Formatter.CapFirst(ItemName);
-					player.sendMessage(CCEconomy.messages + "You bought " + Integer.toString(amount) + " of " + ItemName + ".");
-					player.sendMessage(CCEconomy.money + "$" + Formatter.roundTwoDecimals(Cost) + CCEconomy.messages + " was removed from your acount.");
+					itemName = itemName.replaceAll("_ITEM", "");
+					itemName = form.capFirst(itemName);
+					player.sendMessage(arl.getMessages() + "You bought " + Integer.toString(amount) + " of " + itemName + ".");
+					player.sendMessage(arl.getMoney() + "$" + form.roundTwoDecimals(cost) + arl.getMessages() + " was removed from your acount.");
 					return true;
 				}
 			}
 		}
 		else
 		{
-			sender.sendMessage(CCEconomy.messages + "Log in to use this command");
+			sender.sendMessage(arl.getMessages() + "Log in to use this command");
 			return true;
 		}
 		return false;

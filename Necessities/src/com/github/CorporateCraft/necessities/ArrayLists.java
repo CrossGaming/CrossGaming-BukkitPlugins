@@ -15,7 +15,6 @@ public class ArrayLists
 	private ChatColor error = ChatColor.DARK_RED;
 	private ChatColor errorMsg = ChatColor.RED;
 	
-	
 	public String getMotd()
 	{
 		return motdFile;

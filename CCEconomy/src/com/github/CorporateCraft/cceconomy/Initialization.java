@@ -5,17 +5,26 @@ import java.io.IOException;
 
 public class Initialization
 {
-	public static void InitiateFiles()
+	ArrayLists arl = new ArrayLists();
+	Materials mat = new Materials();
+	BalChecks balc = new BalChecks();
+	Prices pr = new Prices();
+	public Initialization()
 	{
-		DirCreate("plugins/CCEconomy");
-		FileCreate(CCEconomy.balfile);
-		FileCreate(CCEconomy.sellfile);
-		FileCreate(CCEconomy.buyfile);
-		Materials.UpdateMats();
-		ArrayLists.StartLists();
+		
+	}
+	public void initiateFiles()
+	{
+		dirCreate("plugins/CCEconomy");
+		fileCreate(arl.getBalFile());
+		fileCreate(arl.getSellFile());
+		fileCreate(arl.getBuyFile());
+		mat.updateMats();
+		pr.updateL();
+		balc.updateB();
 	}
 	
-	private static void DirCreate(String directory)
+	private void dirCreate(String directory)
 	{
 		File d = new File(directory);
 		if(!d.exists())
@@ -28,7 +37,7 @@ public class Initialization
 		}
 	}
 	
-	private static void FileCreate(String file)
+	private void fileCreate(String file)
 	{
 		File f = new File(file);
 		if(!f.exists())

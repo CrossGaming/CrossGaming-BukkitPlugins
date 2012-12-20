@@ -1,33 +1,40 @@
 package com.github.CorporateCraft.cceconomy;
 
+import java.util.HashMap;
+
 public class Trade
 {
-	public static boolean hasTrade(String pname, String offerpname)
+	private static HashMap<String,String> trades = new HashMap<String,String>();
+	public Trade()
 	{
-		return ArrayLists.Trades.containsKey(pname + " " + offerpname);
+		
+	}
+	public boolean hasTrade(String pname, String offerpname)
+	{
+		return trades.containsKey(pname + " " + offerpname);
 	}
 	
-	public static void CreateTrade(String Inform)
+	public void createTrade(String Inform)
 	{
 		String key = Inform.split(" ")[0] + " " + Inform.split(" ")[1];
 		String value = Inform.split(" ")[2] + " " + Inform.split(" ")[3] + " " + Inform.split(" ")[4] + " " + Inform.split(" ")[5];
-		ArrayLists.Trades.put(key, value);
+		trades.put(key, value);
 	}
 	
-	public static String AcceptTrade(String pname, String offerpname)
+	public String acceptTrade(String pname, String offerpname)
 	{
-		String Info = ArrayLists.Trades.get(pname + " " + offerpname);
+		String info = trades.get(pname + " " + offerpname);
 		removeTrade(pname, offerpname);
-		return Info;
+		return info;
 	}
 	
-	public static void DenyTrade(String pname, String offerpname)
+	public void denyTrade(String pname, String offerpname)
 	{
 		removeTrade(pname, offerpname);
 	}
 	
-	public static void removeTrade(String pname, String offerpname)
+	public void removeTrade(String pname, String offerpname)
 	{
-		ArrayLists.Trades.remove(pname + " " + offerpname);
+		trades.remove(pname + " " + offerpname);
 	}
 }

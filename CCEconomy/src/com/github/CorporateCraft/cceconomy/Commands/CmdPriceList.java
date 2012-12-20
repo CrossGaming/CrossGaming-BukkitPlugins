@@ -1,14 +1,21 @@
 package com.github.CorporateCraft.cceconomy.Commands;
 
 import org.bukkit.ChatColor;
-import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import com.github.CorporateCraft.cceconomy.*;
 
-public class CmdPriceList
+public class CmdPriceList extends Cmd
 {
-	public static boolean CommandUse(CommandSender sender, Command cmd, String label, String[] args)
+	Formatter form = new Formatter();
+	Prices pr = new Prices();
+	ArrayLists arl = new ArrayLists();
+	Materials mat = new Materials();
+	public CmdPriceList()
+	{
+		
+	}
+	public boolean commandUse(CommandSender sender, String[] args)
 	{
 		if (sender instanceof Player)
 		{
@@ -16,7 +23,7 @@ public class CmdPriceList
 			int page = 0;
            	if (args.length == 1)
            	{
-           		if(!Formatter.isLegal(args[0]))
+           		if(!form.isLegal(args[0]))
 				{
 					return false;
 				}
@@ -26,9 +33,13 @@ public class CmdPriceList
            	{
            		page = 1;
            	}
+           	if (page == 0)
+           	{
+           		page = 1;
+           	}
     	   	int time = 0;
     	   	String price;
-    	   	int totalpages = Prices.PriceListPages();
+    	   	int totalpages = pr.priceListPages();
     	   	if (page>totalpages)
     	   	{
     	   		player.sendMessage(ChatColor.GOLD + "Input a number from 1 to " + Integer.toString(totalpages));
@@ -36,16 +47,16 @@ public class CmdPriceList
     	   	}
     	   	player.sendMessage(ChatColor.GOLD + "Price List Page [" + Integer.toString(page) + "/" + Integer.toString(totalpages) + "]");
     	   	page = page - 1;
-    	   	price = Prices.PriceLists(page, time);
+    	   	price = pr.priceLists(page, time);
     	   	while(price != null)
     	   	{
-    	   		price = Form(Formatter.CapFirst(Materials.FindItem(price.split(" ")[0])),
+    	   		price = formL(form.capFirst(mat.findItem(price.split(" ")[0])),
     	   										price.split(" ")[2],
     	   										price.split(" ")[1],
     	   										Integer.toString((page*10) + time + 1) + ".");
     	   		player.sendMessage(price);
     	   		time++;
-    	   		price = Prices.PriceLists(page, time);
+    	   		price = pr.priceLists(page, time);
     	   	}
 			return true;
 		}
@@ -54,7 +65,7 @@ public class CmdPriceList
 			int page = 0;
            	if (args.length == 1)
            	{
-           		if(!Formatter.isLegal(args[0]))
+           		if(!form.isLegal(args[0]))
 				{
 					return false;
 				}
@@ -64,9 +75,13 @@ public class CmdPriceList
            	{
            		page = 1;
            	}
+           	if (page == 0)
+           	{
+           		page = 1;
+           	}
     	   	int time = 0;
     	   	String price;
-    	   	int totalpages = Prices.PriceListPages();
+    	   	int totalpages = pr.priceListPages();
     	   	if (page>totalpages)
     	   	{
     	   		sender.sendMessage(ChatColor.GOLD + "Input a number from 1 to " + Integer.toString(totalpages));
@@ -74,24 +89,24 @@ public class CmdPriceList
     	   	}
     	   	sender.sendMessage(ChatColor.GOLD + "Price List Page [" + Integer.toString(page) + "/" + Integer.toString(totalpages) + "]");
     	   	page = page - 1;
-    	   	price = Prices.PriceLists(page, time);
+    	   	price = pr.priceLists(page, time);
     	   	while(price != null)
     	   	{
-    	   		price = Form(Formatter.CapFirst(Materials.FindItem(price.split(" ")[0])),
+    	   		price = formL(form.capFirst(mat.findItem(price.split(" ")[0])),
     	   										price.split(" ")[2],
     	   										price.split(" ")[1],
     	   										Integer.toString((page*10) + time + 1) + ".");
     	   		sender.sendMessage(price);
     	   		time++;
-    	   		price = Prices.PriceLists(page, time);
+    	   		price = pr.priceLists(page, time);
     	   	}
 			return true;
 		}
 	}
-	private static String Form(String item, String buy, String sell, String numb)
+	private String formL(String item, String buy, String sell, String numb)
 	{
-		String selling = "     sell price: ";
-	   	String buying = "     buy price: ";
+		String selling = "  sell price: ";
+	   	String buying = "  buy price: ";
 		String price = "";
 		try
 		{
@@ -122,9 +137,9 @@ public class CmdPriceList
    			sell = "";
    		}
 	   	price = ChatColor.GOLD + numb +
-	   			CCEconomy.messages + item +
-	   			buying + CCEconomy.money + buy + CCEconomy.messages +
-	   			selling + CCEconomy.money + sell;
+	   	arl.getMessages() + item +
+	   			buying + arl.getMoney() + buy + arl.getMessages() +
+	   			selling + arl.getMoney() + sell;
    		return price;
 	}
 }
