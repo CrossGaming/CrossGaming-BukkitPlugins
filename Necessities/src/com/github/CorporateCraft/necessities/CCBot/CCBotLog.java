@@ -21,7 +21,7 @@ public class CCBotLog
 		String minute = Integer.toString(c.get(Calendar.MINUTE));
 		String hour = Integer.toString(c.get(Calendar.HOUR_OF_DAY));
 		String day = Integer.toString(c.get(Calendar.DATE));
-		String month = Integer.toString(c.get(Calendar.MONTH));
+		String month = Integer.toString(c.get(Calendar.MONTH)+1);
 		String year = Integer.toString(c.get(Calendar.YEAR));
 		String date = month + "-" + day + "-" + year;
 		hour = corTime(hour);

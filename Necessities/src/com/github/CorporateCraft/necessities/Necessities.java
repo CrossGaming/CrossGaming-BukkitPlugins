@@ -3,13 +3,22 @@ package com.github.CorporateCraft.necessities;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.plugin.java.JavaPlugin;
+//import com.github.CorporateCraft.necessities.CCBot.*;
+import com.github.CorporateCraft.necessities.CCBot.CCBotIRC;
 import com.github.CorporateCraft.necessities.Commands.*;
 
 public class Necessities extends JavaPlugin
 {	
+	public Necessities()
+	{
+		
+	}
+	CCBotIRC irc = new CCBotIRC();
 	@Override
     public void onEnable()
 	{	
+		this.saveDefaultConfig();
+		irc.joinIRC();
 		getLogger().info("The necessities your server has been needing are enabled.");
 		getServer().getPluginManager().registerEvents(new Listeners(), this);
 		Initialization init = new Initialization();
@@ -122,12 +131,18 @@ public class Necessities extends JavaPlugin
 		{
 			com = new CmdHeal();
 		}
+		else if(cmd.getName().equalsIgnoreCase("global"))
+		{
+			com = new CmdGlobal();
+		}
 		return com.commandUse(sender, args);
 	}	
 	
     @Override
     public void onDisable()
     {
+    	CCBotIRC.bot.quitServer("Server reloading.");
+    	CCBotIRC.irc.quitServer("Server reloading.");
     	getLogger().info("The necessities your server needs are now missing.");
     }
 }

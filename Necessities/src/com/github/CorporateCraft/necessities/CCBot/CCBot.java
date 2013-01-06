@@ -12,11 +12,12 @@ public class CCBot
 	CCBotLog log = new CCBotLog();
 	Formatter form = new Formatter();
 	CCBotWarn warns = new CCBotWarn();
+	CCBotIRC irc;
 	private HashMap<String,Long> lastChat = new HashMap<String,Long>();
 	private HashMap<String,Long> lastCmd = new HashMap<String,Long>();
 	private ArrayList<String> allowed = new ArrayList<String>();
-	private double chatSpam = 2;
-	private double cmdSpam = 2;
+	private double chatSpam = 0.5;
+	private double cmdSpam = 0.5;
 	public CCBot()
 	{
 		form.readFile(arl.getProf(), allowed);
@@ -98,28 +99,42 @@ public class CCBot
 	}
 	public void logChat(String player, String message)
 	{
+		CCBotIRC.irc.sendIRC(player, message);
 		String messageOrig = message;
 		message = player + ": " + message;
 		log.log(message);		
 		Player p = Bukkit.getServer().getPlayer(player);
 		if(!p.isOp())
 		{
-			caps(player, messageOrig);
-			langCheck(player, messageOrig);
+			if(Bukkit.getPluginManager().getPlugin("Necessities").getConfig().getBoolean("CCBot.caps"))
+			{
+				caps(player, messageOrig);
+			}
+			if(Bukkit.getPluginManager().getPlugin("Necessities").getConfig().getBoolean("CCBot.language"))
+			{
+				langCheck(player, messageOrig);
+			}
 		}
-		checkChatSpam(player);
+		if(Bukkit.getPluginManager().getPlugin("Necessities").getConfig().getBoolean("CCBot.chatSpam"))
+		{
+			checkChatSpam(player);
+		}
 	}
 	public void logCom(String player, String message)
 	{
 		message = player + " issued server command: " + message;
 		log.log(message);
-		checkCmdSpam(player);
+		if(Bukkit.getPluginManager().getPlugin("Necessities").getConfig().getBoolean("CCBot.cmdSpam"))
+		{
+			checkCmdSpam(player);
+		}
 	}
 	public void logConsole(String message)
 	{
 		if(message.startsWith("say"))
 		{
 			message = "Console:" + message.replaceFirst("say", "");
+			CCBotIRC.irc.sendIRC("Console" + "[" + Bukkit.getPluginManager().getPlugin("Necessities").getConfig().getString("CCBot.cState") + "]", message);
 		}
 		else
 		{

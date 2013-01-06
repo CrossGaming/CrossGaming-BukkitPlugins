@@ -11,7 +11,7 @@ public class CCBotWarn
 	ArrayLists arl = new ArrayLists();
 	CCBotLog log = new CCBotLog();
 	private HashMap<String,Integer> warnCount = new HashMap<String,Integer>();
-	private int warns = 3;
+	private int warns = Bukkit.getPluginManager().getPlugin("Necessities").getConfig().getInt("CCBot.warns");
 	private String CCBotTitle = ChatColor.BLACK + "[" + ChatColor.GREEN + "CCBot" + ChatColor.BLACK + "]";
 	private String CCBotName = CCBotTitle + ChatColor.BLACK + " CCBot: " + ChatColor.WHITE;
 	private String CCBotLogName = "[CCBot] " + "CCBot" + ": ";

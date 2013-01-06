@@ -1,6 +1,6 @@
 name: Necessities
 main: com.github.CorporateCraft.necessities.Necessities
-version: 0.1
+version: 0.2
 website: http://corporatecraft.x10.mx
 description: Adds necessities of a server
 authors: [CorporateCraft Development Team]
@@ -114,6 +114,11 @@ commands:
       description: Heals youself or <name>
       usage: /<command> <name>
       permission: Necessities.heal
+   global:
+      description: Sends a message to global chat
+      usage: /<command> <message>
+      permission: Necessities.gc
+      aliases: [gc]
 
 permissions:
     Necessities.*:
@@ -145,6 +150,7 @@ permissions:
             Necessities.god: true
             Necessities.feed: true
             Necessities.heal: true
+            Necessities.gc: true
     Necessities.tpaccept:
         description: Allows you to accept teleports.
         default: true
@@ -177,6 +183,9 @@ permissions:
         default: true
     Necessities.ragequit:
         description: Allows you to ragequit the server.
+        default: true
+    Necessities.gc:
+        description: Allows you to send a message to global.
         default: true
     Necessities.enchant:
         description: Allows you to enchant items.
