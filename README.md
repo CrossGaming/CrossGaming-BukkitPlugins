@@ -13,9 +13,6 @@ The official website for CrossGaming is [www.crossgaming.net] [1]
 
 [Copyright/License] [4]
 -----------------
-
-
-
 [1]: http://www.crossgaming.net
 [2]: https://raw.github.com/CrossGaming/CrossGaming-BukkitPlugins/master/LICENSE.txt
 [3]: https://github.com/CrossGaming/CrossGaming-BukkitPlugins/blob/master/PluginList.md
