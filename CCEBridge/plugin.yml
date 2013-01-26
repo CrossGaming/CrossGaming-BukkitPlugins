@@ -1,0 +1,40 @@
+name: CCEbridge
+main: com.github.CrossGaming.ccebridge.CCEbridge
+version: 1.0.0
+website: http://crossgaming.net
+description: Adds an bridge for buying ranks from essentials gm
+authors: [CrossGaming Development Team]
+
+commands:
+   setrankprice:
+      description: Sets the price of a rank
+      usage: /<command> <rankname> <price>
+      permission: CCEbridge.srp
+      aliases: [setrankcost, setrankworth, srp, src, srw]
+   buyrank:
+      description: Buys <rankname>
+      usage: /<command> <rankname>
+      permission: CCEbridge.buy 
+      aliases: [buyr, brank]
+   rankprices:
+      description: Shows the prices of the ranks
+      usage: /<command> <page>
+      permission: CCEbridge.prices
+      aliases: [rprices]
+      
+permissions:
+    CCEbridge.*:
+        description: The Mainframe of CCEbridge's command structure
+        children:
+            CCEbridge.prices: true
+            CCEbridge.buy: true
+            CCEbridge.srp: true
+    CCEbridge.prices:
+        description: Prices of a rank.
+        default: true
+    CCEbridge.buy:
+        description: Buys a rank.
+        default: true
+    CCEbridge.srp:
+        description: Sets a price for a rank.
+        default: op
