@@ -8,4 +8,4 @@ CrossGaming BukkitPlugins list
 
 [1]: https://github.com/CrossGaming/CrossGaming-BukkitPlugins/tree/master/Necessities
 [2]: https://github.com/CrossGaming/CrossGaming-BukkitPlugins/tree/master/CCEconomy
-[2]: https://github.com/CrossGaming/CrossGaming-BukkitPlugins/tree/master/CCEBridge
+[3]: https://github.com/CrossGaming/CrossGaming-BukkitPlugins/tree/master/CCEBridge
