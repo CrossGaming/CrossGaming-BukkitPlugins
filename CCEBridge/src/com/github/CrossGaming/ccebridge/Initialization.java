@@ -14,7 +14,21 @@ public class Initialization
 	{
 		dirCreate("plugins/CCEBridge");
 		fileCreate(arl.getRankPriceFile());
+		createYaml();
 		new RankPrices().updateL();
+	}
+   	private File customConfigFile = null;
+	public void createYaml()
+	{
+		customConfigFile = new File("plugins/CCEBridge", "commands.yml");
+		if(!customConfigFile.exists())
+		{
+			try
+			{
+				customConfigFile.createNewFile();
+			}
+			catch (IOException e){}
+		}
 	}
 	
 	private void dirCreate(String directory)

@@ -1,12 +1,9 @@
 package com.github.CrossGaming.ccebridge.Commands;
 
-import java.io.File;
-
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
-import org.bukkit.configuration.file.FileConfiguration;
-import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
+import com.github.CrossGaming.ccebridge.PlayerInfo;
 import com.github.CrossGaming.ccebridge.RankPrices;
 import com.github.CorporateCraft.cceconomy.*;
 
@@ -16,8 +13,7 @@ public class CmdBuyRank extends Cmd
 	BalChecks bal = new BalChecks();
 	RankPrices rp = new RankPrices();
 	Formatter form = new Formatter();
-	private FileConfiguration customConfig = null;
-   	private File customConfigFile = null;
+	PlayerInfo pInfo = new PlayerInfo();
 	public CmdBuyRank()
 	{
 		
@@ -44,15 +40,7 @@ public class CmdBuyRank extends Cmd
 				player.sendMessage(ccearl.getMessages() + "Unknown or unbuyable rank.");
 				return true;
 			}
-			String curRank = "";
-			customConfigFile = new File("plugins/GroupManager/worlds/world", "users.yml");
-    	   	customConfig = YamlConfiguration.loadConfiguration(customConfigFile);
-    	   	curRank = customConfig.getString("users." + player.getName() + ".group");
-    	   	if(curRank == null)
-    	   	{
-    	   		curRank = "guest";
-    	   	}
-    	   	curRank = curRank.toUpperCase();
+			String curRank = pInfo.curRank(player.getName()).toUpperCase();
 			if(!rp.nextRank(curRank, rankName))
 			{
 				player.sendMessage(ccearl.getMessages() + "You may not skip ranks or buy ranks you have already gotten.");

@@ -30,6 +30,18 @@ public class CCEbridge extends JavaPlugin
 		{
 			com = new CmdBuyRank();
 		}
+		else if(cmd.getName().equalsIgnoreCase("commandprices"))
+		{			
+			com = new CmdCmdPrices();
+		}
+		else if(cmd.getName().equalsIgnoreCase("setcommandprice"))
+		{
+			com = new CmdSetCmdPrice();
+		}
+		else if(cmd.getName().equalsIgnoreCase("buycommand"))
+		{
+			com = new CmdBuyCmd();
+		}
 		return com.commandUse(sender, args); 
 	}	
 	

@@ -16,6 +16,10 @@ public class CmdSetRankPrice extends Cmd
 	}
 	public boolean commandUse(CommandSender sender, String[] args)
 	{
+		if(args.length != 2)
+		{
+			return false;
+		}
 		if (sender instanceof Player)
 		{
 			Player player = (Player) sender;
@@ -32,6 +36,7 @@ public class CmdSetRankPrice extends Cmd
 			}
 			String cost = args[1];
 			pr.setCost(rankName, cost);
+			cost = form.roundTwoDecimals(Double.parseDouble(cost));
 			player.sendMessage(ccearl.getMessages() + "Added " + rankName + " at the price of " + ccearl.getMoney() + "$" + cost);
 			return true;
 		}
@@ -50,6 +55,7 @@ public class CmdSetRankPrice extends Cmd
 			}
 			String cost = args[1];
 			pr.setCost(rankName, cost);
+			cost = form.roundTwoDecimals(Double.parseDouble(cost));
 			sender.sendMessage(ccearl.getMessages() + "Added " + rankName + " at the price of " + ccearl.getMoney() + "$" + cost);
 			return true;
 		}

@@ -21,6 +21,21 @@ commands:
       usage: /<command> <page>
       permission: CCEbridge.prices
       aliases: [rprices]
+   setcommandprice:
+      description: Sets the price of a command and sets minimum rank to <rank>
+      usage: /<command> <commandname> <price> <rank>
+      permission: CCEbridge.scp
+      aliases: [setcommandcost, setcommandworth, setcmdprice, setcmdcost, setcmdworth]
+   buycommand:
+      description: Buys <command>
+      usage: /<command> <command>
+      permission: CCEbridge.buycmd 
+      aliases: [buycmd]
+   commandprices:
+      description: Shows the prices of the commands only shows those that you are able to buy
+      usage: /<command> <page>
+      permission: CCEbridge.cmdprices
+      aliases: [cmdprices]
       
 permissions:
     CCEbridge.*:
@@ -29,12 +44,24 @@ permissions:
             CCEbridge.prices: true
             CCEbridge.buy: true
             CCEbridge.srp: true
+            CCEbridge.scp: true
+            CCEbridge.buycmd: true
+            CCEbridge.cmdprices: true
     CCEbridge.prices:
         description: Prices of a rank.
         default: true
     CCEbridge.buy:
         description: Buys a rank.
         default: true
+    CCEbridge.buycmd:
+        description: Buys a command.
+        default: true
+    CCEbridge.cmdprices:
+        description: Prices of commands.
+        default: true
     CCEbridge.srp:
         description: Sets a price for a rank.
+        default: op
+    CCEbridge.scp:
+        description: Sets a price for a command and rank minimum rank needed.
         default: op

@@ -124,13 +124,13 @@ public class RankPrices
 	{
 		rankName = rankName.toUpperCase();
 		checkRank = checkRank.toUpperCase();
-		if(rankName.equalsIgnoreCase("GUEST"))
-		{
-			return false;
-		}
 		if(rankName.equals(checkRank))
 		{
 			return true;
+		}
+		else if(rankName.equals("GUEST"))
+		{
+			return false;
 		}
 		int rLoc = -1;
 		int cLoc = -1;
@@ -158,6 +158,10 @@ public class RankPrices
 			return true;
 		}
 		return false;
+	}
+	public ArrayList<String> rOrd()
+	{
+		return rankOrder;
 	}
 	public void rCost(String rankName)
 	{
