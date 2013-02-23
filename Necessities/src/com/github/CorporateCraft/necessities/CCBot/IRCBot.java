@@ -6,11 +6,12 @@ import org.jibble.pircbot.*;
 
 public class IRCBot extends PircBot
 {
-	private String irc = "#corporatemc";
+	private String irc = "";
     CCBotLog log = new CCBotLog();
-    public IRCBot(String name)
+    public IRCBot(String name, String irc)
     {
         this.setName(name);
+        this.irc = irc;
     }
     public void sendIRC(String sender, String message)
     {

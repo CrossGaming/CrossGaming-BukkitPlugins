@@ -27,16 +27,16 @@ public class CmdEnchant extends Cmd
 	        }
 			if (args.length == 1)
 	        {
-				Enchantment ench = Enchantment.getByName(args[0].toUpperCase());
+				Enchantment ench = Enchantment.getByName(enchantFinder(args[0]));
 				if(ench == null)
 				{
 					player.sendMessage(arl.getCol() + "Enchantment does not exist.");
 					return true;
 				}
-				int level = 5;
+				int level = ench.getMaxLevel();
 				if(ench.canEnchantItem(player.getInventory().getItemInHand()))
 				{
-					player.getInventory().getItemInHand().addUnsafeEnchantment(ench, level);
+					player.getInventory().getItemInHand().addEnchantment(ench, level);
 					player.sendMessage(arl.getCol() + "Added the enchantment " + ench.getName() + " at level " + Integer.toString(level) + ".");
 					return true;
 				}
@@ -44,7 +44,7 @@ public class CmdEnchant extends Cmd
 	        }
 			if (args.length == 2)
 	        {
-				Enchantment ench = Enchantment.getByName(args[0].toUpperCase());
+				Enchantment ench = Enchantment.getByName(enchantFinder(args[0]));
 				if(ench == null)
 				{
 					player.sendMessage(arl.getCol() + "Enchantment does not exist.");
@@ -78,5 +78,52 @@ public class CmdEnchant extends Cmd
 			sender.sendMessage(arl.getCol() + "You are not a player  so you do not have an items.");
 			return true;
 		}
+	}
+	private String enchantFinder(String enchant)
+	{
+		enchant = enchant.toUpperCase();
+		if(enchant.equals("POWER"))
+			enchant = "ARROW_DAMAGE";
+		else if(enchant.equals("FLAME"))
+			enchant = "ARROW_FIRE";
+		else if(enchant.equals("INFINITY"))
+			enchant = "ARROW_INFINITY";
+		else if(enchant.equals("PUNCH"))
+			enchant = "ARROW_KNOCKBACK";
+		else if(enchant.equals("SHARPNESS"))
+			enchant = "DAMAGE_ALL";
+		else if(enchant.equals("BANEOFARTHROPODS"))
+			enchant = "DAMAGE_ARTHROPODS";
+		else if(enchant.equals("BANE"))
+			enchant = "DAMAGE_ARTHROPODS";
+		else if(enchant.equals("SMITE"))
+			enchant = "DAMAGE_UNDEAD";
+		else if(enchant.equals("EFFICENCY"))
+			enchant = "DIG_SPEED";
+		else if(enchant.equals("UNBREAKING"))
+			enchant = "DURABILITY";
+		else if(enchant.equals("FIREASPECT"))
+			enchant = "FIRE_ASPECT";
+		else if(enchant.equals("FORTUNE"))
+			enchant = "LOOT_BONUS_BLOCKS";
+		else if(enchant.equals("LOOTING"))
+			enchant = "LOOT_BONUS_MOBS";
+		else if(enchant.equals("RESPIRATION"))
+			enchant = "OXYGEN";
+		else if(enchant.equals("PROTECTION"))
+			enchant = "PROTECTION_ENVIRONMENTAL";
+		else if(enchant.equals("BLASTPROTECTION"))
+			enchant = "PROTECTION_EXPLOSIONS";
+		else if(enchant.equals("FEATHERFALLING"))
+			enchant = "PROTECTION_FALL";
+		else if(enchant.equals("FIREPROTECTION"))
+			enchant = "PROTECTION_FIRE";
+		else if(enchant.equals("PROJECTILEPROTECTION"))
+			enchant = "PROTECTION_PROJECTILE";
+		else if(enchant.equals("SILKTOUCH"))
+			enchant = "SILK_TOUCH";
+		else if(enchant.equals("AQUAINFINITY"))
+			enchant = "WATER_WORKER";
+		return enchant;
 	}
 }

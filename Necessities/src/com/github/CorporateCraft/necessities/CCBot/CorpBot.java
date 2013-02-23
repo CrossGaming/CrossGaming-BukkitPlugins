@@ -6,7 +6,7 @@ import org.jibble.pircbot.*;
 
 public class CorpBot extends PircBot
 {
-	private String gc = "#corporatecraft";
+	private String gc = "#global";
     CCBotLog log = new CCBotLog();
     public CorpBot(String name)
     {

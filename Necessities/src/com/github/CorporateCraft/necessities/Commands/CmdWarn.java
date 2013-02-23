@@ -2,13 +2,12 @@ package com.github.CorporateCraft.necessities.Commands;
 
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-
 import com.github.CorporateCraft.necessities.ArrayLists;
-import com.github.CorporateCraft.necessities.CCBot.CCBotWarn;
+import com.github.CorporateCraft.necessities.CCBot.*;
 
 public class CmdWarn extends Cmd
 {
-	CCBotWarn warns = new CCBotWarn();
+	CCBot warns = new CCBot();
 	ArrayLists arl = new ArrayLists();
 	public CmdWarn()
 	{
@@ -40,7 +39,7 @@ public class CmdWarn extends Cmd
 				reason += args[i] + " ";
 			}
 			reason = reason.trim();
-			warns.warn(target.getName(), reason, p.getName());	
+			warns.warnP(target.getName(), reason, p.getName());	
 			return true;
 		}
 		else
@@ -57,7 +56,7 @@ public class CmdWarn extends Cmd
 				reason += args[i] + " ";
 			}
 			reason = reason.trim();
-			warns.warn(target.getName(), reason, "Console");
+			warns.warnP(target.getName(), reason, "Console");
 			return true;
 	    }
 	}

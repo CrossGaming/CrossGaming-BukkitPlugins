@@ -11,16 +11,17 @@ public class CCBot
 	ArrayLists arl = new ArrayLists();
 	CCBotLog log = new CCBotLog();
 	Formatter form = new Formatter();
-	CCBotWarn warns = new CCBotWarn();
+	static CCBotWarn warns = new CCBotWarn();
 	CCBotIRC irc;
 	private HashMap<String,Long> lastChat = new HashMap<String,Long>();
 	private HashMap<String,Long> lastCmd = new HashMap<String,Long>();
 	private ArrayList<String> allowed = new ArrayList<String>();
-	private double chatSpam = 0.5;
-	private double cmdSpam = 0.5;
+	private double chatSpam = 0.25;
+	private double cmdSpam = 0.25;
 	public CCBot()
 	{
 		form.readFile(arl.getProf(), allowed);
+		upperAll();
 	}
 	private void removePlayer(String name)
 	{
@@ -70,32 +71,31 @@ public class CCBot
 			}
 		}
 	}
+	private void upperAll()
+	{
+		for(int i = 0; i < allowed.size(); i++)
+		{
+			allowed.set(i, allowed.get(i).toUpperCase());
+		}
+	}
 	private void langCheck(String player, String message)
 	{
-		ArrayList<String> langList = new ArrayList<String>();
-		message = message.replaceAll("[^a-zA-Z]","");
-		for(int i = 0; i < message.length(); i++)
+		message = message.replaceAll("[^a-zA-Z]","").toUpperCase();
+		for(int i = 0; i < allowed.size(); i++)
 		{
-			try
+			if(i % 2 == 0)
 			{
-				langList.add(message.split(" ")[i]);
-			}
-			catch(Exception e)
-			{
-				break;
+				if (message.contains(allowed.get(i)))
+				{
+					warns.warn(player, "Language", "CCBot");
+					break;
+				}
 			}
 		}
-        for(int i = 0; i < langList.size(); i++)
-        {
-            for(int j = 0; j < allowed.size(); j++)
-            {
-                if (langList.get(i).toUpperCase().startsWith((allowed.get(j)).toUpperCase()))
-                {
-                	warns.warn(player, "Language", "CCBot");
-                    break;
-                }
-            }
-        }
+	}
+	public void warnP(String t, String reason, String p)
+	{
+		warns.warn(t, reason, p);
 	}
 	public void logChat(String player, String message)
 	{
@@ -114,19 +114,23 @@ public class CCBot
 			{
 				langCheck(player, messageOrig);
 			}
-		}
-		if(Bukkit.getPluginManager().getPlugin("Necessities").getConfig().getBoolean("CCBot.chatSpam"))
-		{
-			checkChatSpam(player);
+			if(Bukkit.getPluginManager().getPlugin("Necessities").getConfig().getBoolean("CCBot.chatSpam"))
+			{
+				checkChatSpam(player);
+			}
 		}
 	}
 	public void logCom(String player, String message)
 	{
 		message = player + " issued server command: " + message;
 		log.log(message);
-		if(Bukkit.getPluginManager().getPlugin("Necessities").getConfig().getBoolean("CCBot.cmdSpam"))
+		Player p = Bukkit.getServer().getPlayer(player);
+		if(!p.isOp())
 		{
-			checkCmdSpam(player);
+			if(Bukkit.getPluginManager().getPlugin("Necessities").getConfig().getBoolean("CCBot.cmdSpam"))
+			{
+				checkCmdSpam(player);
+			}
 		}
 	}
 	public void logConsole(String message)

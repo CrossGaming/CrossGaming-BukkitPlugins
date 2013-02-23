@@ -1,9 +1,9 @@
 name: Necessities
 main: com.github.CorporateCraft.necessities.Necessities
-version: 0.2
-website: http://corporatecraft.x10.mx
+version: 0.3
+website: http://crossge.com
 description: Adds necessities of a server
-authors: [CorporateCraft Development Team]
+authors: [CrossGaming Development Team]
 
 commands:   
    tpaccept:
@@ -119,6 +119,19 @@ commands:
       usage: /<command> <message>
       permission: Necessities.gc
       aliases: [gc]
+   slap:
+      description: Slaps <nane> sky high
+      usage: /<command> <name>
+      permission: Necessities.slap
+   potion:
+      description: Potion stuff
+      usage: /<command> <name/effect> <effect/time> <time/power> <power>
+      permission: Necessities.potion
+   imp:
+      description: Fake messages
+      usage: /<command> <message>
+      permission: Necessities.imp
+      aliases: [impersonate]
 
 permissions:
     Necessities.*:
@@ -151,6 +164,9 @@ permissions:
             Necessities.feed: true
             Necessities.heal: true
             Necessities.gc: true
+            Necessities.slap: true
+            Necessities.potion: true
+            Necessities.imp: true
     Necessities.tpaccept:
         description: Allows you to accept teleports.
         default: true
@@ -231,4 +247,13 @@ permissions:
         default: op
     Necessities.heal:
         description: Allows you to heal yourself.
+        default: op
+    Necessities.slap:
+        description: Allows you to slap a player.
+        default: op
+    Necessities.potion:
+        description: Allows you to do potion effects.
+        default: op
+    Necessities.imp:
+        description: Allows you to do imp people.
         default: op

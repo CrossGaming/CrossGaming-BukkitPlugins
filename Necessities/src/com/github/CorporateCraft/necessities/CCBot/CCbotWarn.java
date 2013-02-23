@@ -40,6 +40,7 @@ public class CCBotWarn
 	}
 	public void warn(String name, String r, String Warner)
 	{
+		name = Bukkit.getPlayer(name).getName();
 		if(!warnCount.containsKey(name))
 		{
 			warnCount.put(name, 1);

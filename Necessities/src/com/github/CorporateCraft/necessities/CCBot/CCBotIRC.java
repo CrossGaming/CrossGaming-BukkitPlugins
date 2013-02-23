@@ -6,10 +6,10 @@ import java.util.Random;
 public class CCBotIRC
 {
 	CCBotLog log = new CCBotLog();
-	private String gcNick = "CC" + rand();
+	private String gcNick = "CG" + rand();
 	private String ircNick = "";
-	private String server = "irc.geekshed.net";
-	private String gc = "#corporatecraft";
+	private String server = "irc.crossge.com";
+	private String gc = "#global";
 	private String ircChan = "";
 	private String gcPass = "";
 	private String ircPass = "";
@@ -47,7 +47,7 @@ public class CCBotIRC
 		gcPass = Bukkit.getPluginManager().getPlugin("Necessities").getConfig().getString("CCBot.gcPass");
 		ircPass = Bukkit.getPluginManager().getPlugin("Necessities").getConfig().getString("CCBot.ircPass");
 		bot = new CorpBot(gcNick);
-		irc = new IRCBot(ircNick);
+		irc = new IRCBot(ircNick, ircChan);
 		try
 		{
 			bot.connect(server);

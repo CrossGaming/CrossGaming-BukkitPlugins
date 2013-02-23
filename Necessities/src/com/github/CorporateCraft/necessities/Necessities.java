@@ -51,6 +51,10 @@ public class Necessities extends JavaPlugin
 		{
 			com = new CmdBanIp();
 		}
+		else if(cmd.getName().equalsIgnoreCase("slap"))
+		{
+			com = new CmdSlap();
+		}
 		else if(cmd.getName().equalsIgnoreCase("gamemode"))
 		{
 			com = new CmdGameMode();
@@ -134,6 +138,14 @@ public class Necessities extends JavaPlugin
 		else if(cmd.getName().equalsIgnoreCase("global"))
 		{
 			com = new CmdGlobal();
+		}
+		else if(cmd.getName().equalsIgnoreCase("imp"))
+		{
+			com = new CmdImp();
+		}
+		else if(cmd.getName().equalsIgnoreCase("potion"))
+		{
+			com = new CmdPotion();
 		}
 		return com.commandUse(sender, args);
 	}	
