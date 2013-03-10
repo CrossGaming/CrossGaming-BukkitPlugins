@@ -16,6 +16,7 @@ public class Listeners implements Listener
 	ArrayLists arl = new ArrayLists();
 	CCBot bot = new CCBot();
 	CmdGod god = new CmdGod();
+	CmdHide hide = new CmdHide();
 	public Listeners()
 	{
 		
@@ -51,6 +52,7 @@ public class Listeners implements Listener
     	Player player = event.getPlayer();
     	bot.logOut(player.getName());
     	god.remP(player.getName());
+    	hide.removeP(player.getName());
 	}
 	@EventHandler
 	public void onEntityDamage(EntityDamageEvent event)

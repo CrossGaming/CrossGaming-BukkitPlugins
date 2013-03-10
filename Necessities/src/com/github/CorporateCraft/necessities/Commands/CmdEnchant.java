@@ -44,11 +44,15 @@ public class CmdEnchant extends Cmd
 	        }
 			if (args.length == 2)
 	        {
-				Enchantment ench = Enchantment.getByName(enchantFinder(args[0]));
-				if(ench == null)
+				Enchantment ench = null;
+				if(!args[0].equalsIgnoreCase("all"))
 				{
-					player.sendMessage(arl.getCol() + "Enchantment does not exist.");
-					return true;
+					ench = Enchantment.getByName(enchantFinder(args[0]));
+					if(ench == null)
+					{
+						player.sendMessage(arl.getCol() + "Enchantment does not exist.");
+						return true;
+					}
 				}
 				try
 				{
@@ -59,17 +63,26 @@ public class CmdEnchant extends Cmd
 					return false;
 				}
 				int level = Integer.parseInt(args[1]);
-				if(level > 10)
-				{
-					level = 10;
-				}
-				if(ench.canEnchantItem(player.getInventory().getItemInHand()))
+				//if(level > 10)
+				//{
+				//	level = 10;
+				//}
+				//if(ench.canEnchantItem(player.getInventory().getItemInHand()))
+				//{
+				if(!args[0].equalsIgnoreCase("all"))
 				{
 					player.getInventory().getItemInHand().addUnsafeEnchantment(ench, level);
 					player.sendMessage(arl.getCol() + "Added the enchantment " + ench.getName() + " at level " + Integer.toString(level) + ".");
 					return true;
 				}
-				player.sendMessage(arl.getCol() + "This item can not support given enchantment.");
+				else
+				{
+					enchantAllArmor(level, player);
+					player.sendMessage(arl.getCol() + "Added the all armor enchantments at level " + Integer.toString(level) + ".");
+					return true;
+				}
+				//}
+				//player.sendMessage(arl.getCol() + "This item can not support given enchantment.");
 	        }
 			return true;
 		}
@@ -79,6 +92,20 @@ public class CmdEnchant extends Cmd
 			return true;
 		}
 	}
+	
+	private void enchantAllArmor(int level, Player player)
+	{
+		player.getInventory().getItemInHand().addUnsafeEnchantment(Enchantment.getByName("OXYGEN"), level);
+		player.getInventory().getItemInHand().addUnsafeEnchantment(Enchantment.getByName("PROTECTION_ENVIRONMENTAL"), level);
+		player.getInventory().getItemInHand().addUnsafeEnchantment(Enchantment.getByName("PROTECTION_EXPLOSIONS"), level);
+		player.getInventory().getItemInHand().addUnsafeEnchantment(Enchantment.getByName("PROTECTION_FALL"), level);
+		player.getInventory().getItemInHand().addUnsafeEnchantment(Enchantment.getByName("PROTECTION_FIRE"), level);
+		player.getInventory().getItemInHand().addUnsafeEnchantment(Enchantment.getByName("PROTECTION_PROJECTILE"), level);
+		player.getInventory().getItemInHand().addUnsafeEnchantment(Enchantment.getByName("WATER_WORKER"), level);
+		player.getInventory().getItemInHand().addUnsafeEnchantment(Enchantment.getByName("THORNS"), level);
+		player.getInventory().getItemInHand().addUnsafeEnchantment(Enchantment.getByName("DURABILITY"), level);
+	}
+	
 	private String enchantFinder(String enchant)
 	{
 		enchant = enchant.toUpperCase();

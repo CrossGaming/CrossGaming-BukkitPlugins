@@ -31,14 +31,6 @@ public class Necessities extends JavaPlugin
 		{	
 			com = new CmdOps();
 		}
-		else if(cmd.getName().equalsIgnoreCase("banned"))
-		{
-			com = new CmdBanned();
-		} 
-		else if(cmd.getName().equalsIgnoreCase("bannedips"))
-		{
-			com = new CmdBannedips();
-		}
 		else if(cmd.getName().equalsIgnoreCase("kick"))
 		{
 			com = new CmdKick();
@@ -144,6 +136,22 @@ public class Necessities extends JavaPlugin
 			com = new CmdImp();
 		}
 		else if(cmd.getName().equalsIgnoreCase("potion"))
+		{
+			com = new CmdPotion();
+		}
+		else if(cmd.getName().equalsIgnoreCase("boots"))
+		{
+			com = new CmdPotion();
+		}
+		else if(cmd.getName().equalsIgnoreCase("chest"))
+		{
+			com = new CmdPotion();
+		}
+		else if(cmd.getName().equalsIgnoreCase("pants"))
+		{
+			com = new CmdPotion();
+		}
+		else if(cmd.getName().equalsIgnoreCase("hide"))
 		{
 			com = new CmdPotion();
 		}

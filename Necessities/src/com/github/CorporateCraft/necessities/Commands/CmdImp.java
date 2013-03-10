@@ -17,19 +17,60 @@ public class CmdImp extends Cmd
 		{
 			return false;
 		}
-		String message = "";
-		for(String a : args)
-		{
-			message = message + " " + a;
-		}
-		message = message.trim();
-		message = ChatColor.translateAlternateColorCodes('&', message);
 		if (sender instanceof Player)
 		{
+			if(args.length > 1)
+			{
+				Player p = Bukkit.getPlayer(args[0]);
+				if(p != null)
+				{
+					String message = "";
+					for(String a : args)
+					{
+						message = message + " " + a;
+					}
+					message = message.replaceFirst(args[0], "");
+					message = message.trim();
+					message = ChatColor.translateAlternateColorCodes('&', message);
+					p.chat(message);
+					return true;
+				}
+			}
+			String message = "";
+			for(String a : args)
+			{
+				message = message + " " + a;
+			}
+			message = message.trim();
+			message = ChatColor.translateAlternateColorCodes('&', message);
 			Bukkit.broadcastMessage(message);
 		}
 		else
 		{
+			if(args.length > 1)
+			{
+				Player p = Bukkit.getPlayer(args[0]);
+				if(p != null)
+				{
+					String message = "";
+					for(String a : args)
+					{
+						message = message + " " + a;
+					}
+					message = message.replaceFirst(args[0], "");
+					message = message.trim();
+					message = ChatColor.translateAlternateColorCodes('&', message);
+					p.chat(message);
+					return true;
+				}
+			}
+			String message = "";
+			for(String a : args)
+			{
+				message = message + " " + a;
+			}
+			message = message.trim();
+			message = ChatColor.translateAlternateColorCodes('&', message);
 			Bukkit.broadcastMessage(message);
 		}
 		return true;

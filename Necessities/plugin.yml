@@ -49,14 +49,6 @@ commands:
       usage: /<command>
       permission: Necessities.ops
       aliases: [operators]
-   banned:
-      description: Shows who is banned from the server
-      usage: /<command>
-      permission: Necessities.banned
-   bannedips:
-      description: Shows the ips that are banned from a server
-      usage: /<command>
-      permission: Necessities.bannedips
    kill:
       description: Kills <name> with an optional message
       usage: /<command> <name> <message>
@@ -132,6 +124,24 @@ commands:
       usage: /<command> <message>
       permission: Necessities.imp
       aliases: [impersonate]
+   hide:
+      description: Hides yourself from the server with fake leave message.
+      usage: /<command>
+      permission: Necessities.hide
+   pants:
+      description: Put pants on
+      usage: /<command>
+      permission: Necessities.pants
+      aliases: [legs, leggings]
+   boots:
+      description: Put boots on
+      usage: /<command>
+      permission: Necessities.boots
+   chest:
+      description: Put chestplate on
+      usage: /<command>
+      permission: Necessities.chest
+      aliases: [chestplate]   
 
 permissions:
     Necessities.*:
@@ -147,8 +157,6 @@ permissions:
             Necessities.motd: true
             Necessities.perms: true
             Necessities.ops: true
-            Necessities.banned: true
-            Necessities.bannedips: true
             Necessities.kill: true
             Necessities.suicide: true
             Necessities.ragequit: true
@@ -171,6 +179,11 @@ permissions:
             Necessities.language: true
             Necessities.spamchat: true
             Necessities.spamcommands: true
+            Necessities.advertise: true
+            Necessities.hide: true
+            Necessities.chest: true
+            Necessities.boots: true
+            Necessities.pants: true
     Necessities.tpaccept:
         description: Allows you to accept teleports.
         default: true
@@ -272,4 +285,19 @@ permissions:
         default: op
     Necessities.spamcommands:
         description: Allows you to spam commands.
+        default: op
+    Necessities.advertise:
+        description: Allows you to advertise.
+        default: op
+    Necessities.hide:
+        description: Allows you to vanish with disconect message.
+        default: op
+    Necessities.pants:
+        description: Allows you to put pants on.
+        default: op
+    Necessities.boots:
+        description: Allows you to put boots on.
+        default: op
+    Necessities.chest:
+        description: Allows you to do put chestplates on.
         default: op

@@ -17,6 +17,7 @@ public class Initialization
 		fileCreate(arl.getMotd());
 		fileCreate(arl.getRules());
 		fileCreate(arl.getProf());
+		fileCreate(arl.getAl());
 	}
 	
 	private void dirCreate(String directory)

@@ -10,3 +10,4 @@ CCBot:
   language: true
   cmdSpam: true
   chatSpam: true
+  advertise: true

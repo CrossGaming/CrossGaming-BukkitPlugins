@@ -11,6 +11,7 @@ public class ArrayLists
 	private final String motdFile = "plugins/Necessities/MOTD.txt";
 	private final String rulesFile = "plugins/Necessities/Rules.txt";
 	private final String profanityFile = "plugins/Necessities/BadWords.txt";
+	private final String allowedFile = "plugins/Necessities/GoodWords.txt";
 	private ChatColor messages = ChatColor.GREEN;
 	private ChatColor error = ChatColor.DARK_RED;
 	private ChatColor errorMsg = ChatColor.RED;
@@ -22,6 +23,10 @@ public class ArrayLists
 	public String getRules()
 	{
 		return rulesFile;
+	}
+	public String getAl()
+	{
+		return allowedFile;
 	}
 	public String getProf()
 	{

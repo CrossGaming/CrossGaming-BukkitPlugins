@@ -60,6 +60,10 @@ public class CCBotWarn
 			{
 				cmdMsg(name);
 			}
+			else if(r.equals("Adds"))
+			{
+				addsMsg(name);
+			}
 			else
 			{
 				warnMessage(name, r, Warner);
@@ -86,6 +90,10 @@ public class CCBotWarn
 				else if(r.equals("CmdSpam"))
 				{
 					cmdSpam(name);
+				}
+				else if(r.equals("Adds"))
+				{
+					advertising(name);
 				}
 				else
 				{
@@ -148,6 +156,12 @@ public class CCBotWarn
 		Bukkit.broadcastMessage(CCBotName + player.getName() + " was warned for spamming commands.");
 		log.log(CCBotLogName + player.getName() + " was warned for spamming commands.");
 	}
+	private void addsMsg(String name)
+	{
+		Player player = Bukkit.getServer().getPlayer(name);
+		Bukkit.broadcastMessage(CCBotName + player.getName() + " was warned for advertising.");
+		log.log(CCBotLogName + player.getName() + " was warned for advertising.");
+	}
 	private void warnMessage(String name, String Reason, String Warner)
 	{
 		Player player = Bukkit.getServer().getPlayer(name);
@@ -178,7 +192,7 @@ public class CCBotWarn
 	private void caps(String name)
 	{
 		Player player = Bukkit.getServer().getPlayer(name) ;
-		player.kickPlayer("Don't use all caps!");
+		player.kickPlayer("Don't use caps!");
 		Bukkit.broadcastMessage(CCBotName + player.getName() + " was kicked for using caps.");
 		log.log(CCBotLogName + player.getName() + " was kicked for using caps.");
 	}
@@ -187,6 +201,13 @@ public class CCBotWarn
 		Player player = Bukkit.getServer().getPlayer(name);
 		player.kickPlayer("Watch your language!");		
 		Bukkit.broadcastMessage(CCBotName + player.getName() + " was kicked for using bad language.");
+		log.log(CCBotLogName + player.getName() + " was kicked for using bad language.");
+	}
+	private void advertising(String name)
+	{
+		Player player = Bukkit.getServer().getPlayer(name);
+		player.kickPlayer("Do not advertise other servers here!");		
+		Bukkit.broadcastMessage(CCBotName + player.getName() + " was kicked for advertising.");
 		log.log(CCBotLogName + player.getName() + " was kicked for using bad language.");
 	}
 }
