@@ -99,7 +99,7 @@ public class RankPrices
 				cLoc = i;
 			}
 		}
-		if(rankName.equalsIgnoreCase("GUEST"))
+		if(rankName.equals("GUEST"))
 		{
 			if(cLoc == 0)
 			{
@@ -147,7 +147,7 @@ public class RankPrices
 		}
 		if(rLoc == -1)
 		{
-			return false; //Has a rank that can't be bought but so can see prices
+			return true; //Has a rank that can't be bought but so can see prices
 		}
 		if(cLoc == -1)
 		{

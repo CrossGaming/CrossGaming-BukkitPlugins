@@ -104,7 +104,14 @@ public class CmdPrice extends Cmd
 					}
 					return true;
 				}
-				player.sendMessage(arl.getMessages() + itemName + " can be sold for " + arl.getMoney() + "$" + cost);
+				if(oper.equalsIgnoreCase("buy"))
+				{
+					player.sendMessage(arl.getMessages() + itemName + " can be bought for " + arl.getMoney() + "$" + cost);
+				}
+				else
+				{
+					player.sendMessage(arl.getMessages() + itemName + " can be sold for " + arl.getMoney() + "$" + cost);
+				}
 				return true;
 			}
 		}
@@ -167,7 +174,14 @@ public class CmdPrice extends Cmd
 				}
 				return true;
 			}
-			sender.sendMessage(arl.getMessages() + itemName + " can be sold for " + arl.getMoney() + "$" + cost);
+			if(oper.equalsIgnoreCase("buy"))
+			{
+				sender.sendMessage(arl.getMessages() + itemName + " can be bought for " + arl.getMoney() + "$" + cost);
+			}
+			else
+			{
+				sender.sendMessage(arl.getMessages() + itemName + " can be sold for " + arl.getMoney() + "$" + cost);
+			}
 			return true;
 		}
 		return false;

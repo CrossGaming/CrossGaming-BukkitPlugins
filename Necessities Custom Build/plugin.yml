@@ -1,0 +1,142 @@
+name: Necessities
+main: com.github.CorporateCraft.necessities.Necessities
+version: 0.3
+website: http://crossge.com
+description: Adds necessities of a server
+authors: [CrossGaming Development Team]
+
+commands:   
+   permissions:
+      description: Shows you the perm for <commandname>
+      usage: /<command> <commandname>
+      permission: Necessities.perms
+   ops:
+      description: Shows the server ops
+      usage: /<command>
+      permission: Necessities.ops
+      aliases: [operators]
+   ragequit:
+      description: Ragequits the server
+      usage: /<command>
+      permission: Necessities.ragequit
+   enchant:
+      description: Enchants the item in hand
+      usage: /<command> <enchantment_name> <level>
+      permission: Necessities.enchant
+   warn:
+      description: Warns a player for <reason>
+      usage: /<command> <player> <reason>
+      permission: Necessities.warn
+   global:
+      description: Sends a message to global chat
+      usage: /<command> <message>
+      permission: Necessities.gc
+      aliases: [gc]
+   slap:
+      description: Slaps <nane> sky high
+      usage: /<command> <name>
+      permission: Necessities.slap
+   potion:
+      description: Potion stuff
+      usage: /<command> <name/effect> <effect/time> <time/power> <power>
+      permission: Necessities.potion
+   pants:
+      description: Put pants on
+      usage: /<command>
+      permission: Necessities.pants
+      aliases: [legs, leggings]
+   boots:
+      description: Put boots on
+      usage: /<command>
+      permission: Necessities.boots
+   chest:
+      description: Put chestplate on
+      usage: /<command>
+      permission: Necessities.chest
+      aliases: [chestplate]
+   imp:
+      description: Impersonates someone
+      usage: /<command> <message>
+      permission: Necessities.imp
+      aliases: [impersonate]
+   hide:
+      description: Hides yourself from the server with fake leave message.
+      usage: /<command>
+      permission: Necessities.hide
+
+permissions:
+    Necessities.*:
+        description: The Mainframe of Necessities' command structure
+        children:
+            Necessities.perms: true
+            Necessities.ops: true
+            Necessities.ragequit: true
+            Necessities.enchant: true
+            Necessities.warn: true
+            Necessities.gc: true
+            Necessities.slap: true
+            Necessities.potion: true
+            Necessities.imp: true
+            Necessities.chest: true
+            Necessities.boots: true
+            Necessities.pants: true
+            Necessities.caps: true
+            Necessities.language: true
+            Necessities.spamchat: true
+            Necessities.spamcommands: true
+            Necessities.advertise: true
+            Necessities.hide: true
+    Necessities.ops:
+        description: Allows you to see the current oplist.
+        default: true
+    Necessities.ragequit:
+        description: Allows you to ragequit the server.
+        default: true
+    Necessities.gc:
+        description: Allows you to send a message to global.
+        default: true
+    Necessities.enchant:
+        description: Allows you to enchant items.
+        default: op
+    Necessities.warn:
+        description: Allows you to warn players.
+        default: op
+    Necessities.perms:
+        description: Allows you to see a commands permissions.
+        default: op
+    Necessities.slap:
+        description: Allows you to slap a player.
+        default: op
+    Necessities.potion:
+        description: Allows you to do potion effects.
+        default: op
+    Necessities.imp:
+        description: Allows you to do imp people.
+        default: op
+    Necessities.pants:
+        description: Allows you to put pants on.
+        default: op
+    Necessities.boots:
+        description: Allows you to put boots on.
+        default: op
+    Necessities.chest:
+        description: Allows you to do put chestplates on.
+        default: op
+    Necessities.caps:
+        description: Allows you to use caps.
+        default: op
+    Necessities.language:
+        description: Allows you to use bad language.
+        default: op
+    Necessities.spamchat:
+        description: Allows you to spam chat.
+        default: op
+    Necessities.spamcommands:
+        description: Allows you to spam commands.
+        default: op
+    Necessities.advertise:
+        description: Allows you to advertise.
+        default: op
+    Necessities.hide:
+        description: Allows you to vanish with disconect message.
+        default: op

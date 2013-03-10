@@ -1,10 +1,10 @@
 package com.github.CrossGaming.ccebridge;
 
 import java.io.File;
-import java.util.List;
-
+import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
+import org.bukkit.entity.Player;
 
 public class PlayerInfo
 {
@@ -23,17 +23,15 @@ public class PlayerInfo
 	   	{
 	   		temp = "guest";
 	   	}
+	   	else if(temp.equalsIgnoreCase("default"))
+	   	{
+	   		temp = "guest";
+	   	}
 	   	return temp;
 	}
 	public boolean hasCmd(String name, String node)
 	{
-		customConfigFile = new File("plugins/GroupManager/worlds/world", "users.yml");
-	   	customConfig = YamlConfiguration.loadConfiguration(customConfigFile);
-	   	List<String> temp = customConfig.getStringList("users." + name + ".permissions");
-	   	if(temp.contains(node))
-	   	{
-	   		return true;
-	   	}
-	   	return false;
+	   	Player p = Bukkit.getPlayer(name);
+	   	return p.hasPermission(node);
 	}
 }

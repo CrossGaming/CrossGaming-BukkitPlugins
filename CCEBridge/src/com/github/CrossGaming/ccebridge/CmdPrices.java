@@ -161,11 +161,6 @@ public class CmdPrices
 		{
 			return null;
 		}
-		/*ArrayList<String> derp = new ArrayList<String>();
-		for(String r : temp)
-		{
-			derp.add(r + " " + customConfig.getString(r));
-		}*/
 		return co.get(page + time);
 	}
 }

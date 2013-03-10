@@ -1,0 +1,13 @@
+CCBot:
+  gcNick: ""
+  ircNick: "CrossBot"
+  ircChan: "#ChangeThis"
+  gcPass: ""
+  ircPass: ""
+  warns: 3
+  cState: "Alive"
+  caps: true
+  language: true
+  cmdSpam: true
+  chatSpam: true
+  advertise: true

@@ -83,13 +83,10 @@ public class CCBot
 		message = message.replaceAll("[^a-zA-Z]","").toUpperCase();
 		for(int i = 0; i < allowed.size(); i++)
 		{
-			if(i % 2 == 0)
+			if (message.contains(allowed.get(i)))
 			{
-				if (message.contains(allowed.get(i)))
-				{
-					warns.warn(player, "Language", "CCBot");
-					break;
-				}
+				warns.warn(player, "Language", "CCBot");
+				break;
 			}
 		}
 	}
@@ -104,17 +101,23 @@ public class CCBot
 		message = player + ": " + message;
 		log.log(message);		
 		Player p = Bukkit.getServer().getPlayer(player);
-		if(!p.isOp())
+		if(Bukkit.getPluginManager().getPlugin("Necessities").getConfig().getBoolean("CCBot.caps"))
 		{
-			if(Bukkit.getPluginManager().getPlugin("Necessities").getConfig().getBoolean("CCBot.caps"))
+			if(!p.hasPermission("Necessities.caps"))
 			{
 				caps(player, messageOrig);
 			}
-			if(Bukkit.getPluginManager().getPlugin("Necessities").getConfig().getBoolean("CCBot.language"))
+		}
+		if(Bukkit.getPluginManager().getPlugin("Necessities").getConfig().getBoolean("CCBot.language"))
+		{
+			if(!p.hasPermission("Necessities.language"))
 			{
 				langCheck(player, messageOrig);
 			}
-			if(Bukkit.getPluginManager().getPlugin("Necessities").getConfig().getBoolean("CCBot.chatSpam"))
+		}
+		if(Bukkit.getPluginManager().getPlugin("Necessities").getConfig().getBoolean("CCBot.chatSpam"))
+		{
+			if(!p.hasPermission("Necessities.spamchat"))
 			{
 				checkChatSpam(player);
 			}
@@ -125,9 +128,9 @@ public class CCBot
 		message = player + " issued server command: " + message;
 		log.log(message);
 		Player p = Bukkit.getServer().getPlayer(player);
-		if(!p.isOp())
+		if(Bukkit.getPluginManager().getPlugin("Necessities").getConfig().getBoolean("CCBot.cmdSpam"))
 		{
-			if(Bukkit.getPluginManager().getPlugin("Necessities").getConfig().getBoolean("CCBot.cmdSpam"))
+			if(!p.hasPermission("Necessities.spamcommands"))
 			{
 				checkCmdSpam(player);
 			}

@@ -2,6 +2,7 @@ package com.github.CorporateCraft.cceconomy;
 
 import java.util.ArrayList;
 import org.bukkit.Material;
+import org.bukkit.inventory.ItemStack;
 
 public class Materials
 {	
@@ -115,6 +116,123 @@ public class Materials
 			}
 		}
 		return neww;
+	}
+	public boolean isTool(ItemStack is)
+	{
+		//Wood tools
+		if(is.getData().getItemType().equals(Material.WOOD_AXE))
+			return true;
+		if(is.getData().getItemType().equals(Material.WOOD_HOE))
+			return true;
+		if(is.getData().getItemType().equals(Material.WOOD_PICKAXE))
+			return true;
+		if(is.getData().getItemType().equals(Material.WOOD_SWORD))
+			return true;
+		if(is.getData().getItemType().equals(Material.WOOD_SPADE))
+			return true;
+		//Stone tools
+		if(is.getData().getItemType().equals(Material.STONE_AXE))
+			return true;
+		if(is.getData().getItemType().equals(Material.STONE_HOE))
+			return true;
+		if(is.getData().getItemType().equals(Material.STONE_PICKAXE))
+			return true;
+		if(is.getData().getItemType().equals(Material.STONE_SWORD))
+			return true;
+		if(is.getData().getItemType().equals(Material.STONE_SPADE))
+			return true;
+		//Iron tools
+		if(is.getData().getItemType().equals(Material.IRON_AXE))
+			return true;
+		if(is.getData().getItemType().equals(Material.IRON_HOE))
+			return true;
+		if(is.getData().getItemType().equals(Material.IRON_PICKAXE))
+			return true;
+		if(is.getData().getItemType().equals(Material.IRON_SWORD))
+			return true;
+		if(is.getData().getItemType().equals(Material.IRON_SPADE))
+			return true;
+		//Gold tools
+		if(is.getData().getItemType().equals(Material.GOLD_AXE))
+			return true;
+		if(is.getData().getItemType().equals(Material.GOLD_HOE))
+			return true;
+		if(is.getData().getItemType().equals(Material.GOLD_PICKAXE))
+			return true;
+		if(is.getData().getItemType().equals(Material.GOLD_SWORD))
+			return true;
+		if(is.getData().getItemType().equals(Material.GOLD_SPADE))
+			return true;
+		//Diamond tools
+		if(is.getData().getItemType().equals(Material.DIAMOND_AXE))
+			return true;
+		if(is.getData().getItemType().equals(Material.DIAMOND_HOE))
+			return true;
+		if(is.getData().getItemType().equals(Material.DIAMOND_PICKAXE))
+			return true;
+		if(is.getData().getItemType().equals(Material.DIAMOND_SWORD))
+			return true;
+		if(is.getData().getItemType().equals(Material.DIAMOND_SPADE))
+			return true;
+		//Leather Armor
+		if(is.getData().getItemType().equals(Material.LEATHER_BOOTS))
+			return true;
+		if(is.getData().getItemType().equals(Material.LEATHER_CHESTPLATE))
+			return true;
+		if(is.getData().getItemType().equals(Material.LEATHER_HELMET))
+			return true;
+		if(is.getData().getItemType().equals(Material.LEATHER_LEGGINGS))
+			return true;
+		//Chainmail Armor
+		if(is.getData().getItemType().equals(Material.CHAINMAIL_BOOTS))
+			return true;
+		if(is.getData().getItemType().equals(Material.CHAINMAIL_CHESTPLATE))
+			return true;
+		if(is.getData().getItemType().equals(Material.CHAINMAIL_HELMET))
+			return true;
+		if(is.getData().getItemType().equals(Material.CHAINMAIL_LEGGINGS))
+			return true;
+		//Iron Armor
+		if(is.getData().getItemType().equals(Material.IRON_BOOTS))
+			return true;
+		if(is.getData().getItemType().equals(Material.IRON_CHESTPLATE))
+			return true;
+		if(is.getData().getItemType().equals(Material.IRON_HELMET))
+			return true;
+		if(is.getData().getItemType().equals(Material.IRON_LEGGINGS))
+			return true;
+		//Gold Armor
+		if(is.getData().getItemType().equals(Material.GOLD_BOOTS))
+			return true;
+		if(is.getData().getItemType().equals(Material.GOLD_CHESTPLATE))
+			return true;
+		if(is.getData().getItemType().equals(Material.GOLD_HELMET))
+			return true;
+		if(is.getData().getItemType().equals(Material.GOLD_LEGGINGS))
+			return true;
+		//Diamond Armor
+		if(is.getData().getItemType().equals(Material.DIAMOND_BOOTS))
+			return true;
+		if(is.getData().getItemType().equals(Material.DIAMOND_CHESTPLATE))
+			return true;
+		if(is.getData().getItemType().equals(Material.DIAMOND_HELMET))
+			return true;
+		if(is.getData().getItemType().equals(Material.DIAMOND_LEGGINGS))
+			return true;
+		//Other
+		if(is.getData().getItemType().equals(Material.ANVIL))
+			return true;
+		if(is.getData().getItemType().equals(Material.CARROT_STICK))
+			return true;
+		if(is.getData().getItemType().equals(Material.FISHING_ROD))
+			return true;
+		if(is.getData().getItemType().equals(Material.FLINT_AND_STEEL))
+			return true;
+		if(is.getData().getItemType().equals(Material.SHEARS))
+			return true;
+		if(is.getData().getItemType().equals(Material.BOW))
+			return true;
+		return false;
 	}
 	public String idToName(int id)
 	{

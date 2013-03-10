@@ -56,9 +56,16 @@ public class CmdSell extends Cmd
 					}
 					if(!form.isLegal(args[1]))
 					{
-						return false;
+						if(!args[1].equalsIgnoreCase("all"))
+						{
+							return false;
+						}
+						amount = itemAmount(inventory, Material.matchMaterial(itemName));
 					}
-					amount = Integer.parseInt(args[1]);
+					else
+					{
+						amount = Integer.parseInt(args[1]);
+					}
 				}
 				else
 				{
@@ -70,9 +77,16 @@ public class CmdSell extends Cmd
 					}
 					if(!form.isLegal(args[0]))
 					{
-						return false;
+						if(!args[0].equalsIgnoreCase("all"))
+						{
+							return false;
+						}
+						amount = itemAmount(inventory, Material.matchMaterial(mat.findItem(itemName)));
 					}
-					amount = Integer.parseInt(args[0]);
+					else
+					{
+						amount = Integer.parseInt(args[0]);
+					}
 				}
 				itemName = mat.findItem(itemName);
 				if(!mat.itemExists(itemName))
@@ -92,20 +106,39 @@ public class CmdSell extends Cmd
 				else
 				{
 					ItemStack itemstack = new ItemStack(Material.matchMaterial(itemName), amount, data);
-					if(inventory.contains(Material.matchMaterial(mat.findItem(itemName)), amount))
+					if(inventory.containsAtLeast(new ItemStack(Material.matchMaterial(itemName), 1, data), amount) )
 					{
 						balc.addMoney(player.getName(), cost);
 						inventory.removeItem(itemstack);
 						itemName = itemName.replaceAll("_ITEM", "");
 						itemName = form.capFirst(itemName);
-						player.sendMessage(arl.getMessages() + "You sold " + Integer.toString(amount) + " of " + itemName + ".");
+						player.sendMessage(arl.getMessages() + "You sold " + Integer.toString(amount) + " " + itemName + ".");
 						player.sendMessage(arl.getMoney() + "$" + form.roundTwoDecimals(cost) + arl.getMessages() + " was added to your acount.");
 					}
 					else
 					{
-						itemName = itemName.replaceAll("_ITEM", "");
-						itemName = form.capFirst(itemName);
-						player.sendMessage(arl.getMessages() + "You do not have that many " + itemName + "s");
+						if(inventory.contains(Material.matchMaterial(itemName), amount) && mat.isTool(itemstack))
+						{
+							if(sell(inventory,amount,Material.matchMaterial(itemName)))
+							{
+								itemName = itemName.replaceAll("_ITEM", "");
+								itemName = form.capFirst(itemName);
+								player.sendMessage(arl.getMessages() + "You sold " + Integer.toString(amount) + " of " + itemName + ".");
+								player.sendMessage(arl.getMoney() + "$" + form.roundTwoDecimals(cost) + arl.getMessages() + " was added to your acount.");
+							}
+							else
+							{
+								itemName = itemName.replaceAll("_ITEM", "");
+								itemName = form.capFirst(itemName);
+								player.sendMessage(arl.getMessages() + "You do not have " + Integer.toString(amount)  + " " + plural(itemName) + ".");
+							}
+						}
+						else
+						{
+							itemName = itemName.replaceAll("_ITEM", "");
+							itemName = form.capFirst(itemName);
+							player.sendMessage(arl.getMessages() + "You do not have " + Integer.toString(amount)  + " " + plural(itemName) + ".");
+						}
 					}
 					return true;
 				}
@@ -117,5 +150,54 @@ public class CmdSell extends Cmd
 			return true;
 		}
 		return false;
+	}
+	private String plural(String s)
+	{
+		if(s.endsWith("s"))
+		{
+			return s;
+		}
+		return s + "s";
+	}
+	private boolean sell(PlayerInventory inv, int cAmount, Material matType)
+	{
+		for(ItemStack s : inv.getContents())
+		{
+			if(s == null)
+			{
+				continue;
+			}
+			if(cAmount > 0 && s.getType() == matType && s.getEnchantments().size() == 0)
+			{
+				inv.removeItem(new ItemStack(matType, 1, s.getDurability()));
+				cAmount = cAmount - 1;
+				sell(inv,cAmount,matType);
+			}
+			if(cAmount == 0)
+			{
+				return true;
+			}
+		}
+		return false;
+	}
+	private int itemAmount(PlayerInventory inv, Material matType)
+	{
+		int amount = 0;
+		for(ItemStack s : inv.getContents())
+		{
+			if (s == null)
+			{
+				continue;
+			}
+			if (s.getType() != matType)
+			{
+				continue;
+			}
+			if(s.getEnchantments().size() == 0)
+			{
+				amount += s.getAmount();
+			}
+		}
+		return amount;
 	}
 }

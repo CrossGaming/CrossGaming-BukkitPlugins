@@ -73,6 +73,10 @@ public class CmdCmdPrices extends Cmd
     				{
     					tempn = "essentials." + price.split(" ")[0].toLowerCase();
     				}
+    				if(tempn.contains("mcmmo"))
+    				{
+    					tempn = "essentials." + price.split(" ")[0].toLowerCase();
+    				}
     				hasNode = pInfo.hasCmd(player.getName(), tempn);	
     			}
     	   		price = formL(form.capFirst(price.split(" ")[0]),

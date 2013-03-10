@@ -61,6 +61,10 @@ public class CmdBuyCmd extends Cmd
 			{
 				permNode = "essentials." + cmd.toLowerCase();
 			}
+			if(permNode.contains("mcmmo"))
+			{
+				permNode = "essentials." + cmd.toLowerCase();
+			}
 			if(pInfo.hasCmd(player.getName(), permNode))
 			{
 				player.sendMessage(ccearl.getMessages() + "Already have command");

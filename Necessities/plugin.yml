@@ -167,6 +167,10 @@ permissions:
             Necessities.slap: true
             Necessities.potion: true
             Necessities.imp: true
+            Necessities.caps: true
+            Necessities.language: true
+            Necessities.spamchat: true
+            Necessities.spamcommands: true
     Necessities.tpaccept:
         description: Allows you to accept teleports.
         default: true
@@ -256,4 +260,16 @@ permissions:
         default: op
     Necessities.imp:
         description: Allows you to do imp people.
+        default: op
+    Necessities.caps:
+        description: Allows you to use caps.
+        default: op
+    Necessities.language:
+        description: Allows you to use bad language.
+        default: op
+    Necessities.spamchat:
+        description: Allows you to spam chat.
+        default: op
+    Necessities.spamcommands:
+        description: Allows you to spam commands.
         default: op
