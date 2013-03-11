@@ -1,6 +1,7 @@
 package com.github.CorporateCraft.necessities.Commands;
 
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import com.github.CorporateCraft.necessities.*;
@@ -21,9 +22,9 @@ public class CmdRagequit extends Cmd
 			if(args.length != 0)
 				return false;
 			Player player = (Player) sender;
-			player.kickPlayer(arl.getCol() + "RAGEQUIT!");
+			player.kickPlayer(ChatColor.DARK_RED + "RAGEQUIT!");
 			log.log(player.getName() + " RAGEQUIT the server!");
-			Bukkit.broadcastMessage(arl.getCol() + player.getName() + " RAGEQUIT the server!");
+			Bukkit.broadcastMessage(arl.getCol() + player.getName() + ChatColor.DARK_RED + " RAGEQUIT the server!");
 			return true;
         } 
 		else

@@ -23,9 +23,7 @@ public class CmdSell extends Cmd
 		if (sender instanceof Player)
 		{
 			Player player = (Player) sender;
-			if (args.length > 2)
-				return false;
-			if (args.length == 0)
+			if (args.length > 2 || args.length == 0)
 				return false;
 			PlayerInventory inventory = player.getInventory();
 			int amount = 0;					
@@ -55,9 +53,7 @@ public class CmdSell extends Cmd
 					amount = itemAmount(inventory, Material.matchMaterial(itemName));
 				}
 				else
-				{
 					amount = Integer.parseInt(args[1]);
-				}
 			}
 			else
 			{
@@ -72,9 +68,7 @@ public class CmdSell extends Cmd
 					amount = itemAmount(inventory, Material.matchMaterial(mat.findItem(itemName)));
 				}
 				else
-				{
 					amount = Integer.parseInt(args[0]);
-				}
 			}
 			itemName = mat.findItem(itemName);
 			if(!mat.itemExists(itemName))
@@ -165,9 +159,7 @@ public class CmdSell extends Cmd
 		int amount = 0;
 		for(ItemStack s : inv.getContents())
 		{
-			if (s == null)
-				continue;
-			if (s.getType() != matType)
+			if(s == null || s.getType() != matType)
 				continue;
 			if(s.getEnchantments().size() == 0)
 				amount += s.getAmount();

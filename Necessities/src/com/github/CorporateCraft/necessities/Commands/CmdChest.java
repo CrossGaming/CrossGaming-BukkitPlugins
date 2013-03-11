@@ -20,7 +20,7 @@ public class CmdChest extends Cmd
 		if (sender instanceof Player)
 		{
 			Player p = (Player) sender;
-			if (args.length > 0 && (args[0].contains("rem") || args[0].contains("off") || args[0].equalsIgnoreCase("0")))
+			if (args.length > 0 && (args[0].contains("rem") || args[0].contains("off")))
 			{
 				PlayerInventory inv = p.getInventory();
 				ItemStack chest = inv.getChestplate();

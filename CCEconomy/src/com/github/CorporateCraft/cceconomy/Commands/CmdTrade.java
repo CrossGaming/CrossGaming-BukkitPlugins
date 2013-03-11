@@ -21,9 +21,9 @@ public class CmdTrade extends Cmd
 	{
 		if (sender instanceof Player)
 		{
+			if(args.length != 5)
+				return false;
 			Player player = (Player) sender;
-			if (args.length != 5)
-	      	   return false;
 			Player target = sender.getServer().getPlayer(args[0]);
 			String pname = player.getName();
 			String offertopname = target.getName();

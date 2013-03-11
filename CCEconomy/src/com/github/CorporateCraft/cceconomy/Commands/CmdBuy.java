@@ -24,9 +24,7 @@ public class CmdBuy extends Cmd
 		if (sender instanceof Player)
 		{
 			Player player = (Player) sender;
-			if (args.length > 2)
-				return false;
-			if (args.length == 0)
+			if (args.length > 2 || args.length == 0)
 				return false;
 			PlayerInventory inventory = player.getInventory();
 			String balance = balc.bal(player.getName());

@@ -47,17 +47,14 @@ public class CmdBuyCmd extends Cmd
 				player.sendMessage(ccearl.getMessages() + "You do not have the rank required to buy this command.");
 				return true;
 			}
-			Command com;
-			com = player.getServer().getPluginCommand(cmd);
+			Command com = player.getServer().getPluginCommand(cmd);
 			if(com == null)
 			{
 				player.sendMessage(ccearl.getMessages() + "The command " + cmd + " is a nonexistant or built in command.");
 				return true;
 			}
 			String permNode = com.getPermission();
-			if(permNode == null)
-				permNode = "essentials." + cmd.toLowerCase();
-			if(permNode.contains("mcmmo"))
+			if(permNode == null || permNode.contains("mcmmo"))
 				permNode = "essentials." + cmd.toLowerCase();
 			if(pInfo.hasCmd(player.getName(), permNode))
 			{

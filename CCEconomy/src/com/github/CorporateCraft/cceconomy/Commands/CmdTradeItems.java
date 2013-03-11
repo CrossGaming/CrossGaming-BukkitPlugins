@@ -20,15 +20,13 @@ public class CmdTradeItems extends Cmd
 	{
 		if (sender instanceof Player)
 		{
+			if(args.length != 5)
+				return false;
 			Player player = (Player) sender;
-			if (args.length != 5)
-	      	   return false;
 			Player target = sender.getServer().getPlayer(args[0]);
 			String pname = player.getName();
 			String offertopname = target.getName();
-			if(!form.isLegal(args[4]))
-				return false;
-			if(!form.isLegal(args[2]))
+			if(!form.isLegal(args[2]) || !form.isLegal(args[4]))
 				return false;
 			String amountgetting = args[2];
 			String itemgetting = "";
@@ -70,12 +68,7 @@ public class CmdTradeItems extends Cmd
 			PlayerInventory yourinventory = player.getInventory();
 			itemoffering = mat.findItem(itemoffering);
 			itemgetting = mat.findItem(itemgetting);
-			if(!mat.itemExists(itemoffering))
-			{
-				player.sendMessage(arl.getMessages() + "That item does not exist");
-				return true;
-			}
-			if(!mat.itemExists(itemgetting))
+			if(!mat.itemExists(itemoffering) || !mat.itemExists(itemgetting))
 			{
 				player.sendMessage(arl.getMessages() + "That item does not exist");
 				return true;

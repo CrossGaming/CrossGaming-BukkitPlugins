@@ -22,13 +22,10 @@ public class CmdWarn extends Cmd
 			Player p = (Player) sender;
 			Player target = sender.getServer().getPlayer(args[0]);
 			if(target == null)
+				return false;
+			if(target.hasPermission("Necessities.antiPWarn"))
 			{
-				p.sendMessage(arl.getCol() + "Nonexistant player");
-				return true;
-			}
-			if(target.isOp())
-			{
-				p.sendMessage(arl.getCol() + "You may not warn an op");
+				p.sendMessage(arl.getCol() + "You may not warn someone who has the antiPWarn node.");
 				return true;
 			}
 			String reason = "";
@@ -44,10 +41,7 @@ public class CmdWarn extends Cmd
 		{
 			Player target = sender.getServer().getPlayer(args[0]);
 			if(target == null)
-			{
-				sender.sendMessage(arl.getCol() + "Nonexistant player");
-				return true;
-			}
+				return false;
 			String reason = "";
 			for(int i = 1; i < args.length; i++)
 			{

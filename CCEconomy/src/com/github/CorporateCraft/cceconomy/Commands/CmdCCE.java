@@ -15,11 +15,13 @@ public class CmdCCE extends Cmd
 	}
 	public boolean commandUse(CommandSender sender, String[] args)
 	{
+		if (args.length > 3 || args.length == 0)
+			return false;
 		if (sender instanceof Player)
 		{
-		Player player = (Player) sender;
-		if (args.length > 3 || args.length == 0 || args.length == 1)
-			return false;
+			Player player = (Player) sender;
+			if (args.length == 1)
+				return false;
 			String targetsname;
 			try
 			{
@@ -76,8 +78,6 @@ public class CmdCCE extends Cmd
 		} 	
 		else
 		{
-			if (args.length > 3 || args.length == 0)
-				return false;
 			String targetsname;
 			try
 			{

@@ -18,10 +18,8 @@ public class CmdPay extends Cmd
 		if (sender instanceof Player)
 		{
            Player player = (Player) sender;
-           if (args.length > 2 || args.length == 0)
+           if (args.length > 2 || args.length == 0 || !form.isLegal(args[1]))
         	   return false;
-    	   	if(!form.isLegal(args[1]))
-				return false;
     	   	String targetsname;
     	   	try
 			{

@@ -120,7 +120,7 @@ public class CmdPriceList extends Cmd
    			sell = "";
    		}
 	   	price = ChatColor.GOLD + numb +
-	   	arl.getMessages() + item +
+	   			arl.getMessages() + item +
 	   			buying + arl.getMoney() + buy + arl.getMessages() +
 	   			selling + arl.getMoney() + sell;
    		return price;

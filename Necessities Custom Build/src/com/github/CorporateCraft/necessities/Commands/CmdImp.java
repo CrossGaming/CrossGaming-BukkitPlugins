@@ -27,9 +27,7 @@ public class CmdImp extends Cmd
 					{
 						message = message + " " + a;
 					}
-					message = message.replaceFirst(args[0], "");
-					message = message.trim();
-					message = ChatColor.translateAlternateColorCodes('&', message);
+					message = ChatColor.translateAlternateColorCodes('&', message.replaceFirst(args[0], "").trim());
 					p.chat(message);
 					return true;
 				}
@@ -39,8 +37,7 @@ public class CmdImp extends Cmd
 			{
 				message = message + " " + a;
 			}
-			message = message.trim();
-			message = ChatColor.translateAlternateColorCodes('&', message);
+			message = ChatColor.translateAlternateColorCodes('&', message.trim());
 			Bukkit.broadcastMessage(message);
 		}
 		else
@@ -55,9 +52,7 @@ public class CmdImp extends Cmd
 					{
 						message = message + " " + a;
 					}
-					message = message.replaceFirst(args[0], "");
-					message = message.trim();
-					message = ChatColor.translateAlternateColorCodes('&', message);
+					message = ChatColor.translateAlternateColorCodes('&', message.replaceFirst(args[0], "").trim());
 					p.chat(message);
 					return true;
 				}
@@ -67,8 +62,7 @@ public class CmdImp extends Cmd
 			{
 				message = message + " " + a;
 			}
-			message = message.trim();
-			message = ChatColor.translateAlternateColorCodes('&', message);
+			message = ChatColor.translateAlternateColorCodes('&', message.trim());
 			Bukkit.broadcastMessage(message);
 		}
 		return true;

@@ -14,13 +14,11 @@ public class CmdBalance extends Cmd
 	}
 	public boolean commandUse(CommandSender sender, String[] args)
 	{
+		if (args.length > 1)
+	      	   return false;
 		if (sender instanceof Player)
 		{
 	        Player player = (Player) sender;
-	        if (args.length > 1)
-	        {
-	      	   return false;
-	        }
 	        if (args.length == 1)
 	        {
 	       	   if(player.hasPermission("CCEconomy.balothers"))
@@ -78,11 +76,7 @@ public class CmdBalance extends Cmd
 				sender.sendMessage(arl.getMessages() + playersname + "'s balance is: " + arl.getMoney() + "$" + balance);
 				return true;
 			}
-			else
-			{
-				sender.sendMessage(arl.getMessages() + "Log in to use this command");
-				return true;
-			}
+			return false;
 		}
 	}
 }

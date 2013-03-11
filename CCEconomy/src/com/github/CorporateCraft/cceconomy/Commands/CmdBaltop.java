@@ -18,7 +18,7 @@ public class CmdBaltop extends Cmd
 	{
 		if (sender instanceof Player)
 		{
-           Player player = (Player) sender;
+			Player player = (Player) sender;
            	int page = 0;
            	if (args.length == 1)
            	{

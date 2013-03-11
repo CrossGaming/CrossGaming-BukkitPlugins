@@ -1,7 +1,7 @@
 name: Necessities
 main: com.github.CorporateCraft.necessities.Necessities
-version: 0.3
-website: http://crossge.com
+version: 0.4.0
+website: http://www.crossge.com
 description: Adds necessities of a server
 authors: [CrossGaming Development Team]
 
@@ -87,6 +87,7 @@ permissions:
             Necessities.advertise: true
             Necessities.hide: true
             Necessities.unsafeEnchant: true
+            Necessities.antiPWarn: true
     Necessities.ops:
         description: Allows you to see the current oplist.
         default: true
@@ -143,4 +144,7 @@ permissions:
         default: op
     Necessities.unsafeEnchant:
         description: Allows you to do unsafe enchantments.
-        default: op    
+        default: op
+    Necessities.antiPWarn:
+        description: Allows you to not be able to be /warned.
+        default: op

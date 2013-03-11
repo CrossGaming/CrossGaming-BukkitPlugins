@@ -19,11 +19,7 @@ public class CmdSetPrice extends Cmd
 		if (sender instanceof Player)
 		{
 			Player player = (Player) sender;
-			if (args.length > 3)
-				return false;
-			if (args.length == 0)
-				return false;
-			if (args.length == 1)
+			if (args.length == 0 || args.length == 1 || args.length > 3)
 				return false;
 			String itemName = "";					
 			if(args.length == 3)

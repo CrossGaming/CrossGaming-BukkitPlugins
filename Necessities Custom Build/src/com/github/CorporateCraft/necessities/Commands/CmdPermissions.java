@@ -19,8 +19,7 @@ public class CmdPermissions extends Cmd
 		if (sender instanceof Player)
 		{
 			Player player = (Player) sender;
-			Command com;
-			com = player.getServer().getPluginCommand(args[0]);
+			Command com = player.getServer().getPluginCommand(args[0]);
 			if(com == null)
 			{
 				player.sendMessage(arl.getCol() + "The command " + args[0] + " is a nonexistant or built in command permissions not able to read built in yet.");

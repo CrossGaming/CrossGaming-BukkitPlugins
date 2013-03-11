@@ -22,9 +22,9 @@ public class CmdTAccept extends Cmd
 	{
 		if (sender instanceof Player)
 		{
+			if(args.length != 1)
+				return false;
 			Player player = (Player) sender;
-			if (args.length != 1)
-	      	   return false;
 			Player target = sender.getServer().getPlayer(args[0]);
 			String pname = player.getName();
 			String offerpname = target.getName();
