@@ -31,9 +31,7 @@ public class CCBotLog
 		String file = "plugins/Necessities/Logs/" + date + ".txt";
 		File f = new File(file);
 		if(!f.exists())
-		{
 			fileCreate(file);
-		}
 		try
 		{
 			FileWriter writer = new FileWriter(file, true);
@@ -47,9 +45,7 @@ public class CCBotLog
 	private String corTime(String time)
 	{
 		if(time.length() == 1)
-		{
 			return "0" + time;
-		}
 		return time;
 	}
 	private void fileCreate(String file)

@@ -18,9 +18,7 @@ public class CmdTDeny extends Cmd
 		{
 			Player player = (Player) sender;
 			if (args.length != 1)
-	        {
 	      	   return false;
-	        }
 			Player target = sender.getServer().getPlayer(args[0]);
 			String pname = player.getName();
 			String offerpname = target.getName();

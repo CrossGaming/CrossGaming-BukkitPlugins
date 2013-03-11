@@ -86,6 +86,7 @@ permissions:
             Necessities.spamcommands: true
             Necessities.advertise: true
             Necessities.hide: true
+            Necessities.unsafeEnchant: true
     Necessities.ops:
         description: Allows you to see the current oplist.
         default: true
@@ -140,3 +141,6 @@ permissions:
     Necessities.hide:
         description: Allows you to vanish with disconect message.
         default: op
+    Necessities.unsafeEnchant:
+        description: Allows you to do unsafe enchantments.
+        default: op    

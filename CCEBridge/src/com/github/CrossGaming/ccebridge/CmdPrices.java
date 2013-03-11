@@ -26,14 +26,10 @@ public class CmdPrices
 		customConfigFile = new File("plugins/CCEBridge", "commands.yml");
 	   	customConfig = YamlConfiguration.loadConfiguration(customConfigFile);
 	   	if(!customConfig.contains(cmd))
-	   	{
 	   		return false;
-	   	}
 		String price = customConfig.getString(cmd);
 		if(rp.hasRank(rank, price.split(" ")[0]))
-		{
 			return true;
-		}
 		return false;
 	}
 	public boolean realCommand(String cmd)
@@ -50,9 +46,7 @@ public class CmdPrices
 		customConfigFile = new File("plugins/CCEBridge", "commands.yml");
 	   	customConfig = YamlConfiguration.loadConfiguration(customConfigFile);
 	   	if(!customConfig.contains(cmd))
-	   	{
 	   		return null;
-	   	}
 	   	String price = customConfig.getString(cmd);
 		return price.split(" ")[1];
 	}
@@ -61,9 +55,7 @@ public class CmdPrices
 		cmd = cmd.toUpperCase();
 		String costPerUnit = cost(cmd);
 		if(costPerUnit == null)
-		{
 			return -1.00;
-		}
 		double cost = Double.parseDouble(costPerUnit);
 		return cost;
 	}
@@ -98,9 +90,7 @@ public class CmdPrices
 			for(String m : temp)
 			{
 				if(l.get(i).equals(m.split(" ")[0]))
-				{
 					temp2.add(m.split(" ")[1] + " " + m.split(" ")[0] + " " + m.split(" ")[2]);
-				}
 			}
 		}
 		co = temp2;
@@ -126,9 +116,7 @@ public class CmdPrices
 		customConfigFile = new File("plugins/CCEBridge", "commands.yml");
 	   	customConfig = YamlConfiguration.loadConfiguration(customConfigFile);
 	   	if(customConfig.contains(cmd))
-	   	{
 	   		customConfig.set(cmd, null);
-	   	}
 	   	try
 	   	{
 			customConfig.save(customConfigFile);
@@ -142,9 +130,7 @@ public class CmdPrices
 	   	customConfig = YamlConfiguration.loadConfiguration(customConfigFile);
 		int rounder = 0;
 		if (co.size()%10 != 0)
-		{
 			rounder = 1;
-		}
 		return (co.size()/10) + rounder;
 	}
 	public String priceLists(int page, int time)
@@ -154,13 +140,9 @@ public class CmdPrices
 	   	Set<String> temp = customConfig.getKeys(false);
 		page = page * 10;
 		if (temp.size() < time + page + 1)
-		{
 			return null;
-		}
 		if (time == 10)
-		{
 			return null;
-		}
 		return co.get(page + time);
 	}
 }

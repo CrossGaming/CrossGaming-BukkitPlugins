@@ -16,9 +16,7 @@ public class CmdWarn extends Cmd
 	public boolean commandUse(CommandSender sender, String[] args)
 	{
 		if(args.length < 2)
-		{
 			return false;
-		}
 		if (sender instanceof Player)
 		{
 			Player p = (Player) sender;

@@ -23,20 +23,14 @@ public class CmdTrade extends Cmd
 		{
 			Player player = (Player) sender;
 			if (args.length != 5)
-	        {
 	      	   return false;
-	        }
 			Player target = sender.getServer().getPlayer(args[0]);
 			String pname = player.getName();
 			String offertopname = target.getName();
 			if(!form.isLegal(args[3]))
-			{
 				return false;
-			}
 			if(!form.isLegal(args[2]))
-			{
 				return false;
-			}
 			String price = args[3];
 			String amount = args[2];
 			String item = "";

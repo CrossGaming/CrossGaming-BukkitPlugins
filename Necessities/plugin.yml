@@ -184,6 +184,7 @@ permissions:
             Necessities.chest: true
             Necessities.boots: true
             Necessities.pants: true
+            Necessities.unsafeEnchant: true
     Necessities.tpaccept:
         description: Allows you to accept teleports.
         default: true
@@ -301,3 +302,6 @@ permissions:
     Necessities.chest:
         description: Allows you to do put chestplates on.
         default: op
+    Necessities.unsafeEnchant:
+        description: Allows you to do unsafe enchantments.
+        default: op      

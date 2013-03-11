@@ -23,10 +23,8 @@ public class CCBotIRC
 	private String rand()
 	{
 		int r = new Random().nextInt();
-		if(r<0)
-		{
+		if(r < 0)
 			r = -r;
-		}
 		return Integer.toString(r);
 	}
 	public void joinIRC()
@@ -34,9 +32,7 @@ public class CCBotIRC
 		
 		String gcTempNick = Bukkit.getPluginManager().getPlugin("Necessities").getConfig().getString("CCBot.gcNick");
 		if(!gcTempNick.equals(""))
-		{
 			gcNick = gcTempNick;
-		}
 		else
 		{
 			Bukkit.getPluginManager().getPlugin("Necessities").getConfig().set("CCBot.gcNick", gcNick);

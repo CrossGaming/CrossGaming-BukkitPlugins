@@ -19,7 +19,6 @@ public class Initialization
 		fileCreate(arl.getProf());
 		fileCreate(arl.getAl());
 	}
-	
 	private void dirCreate(String directory)
 	{
 		File d = new File(directory);
@@ -32,7 +31,6 @@ public class Initialization
 			catch (Exception e){}
 		}
 	}
-	
 	private void fileCreate(String file)
 	{
 		File f = new File(file);

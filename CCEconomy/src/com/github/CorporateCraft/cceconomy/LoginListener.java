@@ -18,8 +18,6 @@ public class LoginListener implements Listener
     	Player player = event.getPlayer();
     	String playername = player.getName();
     	if (!balc.doesPlayerExist(playername))
-    	{
     		balc.addPlayerToList(playername);
-    	}
 	}
 }

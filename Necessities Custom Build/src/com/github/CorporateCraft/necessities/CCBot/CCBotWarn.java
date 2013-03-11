@@ -45,29 +45,17 @@ public class CCBotWarn
 		{
 			warnCount.put(name, 1);
 			if(r.equals("Caps"))
-			{
 				capsMsg(name);
-			}
 			else if(r.equals("Language"))
-			{
 				langMsg(name);
-			}
 			else if(r.equals("ChatSpam"))
-			{
 				chatMsg(name);
-			}
 			else if(r.equals("CmdSpam"))
-			{
 				cmdMsg(name);
-			}
 			else if(r.equals("Adds"))
-			{
 				addsMsg(name);
-			}
 			else
-			{
 				warnMessage(name, r, Warner);
-			}
 			timesLeft(name);
 		}
 		else
@@ -76,52 +64,30 @@ public class CCBotWarn
 			if(warnCount.get(name)==warns)
 			{
 				if(r.equals("Caps"))
-				{
 					caps(name);
-				}
 				else if(r.equals("Language"))
-				{
 					language(name);
-				}
 				else if(r.equals("ChatSpam"))
-				{
 					chatSpam(name);
-				}
 				else if(r.equals("CmdSpam"))
-				{
 					cmdSpam(name);
-				}
 				else if(r.equals("Adds"))
-				{
 					advertising(name);
-				}
 				else
-				{
 					other(name,r);
-				}
 			}
 			else
 			{
 				if(r.equals("Caps"))
-				{
 					capsMsg(name);
-				}
 				else if(r.equals("Language"))
-				{
 					langMsg(name);
-				}
 				else if(r.equals("ChatSpam"))
-				{
 					chatMsg(name);
-				}
 				else if(r.equals("CmdSpam"))
-				{
 					cmdMsg(name);
-				}
 				else
-				{
 					warnMessage(name, r, Warner);
-				}
 				timesLeft(name);
 			}
 		}

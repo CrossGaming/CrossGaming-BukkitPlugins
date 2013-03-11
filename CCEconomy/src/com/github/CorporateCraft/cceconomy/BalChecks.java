@@ -22,13 +22,10 @@ public class BalChecks
 		for(int i = 0; i < balances.size(); i++)
 		{
 			if(balances.get(i).startsWith(name))
-			{
 				return balances.get(i).split(" ")[1];
-			}
 		}
 		return null;
 	}
-	
 	public String balTop(int page, int time)
 	{
 		ArrayList<Double> balsort = new ArrayList<Double>();
@@ -40,30 +37,21 @@ public class BalChecks
 		Collections.reverse(balsort);
 		page = page * 10;
 		if (balances.size() < time + page + 1)
-		{
 			return null;
-		}
 		if (time == 10)
-		{
 			return null;
-		}
 		int occurrence = 1;
 		for (int i = 0; i < page+time; i++)
 		{
 			if(balsort.get(i).equals(balsort.get(page + time)))
-			{
 				occurrence++;
-			}
 		}
 		String strBal = form.roundTwoDecimals(balsort.get(page+time));
 		int balSpot = baltopCords(strBal, occurrence);
 		if (balSpot == -1)
-		{
 			return null;
-		}
 		return balances.get(balSpot);
 	}
-	
 	private int baltopCords(String money, int occurrence)
 	{
 		int counter = 1;
@@ -72,33 +60,25 @@ public class BalChecks
 			if(balances.get(i).contains(" " + money))
 			{
 				if(counter == occurrence)
-				{
 					return i;
-				}
 				counter++;
 			}
 		}
 		return -1;
 	}
-	
 	public int baltopPages()
 	{
 		int rounder = 0;
 		if (balances.size()%10 != 0)
-		{
 			rounder = 1;
-		}
 		return (balances.size()/10) + rounder;
 	}
-	
 	public boolean doesPlayerExist(String name)
 	{
 		for(int i = 0; i < balances.size(); i++)
 		{
 			if(balances.get(i).startsWith(name))
-			{
 				return true;
-			}
 		}
 		return false;
 	}
@@ -108,7 +88,6 @@ public class BalChecks
 		Collections.sort(balances);
 		form.writeFile(arl.getBalFile(), balances);
 	}
-	
 	public void setMoney(String name, String amount)
 	{
 		int spotinlist = balances.indexOf(name + " " + bal(name));

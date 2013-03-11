@@ -14,9 +14,7 @@ public class CmdImp extends Cmd
 	public boolean commandUse(CommandSender sender, String[] args)
 	{
 		if(args.length == 0)
-		{
 			return false;
-		}
 		if (sender instanceof Player)
 		{
 			if(args.length > 1)

@@ -14,12 +14,10 @@ public class CmdOps extends Cmd
 	}
 	public boolean commandUse(CommandSender sender, String[] args)
 	{
+		if(args.length != 0)
+			return false;
 		if (sender instanceof Player)
 		{
-			if(args.length != 0)
-			{
-				return false;
-			}
 			Player player = (Player) sender;
 			String line = form.readFileStr("ops.txt");
 			if(line == null)
@@ -32,10 +30,6 @@ public class CmdOps extends Cmd
         } 
 		else
 		{
-			if(args.length != 0)
-			{
-				return false;
-			}
 			String line = form.readFileStr("ops.txt");
 			if(line == null)
 			{

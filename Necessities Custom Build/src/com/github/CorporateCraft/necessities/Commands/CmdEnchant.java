@@ -17,14 +17,10 @@ public class CmdEnchant extends Cmd
 		if (sender instanceof Player)
 		{
 			if (args.length > 2)
-	        {
 	      	   return false;
-	        }
-			Player player = (Player) sender;
 			if (args.length == 0)
-	        {
-	      	   return false;
-	        }
+		      	   return false;
+			Player player = (Player) sender;
 			if (args.length == 1)
 	        {
 				Enchantment ench = Enchantment.getByName(enchantFinder(args[0]));
@@ -63,26 +59,24 @@ public class CmdEnchant extends Cmd
 					return false;
 				}
 				int level = Integer.parseInt(args[1]);
-				//if(level > 10)
-				//{
-				//	level = 10;
-				//}
-				//if(ench.canEnchantItem(player.getInventory().getItemInHand()))
-				//{
-				if(!args[0].equalsIgnoreCase("all"))
+				if(level > 127)
+					level = 127;
+				if(ench.canEnchantItem(player.getInventory().getItemInHand()) || player.hasPermission("Necessities.unsafeEnchant"))
 				{
-					player.getInventory().getItemInHand().addUnsafeEnchantment(ench, level);
-					player.sendMessage(arl.getCol() + "Added the enchantment " + ench.getName() + " at level " + Integer.toString(level) + ".");
-					return true;
+					if(!args[0].equalsIgnoreCase("all"))
+					{
+						player.getInventory().getItemInHand().addUnsafeEnchantment(ench, level);
+						player.sendMessage(arl.getCol() + "Added the enchantment " + ench.getName() + " at level " + Integer.toString(level) + ".");
+						return true;
+					}
+					else
+					{
+						enchantAllArmor(level, player);
+						player.sendMessage(arl.getCol() + "Added the all armor enchantments at level " + Integer.toString(level) + ".");
+						return true;
+					}
 				}
-				else
-				{
-					enchantAllArmor(level, player);
-					player.sendMessage(arl.getCol() + "Added the all armor enchantments at level " + Integer.toString(level) + ".");
-					return true;
-				}
-				//}
-				//player.sendMessage(arl.getCol() + "This item can not support given enchantment.");
+				player.sendMessage(arl.getCol() + "This item can not support given enchantment.");
 	        }
 			return true;
 		}

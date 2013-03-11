@@ -24,9 +24,7 @@ public class CmdTAccept extends Cmd
 		{
 			Player player = (Player) sender;
 			if (args.length != 1)
-	        {
 	      	   return false;
-	        }
 			Player target = sender.getServer().getPlayer(args[0]);
 			String pname = player.getName();
 			String offerpname = target.getName();
@@ -42,9 +40,7 @@ public class CmdTAccept extends Cmd
 			    temp = info.split(" ")[0].replaceAll(":", " ");
 				item = temp.split(" ")[0];
 				if(form.isLegal(price))
-				{
 					price = form.roundTwoDecimals(Double.parseDouble(price));
-				}
 				if(form.isLegal(item))
 				{
 					item = mat.idToName(Integer.parseInt(item));

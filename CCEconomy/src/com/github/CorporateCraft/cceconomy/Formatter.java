@@ -48,23 +48,15 @@ public class Formatter
 		for(int i = 0; i < currentWord.size(); i++)
 		{
 			if(i == 0)
-			{
 				newWord.add(Character.toUpperCase(currentWord.get(i)));
-			}
 			else
 			{
 				if(currentWord.get(i).equals('_'))
-				{
 					newWord.add(' ');
-				}
 				else if(currentWord.get(i-1).equals('_'))
-				{
 					newWord.add(Character.toUpperCase(currentWord.get(i)));
-				}
 				else
-				{
 					newWord.add(Character.toLowerCase(currentWord.get(i)));
-				}
 			}
 		}
 		String neww = "";
@@ -86,9 +78,7 @@ public class Formatter
 		    {
 		    	String inputText = buff.readLine();
 		        if(inputText == null)
-		        {
 		         	break;
-		        }
 		        info.add(inputText);
 		    }
 		}
@@ -117,9 +107,7 @@ public class Formatter
 		{
 			FileInputStream fi = new FileInputStream(new File(file));
 			if (fi.read() == -1)  
-			{  
 				return true;
-			} 
 		}
 		catch (FileNotFoundException e){}
 		catch(IOException e){}  

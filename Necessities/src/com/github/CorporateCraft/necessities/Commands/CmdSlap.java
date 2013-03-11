@@ -18,17 +18,13 @@ public class CmdSlap extends Cmd
 	public boolean commandUse(CommandSender sender, String[] args)
 	{
 		if (args.length != 1)
-        {
       	   return false;
-        }
 		if (sender instanceof Player)
 		{
 			Player player = (Player) sender;
 			Player target = sender.getServer().getPlayer(args[0]);
 			if(target == null)
-			{
 				return false;
-			}
 			Location loc = new Location(target.getWorld(), target.getLocation().getBlockX(), 500, target.getLocation().getBlockZ());
 			target.teleport(loc);
 			Bukkit.broadcastMessage(arl.getCol() + target.getName() + " was slapped sky high by " + player.getName());
@@ -38,9 +34,7 @@ public class CmdSlap extends Cmd
 		{
 			Player target = sender.getServer().getPlayer(args[0]);
 			if(target == null)
-			{
 				return false;
-			}
 			Location loc = new Location(target.getWorld(), target.getLocation().getBlockX(), 500, target.getLocation().getBlockZ());
 			target.teleport(loc);
 			Bukkit.broadcastMessage(arl.getCol() + target.getName() + " was slapped sky high by the Console");

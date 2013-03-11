@@ -16,7 +16,6 @@ public class Formatter
 	{
 		
 	}
-	
 	public void readFile(String file, ArrayList<String> info)
 	{
 		info.clear();
@@ -28,15 +27,12 @@ public class Formatter
 		    {
 		    	String inputText = buff.readLine();
 		        if(inputText == null)
-		        {
 		         	break;
-		        }
 		        info.add(inputText);
 		    }
 		}
 		catch (IOException ex){}
 	}
-	
 	public String readFileStr(String file)
 	{
 		StringBuilder sb = new StringBuilder();
@@ -47,20 +43,15 @@ public class Formatter
 		    while(true)
 		    {
 		    	String inputText = buff.readLine();
-		        if(inputText == null)
+		        if(inputText == null && sb.length() > 1)
 		        {
-		         	if (sb.length()>1)
-		          	{
-		          		sb.deleteCharAt(sb.length()-1);
-		           		sb.deleteCharAt(sb.length()-1);
-		           		sb.append(".");
-		           		break;
-		           	}
+	          		sb.deleteCharAt(sb.length()-1);
+	           		sb.deleteCharAt(sb.length()-1);
+	           		sb.append(".");
+	           		break;
 		        }
 		        if(!inputText.startsWith("#"))
-		        {
 		        	sb.append(inputText).append(", ");
-		        }
 		    }
 		}
 		catch (IOException ex)
@@ -93,9 +84,7 @@ public class Formatter
 		{
 			FileInputStream fi = new FileInputStream(new File(file));
 			if (fi.read() == -1)  
-			{  
 				return true;
-			} 
 		}
 		catch (FileNotFoundException e){}
 		catch(IOException e){}  

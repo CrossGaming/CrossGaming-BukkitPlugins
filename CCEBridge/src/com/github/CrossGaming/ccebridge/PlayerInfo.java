@@ -19,14 +19,8 @@ public class PlayerInfo
 		customConfigFile = new File("plugins/GroupManager/worlds/world", "users.yml");
 	   	customConfig = YamlConfiguration.loadConfiguration(customConfigFile);
 	   	String temp =  customConfig.getString("users." + name + ".group");
-	   	if(temp == null)
-	   	{
+	   	if(temp == null || temp.equalsIgnoreCase("default"))
 	   		temp = "guest";
-	   	}
-	   	else if(temp.equalsIgnoreCase("default"))
-	   	{
-	   		temp = "guest";
-	   	}
 	   	return temp;
 	}
 	public boolean hasCmd(String name, String node)

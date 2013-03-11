@@ -21,9 +21,7 @@ public class CmdBuyRank extends Cmd
 	public boolean commandUse(CommandSender sender, String[] args)
 	{
 		if(args.length != 1)
-		{
 			return false;
-		}
 		if (sender instanceof Player)
 		{
 			Player player = (Player) sender;

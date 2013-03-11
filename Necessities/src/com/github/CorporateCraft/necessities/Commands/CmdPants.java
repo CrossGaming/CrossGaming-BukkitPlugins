@@ -22,15 +22,13 @@ public class CmdPants extends Cmd
 			Player p = (Player) sender;
 			if (args.length > 0 && (args[0].contains("rem") || args[0].contains("off") || args[0].equalsIgnoreCase("0")))
 			{
-				final PlayerInventory inv = p.getInventory();
-				final ItemStack pant = inv.getLeggings();
+				PlayerInventory inv = p.getInventory();
+				ItemStack pant = inv.getLeggings();
 				if (pant == null || pant.getType() == Material.AIR)
-				{
 					p.sendMessage(arl.getCol() + "You do not have pants at the moment.");
-				}
 				else
 				{
-					final ItemStack air = new ItemStack(Material.AIR);
+					ItemStack air = new ItemStack(Material.AIR);
 					inv.setLeggings(air);
 					p.sendMessage(arl.getCol() + "Pants removed");
 				}
@@ -39,24 +37,20 @@ public class CmdPants extends Cmd
 			{
 				if (p.getItemInHand().getType() != Material.AIR)
 				{
-					final ItemStack hand = p.getItemInHand().clone();
+					ItemStack hand = p.getItemInHand().clone();
 					if (hand.getType().getMaxDurability() == 0)
 					{
-						final PlayerInventory inv = p.getInventory();
-						final ItemStack pant = inv.getLeggings();
+						PlayerInventory inv = p.getInventory();
+						ItemStack pant = inv.getLeggings();
 						inv.setLeggings(hand);
 						inv.setItemInHand(pant);
 						p.sendMessage(arl.getCol() + "Pants equiped");
 					}
 					else
-					{
 						p.sendMessage(arl.getCol() + "Armor pants equiped");
-					}
 				}
 				else
-				{
 					p.sendMessage(arl.getCol() + "You can't equip air as pants");
-				}
 			}
 			return true;
         } 

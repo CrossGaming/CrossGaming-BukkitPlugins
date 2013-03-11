@@ -20,16 +20,12 @@ public class CmdHide extends Cmd
 	public void removeP(String name)
 	{
 		if(hidden.contains(name))
-		{
 			hidden.remove(name);
-		}
 	}
 	public boolean commandUse(CommandSender sender, String[] args)
 	{
 		if (args.length != 0)
-        {
       	   return false;
-        }
 		if (sender instanceof Player)
 		{
 			Player p = (Player) sender;
@@ -48,7 +44,7 @@ public class CmdHide extends Cmd
 		}
 		else
 		{
-			sender.sendMessage(arl.getCol() +"The console cannot hide.");
+			sender.sendMessage(arl.getCol() + "The console cannot hide.");
 			return true;
 		}
 	}

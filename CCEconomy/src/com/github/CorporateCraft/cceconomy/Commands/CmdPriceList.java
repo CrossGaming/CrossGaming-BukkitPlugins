@@ -24,19 +24,13 @@ public class CmdPriceList extends Cmd
            	if (args.length == 1)
            	{
            		if(!form.isLegal(args[0]))
-				{
 					return false;
-				}
         	   	page = Integer.parseInt(args[0]);
            	}
            	if (args.length == 0)
-           	{
            		page = 1;
-           	}
            	if (page == 0)
-           	{
            		page = 1;
-           	}
     	   	int time = 0;
     	   	String price;
     	   	int totalpages = pr.priceListPages();
@@ -66,19 +60,13 @@ public class CmdPriceList extends Cmd
            	if (args.length == 1)
            	{
            		if(!form.isLegal(args[0]))
-				{
 					return false;
-				}
         	   	page = Integer.parseInt(args[0]);
            	}
            	if (args.length == 0)
-           	{
            		page = 1;
-           	}
            	if (page == 0)
-           	{
            		page = 1;
-           	}
     	   	int time = 0;
     	   	String price;
     	   	int totalpages = pr.priceListPages();
@@ -115,14 +103,9 @@ public class CmdPriceList extends Cmd
 				item = item.split(" ")[0];
 			}
 		}
-		catch(Exception e)//no spaces
-		{
-			
-		}
+		catch(Exception e){}
 		if(!numb.equalsIgnoreCase("10."))
-		{
 			numb += " ";
-		}
 		numb += " ";
 		sell = "$" + sell;
 		buy = "$" + buy;

@@ -17,9 +17,7 @@ public class CmdSetRankPrice extends Cmd
 	public boolean commandUse(CommandSender sender, String[] args)
 	{
 		if(args.length != 2)
-		{
 			return false;
-		}
 		if (sender instanceof Player)
 		{
 			Player player = (Player) sender;

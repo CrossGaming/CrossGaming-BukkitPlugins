@@ -19,16 +19,11 @@ public class CmdPotion extends Cmd
 	public boolean commandUse(CommandSender sender, String[] args)
 	{
 		if (args.length > 4)
-        {
       	   return false;
-        }
 		if (args.length < 3)
-        {
       	   return false;
-        }
 		if (sender instanceof Player)
 		{
-			
 			Player player = (Player) sender;
 			if (args.length == 3)
 	        {
@@ -99,8 +94,9 @@ public class CmdPotion extends Cmd
 				PotionEffect pot = new PotionEffect(potType, Integer.parseInt(args[2]), Integer.parseInt(args[3]));
 				pot.apply(target);
 				sender.sendMessage(arl.getCol() + "Added potion effect of " + potType.getName() + ".");
+				return true;
 			}
-			return true;
+			return false;
 		}
 	}
 }

@@ -24,9 +24,7 @@ public class CmdBuyCmd extends Cmd
 	public boolean commandUse(CommandSender sender, String[] args)
 	{
 		if(args.length != 1)
-		{
 			return false;
-		}
 		if (sender instanceof Player)
 		{
 			Player player = (Player) sender;
@@ -58,13 +56,9 @@ public class CmdBuyCmd extends Cmd
 			}
 			String permNode = com.getPermission();
 			if(permNode == null)
-			{
 				permNode = "essentials." + cmd.toLowerCase();
-			}
 			if(permNode.contains("mcmmo"))
-			{
 				permNode = "essentials." + cmd.toLowerCase();
-			}
 			if(pInfo.hasCmd(player.getName(), permNode))
 			{
 				player.sendMessage(ccearl.getMessages() + "Already have command");

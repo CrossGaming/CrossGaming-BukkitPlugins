@@ -22,15 +22,13 @@ public class CmdChest extends Cmd
 			Player p = (Player) sender;
 			if (args.length > 0 && (args[0].contains("rem") || args[0].contains("off") || args[0].equalsIgnoreCase("0")))
 			{
-				final PlayerInventory inv = p.getInventory();
-				final ItemStack chest = inv.getChestplate();
+				PlayerInventory inv = p.getInventory();
+				ItemStack chest = inv.getChestplate();
 				if (chest == null || chest.getType() == Material.AIR)
-				{
 					p.sendMessage(arl.getCol() + "You do not have chest at the moment.");
-				}
 				else
 				{
-					final ItemStack air = new ItemStack(Material.AIR);
+					ItemStack air = new ItemStack(Material.AIR);
 					inv.setChestplate(air);
 					p.sendMessage(arl.getCol() + "Chestplate removed");
 				}
@@ -39,24 +37,19 @@ public class CmdChest extends Cmd
 			{
 				if (p.getItemInHand().getType() != Material.AIR)
 				{
-					final ItemStack hand = p.getItemInHand().clone();
+					ItemStack hand = p.getItemInHand().clone();
 					if (hand.getType().getMaxDurability() == 0)
 					{
-						final PlayerInventory inv = p.getInventory();
-						final ItemStack chest = inv.getChestplate();
+						PlayerInventory inv = p.getInventory();
+						ItemStack chest = inv.getChestplate();
 						inv.setChestplate(hand);
 						inv.setItemInHand(chest);
 						p.sendMessage(arl.getCol() + "Chestplate equiped");
 					}
-					else
-					{
 						p.sendMessage(arl.getCol() + "Armor chestplate equiped");
-					}
 				}
 				else
-				{
 					p.sendMessage(arl.getCol() + "You can't equip air as a chestplate");
-				}
 			}
 			return true;
         } 

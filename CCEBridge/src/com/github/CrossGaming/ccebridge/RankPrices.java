@@ -49,9 +49,7 @@ public class RankPrices
 		for(int i = 0; i < rankPrices.size(); i++)
 		{
 			if(rankPrices.get(i).split(" ")[0].equalsIgnoreCase(rankName))
-			{
 				return true;
-			}
 		}
 		return false;
 	}
@@ -61,9 +59,7 @@ public class RankPrices
 		for(int i = 0; i < rankPrices.size(); i++)
 		{
 			if(rankPrices.get(i).split(" ")[0].equalsIgnoreCase(rankName))
-			{
 				return rankPrices.get(i).split(" ")[1];
-			}
 		}
 		return null;
 	}
@@ -71,14 +67,8 @@ public class RankPrices
 	{
 		rankName = rankName.toUpperCase();
 		String costPerUnit = cost(rankName);
-		if(costPerUnit == null)
-		{
+		if(costPerUnit == null || costPerUnit.equalsIgnoreCase("null"))
 			return -1.00;
-		}
-		if(costPerUnit.equalsIgnoreCase("null"))
-		{
-			return -1.00;
-		}
 		double cost = Double.parseDouble(costPerUnit);
 		return cost;
 	}
@@ -91,33 +81,18 @@ public class RankPrices
 		for(int i = 0; i < rankOrder.size(); i++)
 		{
 			if(rankOrder.get(i).equals(rankName))
-			{
 				rLoc = i;
-			}
 			if(rankOrder.get(i).equals(checkRank))
-			{
 				cLoc = i;
-			}
 		}
-		if(rankName.equals("GUEST"))
-		{
-			if(cLoc == 0)
-			{
-				return true;
-			}
-		}
-		if(rLoc == -1)
-		{
-			return false; //Has a rank that can't be bought so shouldn't buy any new ranks
-		}
-		if(cLoc == -1)
-		{
-			return false; //Rank to be bought does not exist
-		}
-		if(cLoc - rLoc == 1)//Is next rank
-		{
+		if(rankName.equals("GUEST") && cLoc == 0)
 			return true;
-		}
+		if(rLoc == -1)
+			return false; //Has a rank that can't be bought so shouldn't buy any new ranks
+		if(cLoc == -1)
+			return false; //Rank to be bought does not exist
+		if(cLoc - rLoc == 1)//Is next rank
+			return true;
 		return false;
 	}
 	public boolean hasRank(String rankName, String checkRank)
@@ -125,38 +100,24 @@ public class RankPrices
 		rankName = rankName.toUpperCase();
 		checkRank = checkRank.toUpperCase();
 		if(rankName.equals(checkRank))
-		{
 			return true;
-		}
 		else if(rankName.equals("GUEST"))
-		{
 			return false;
-		}
 		int rLoc = -1;
 		int cLoc = -1;
 		for(int i = 0; i < rankOrder.size(); i++)
 		{
 			if(rankOrder.get(i).equals(rankName))
-			{
 				rLoc = i;
-			}
 			if(rankOrder.get(i).equals(checkRank))
-			{
 				cLoc = i;
-			}
 		}
 		if(rLoc == -1)
-		{
 			return true; //Has a rank that can't be bought but so can see prices
-		}
 		if(cLoc == -1)
-		{
 			return true; //Rank checking against cannot be bought (DAFUQ all the checkRanks are self entered)
-		}
 		if(rLoc > cLoc)
-		{
 			return true;
-		}
 		return false;
 	}
 	public ArrayList<String> rOrd()
@@ -176,13 +137,9 @@ public class RankPrices
 		String newcost = rankName + " " + amount;
 		int spotinlist = rankPrices.indexOf(rankName + " " + cost(rankName));
 		if(spotinlist == -1)
-		{
 			rankPrices.add(newcost);
-		}
 		else
-		{
 			rankPrices.set(spotinlist, newcost);
-		}
 		form.writeFile(arl.getRankPriceFile(), rankPrices);
 		orderRanks();
 	}
@@ -190,22 +147,16 @@ public class RankPrices
 	{
 		int rounder = 0;
 		if (rankPrices.size()%10 != 0)
-		{
 			rounder = 1;
-		}
 		return (rankPrices.size()/10) + rounder;
 	}
 	public String priceLists(int page, int time)
 	{
 		page = page * 10;
 		if (rankPrices.size() < time + page + 1)
-		{
 			return null;
-		}
 		if (time == 10)
-		{
 			return null;
-		}
 		return rankPrices.get(page+time);
 	}
 }

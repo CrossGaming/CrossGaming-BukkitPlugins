@@ -73,13 +73,13 @@ permissions:
         description: The Mainframe of CCEconomy's command structure
         children:
             CCEconomy.bal: true
+            CCEconomy.balothers: true
             CCEconomy.baltop: true
             CCEconomy.pay: true
             CCEconomy.price: true
             CCEconomy.buy: true
             CCEconomy.sell: true
             CCEconomy.setprice: true
-            CCEconomy.balothers: true
             CCEconomy.editbal: true
             CCEconomy.taccept: true
             CCEconomy.tdeny: true

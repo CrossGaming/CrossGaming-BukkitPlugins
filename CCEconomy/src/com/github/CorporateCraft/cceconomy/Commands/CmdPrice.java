@@ -20,112 +20,71 @@ public class CmdPrice extends Cmd
 		{
 			Player player = (Player) sender;
 			if (args.length > 2)
-			{
 				return false;
-			}
-			if(player.hasPermission("CCEconomy.price"))
+			String itemName = "";
+			String oper = "";
+			if (args.length == 1)
 			{
-				String itemName = "";
-				String oper = "";
-				if (args.length == 1)
-				{
-					if(!args[0].equalsIgnoreCase("buy"))
-					{
-						if(!args[0].equalsIgnoreCase("sell"))
-						{
-							player.sendMessage(arl.getMessages() + "Input either sell or buy");
-							return false;
-						}
-					}
-					itemName = Integer.toString(player.getItemInHand().getTypeId());
-					oper = args[0];
-				}
-				if (args.length == 2)
-				{
-					if(!args[1].equalsIgnoreCase("buy"))
-					{
-						if(!args[1].equalsIgnoreCase("sell"))
-						{
-							player.sendMessage(arl.getMessages() + "Input either sell or buy");
-							return false;
-						}
-					}
-					itemName = args[0];
-					oper = args[1];
-				}
-				if(form.isLegal(itemName))
-				{
-					itemName = mat.idToName(Integer.parseInt(itemName));
-				}
-				itemName = mat.findItem(itemName);
-				if(!mat.itemExists(itemName))
-				{
-					player.sendMessage(arl.getMessages() + "That item does not exist");
-					return true;
-				}
-				String file = "";
-				if(oper.equalsIgnoreCase("buy"))
-				{
-					file = arl.getBuyFile();
-				}
-				else if(oper.equalsIgnoreCase("sell"))
-				{
-					file = arl.getSellFile();
-				}
-				else
+				if(!args[0].equalsIgnoreCase("buy") && !args[0].equalsIgnoreCase("sell"))
 				{
 					player.sendMessage(arl.getMessages() + "Input either sell or buy");
 					return false;
 				}
-				String cost = pr.cost(file, itemName);
-				itemName = itemName.replaceAll("_ITEM", "");
-				itemName = form.capFirst(itemName);
-				if(cost == null)
+				itemName = Integer.toString(player.getItemInHand().getTypeId());
+				oper = args[0];
+			}
+			if (args.length == 2)
+			{
+				if(!args[1].equalsIgnoreCase("buy") && !args[1].equalsIgnoreCase("sell"))
 				{
-					if(oper.equalsIgnoreCase("buy"))
-					{
-						player.sendMessage(arl.getMessages() + itemName + " cannot be bought from the server");
-					}
-					else
-					{
-						player.sendMessage(arl.getMessages() + itemName + " cannot be sold to the server");
-					}
-					return true;
+					player.sendMessage(arl.getMessages() + "Input either sell or buy");
+					return false;
 				}
-				if(cost.equalsIgnoreCase("null"))
-				{
-					if(oper.equalsIgnoreCase("buy"))
-					{
-						player.sendMessage(arl.getMessages() + itemName + " cannot be bought from the server");
-					}
-					else
-					{
-						player.sendMessage(arl.getMessages() + itemName + " cannot be sold to the server");
-					}
-					return true;
-				}
-				if(oper.equalsIgnoreCase("buy"))
-				{
-					player.sendMessage(arl.getMessages() + itemName + " can be bought for " + arl.getMoney() + "$" + cost);
-				}
-				else
-				{
-					player.sendMessage(arl.getMessages() + itemName + " can be sold for " + arl.getMoney() + "$" + cost);
-				}
+				itemName = args[0];
+				oper = args[1];
+			}
+			if(form.isLegal(itemName))
+				itemName = mat.idToName(Integer.parseInt(itemName));
+			itemName = mat.findItem(itemName);
+			if(!mat.itemExists(itemName))
+			{
+				player.sendMessage(arl.getMessages() + "That item does not exist");
 				return true;
 			}
+			String file = "";
+			if(oper.equalsIgnoreCase("buy"))
+				file = arl.getBuyFile();
+			else if(oper.equalsIgnoreCase("sell"))
+				file = arl.getSellFile();
+			else
+			{
+				player.sendMessage(arl.getMessages() + "Input either sell or buy");
+				return false;
+			}
+			String cost = pr.cost(file, itemName);
+			itemName = itemName.replaceAll("_ITEM", "");
+			itemName = form.capFirst(itemName);
+			if(cost == null || cost.equalsIgnoreCase("null"))
+			{
+				if(oper.equalsIgnoreCase("buy"))
+					player.sendMessage(arl.getMessages() + itemName + " cannot be bought from the server");
+				else
+					player.sendMessage(arl.getMessages() + itemName + " cannot be sold to the server");
+				return true;
+			}
+			if(oper.equalsIgnoreCase("buy"))
+				player.sendMessage(arl.getMessages() + itemName + " can be bought for " + arl.getMoney() + "$" + cost);
+			else
+				player.sendMessage(arl.getMessages() + itemName + " can be sold for " + arl.getMoney() + "$" + cost);
+			return true;
 		}
 		else
 		{
 			if (args.length != 2)
-			{
 				return false;
-			}
 			String itemName = args[0];
 			if(form.isLegal(itemName))
-			{
 				itemName = mat.idToName(Integer.parseInt(itemName));
-			}
 			itemName = mat.findItem(itemName);
 			if(!mat.itemExists(itemName))
 			{
@@ -135,13 +94,9 @@ public class CmdPrice extends Cmd
 			String file;
 			String oper = args[1];
 			if(oper.equalsIgnoreCase("buy"))
-			{
 				file = arl.getBuyFile();
-			}
 			else if(oper.equalsIgnoreCase("sell"))
-			{
 				file = arl.getSellFile();
-			}
 			else
 			{
 				sender.sendMessage(arl.getMessages() + "Input either sell or buy");
@@ -150,40 +105,19 @@ public class CmdPrice extends Cmd
 			String cost = pr.cost(file, itemName);
 			itemName = itemName.replaceAll("_ITEM", "");
 			itemName = form.capFirst(itemName);
-			if(cost == null)
+			if(cost == null || cost.equalsIgnoreCase("null"))
 			{
 				if(oper.equalsIgnoreCase("buy"))
-				{
 					sender.sendMessage(arl.getMessages() + itemName + " cannot be bought from the server");
-				}
 				else
-				{
 					sender.sendMessage(arl.getMessages() + itemName + " cannot be sold to the server");
-				}
-				return true;
-			}
-			if(cost.equalsIgnoreCase("null"))
-			{
-				if(oper.equalsIgnoreCase("buy"))
-				{
-					sender.sendMessage(arl.getMessages() + itemName + " cannot be bought from the server");
-				}
-				else
-				{
-					sender.sendMessage(arl.getMessages() + itemName + " cannot be sold to the server");
-				}
 				return true;
 			}
 			if(oper.equalsIgnoreCase("buy"))
-			{
 				sender.sendMessage(arl.getMessages() + itemName + " can be bought for " + arl.getMoney() + "$" + cost);
-			}
 			else
-			{
 				sender.sendMessage(arl.getMessages() + itemName + " can be sold for " + arl.getMoney() + "$" + cost);
-			}
 			return true;
 		}
-		return false;
 	}
 }

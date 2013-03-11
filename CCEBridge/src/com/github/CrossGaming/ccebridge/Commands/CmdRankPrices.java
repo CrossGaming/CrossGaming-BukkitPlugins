@@ -20,9 +20,7 @@ public class CmdRankPrices extends Cmd
 	public boolean commandUse(CommandSender sender, String[] args)
 	{
 		if(args.length > 1)
-		{
 			return false;
-		}
 		if (sender instanceof Player)
 		{
 			Player player = (Player) sender;
@@ -30,23 +28,17 @@ public class CmdRankPrices extends Cmd
            	if (args.length == 1)
            	{
            		if(!form.isLegal(args[0]))
-				{
 					return false;
-				}
         	   	page = Integer.parseInt(args[0]);
            	}
            	if (args.length == 0)
-           	{
            		page = 1;
-           	}
            	if (page == 0)
-           	{
            		page = 1;
-           	}
     	   	int time = 0;
     	   	String price;
     	   	int totalpages = pr.priceListPages();
-    	   	if (page>totalpages)
+    	   	if (page > totalpages)
     	   	{
     	   		player.sendMessage(ChatColor.GOLD + "Input a number from 1 to " + Integer.toString(totalpages));
     	   		return true;
@@ -73,19 +65,13 @@ public class CmdRankPrices extends Cmd
            	if (args.length == 1)
            	{
            		if(!form.isLegal(args[0]))
-				{
 					return false;
-				}
         	   	page = Integer.parseInt(args[0]);
            	}
            	if (args.length == 0)
-           	{
            		page = 1;
-           	}
            	if (page == 0)
-           	{
            		page = 1;
-           	}
     	   	int time = 0;
     	   	String price;
     	   	int totalpages = pr.priceListPages();
@@ -114,9 +100,7 @@ public class CmdRankPrices extends Cmd
 	{
 		String price = "";
 		if(!numb.equalsIgnoreCase("10."))
-		{
 			numb += " ";
-		}
 		numb += " ";
 		if(curRank.equals("CONSOLE"))
 		{
@@ -128,9 +112,7 @@ public class CmdRankPrices extends Cmd
 			cost = "$" + form.roundTwoDecimals(Double.parseDouble(cost));
 			price = ChatColor.GOLD + numb + ccearl.getMessages() + rank + " can be bought for " + ccearl.getMoney() + cost;
 			if(pr.hasRank(curRank, rank))
-			{
 				price += ccearl.getMessages() + "   Already Aquired.";
-			}
 		}
    		return price;
 	}

@@ -18,9 +18,7 @@ public class CmdSetCmdPrice extends Cmd
 	public boolean commandUse(CommandSender sender, String[] args)
 	{
 		if(args.length != 3)
-		{
 			return false;
-		}
 		if (sender instanceof Player)
 		{
 			Player player = (Player) sender;

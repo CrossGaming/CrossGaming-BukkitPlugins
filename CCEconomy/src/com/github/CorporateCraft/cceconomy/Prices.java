@@ -27,9 +27,7 @@ public class Prices
 			for(int i = 0; i < sellPrices.size(); i++)
 			{
 				if(sellPrices.get(i).split(" ")[0].equalsIgnoreCase(itemName))
-				{
 					return sellPrices.get(i).split(" ")[1];
-				}
 			}
 		}
 		if(file.equals(arl.getBuyFile()))
@@ -37,9 +35,7 @@ public class Prices
 			for(int i = 0; i < buyPrices.size(); i++)
 			{
 				if(buyPrices.get(i).split(" ")[0].equalsIgnoreCase(itemName))
-				{
 					return buyPrices.get(i).split(" ")[1];
-				}
 			}
 		}
 		return null;
@@ -47,14 +43,8 @@ public class Prices
 	public double getCost(String file, String itemName, int amount)
 	{
 		String costPerUnit = cost(file, itemName);
-		if(costPerUnit == null)
-		{
+		if(costPerUnit == null || costPerUnit.equalsIgnoreCase("null"))
 			return -1.00;
-		}
-		if(costPerUnit.equalsIgnoreCase("null"))
-		{
-			return -1.00;
-		}
 		double cost = Double.parseDouble(costPerUnit) * amount;
 		return cost;
 	}
@@ -84,17 +74,10 @@ public class Prices
 		boolean temp = false;
 		for(int i = 0; i < sellPrices.size(); i++)
 		{
-			if(buyPrices.get(i).split(" ")[1].equalsIgnoreCase("null"))
-			{
-				if(sellPrices.get(i).split(" ")[1].equalsIgnoreCase("null"))
-				{
-					temp = true;
-				}
-			}
+			if(buyPrices.get(i).split(" ")[1].equalsIgnoreCase("null") && sellPrices.get(i).split(" ")[1].equalsIgnoreCase("null"))
+				temp = true;
 			if(!temp)
-			{
 				price.add(sellPrices.get(i) + " " + buyPrices.get(i).split(" ")[1]);
-			}
 			temp = false;
 		}
 	}
@@ -102,22 +85,16 @@ public class Prices
 	{
 		int rounder = 0;
 		if (price.size()%10 != 0)
-		{
 			rounder = 1;
-		}
 		return (price.size()/10) + rounder;
 	}
 	public String priceLists(int page, int time)
 	{
 		page = page * 10;
 		if (price.size() < time + page + 1)
-		{
 			return null;
-		}
 		if (time == 10)
-		{
 			return null;
-		}
 		return price.get(page+time);
 	}
 }

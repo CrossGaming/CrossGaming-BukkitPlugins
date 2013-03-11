@@ -25,33 +25,21 @@ public class Materials
 		String sell = arl.getSellFile();
 		String buy = arl.getBuyFile();
 		if(form.fileEmpty(sell))
-		{
 			form.writeFile(sell, materialList);
-		}
 		else
-		{
 			form.writeFile(sell, updateForNew(sell));
-		}
 		if(form.fileEmpty(buy))
-		{
 			form.writeFile(buy, materialList);
-		}
 		else
-		{
 			form.writeFile(buy, updateForNew(buy));
-		}
 	}
 	
 	public boolean itemExists(String item)
 	{
 		if(item == null)
-		{
 			return false;
-		}
 		if(Material.getMaterial(item) == null)
-		{
 			return false;
-		}
 		return true;
 	}
 	
@@ -62,9 +50,7 @@ public class Materials
 		for(int i = 0; i < materialList.size(); i++)
 		{
 			if(materialList.get(i).split(" ")[0].equalsIgnoreCase(item))
-			{
 				temp = materialNames.get(i);
-			}
 			if(materialList.get(i).split(" ")[0].equalsIgnoreCase(item + "item"))
 			{
 				temp = materialNames.get(i);
@@ -110,9 +96,7 @@ public class Materials
 					break;
 				}
 				if(j + 1 == current.size())
-				{
 					neww.add(materialList.get(i));
-				}
 			}
 		}
 		return neww;

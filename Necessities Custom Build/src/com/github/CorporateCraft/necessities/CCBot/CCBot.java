@@ -270,43 +270,14 @@ public class CCBot
 		log.log(message);		
 		Player p = Bukkit.getServer().getPlayer(player);
 		boolean stop = false;
-		if(Bukkit.getPluginManager().getPlugin("Necessities").getConfig().getBoolean("CCBot.caps"))
-		{
-			if(!p.hasPermission("Necessities.caps"))
-			{
-				stop = caps(player, messageOrig);
-			}
-		}
-		if(!stop)
-		{
-			if(Bukkit.getPluginManager().getPlugin("Necessities").getConfig().getBoolean("CCBot.language"))
-			{
-				if(!p.hasPermission("Necessities.language"))
-				{
-					stop = langCheck(player, messageOrig);
-				}
-			}
-		}
-		if(!stop)
-		{
-			if(Bukkit.getPluginManager().getPlugin("Necessities").getConfig().getBoolean("CCBot.chatSpam"))
-			{
-				if(!p.hasPermission("Necessities.spamchat"))
-				{
-					stop = checkChatSpam(player);
-				}
-			}
-		}
-		if(!stop)
-		{
-			if(Bukkit.getPluginManager().getPlugin("Necessities").getConfig().getBoolean("CCBot.advertise"))
-			{
-				if(!p.hasPermission("Necessities.advertise"))
-				{
-					stop = adds(player, messageOrig);
-				}
-			}
-		}
+		if(Bukkit.getPluginManager().getPlugin("Necessities").getConfig().getBoolean("CCBot.caps") && !p.hasPermission("Necessities.caps"))
+			stop = caps(player, messageOrig);
+		if(!stop && Bukkit.getPluginManager().getPlugin("Necessities").getConfig().getBoolean("CCBot.language") && !p.hasPermission("Necessities.language"))
+			stop = langCheck(player, messageOrig);
+		if(!stop && Bukkit.getPluginManager().getPlugin("Necessities").getConfig().getBoolean("CCBot.chatSpam") && !p.hasPermission("Necessities.spamchat"))
+			stop = checkChatSpam(player);
+		if(!stop && Bukkit.getPluginManager().getPlugin("Necessities").getConfig().getBoolean("CCBot.advertise") && !p.hasPermission("Necessities.advertise"))
+			stop = adds(player, messageOrig);
 	}
 	public void logCom(String player, String message)
 	{
@@ -314,88 +285,18 @@ public class CCBot
 		message = player + " issued server command: " + message;
 		log.log(message);
 		Player p = Bukkit.getServer().getPlayer(player);
-		if(Bukkit.getPluginManager().getPlugin("Necessities").getConfig().getBoolean("CCBot.cmdSpam"))
-		{
-			if(!p.hasPermission("Necessities.spamcommands"))
-			{
-				checkCmdSpam(player);
-			}
-		}
-		if(messageOrig.split(" ")[0].equalsIgnoreCase("/me") || messageOrig.split(" ")[0].equalsIgnoreCase("/eme") ||
-		    messageOrig.split(" ")[0].equalsIgnoreCase("/tell") || messageOrig.split(" ")[0].equalsIgnoreCase("/etell") ||
-			messageOrig.split(" ")[0].equalsIgnoreCase("/ewhisper") || messageOrig.split(" ")[0].equalsIgnoreCase("/whisper") ||
-			messageOrig.split(" ")[0].equalsIgnoreCase("/msg") || messageOrig.split(" ")[0].equalsIgnoreCase("/emsg") ||
-			messageOrig.split(" ")[0].equalsIgnoreCase("/action") || messageOrig.split(" ")[0].equalsIgnoreCase("/eaction") ||
-			messageOrig.split(" ")[0].equalsIgnoreCase("/describe") || messageOrig.split(" ")[0].equalsIgnoreCase("/edescribe") ||
-			messageOrig.split(" ")[0].equalsIgnoreCase("/reply") || messageOrig.split(" ")[0].equalsIgnoreCase("/ereply") ||
-			messageOrig.split(" ")[0].equalsIgnoreCase("/r") || messageOrig.split(" ")[0].equalsIgnoreCase("/er") ||
-			messageOrig.split(" ")[0].equalsIgnoreCase("/t"))
-		{
-			if(messageOrig.split(" ")[0].equalsIgnoreCase("/me"))
-				messageOrig = messageOrig.replaceFirst("/me", "").trim();
-			else if(messageOrig.split(" ")[0].equalsIgnoreCase("/t"))
-				messageOrig = messageOrig.replaceFirst("/t", "").trim();
-			else if(messageOrig.split(" ")[0].equalsIgnoreCase("/tell"))
-				messageOrig = messageOrig.replaceFirst("/tell", "").trim();
-			else if(messageOrig.split(" ")[0].equalsIgnoreCase("/emsg"))
-				messageOrig = messageOrig.replaceFirst("/emsg", "").trim();
-			else if(messageOrig.split(" ")[0].equalsIgnoreCase("/eme"))
-				messageOrig = messageOrig.replaceFirst("/eme", "").trim();
-			else if(messageOrig.split(" ")[0].equalsIgnoreCase("/me"))
-				messageOrig = messageOrig.replaceFirst("/me", "").trim();
-			else if(messageOrig.split(" ")[0].equalsIgnoreCase("/etell"))
-				messageOrig = messageOrig.replaceFirst("/etell", "").trim();
-			else if(messageOrig.split(" ")[0].equalsIgnoreCase("/whisper"))
-				messageOrig = messageOrig.replaceFirst("/whisper", "").trim();
-			else if(messageOrig.split(" ")[0].equalsIgnoreCase("/ewhisper"))
-				messageOrig = messageOrig.replaceFirst("/ewhisper", "").trim();
-			else if(messageOrig.split(" ")[0].equalsIgnoreCase("/msg"))
-				messageOrig = messageOrig.replaceFirst("/msg", "").trim();
-			else if(messageOrig.split(" ")[0].equalsIgnoreCase("/action"))
-				messageOrig = messageOrig.replaceFirst("/action", "").trim();
-			else if(messageOrig.split(" ")[0].equalsIgnoreCase("/eaction"))
-				messageOrig = messageOrig.replaceFirst("/eaction", "").trim();
-			else if(messageOrig.split(" ")[0].equalsIgnoreCase("/describe"))
-				messageOrig = messageOrig.replaceFirst("/describe", "").trim();
-			else if(messageOrig.split(" ")[0].equalsIgnoreCase("/edescribe"))
-				messageOrig = messageOrig.replaceFirst("/edescribe", "").trim();
-			else if(messageOrig.split(" ")[0].equalsIgnoreCase("/r"))
-				messageOrig = messageOrig.replaceFirst("/r", "").trim();
-			else if(messageOrig.split(" ")[0].equalsIgnoreCase("/er"))
-				messageOrig = messageOrig.replaceFirst("/er", "").trim();
-			else if(messageOrig.split(" ")[0].equalsIgnoreCase("/reply"))
-				messageOrig = messageOrig.replaceFirst("/reply", "").trim();
-			else if(messageOrig.split(" ")[0].equalsIgnoreCase("/ereply"))
-				messageOrig = messageOrig.replaceFirst("/ereply", "").trim();
-			boolean stop = false;
-			if(Bukkit.getPluginManager().getPlugin("Necessities").getConfig().getBoolean("CCBot.caps"))
-			{
-				if(!p.hasPermission("Necessities.caps"))
-				{
-					stop = caps(player, messageOrig);
-				}
-			}
-			if(!stop)
-			{
-				if(Bukkit.getPluginManager().getPlugin("Necessities").getConfig().getBoolean("CCBot.language"))
-				{
-					if(!p.hasPermission("Necessities.language"))
-					{
-						stop = langCheck(player, messageOrig);
-					}
-				}
-			}
-			if(!stop)
-			{
-				if(Bukkit.getPluginManager().getPlugin("Necessities").getConfig().getBoolean("CCBot.advertise"))
-				{
-					if(!p.hasPermission("Necessities.advertise"))
-					{
-						stop = adds(player, messageOrig);
-					}
-				}
-			}
-		}
+		if(Bukkit.getPluginManager().getPlugin("Necessities").getConfig().getBoolean("CCBot.cmdSpam") && !p.hasPermission("Necessities.spamcommands"))
+			checkCmdSpam(player);
+		messageOrig = messageOrig.replaceFirst(messageOrig.split(" ")[0], "").trim();
+		if(messageOrig.equals(""))
+			return;
+		boolean stop = false;
+		if(Bukkit.getPluginManager().getPlugin("Necessities").getConfig().getBoolean("CCBot.caps") && !p.hasPermission("Necessities.caps"))
+			stop = caps(player, messageOrig);
+		if(!stop && Bukkit.getPluginManager().getPlugin("Necessities").getConfig().getBoolean("CCBot.language") && !p.hasPermission("Necessities.language"))
+			stop = langCheck(player, messageOrig);
+		if(!stop && Bukkit.getPluginManager().getPlugin("Necessities").getConfig().getBoolean("CCBot.advertise") && !p.hasPermission("Necessities.advertise"))
+			stop = adds(player, messageOrig);
 	}
 	public void logConsole(String message)
 	{
@@ -405,9 +306,7 @@ public class CCBot
 			CCBotIRC.irc.sendIRC("Console" + "[" + Bukkit.getPluginManager().getPlugin("Necessities").getConfig().getString("CCBot.cState") + "]", message);
 		}
 		else
-		{
 			message = "Console issued command: " + message;
-		}
 		log.log(message);
 	}
 	public void logIn(String player)

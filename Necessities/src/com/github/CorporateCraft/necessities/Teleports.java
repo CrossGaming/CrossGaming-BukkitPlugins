@@ -15,7 +15,6 @@ public class Teleports
 	{
 		return tps.containsKey(pname + " " + rname);
 	}
-	
 	public void createTp(String key, String value)
 	{
 		tps.put(key, value);
@@ -35,25 +34,20 @@ public class Teleports
 		for(int i = 0; i<lastTp.size(); i++)
 		{
 			if(lastTp.get(i).startsWith(pname + " "))
-			{
 				return lastTp.get(i).split(" ")[1];
-			}
 		}
 		return pname;
 	}
-	
 	public String acceptTp(String pname, String rname)
 	{
 		String Info = tps.get(pname + " " + rname);
 		removeTp(pname, rname);
 		return Info;
 	}
-	
 	public void denyTp(String pname, String rname)
 	{
 		removeTp(pname, rname);
 	}
-	
 	public void removeTp(String pname, String rname)
 	{
 		tps.remove(pname + " " + rname);

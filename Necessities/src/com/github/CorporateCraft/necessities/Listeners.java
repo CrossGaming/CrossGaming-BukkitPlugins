@@ -37,9 +37,7 @@ public class Listeners implements Listener
     			{
     				String inputText = buff.readLine();
     				if(inputText == null)
-		        	{
     					break;
-		        	}
     				player.sendMessage(arl.getCol() + inputText);
     			}
     		}
@@ -59,9 +57,7 @@ public class Listeners implements Listener
 	{
 		Entity entity = event.getEntity();
 		if (entity instanceof Player)
-		{
 			event.setCancelled(god.isGod((Player) entity));
-		}
 	}
 	@EventHandler
 	public void onChat(AsyncPlayerChatEvent event)

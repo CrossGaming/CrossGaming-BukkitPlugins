@@ -14,13 +14,11 @@ public class CmdPermissions extends Cmd
 	}
 	public boolean commandUse(CommandSender sender, String[] args)
 	{
+		if (args.length != 1)
+      	   return false;
 		if (sender instanceof Player)
 		{
 			Player player = (Player) sender;
-			if (args.length != 1)
-	        {
-	      	   return false;
-	        }
 			Command com;
 			com = player.getServer().getPluginCommand(args[0]);
 			if(com == null)
@@ -33,10 +31,6 @@ public class CmdPermissions extends Cmd
 		}
 		else
 		{
-			if (args.length != 1)
-	        {
-	      	   return false;
-	        }
 			Command com = sender.getServer().getPluginCommand(args[0]);
 			if(com == null)
 			{

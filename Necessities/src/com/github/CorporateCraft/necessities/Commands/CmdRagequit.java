@@ -19,9 +19,7 @@ public class CmdRagequit extends Cmd
 		if (sender instanceof Player)
 		{
 			if(args.length != 0)
-			{
 				return false;
-			}
 			Player player = (Player) sender;
 			player.kickPlayer(arl.getCol() + "RAGEQUIT!");
 			log.log(player.getName() + " RAGEQUIT the server!");
