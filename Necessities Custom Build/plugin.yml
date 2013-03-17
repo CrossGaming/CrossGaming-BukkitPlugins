@@ -1,9 +1,9 @@
 name: Necessities
-main: com.github.CorporateCraft.necessities.Necessities
-version: 0.4.0
+main: com.crossge.necessities.Necessities
+version: 0.4.1
 website: http://www.crossge.com
 description: Adds necessities of a server
-authors: [CrossGaming Development Team]
+authors: [Cross Gaming Development Team]
 
 commands:   
    permissions:
@@ -60,9 +60,13 @@ commands:
       permission: Necessities.imp
       aliases: [impersonate]
    hide:
-      description: Hides yourself from the server with fake leave message.
+      description: Hides yourself from the server with fake leave message
       usage: /<command>
       permission: Necessities.hide
+   rename:
+      description: Renames an item to <name>
+      usage: /<command> <name>
+      permission: Necessities.rename   
 
 permissions:
     Necessities.*:
@@ -88,6 +92,7 @@ permissions:
             Necessities.hide: true
             Necessities.unsafeEnchant: true
             Necessities.antiPWarn: true
+            Necessities.rename: true
     Necessities.ops:
         description: Allows you to see the current oplist.
         default: true
@@ -147,4 +152,7 @@ permissions:
         default: op
     Necessities.antiPWarn:
         description: Allows you to not be able to be /warned.
+        default: op
+    Necessities.rename:
+        description: Allows you to rename items.
         default: op

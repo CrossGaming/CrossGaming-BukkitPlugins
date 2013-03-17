@@ -1,9 +1,9 @@
 name: CCEconomy
-main: com.github.CorporateCraft.cceconomy.CCEconomy
-version: 1.3.0
-website: http://corporatecraft.x10.mx
+main: com.crossge.cceconomy.CCEconomy
+version: 1.4.0
+website: http://crossge.com
 description: Adds an economy system
-authors: [CorporateCraft Development Team]
+authors: [Cross Gaming Development Team]
 
 commands:
    bal:
@@ -67,7 +67,11 @@ commands:
       usage: /<command> <name> <itemname:id> <amount> <itemname:id> <amount>
       permission: CCEconomy.trade      
       aliases: [tradei]
-      
+   players:
+      description: Shows how many players have visted the server since CCEconomy has been installed
+      usage: /<command>
+      permission: CCEconomy.players      
+      aliases: [pcount]   
 permissions:
     CCEconomy.*:
         description: The Mainframe of CCEconomy's command structure
@@ -85,12 +89,16 @@ permissions:
             CCEconomy.tdeny: true
             CCEconomy.trade: true
             CCEconomy.pricelist: true
+            CCEconomy.players: true
     CCEconomy.bal:
         description: Lets you see your own balance.
         default: true
     CCEconomy.baltop:
         description: Allows you to look at the players with the most money.
         default: true
+    CCEconomy.players:
+        description: Lets you see amount of players who have joined the server.
+        default: true    
     CCEconomy.pay:
         description: Pays someone some money.
         default: true

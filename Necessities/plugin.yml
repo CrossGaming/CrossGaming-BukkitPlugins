@@ -1,9 +1,9 @@
 name: Necessities
-main: com.github.CorporateCraft.necessities.Necessities
-version: 0.4.0
+main: com.crossge.necessities.Necessities
+version: 0.4.1
 website: http://www.crossge.com
 description: Adds necessities of a server
-authors: [CrossGaming Development Team]
+authors: [Cross Gaming Development Team]
 
 commands:   
    tpaccept:

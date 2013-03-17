@@ -1,9 +1,9 @@
 name: CCEbridge
-main: com.github.CrossGaming.ccebridge.CCEbridge
-version: 1.0.0
-website: http://crossgaming.net
+main: com.crossge.ccebridge.CCEbridge
+version: 1.1.0
+website: http://crossge.com
 description: Adds an bridge for buying ranks from essentials gm
-authors: [CrossGaming Development Team]
+authors: [Cross Gaming Development Team]
 
 commands:
    setrankprice:
