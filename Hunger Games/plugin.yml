@@ -1,0 +1,50 @@
+name: Hunger Games
+main: com.crossge.hungergames.HungerGames
+version: 0.0.0
+website: http://crossge.com
+description: Adds in the hunger games
+authors: [Cross Gaming Development Team]
+
+commands:
+   hungergames:
+      description: Uses the hunger games command
+      usage: /<command> <sub command>
+      permission: HungerGames.hg
+      aliases: [hg, survivalgames, sg]
+      
+permissions:
+    HungerGames.*:
+        description: The Mainframe of Hunger Games
+        children:
+            HungerGames.hg: true
+            HungerGames.help: true
+            HungerGames.join: true
+            HungerGames.leave: true
+            HungerGames.spectate: true
+            HungerGames.stats: true
+            HungerGames.info: true
+            HungerGames.setspawn: true
+    HungerGames.hg:
+        description: Lets you use /hg.
+        default: true
+    HungerGames.help:
+        description: Lets you view the help for the hunger games.
+        default: true
+    HungerGames.join:
+        description: Lets you join the hunger games.
+        default: true
+    HungerGames.leave:
+        description: Lets you leave the hunger games.
+        default: true
+    HungerGames.spectate:
+        description: Lets you spectate the hunger games.
+        default: true
+    HungerGames.stats:
+        description: Lets you view stats of a player.
+        default: true
+    HungerGames.info:
+        description: Shows the details about the current game.
+        default: true
+    HungerGames.setspawn:
+        description: Lets you set the spawnpoints for the hunger games.
+        default: op
