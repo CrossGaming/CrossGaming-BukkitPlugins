@@ -5,9 +5,9 @@ import java.sql.*;
 public class Stats
 {
 	private static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";  
-	private static final String DB_URL = "jdbc:mysql://localhost/HungerGames";
-	private static final String USER = "username";
-	private static final String PASS = "password";
+	private static final String DB_URL = "jdbc:mysql://CrossHG.db.10520830.hostedresource.com/CrossHG";//"CrossHG.db.10520830.hostedresource.com";
+	private static final String USER = "CrossHG";
+	private static final String PASS = "iu#32H@Ggb0";
 	private static Connection conn = null;
 	private static Statement stmt = null;
 	public Stats()

@@ -5,7 +5,6 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.PlayerDeathEvent;
-import org.bukkit.event.player.AsyncPlayerChatEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 
@@ -34,12 +33,6 @@ public class Listeners implements Listener
     	g.delVote(p.getName());
     	if(pl.isAlive(p.getName()))
     		p.setHealth(0);
-	}
-	@EventHandler
-	public void onPlayerChat(AsyncPlayerChatEvent event)
-	{
-    	Player p = event.getPlayer();
-    	
 	}
 	@EventHandler
 	public void onPlayerDeath(PlayerDeathEvent event)
