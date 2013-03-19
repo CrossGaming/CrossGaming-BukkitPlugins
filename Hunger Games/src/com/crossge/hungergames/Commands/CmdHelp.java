@@ -84,7 +84,7 @@ public class CmdHelp extends Cmd
 	{
 		sender.sendMessage(var.defaultCol() + "/hg setspawn [number] ~ Sets the [number] spawnpoint(max 24).");
 		sender.sendMessage(var.defaultCol() + "/hg info ~ Views info about the current round.");
-		sender.sendMessage(var.defaultCol() + "/hg vote ~ Votes to start the game.");
+		sender.sendMessage(var.defaultCol() + "/hg vote [map number] ~ Votes for map [map number].");
 		sender.sendMessage(var.defaultCol() + "/hg stats [player] ~ Shows the stats of [player].");
 		sender.sendMessage(var.defaultCol() + "/hg forcestart ~ Forces the game to start.");
 	}

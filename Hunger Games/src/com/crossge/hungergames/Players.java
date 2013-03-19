@@ -11,11 +11,11 @@ import org.bukkit.entity.Player;
 public class Players
 {
 	Game g = new Game();
+	Stats s = new Stats();
 	private static ArrayList<String> alive = new ArrayList<String>();
 	private static ArrayList<String> dead = new ArrayList<String>();
 	private static ArrayList<String> queued = new ArrayList<String>();
 	private static ArrayList<String> spectating = new ArrayList<String>();
-	private static ArrayList<String> votes = new ArrayList<String>();
 	private File customConfigFile = new File("plugins/Hunger Games", "spawns.yml");
    	private YamlConfiguration customConfig = YamlConfiguration.loadConfiguration(customConfigFile);
 	public Players()
@@ -115,6 +115,8 @@ public class Players
 	}
 	public String winner()
 	{
+		s.addWin(alive.get(0));
+		s.addPoints(alive.get(0), 20);
 		return alive.get(0);
 	}
 	public void endGame()
@@ -122,9 +124,14 @@ public class Players
 		alive.clear();
 		dead.clear();
 		spectating.clear();
+		g.end();
 	}
 	public void addToQueue(String name)
 	{
+		if(g.getNext().equals(""))
+		{
+		//EMPTY IF :D	
+		}
 		queued.add(name);
 	}
 	public void removeFromQueue(String name)
@@ -151,15 +158,6 @@ public class Players
 		queued.clear();
 		joinGame();
 	}
-	public void addVote(String name)
-	{
-		votes.add(name);
-		if(votes.size() == 3)
-		{
-			gameStart();
-			votes.clear();
-		}
-	}
 	private void joinGame()
 	{
 		Player temp;
@@ -170,7 +168,11 @@ public class Players
 			temp.setFoodLevel(10);
 			temp.setHealth(10);
 			temp.setFlying(false);
-			temp.teleport(loc(i));
+			temp.teleport(loc(i + 1));
+			temp.getInventory().clear();
+			temp.getEquipment().clear();
+			temp.setExp(0);
+			s.addGame(alive.get(i));
 		}
 	}
 	private Location loc(int number)

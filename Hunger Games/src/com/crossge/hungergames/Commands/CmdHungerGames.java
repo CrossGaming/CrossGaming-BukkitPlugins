@@ -13,7 +13,7 @@ public class CmdHungerGames extends Cmd
 	{
 		Cmd com = new Cmd();
 		if(args.length == 0)
-			com = new CmdHelp();
+			return new CmdHelp().commandUse(sender, args);
 		String subCom = args[0];
 		String[] argsNew = new String[args.length - 1];
 		for(int i = 0 ; i < args.length; i++)

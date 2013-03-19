@@ -6,6 +6,7 @@ import java.io.IOException;
 public class Initialization
 {
 	Game g = new Game();
+	Stats s = new Stats();
 	public Initialization()
 	{
 		
@@ -16,6 +17,7 @@ public class Initialization
 		fileCreate("plugins/Hunger Games/options.txt");
 		createYaml();
 		g.initMaps();
+		s.create();
 	}
 	
 	private File customConfigFile = null;
