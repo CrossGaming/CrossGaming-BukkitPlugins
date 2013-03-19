@@ -7,6 +7,7 @@ import com.crossge.hungergames.Commands.*;
 
 public class HungerGames extends JavaPlugin
 {
+	Stats s = new Stats();
 	@Override
     public void onEnable()
 	{	
@@ -28,5 +29,6 @@ public class HungerGames extends JavaPlugin
     public void onDisable()
     {
     	getLogger().info("Hunger Games disabled.");
+    	s.stop();
     }
 }

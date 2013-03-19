@@ -8,7 +8,8 @@ public class Stats
 	private static final String DB_URL = "jdbc:mysql://localhost/HungerGames";
 	private static final String USER = "username";
 	private static final String PASS = "password";
-	  
+	private static Connection conn = null;
+	private static Statement stmt = null;
 	public Stats()
 	{
 		
@@ -18,36 +19,16 @@ public class Stats
 	{
 		try
 		{  
-			Class.forName(JDBC_DRIVER);
-			Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
-            Statement stmt = conn.createStatement(); 
             stmt.executeUpdate("INSERT INTO HungerGames " + 
                 "SET name='" + name + "', points=" + points + ", wins=" + wins + ", kills=" + kills + ", deaths=" + deaths + ", games=" + games); 
-            stmt.close();
-            conn.close();
         }
 		catch (Exception e){} 
 	}
-	
 	public void addGame(String name)
 	{
 		try
 		{  
-			Class.forName(JDBC_DRIVER);
-			Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
-            Statement stmt = conn.createStatement(); 
-            ResultSet rs = stmt.executeQuery("SELECT name, points, wins, kills, deaths, games FROM HungerGames");
-            while(rs.next())
-            {
-                if(rs.getString("name").equals(name))
-                {
-                	stmt.execute("UPDATE HungerGames SET games = games + 1 WHERE name = '" + name + "'");
-                	break;
-                }
-            }
-            rs.close();
-            stmt.close();
-            conn.close();
+			stmt.executeUpdate("UPDATE HungerGames SET games = games + 1 WHERE name = '" + name + "'");
         }
 		catch (Exception e){} 
 	}
@@ -55,21 +36,7 @@ public class Stats
 	{
 		try
 		{  
-			Class.forName(JDBC_DRIVER);
-			Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
-            Statement stmt = conn.createStatement(); 
-            ResultSet rs = stmt.executeQuery("SELECT name, points, wins, kills, deaths, games FROM HungerGames");
-            while(rs.next())
-            {
-                if(rs.getString("name").equals(name))
-                {
-                	stmt.execute("UPDATE HungerGames SET deaths = deaths + 1 WHERE name = '" + name + "'");
-                	break;
-                }
-            }
-            rs.close();
-            stmt.close();
-            conn.close();
+			stmt.executeUpdate("UPDATE HungerGames SET deaths = deaths + 1 WHERE name = '" + name + "'");
         }
 		catch (Exception e){} 
 	}
@@ -77,21 +44,7 @@ public class Stats
 	{
 		try
 		{  
-			Class.forName(JDBC_DRIVER);
-			Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
-            Statement stmt = conn.createStatement(); 
-            ResultSet rs = stmt.executeQuery("SELECT name, points, wins, kills, deaths, games FROM HungerGames");
-            while(rs.next())
-            {
-                if(rs.getString("name").equals(name))
-                {
-                	stmt.execute("UPDATE HungerGames SET kills = kills + 1 WHERE name = '" + name + "'"); 
-                	break;
-                }
-            }
-            rs.close();
-            stmt.close();
-            conn.close();
+			stmt.executeUpdate("UPDATE HungerGames SET kills = kills + 1 WHERE name = '" + name + "'");
         }
 		catch (Exception e){} 
 	}
@@ -99,21 +52,7 @@ public class Stats
 	{
 		try
 		{  
-			Class.forName(JDBC_DRIVER);
-			Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
-            Statement stmt = conn.createStatement(); 
-            ResultSet rs = stmt.executeQuery("SELECT name, points, wins, kills, deaths, games FROM HungerGames");
-            while(rs.next())
-            {
-                if(rs.getString("name").equals(name))
-                {
-                	stmt.execute("UPDATE HungerGames SET wins = wins + 1 WHERE name = '" + name + "'"); 
-                	break;
-                }
-            }
-            rs.close();
-            stmt.close();
-            conn.close();
+			stmt.executeUpdate("SELECT name, points, wins, kills, deaths, games FROM HungerGames");
         }
 		catch (Exception e){} 
 	}
@@ -121,21 +60,7 @@ public class Stats
 	{
 		try
 		{  
-			Class.forName(JDBC_DRIVER);
-			Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
-            Statement stmt = conn.createStatement(); 
-            ResultSet rs = stmt.executeQuery("SELECT name, points, wins, kills, deaths, games FROM HungerGames");
-            while(rs.next())
-            {
-                if(rs.getString("name").equals(name))
-                {
-                	stmt.execute("UPDATE HungerGames SET points = points + " + Integer.toString(points) + " WHERE name = '" + name + "'");
-                	break;
-                }
-            }
-            rs.close();
-            stmt.close();
-            conn.close(); 
+			stmt.executeUpdate("UPDATE HungerGames SET points = points + " + Integer.toString(points) + " WHERE name = '" + name + "'");
         }
 		catch (Exception e){} 
 	}
@@ -143,10 +68,7 @@ public class Stats
 	public String get(String name)
 	{
 		try
-		{  
-			Class.forName(JDBC_DRIVER);
-			Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
-            Statement stmt = conn.createStatement(); 
+		{   
             ResultSet rs = stmt.executeQuery("SELECT name, points, wins, kills, deaths, games FROM HungerGames");
             while(rs.next())
             {
@@ -157,32 +79,36 @@ public class Stats
                 			+ " " + Integer.toString(rs.getInt("games"));
                 }
             }
-            conn.close(); 
         }
 		catch (Exception e){}
 		return null;
 	}
 	
-	public void create()
+	public void connect()
 	{
-		Connection conn = null;
-		Statement stmt = null;
 	    try
 	    {
 	    	Class.forName(JDBC_DRIVER);
 	    	conn = DriverManager.getConnection(DB_URL, USER, PASS);
 	    	stmt = conn.createStatement();//Points, Wins, Kills, Deaths, Games
-	    	String sql = "CREATE TABLE HungerGames " +
-	                   	"(name VARCHAR(16), " +
-	                   	"points INTEGER), " + 
-	                   	"wins INTEGER, " +
-	                   	"kills INTEGER, " +
-	                   	"deaths INTEGER, " + 
-	                   	"games INTEGER";
+	    	String sql = "CREATE TABLE IF NOT EXISTS HungerGames (" +
+	                   	"name VARCHAR(16) NOT NULL, " +
+	                   	"points INTEGER) NOT NULL, " + 
+	                   	"wins INTEGER NOT NULL, " +
+	                   	"kills INTEGER NOT NULL, " +
+	                   	"deaths INTEGER NOT NULL, " + 
+	                   	"games INTEGER NOT NULL)";
 	    	stmt.executeUpdate(sql);
-	    	stmt.close();
-            conn.close();
 	   }
 	   catch(Exception e){}
+	}
+	public void stop()
+	{
+		try
+		{
+			stmt.close();
+			conn.close();
+		}
+		catch(Exception e){}
 	}
 }

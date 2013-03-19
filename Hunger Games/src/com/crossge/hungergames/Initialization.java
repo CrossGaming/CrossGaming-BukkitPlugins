@@ -17,7 +17,7 @@ public class Initialization
 		fileCreate("plugins/Hunger Games/options.txt");
 		createYaml();
 		g.initMaps();
-		s.create();
+		s.connect();
 	}
 	
 	private File customConfigFile = null;
