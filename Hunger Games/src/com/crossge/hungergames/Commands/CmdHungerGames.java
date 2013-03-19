@@ -12,20 +12,36 @@ public class CmdHungerGames extends Cmd
 	public boolean commandUse(CommandSender sender, String[] args)
 	{
 		Cmd com = new Cmd();
-		if(args.length == 0 || args[0].equalsIgnoreCase("help"))
+		if(args.length == 0)
 			com = new CmdHelp();
-		else if(args[0].equalsIgnoreCase("join"))
+		String subCom = args[0];
+		String[] argsNew = new String[args.length - 1];
+		for(int i = 0 ; i < args.length; i++)
+		{
+			if(i + 1 == args.length)
+				break;
+			argsNew[i] = args[i + 1];
+		}
+		if(subCom.equalsIgnoreCase("help"))
+			com = new CmdHelp();
+		else if(subCom.equalsIgnoreCase("join"))
 			com = new CmdJoin();
-		else if(args[0].equalsIgnoreCase("leave"))
+		else if(subCom.equalsIgnoreCase("leave"))
 			com = new CmdLeave();
-		else if(args[0].equalsIgnoreCase("spectate"))
+		else if(subCom.equalsIgnoreCase("spectate"))
 			com = new CmdSpectate();
-		else if(args[0].equalsIgnoreCase("setspawn"))
+		else if(subCom.equalsIgnoreCase("setspawn"))
 			com = new CmdSetSpawn();
-		else if(args[0].equalsIgnoreCase("info"))
+		else if(subCom.equalsIgnoreCase("info"))
 			com = new CmdInfo();
-		else if(args[0].equalsIgnoreCase("stats"))
+		else if(subCom.equalsIgnoreCase("stats"))
 			com = new CmdStats();
-		return com.commandUse(sender, args);	
+		else if(subCom.equalsIgnoreCase("vote"))
+			com = new CmdVote();
+		else if(subCom.equalsIgnoreCase("credits"))
+			com = new CmdCredits();
+		else if(subCom.equalsIgnoreCase("forcestart"))
+			com = new CmdForceStart();
+		return com.commandUse(sender, argsNew);	
 	}	
 }

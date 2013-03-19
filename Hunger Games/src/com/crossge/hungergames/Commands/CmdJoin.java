@@ -48,7 +48,7 @@ public class CmdJoin extends Cmd
 		}
 		else
 		{
-			sender.sendMessage("You cannot join the hunger games, please log in.");
+			sender.sendMessage(var.errorCol() + "You cannot join the hunger games, please log in.");
 		}
 		return true;
 	}	

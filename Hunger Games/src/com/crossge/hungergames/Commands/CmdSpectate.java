@@ -25,14 +25,21 @@ public class CmdSpectate extends Cmd
 					p.sendMessage(var.defaultCol() + "You are already in a game.");
 					return true;
 				}
-				if(pl.isSpectating(p.getName()))
+				if(pl.gameGoing())
 				{
-					pl.delSpectating(p.getName());
-					p.sendMessage(var.defaultCol() + "No longer spectating the Hunger Games.");
-					return true;
+					if(pl.isSpectating(p.getName()))
+					{
+						pl.delSpectating(p.getName());
+						p.sendMessage(var.defaultCol() + "No longer spectating the Hunger Games.");
+						return true;
+					}
+					pl.addSpectating(p.getName());
+					p.sendMessage(var.defaultCol() + "Now spectating the Hunger Games.");
 				}
-				pl.addSpectating(p.getName());
-				p.sendMessage(var.defaultCol() + "Now spectating the Hunger Games.");
+				else
+				{
+					p.sendMessage(var.defaultCol() + "There is no current game.");
+				}
 			}
 			else
 			{

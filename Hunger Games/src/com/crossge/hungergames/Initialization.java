@@ -1,9 +1,11 @@
 package com.crossge.hungergames;
 
 import java.io.File;
+import java.io.IOException;
 
 public class Initialization
 {
+	Game g = new Game();
 	public Initialization()
 	{
 		
@@ -11,7 +13,23 @@ public class Initialization
 	public void initiateFiles()
 	{
 		dirCreate("plugins/Hunger Games");
-		
+		fileCreate("plugins/Hunger Games/options.txt");
+		createYaml();
+		g.initMaps();
+	}
+	
+	private File customConfigFile = null;
+	public void createYaml()
+	{
+		customConfigFile = new File("plugins/Hunger Games", "spawns.yml");
+		if(!customConfigFile.exists())
+		{
+			try
+			{
+				customConfigFile.createNewFile();
+			}
+			catch (IOException e){}
+		}
 	}
 	
 	private void dirCreate(String directory)
@@ -27,8 +45,8 @@ public class Initialization
 		}
 	}
 	
-	/*private void fileCreate(String file)
-	{//No instances yet
+	private void fileCreate(String file)
+	{
 		File f = new File(file);
 		if(!f.exists())
 		{
@@ -38,5 +56,5 @@ public class Initialization
 			}
 			catch (IOException e){}
 		}
-	}*/
+	}
 }

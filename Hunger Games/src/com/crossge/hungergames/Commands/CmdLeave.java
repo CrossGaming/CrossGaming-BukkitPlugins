@@ -25,8 +25,8 @@ public class CmdLeave extends Cmd
 				if(spot == 0)//In game not in line
 				{
 					p.setHealth(0);
-					p.sendMessage(var.defaultCol() + "Match left.");
-					Bukkit.broadcastMessage(var.defaultCol() + p.getName() + " left the current match.");
+					p.sendMessage(var.defaultCol() + "Hunger Games left.");
+					Bukkit.broadcastMessage(var.defaultCol() + p.getName() + " left the current hunger games.");
 					return true;
 				}
 				pl.removeFromQueue(p.getName());

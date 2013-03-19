@@ -24,12 +24,17 @@ permissions:
             HungerGames.stats: true
             HungerGames.info: true
             HungerGames.setspawn: true
+            HungerGames.vote: true
+            HungerGames.forcestart: true
     HungerGames.hg:
         description: Lets you use /hg.
         default: true
+    HungerGames.vote:
+        description: Lets you vote to start the hunger games.
+        default: true
     HungerGames.help:
         description: Lets you view the help for the hunger games.
-        default: true
+        default: true    
     HungerGames.join:
         description: Lets you join the hunger games.
         default: true
@@ -47,4 +52,7 @@ permissions:
         default: true
     HungerGames.setspawn:
         description: Lets you set the spawnpoints for the hunger games.
+        default: op
+    HungerGames.forcestart:
+        description: Lets you force start the hunger games.
         default: op
