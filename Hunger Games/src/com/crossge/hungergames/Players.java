@@ -57,6 +57,7 @@ public class Players
 		customConfig.get(pathx);
 		customConfig.get(pathy);
 		customConfig.get(pathz);
+		hideSpec();
 		Bukkit.getPlayer(name).teleport(new Location(Bukkit.getWorld(world), customConfig.getInt(pathx), customConfig.getInt(pathy), customConfig.getInt(pathz)));
 	}
 	public void delSpectating(String name)
@@ -118,6 +119,25 @@ public class Players
 		s.addWin(alive.get(0));
 		s.addPoints(alive.get(0), 20);
 		return alive.get(0);
+	}
+	public void hideSpectators(Player p)
+	{
+		if(spectating.size() == 0)
+			return;
+		for(int i = 0; i < spectating.size(); i++)
+		{
+			p.hidePlayer(Bukkit.getPlayer(spectating.get(i)));
+		}
+	}
+	private void hideSpec()
+	{
+		for(Player p : Bukkit.getOnlinePlayers())
+		{
+			for(int i = 0; i < spectating.size(); i++)
+			{
+				p.hidePlayer(Bukkit.getPlayer(spectating.get(i)));
+			}
+		}
 	}
 	public void endGame()
 	{

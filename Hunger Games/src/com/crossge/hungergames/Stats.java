@@ -52,7 +52,7 @@ public class Stats
 	{
 		try
 		{  
-			stmt.executeUpdate("SELECT name, points, wins, kills, deaths, games FROM HungerGames");
+			stmt.executeUpdate("UPDATE HungerGames SET wins = wins + 1 WHERE name = '" + name + "'");
         }
 		catch (Exception e){} 
 	}
@@ -69,12 +69,12 @@ public class Stats
 	{
 		try
 		{   
-            ResultSet rs = stmt.executeQuery("SELECT name, points, wins, kills, deaths, games FROM HungerGames");
+            ResultSet rs = stmt.executeQuery("SELECT * FROM HungerGames");
             while(rs.next())
             {
                 if(rs.getString("name").equals(name))
                 {
-                	return rs.getString("name") + " " + Integer.toString(rs.getInt("points")) + " " + Integer.toString(rs.getInt("wins"))
+                	return name + " " + Integer.toString(rs.getInt("points")) + " " + Integer.toString(rs.getInt("wins"))
                 			 + " " + Integer.toString(rs.getInt("kills")) + " " + Integer.toString(rs.getInt("deaths"))
                 			+ " " + Integer.toString(rs.getInt("games"));
                 }
@@ -88,16 +88,16 @@ public class Stats
 	{
 	    try
 	    {
-	    	Class.forName(JDBC_DRIVER);
+	    	Class.forName(JDBC_DRIVER).newInstance();
 	    	conn = DriverManager.getConnection(DB_URL, USER, PASS);
 	    	stmt = conn.createStatement();//Points, Wins, Kills, Deaths, Games
 	    	String sql = "CREATE TABLE IF NOT EXISTS HungerGames (" +
-	                   	"name VARCHAR(16) NOT NULL, " +
-	                   	"points INTEGER) NOT NULL, " + 
-	                   	"wins INTEGER NOT NULL, " +
-	                   	"kills INTEGER NOT NULL, " +
-	                   	"deaths INTEGER NOT NULL, " + 
-	                   	"games INTEGER NOT NULL)";
+	                   	"name CHAR(16), " +
+	                   	"points INTEGER), " + 
+	                   	"wins INTEGER, " +
+	                   	"kills INTEGER, " +
+	                   	"deaths INTEGER, " + 
+	                   	"games INTEGER)";
 	    	stmt.executeUpdate(sql);
 	   }
 	   catch(Exception e){}

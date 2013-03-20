@@ -24,6 +24,7 @@ public class Listeners implements Listener
     	Player p = event.getPlayer();
     	if(s.get(p.getName()) == null)
     		s.write(p.getName(), 0, 0, 0, 0, 0);
+    	pl.hideSpectators(p);
 	}
 	@EventHandler
 	public void onPlayerQuit(PlayerQuitEvent event)
