@@ -2,11 +2,13 @@ package com.crossge.hungergames;
 
 import java.io.File;
 import java.sql.*;
+import java.util.Properties;
+
 import org.bukkit.configuration.file.YamlConfiguration;
 
 public class Stats
 {
-	private static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
+	private static Connection conn = null;
 	private static File customConfigFile = new File("plugins/Hunger Games", "sql.yml");
    	private static YamlConfiguration customConfig = YamlConfiguration.loadConfiguration(customConfigFile);
 	private static final String hostname = customConfig.getString("hostname");
@@ -22,132 +24,64 @@ public class Stats
 	
 	public void write(String name, int points, int wins, int kills, int deaths, int games)
 	{
-		Connection conn = null;
 		try
 		{
-			conn = DriverManager.getConnection(DB_URL, USER, PASS);
 			PreparedStatement stmt = conn.prepareStatement("INSERT INTO HungerGames " + 
 	                "SET name='" + name + "', points=" + points + ", wins=" + wins + ", kills=" + kills + ", deaths=" + deaths + ", games=" + games);
             stmt.executeUpdate();
         }
 		catch (Exception e){System.out.print(e.getCause());}
-		finally
-		{
-			try
-			{
-				if(conn != null)
-					conn.close();
-			}
-			catch(Exception e){System.out.print(e.getCause());}
-		}
 	}
 	public void addGame(String name)
 	{
-		Connection conn = null;
 		try
 		{
-			conn = DriverManager.getConnection(DB_URL, USER, PASS);
 			PreparedStatement stmt = conn.prepareStatement("UPDATE HungerGames SET games = games + 1 WHERE name = '" + name + "'");
 			stmt.executeUpdate();
         }
 		catch (Exception e){System.out.print(e.getCause());}
-		finally
-		{
-			try
-			{
-				if(conn != null)
-					conn.close();
-			}
-			catch(Exception e){System.out.print(e.getCause());}
-		}
 	}
 	public void addDeath(String name)
 	{
-		Connection conn = null;
 		try
 		{
-			conn = DriverManager.getConnection(DB_URL, USER, PASS);
 			PreparedStatement stmt = conn.prepareStatement("UPDATE HungerGames SET deaths = deaths + 1 WHERE name = '" + name + "'");
 			stmt.executeUpdate();
         }
 		catch (Exception e){System.out.print(e.getCause());}
-		finally
-		{
-			try
-			{
-				if(conn != null)
-					conn.close();
-			}
-			catch(Exception e){System.out.print(e.getCause());}
-		}
 	}
 	public void addKill(String name)
 	{
-		Connection conn = null;
 		try
-		{  
-			conn = DriverManager.getConnection(DB_URL, USER, PASS);
+		{
 			PreparedStatement stmt = conn.prepareStatement("UPDATE HungerGames SET kills = kills + 1 WHERE name = '" + name + "'");
 			stmt.executeUpdate();
         }
 		catch (Exception e){System.out.print(e.getCause());}
-		finally
-		{
-			try
-			{
-				if(conn != null)
-					conn.close();
-			}
-			catch(Exception e){System.out.print(e.getCause());}
-		}
 	}
 	public void addWin(String name)
 	{
-		Connection conn = null;
 		try
 		{ 
-			conn = DriverManager.getConnection(DB_URL, USER, PASS);
 			PreparedStatement stmt = conn.prepareStatement("UPDATE HungerGames SET wins = wins + 1 WHERE name = '" + name + "'");
 			stmt.executeUpdate();
         }
 		catch (Exception e){System.out.print(e.getCause());}
-		finally
-		{
-			try
-			{
-				if(conn != null)
-					conn.close();
-			}
-			catch(Exception e){System.out.print(e.getCause());}
-		}
 	}
 	public void addPoints(String name, int points)
 	{
-		Connection conn = null;
 		try
-		{  
-			conn = DriverManager.getConnection(DB_URL, USER, PASS);
+		{
 			PreparedStatement stmt = conn.prepareStatement("UPDATE HungerGames SET points = points + " + Integer.toString(points) + " WHERE name = '" + name + "'");
 			stmt.executeUpdate();
         }
 		catch (Exception e){System.out.print(e.getCause());}
-		finally
-		{
-			try
-			{
-				if(conn != null)
-					conn.close();
-			}
-			catch(Exception e){System.out.print(e.getCause());}
-		}
 	}
 	
 	public String get(String name)
 	{
-		Connection conn = null;
 		try
 		{
-			conn = DriverManager.getConnection(DB_URL, USER, PASS);
 	    	PreparedStatement stmt = conn.prepareStatement("SELECT * FROM HungerGames");//Points, Wins, Kills, Deaths, Games
             ResultSet rs = stmt.executeQuery();
             while(rs.next())
@@ -161,29 +95,20 @@ public class Stats
             }
         }
 		catch (Exception e){System.out.print(e.getCause());}
-		finally
-		{
-			try
-			{
-				if(conn != null)
-					conn.close();
-			}
-			catch(Exception e){System.out.print(e.getCause());}
-		}
 		return null;
 	}
 	
 	public void connect()
 	{
-		try
-		{
-			Class.forName(JDBC_DRIVER);
-		}
-		catch (ClassNotFoundException e){System.out.print(e.getCause());  System.out.print("169");}
-		Connection conn = null;
 	    try
 	    {
-	    	conn = DriverManager.getConnection(DB_URL, USER, PASS);
+	    	Class.forName("com.mysql.jdbc.Driver");
+	    	Properties connectionProperties = new Properties();
+            connectionProperties.put("user", USER);
+            connectionProperties.put("password", PASS);
+            connectionProperties.put("autoReconnect", "false");
+            connectionProperties.put("maxReconnects", "0");
+	    	conn = DriverManager.getConnection(DB_URL, connectionProperties);
 	    	String sql = "CREATE TABLE IF NOT EXISTS HungerGames (" +
 	                   	"name CHAR(16), " +
 	                   	"points INTEGER), " + 
@@ -194,15 +119,6 @@ public class Stats
 	    	PreparedStatement stmt = conn.prepareStatement(sql);//Points, Wins, Kills, Deaths, Games
 	    	stmt.executeUpdate(sql);
 	   }
-	   catch(Exception e){System.out.print(e.getCause()); System.out.print("184");}
-	   finally
-	   {
-		   try
-		   {
-			   if(conn != null)
-				   conn.close();
-		   }
-		   catch(Exception e){System.out.print(e.getCause()); System.out.print("191");}
-	   }	   
+	   catch(Exception e){System.out.print(e.getCause()); System.out.print("104");}	   
 	}
 }
