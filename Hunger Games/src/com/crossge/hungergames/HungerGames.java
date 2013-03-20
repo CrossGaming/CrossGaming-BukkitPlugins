@@ -7,14 +7,13 @@ import com.crossge.hungergames.Commands.*;
 
 public class HungerGames extends JavaPlugin
 {
-	Stats s = new Stats();
 	@Override
     public void onEnable()
 	{	
-		getLogger().info("Hunger Games brought to you by Cross GE has been enabled.");
 		getServer().getPluginManager().registerEvents(new Listeners(), this);
 		Initialization init = new Initialization();
 		init.initiateFiles();
+		getLogger().info("Hunger Games brought to you by Cross GE has been enabled.");
     }
 	
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args)
@@ -29,6 +28,5 @@ public class HungerGames extends JavaPlugin
     public void onDisable()
     {
     	getLogger().info("Hunger Games disabled.");
-    	s.stop();
     }
 }
