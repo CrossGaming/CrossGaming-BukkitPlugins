@@ -1,13 +1,20 @@
 package com.crossge.hungergames;
 
+import java.io.File;
 import java.sql.*;
+import org.bukkit.configuration.file.YamlConfiguration;
 
 public class Stats
 {
-	private static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";  
-	private static final String DB_URL = "jdbc:mysql://CrossHG.db.10520830.hostedresource.com";///CrossHG";//"CrossHG.db.10520830.hostedresource.com";
-	private static final String USER = "CrossHG";
-	private static final String PASS = "iu#32H@Ggb0";
+	private static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
+	private static File customConfigFile = new File("plugins/Hunger Games", "sql.yml");
+   	private static YamlConfiguration customConfig = YamlConfiguration.loadConfiguration(customConfigFile);
+	private static final String hostname = customConfig.getString("hostname");
+	private static final String port = customConfig.getString("port");
+	private static final String dbName = customConfig.getString("dbName");
+	private static final String DB_URL = "jdbc:mysql://" + hostname + ":" + port + "/" + dbName;
+	private static final String USER = customConfig.getString("username");
+	private static final String PASS = customConfig.getString("password");
 	public Stats()
 	{
 		
@@ -168,7 +175,6 @@ public class Stats
 	
 	public void connect()
 	{
-		
 		try
 		{
 			Class.forName(JDBC_DRIVER);

@@ -3,6 +3,8 @@ package com.crossge.hungergames;
 import java.io.File;
 import java.io.IOException;
 
+import org.bukkit.configuration.file.YamlConfiguration;
+
 public class Initialization
 {
 	Game g = new Game();
@@ -21,6 +23,7 @@ public class Initialization
 	}
 	
 	private File customConfigFile = null;
+	private File customConfigFileSQL = null;
 	public void createYaml()
 	{
 		customConfigFile = new File("plugins/Hunger Games", "spawns.yml");
@@ -29,6 +32,22 @@ public class Initialization
 			try
 			{
 				customConfigFile.createNewFile();
+			}
+			catch (IOException e){}
+		}
+		customConfigFileSQL = new File("plugins/Hunger Games", "sql.yml");
+		if(!customConfigFileSQL.exists())
+		{
+			try
+			{//hostname, port, dbName, username, password
+				customConfigFileSQL.createNewFile();
+				YamlConfiguration customConfig = YamlConfiguration.loadConfiguration(customConfigFileSQL);
+				customConfig.set("hostname", "localhost");
+				customConfig.set("port", "3306");
+				customConfig.set("dbName", "HungerGames");
+				customConfig.set("username", "username");
+				customConfig.set("password", "password");
+				customConfig.save(customConfigFileSQL);
 			}
 			catch (IOException e){}
 		}
