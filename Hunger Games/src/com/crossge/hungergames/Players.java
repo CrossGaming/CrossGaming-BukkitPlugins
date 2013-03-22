@@ -13,6 +13,7 @@ public class Players
 	Game g = new Game();
 	Stats s = new Stats();
 	private static ArrayList<String> alive = new ArrayList<String>();
+	private static ArrayList<String> origalive = new ArrayList<String>();
 	private static ArrayList<String> dead = new ArrayList<String>();
 	private static ArrayList<String> queued = new ArrayList<String>();
 	private static ArrayList<String> spectating = new ArrayList<String>();
@@ -51,25 +52,48 @@ public class Players
 	{
 		String world = g.getNext();
 		spectating.add(name);
-		String pathx = world + ".s25.x";//temporarily only have support for one map name
-		String pathy = world + ".s25.y";//temporarily only have support for one map name
-		String pathz = world + ".s25.z";//temporarily only have support for one map name
+		String pathx = world + ".s25.x";
+		String pathy = world + ".s25.y";
+		String pathz = world + ".s25.z";
 		customConfig.get(pathx);
 		customConfig.get(pathy);
 		customConfig.get(pathz);
 		hideSpec();
-		Bukkit.getPlayer(name).teleport(new Location(Bukkit.getWorld(world), customConfig.getInt(pathx), customConfig.getInt(pathy), customConfig.getInt(pathz)));
+		Player p = Bukkit.getPlayer(name);
+		p.setGameMode(GameMode.ADVENTURE);
+		p.setFoodLevel(20);
+		p.setHealth(20);
+		p.setFlying(true);
+		p.setCanPickupItems(false);
+		p.teleport(new Location(Bukkit.getWorld(world), customConfig.getInt(pathx), customConfig.getInt(pathy), customConfig.getInt(pathz)));
 	}
 	public void delSpectating(String name)
 	{
 		spectating.remove(name);
-		Bukkit.getPlayer(name).chat("/spawn");
+		for(Player p : Bukkit.getOnlinePlayers())
+		{
+			if(!p.canSee(Bukkit.getPlayer(name)))
+				p.hidePlayer(Bukkit.getPlayer(name));
+		}
+		Player p = Bukkit.getPlayer(name);
+		p.setGameMode(GameMode.SURVIVAL);
+		p.setFoodLevel(20);
+		p.setHealth(20);
+		p.setFlying(false);
+		p.setCanPickupItems(true);
+		p.performCommand("/spawn");
 	}
 	public void addDead(String name)
 	{
 		alive.remove(name);
 		dead.add(name);
-		Bukkit.getPlayer(name).chat("/spawn");
+		Player p = Bukkit.getPlayer(name);
+		p.setGameMode(GameMode.SURVIVAL);
+		p.setFoodLevel(20);
+		p.setHealth(20);
+		p.setFlying(false);
+		p.setCanPickupItems(true);
+		p.performCommand("/spawn");
 	}
 	public String deceased()
 	{
@@ -118,6 +142,13 @@ public class Players
 	{
 		s.addWin(alive.get(0));
 		s.addPoints(alive.get(0), 20);
+		Player p = Bukkit.getPlayer(alive.get(0));
+		p.setGameMode(GameMode.SURVIVAL);
+		p.setFoodLevel(20);
+		p.setHealth(20);
+		p.setFlying(false);
+		p.setCanPickupItems(true);
+		p.performCommand("/spawn");
 		return alive.get(0);
 	}
 	public void hideSpectators(Player p)
@@ -127,6 +158,16 @@ public class Players
 		for(int i = 0; i < spectating.size(); i++)
 		{
 			p.hidePlayer(Bukkit.getPlayer(spectating.get(i)));
+		}
+	}
+	public void unhideSpectators(Player p)
+	{
+		if(spectating.size() == 0)
+			return;
+		for(int i = 0; i < spectating.size(); i++)
+		{
+			if(!p.canSee(Bukkit.getPlayer(spectating.get(i))))
+				p.showPlayer(Bukkit.getPlayer(spectating.get(i)));
 		}
 	}
 	private void hideSpec()
@@ -139,10 +180,26 @@ public class Players
 			}
 		}
 	}
+	private void unhideSpec()
+	{
+		for(Player p : Bukkit.getOnlinePlayers())
+		{
+			for(int i = 0; i < spectating.size(); i++)
+			{
+				p.showPlayer(Bukkit.getPlayer(spectating.get(i)));
+			}
+		}
+	}
 	public void endGame()
 	{
 		alive.clear();
+		origalive.clear();
 		dead.clear();
+		for(Player p : Bukkit.getOnlinePlayers())
+		{
+			p.setCanPickupItems(true);
+		}
+		unhideSpec();
 		spectating.clear();
 		g.end();
 	}
@@ -165,15 +222,31 @@ public class Players
 	public int posInQueue(String name)
 	{
 		return queued.indexOf(name) + 1;
-	}	
+	}
+	public String district(String name)
+	{
+		for(int i = 0; i < origalive.size(); i++)
+		{
+			if(origalive.get(i).equals(name))
+			{
+				int temp = i + 1;
+				if(temp + 1 > 12)
+					temp = temp - 11;
+				return Integer.toString(temp);
+			}
+		}
+		return null;
+	}
 	public void gameStart()
 	{
 		alive.clear();
+		origalive.clear();
 		dead.clear();
 		spectating.clear();
 		for(int i = 0; i < queued.size(); i++)
 		{
 			alive.add(queued.get(i));
+			origalive.add(queued.get(i));
 		}
 		queued.clear();
 		joinGame();
@@ -185,8 +258,8 @@ public class Players
 		{
 			temp = Bukkit.getPlayer(alive.get(i));
 			temp.setGameMode(GameMode.ADVENTURE);
-			temp.setFoodLevel(10);
-			temp.setHealth(10);
+			temp.setFoodLevel(20);
+			temp.setHealth(20);
 			temp.setFlying(false);
 			temp.teleport(loc(i + 1));
 			temp.getInventory().clear();

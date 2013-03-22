@@ -45,7 +45,7 @@ public class Stats
 	{
 		try
 		{
-			PreparedStatement stmt = conn.prepareStatement("UPDATE HungerGames SET Deaths = DDeaths + 1 WHERE Name = '" + name + "'");
+			PreparedStatement stmt = conn.prepareStatement("UPDATE HungerGames SET Deaths = Deaths + 1 WHERE Name = '" + name + "'");
 			stmt.executeUpdate();
         }
 		catch (Exception e){System.out.print(e.getCause()); e.printStackTrace();}
@@ -91,6 +91,23 @@ public class Stats
                 	return name + " " + Integer.toString(rs.getInt("Points")) + " " + Integer.toString(rs.getInt("Wins"))
                 			 + " " + Integer.toString(rs.getInt("Kills")) + " " + Integer.toString(rs.getInt("Deaths"))
                 			+ " " + Integer.toString(rs.getInt("Games"));
+                }
+            }
+        }
+		catch (Exception e){System.out.print(e.getCause()); e.printStackTrace();}
+		return null;
+	}
+	public String getPoints(String name)
+	{
+		try
+		{
+	    	PreparedStatement stmt = conn.prepareStatement("SELECT * FROM HungerGames");//Points, Wins, Kills, Deaths, Games
+            ResultSet rs = stmt.executeQuery();
+            while(rs.next())
+            {
+                if(rs.getString("Name").equals(name))
+                {
+                	return Integer.toString(rs.getInt("Points"));
                 }
             }
         }

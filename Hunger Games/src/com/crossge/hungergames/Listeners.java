@@ -1,10 +1,13 @@
 package com.crossge.hungergames;
 
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.PlayerDeathEvent;
+import org.bukkit.event.player.AsyncPlayerChatEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 
@@ -34,6 +37,42 @@ public class Listeners implements Listener
     	g.delVote(p.getName());
     	if(pl.isAlive(p.getName()))
     		p.setHealth(0);
+    	pl.unhideSpectators(p);
+	}
+	@EventHandler
+	public void onPlayerChat(AsyncPlayerChatEvent event)
+	{
+    	Player p = event.getPlayer();
+    	if(pl.isAlive(p.getName()))
+    	{
+    		String district = pl.district(p.getName());
+    		if(district != null)
+    		{
+    			district = var.districtCol() + district + " " + ChatColor.RESET;
+    			event.setFormat(district + event.getFormat());
+    		}
+    	}
+    	else
+    	{
+    		String points = s.getPoints(p.getName());
+    		if(points != null)
+    		{
+    			points = var.defaultCol() + "(" + var.pointCol() + points + var.defaultCol() + ") " + ChatColor.RESET;
+    			event.setFormat(points + event.getFormat());
+    		}
+    	}
+	}
+	@EventHandler
+	public void onEntityDamage(EntityDamageByEntityEvent event)
+	{
+		if(event.getDamager() instanceof Player )
+		{
+			if(pl.gameGoing())
+			{
+				if(!pl.isAlive(((Player)event.getDamager()).getName()))
+					event.setCancelled(true);
+			}
+		}
 	}
 	@EventHandler
 	public void onPlayerDeath(PlayerDeathEvent event)
@@ -53,6 +92,7 @@ public class Listeners implements Listener
     		}
     		s.addDeath(p.getName());
     		pl.addDead(p.getName());
+    		s.addPoints(p.getName(), -7);
     	}
     	if(pl.onePlayerLeft())
     	{
