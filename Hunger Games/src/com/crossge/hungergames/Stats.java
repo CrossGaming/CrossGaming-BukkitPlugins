@@ -27,55 +27,55 @@ public class Stats
 		try
 		{
 			PreparedStatement stmt = conn.prepareStatement("INSERT INTO HungerGames " + 
-	                "SET name='" + name + "', points=" + points + ", wins=" + wins + ", kills=" + kills + ", deaths=" + deaths + ", games=" + games);
+	                "SET Name='" + name + "', Points=" + points + ", Wins=" + wins + ", Kills=" + kills + ", Deaths=" + deaths + ", Games=" + games);
             stmt.executeUpdate();
         }
-		catch (Exception e){System.out.print(e.getCause());}
+		catch (Exception e){System.out.print(e.getCause()); e.printStackTrace();}
 	}
 	public void addGame(String name)
 	{
 		try
 		{
-			PreparedStatement stmt = conn.prepareStatement("UPDATE HungerGames SET games = games + 1 WHERE name = '" + name + "'");
+			PreparedStatement stmt = conn.prepareStatement("UPDATE HungerGames SET Games = Games + 1 WHERE Name = '" + name + "'");
 			stmt.executeUpdate();
         }
-		catch (Exception e){System.out.print(e.getCause());}
+		catch (Exception e){System.out.print(e.getCause()); e.printStackTrace();}
 	}
 	public void addDeath(String name)
 	{
 		try
 		{
-			PreparedStatement stmt = conn.prepareStatement("UPDATE HungerGames SET deaths = deaths + 1 WHERE name = '" + name + "'");
+			PreparedStatement stmt = conn.prepareStatement("UPDATE HungerGames SET Deaths = DDeaths + 1 WHERE Name = '" + name + "'");
 			stmt.executeUpdate();
         }
-		catch (Exception e){System.out.print(e.getCause());}
+		catch (Exception e){System.out.print(e.getCause()); e.printStackTrace();}
 	}
 	public void addKill(String name)
 	{
 		try
 		{
-			PreparedStatement stmt = conn.prepareStatement("UPDATE HungerGames SET kills = kills + 1 WHERE name = '" + name + "'");
+			PreparedStatement stmt = conn.prepareStatement("UPDATE HungerGames SET Kills = Kills + 1 WHERE Name = '" + name + "'");
 			stmt.executeUpdate();
         }
-		catch (Exception e){System.out.print(e.getCause());}
+		catch (Exception e){System.out.print(e.getCause()); e.printStackTrace();}
 	}
 	public void addWin(String name)
 	{
 		try
 		{ 
-			PreparedStatement stmt = conn.prepareStatement("UPDATE HungerGames SET wins = wins + 1 WHERE name = '" + name + "'");
+			PreparedStatement stmt = conn.prepareStatement("UPDATE HungerGames SET Wins = Wins + 1 WHERE Name = '" + name + "'");
 			stmt.executeUpdate();
         }
-		catch (Exception e){System.out.print(e.getCause());}
+		catch (Exception e){System.out.print(e.getCause()); e.printStackTrace();}
 	}
 	public void addPoints(String name, int points)
 	{
 		try
 		{
-			PreparedStatement stmt = conn.prepareStatement("UPDATE HungerGames SET points = points + " + Integer.toString(points) + " WHERE name = '" + name + "'");
+			PreparedStatement stmt = conn.prepareStatement("UPDATE HungerGames SET Points = Points + " + Integer.toString(points) + " WHERE Name = '" + name + "'");
 			stmt.executeUpdate();
         }
-		catch (Exception e){System.out.print(e.getCause());}
+		catch (Exception e){System.out.print(e.getCause()); e.printStackTrace();}
 	}
 	
 	public String get(String name)
@@ -86,15 +86,15 @@ public class Stats
             ResultSet rs = stmt.executeQuery();
             while(rs.next())
             {
-                if(rs.getString("name").equals(name))
+                if(rs.getString("Name").equals(name))
                 {
-                	return name + " " + Integer.toString(rs.getInt("points")) + " " + Integer.toString(rs.getInt("wins"))
-                			 + " " + Integer.toString(rs.getInt("kills")) + " " + Integer.toString(rs.getInt("deaths"))
-                			+ " " + Integer.toString(rs.getInt("games"));
+                	return name + " " + Integer.toString(rs.getInt("Points")) + " " + Integer.toString(rs.getInt("Wins"))
+                			 + " " + Integer.toString(rs.getInt("Kills")) + " " + Integer.toString(rs.getInt("Deaths"))
+                			+ " " + Integer.toString(rs.getInt("Games"));
                 }
             }
         }
-		catch (Exception e){System.out.print(e.getCause());}
+		catch (Exception e){System.out.print(e.getCause()); e.printStackTrace();}
 		return null;
 	}
 	
@@ -110,15 +110,15 @@ public class Stats
             connectionProperties.put("maxReconnects", "0");
 	    	conn = DriverManager.getConnection(DB_URL, connectionProperties);
 	    	String sql = "CREATE TABLE IF NOT EXISTS HungerGames (" +
-	                   	"name CHAR(16), " +
-	                   	"points INTEGER), " + 
-	                   	"wins INTEGER, " +
-	                   	"kills INTEGER, " +
-	                   	"deaths INTEGER, " + 
-	                   	"games INTEGER)";
+	                   	"Name CHAR(16), " +
+	                   	"Points INTEGER, " + 
+	                   	"Wins INTEGER, " +
+	                   	"Kills INTEGER, " +
+	                   	"Deaths INTEGER, " + 
+	                   	"Games INTEGER)";
 	    	PreparedStatement stmt = conn.prepareStatement(sql);//Points, Wins, Kills, Deaths, Games
-	    	stmt.executeUpdate(sql);
+	    	stmt.executeUpdate();
 	   }
-	   catch(Exception e){System.out.print(e.getCause()); System.out.print("104");}	   
+	   catch(Exception e){System.out.print(e.getCause()); e.printStackTrace();}	   
 	}
 }
