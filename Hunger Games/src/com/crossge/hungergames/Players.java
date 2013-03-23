@@ -60,7 +60,7 @@ public class Players
 		customConfig.get(pathz);
 		hideSpec();
 		Player p = Bukkit.getPlayer(name);
-		p.setGameMode(GameMode.ADVENTURE);
+		p.setGameMode(GameMode.SURVIVAL);
 		p.setFoodLevel(20);
 		p.setHealth(20);
 		p.setFlying(true);
@@ -76,7 +76,6 @@ public class Players
 				p.hidePlayer(Bukkit.getPlayer(name));
 		}
 		Player p = Bukkit.getPlayer(name);
-		p.setGameMode(GameMode.SURVIVAL);
 		p.setFoodLevel(20);
 		p.setHealth(20);
 		p.setFlying(false);
@@ -88,7 +87,6 @@ public class Players
 		alive.remove(name);
 		dead.add(name);
 		Player p = Bukkit.getPlayer(name);
-		p.setGameMode(GameMode.SURVIVAL);
 		p.setFoodLevel(20);
 		p.setHealth(20);
 		p.setFlying(false);
@@ -143,7 +141,6 @@ public class Players
 		s.addWin(alive.get(0));
 		s.addPoints(alive.get(0), 20);
 		Player p = Bukkit.getPlayer(alive.get(0));
-		p.setGameMode(GameMode.SURVIVAL);
 		p.setFoodLevel(20);
 		p.setHealth(20);
 		p.setFlying(false);
@@ -257,7 +254,7 @@ public class Players
 		for(int i = 0; i < alive.size(); i++)
 		{
 			temp = Bukkit.getPlayer(alive.get(i));
-			temp.setGameMode(GameMode.ADVENTURE);
+			temp.setGameMode(GameMode.SURVIVAL);
 			temp.setFoodLevel(20);
 			temp.setHealth(20);
 			temp.setFlying(false);

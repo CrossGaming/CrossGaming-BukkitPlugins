@@ -2,9 +2,12 @@ package com.crossge.hungergames;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.block.BlockDamageEvent;
+import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
@@ -28,6 +31,23 @@ public class Listeners implements Listener
     	if(s.get(p.getName()) == null)
     		s.write(p.getName(), 0, 0, 0, 0, 0);
     	pl.hideSpectators(p);
+	}
+	@EventHandler
+	public void onBlockDamage(BlockDamageEvent event)
+	{
+		if(pl.isAlive(event.getPlayer().getName()) || pl.isSpectating(event.getPlayer().getName()))
+		{
+			if(!event.getBlock().getType().equals(Material.LEAVES) || !event.getBlock().getType().isEdible())
+				event.setCancelled(true);
+		}
+	}
+	@EventHandler
+	public void onBlockPlace(BlockPlaceEvent event)
+	{
+		if(pl.isAlive(event.getPlayer().getName()) || pl.isSpectating(event.getPlayer().getName()))
+		{
+			event.setCancelled(true);
+		}
 	}
 	@EventHandler
 	public void onPlayerQuit(PlayerQuitEvent event)
