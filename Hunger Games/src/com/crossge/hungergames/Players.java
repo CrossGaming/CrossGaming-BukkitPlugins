@@ -2,6 +2,9 @@ package com.crossge.hungergames;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Timer;
+import java.util.TimerTask;
+
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.Location;
@@ -12,13 +15,19 @@ public class Players
 {
 	Game g = new Game();
 	Stats s = new Stats();
+	Variables var = new Variables();
+	Sponsor spons = new Sponsor();
+	ChestRandomizer cr = new ChestRandomizer();
 	private static ArrayList<String> alive = new ArrayList<String>();
 	private static ArrayList<String> origalive = new ArrayList<String>();
 	private static ArrayList<String> dead = new ArrayList<String>();
 	private static ArrayList<String> queued = new ArrayList<String>();
 	private static ArrayList<String> spectating = new ArrayList<String>();
 	private File customConfigFile = new File("plugins/Hunger Games", "spawns.yml");
-   	private YamlConfiguration customConfig = YamlConfiguration.loadConfiguration(customConfigFile);
+	private YamlConfiguration customConfig = YamlConfiguration.loadConfiguration(customConfigFile);
+	private static boolean alreadySponsor = false;
+	private static boolean deathStarted = false;
+	private static Timer t = new Timer();
 	public Players()
 	{
 		
@@ -36,6 +45,37 @@ public class Players
 		temp += ".";
 		return temp;
 	}
+	public void startSponsor()
+	{
+		Bukkit.broadcastMessage(var.defaultCol() + "The players left now recieve sponsorships.");
+		for(int i = 0; i < alive.size(); i++)
+		{
+			spons.giveItems(Bukkit.getPlayer(alive.get(i)));
+		}
+	}
+	public void startDeath()
+	{
+		Bukkit.broadcastMessage(var.defaultCol() + "Death match started.");
+		Player temp;
+		for(int i = 0; i < alive.size(); i++)
+		{
+			temp = Bukkit.getPlayer(alive.get(i));
+			temp.teleport(loc(i + 1));
+		}
+	}
+	public boolean deathMatch()
+	{
+		return alive.size() <= 3;
+	}
+	public boolean sponsorStart()
+	{
+		if(((origalive.size() / 5) >= alive.size() || alive.size() == 4) && !alreadySponsor)
+		{
+			alreadySponsor = true;
+			return true;
+		}
+		return false;
+	}
 	public boolean gameGoing()
 	{
 		return alive.size() > 1;
@@ -51,13 +91,10 @@ public class Players
 	public void addSpectating(String name)
 	{
 		String world = g.getNext();
-		spectating.add(name);
 		String pathx = world + ".s25.x";
 		String pathy = world + ".s25.y";
 		String pathz = world + ".s25.z";
-		customConfig.get(pathx);
-		customConfig.get(pathy);
-		customConfig.get(pathz);
+		spectating.add(name);
 		hideSpec();
 		Player p = Bukkit.getPlayer(name);
 		p.setGameMode(GameMode.SURVIVAL);
@@ -197,6 +234,8 @@ public class Players
 			p.setCanPickupItems(true);
 		}
 		unhideSpec();
+		alreadySponsor = false;
+		deathStarted = false;
 		spectating.clear();
 		g.end();
 	}
@@ -246,7 +285,12 @@ public class Players
 			origalive.add(queued.get(i));
 		}
 		queued.clear();
+		cr.randomizeChests();
 		joinGame();
+		if(deathMatch())
+		{
+			deathCountdown();
+		}
 	}
 	private void joinGame()
 	{
@@ -261,7 +305,7 @@ public class Players
 			temp.teleport(loc(i + 1));
 			temp.getInventory().clear();
 			temp.getEquipment().clear();
-			temp.setExp(0);
+			temp.setExp(-temp.getExp());
 			s.addGame(alive.get(i));
 		}
 	}
@@ -271,9 +315,40 @@ public class Players
 		String pathx = world + ".s" + Integer.toString(number) + ".x";//temporarily only have support for one map name
 		String pathy = world + ".s" + Integer.toString(number) + ".y";//temporarily only have support for one map name
 		String pathz = world + ".s" + Integer.toString(number) + ".z";//temporarily only have support for one map name
-		customConfig.get(pathx);
-		customConfig.get(pathy);
-		customConfig.get(pathz);
 		return new Location(Bukkit.getWorld(world), customConfig.getInt(pathx), customConfig.getInt(pathy), customConfig.getInt(pathz));
+	}
+	public void deathCountdown()
+	{
+		if(!deathStarted)
+		{
+			deathStarted = true;
+			Bukkit.broadcastMessage(var.defaultCol() + "Death match will start in 60 seconds.");
+			t.schedule(new TimerTask(){public void run() {deathCountdown2();}}, 15000);
+		}
+	}
+	private void deathCountdown2()
+	{
+		Bukkit.broadcastMessage(var.defaultCol() + "Death match will start in 45 seconds.");
+		t.schedule(new TimerTask(){public void run() {deathCountdown3();}}, 15000);
+	}
+	private void deathCountdown3()
+	{
+		Bukkit.broadcastMessage(var.defaultCol() + "Death match will start in 30 seconds.");
+		t.schedule(new TimerTask(){public void run() {deathCountdown4();}}, 15000);
+	}
+	private void deathCountdown4()
+	{
+		Bukkit.broadcastMessage(var.defaultCol() + "Death match will start in 15 seconds.");
+		t.schedule(new TimerTask(){public void run() {deathCountdown5();}}, 5000);
+	}
+	private void deathCountdown5()
+	{
+		Bukkit.broadcastMessage(var.defaultCol() + "Death match will start in 10 seconds.");
+		t.schedule(new TimerTask(){public void run() {deathCountdown6();}}, 5000);
+	}
+	private void deathCountdown6()
+	{
+		Bukkit.broadcastMessage(var.defaultCol() + "Death match will start in 5 seconds.");
+		t.schedule(new TimerTask(){public void run() {startDeath();}}, 5000);
 	}
 }

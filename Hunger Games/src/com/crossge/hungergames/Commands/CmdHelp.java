@@ -13,7 +13,7 @@ public class CmdHelp extends Cmd
 	}
 	public boolean commandUse(CommandSender sender, String[] args)
 	{
-		int maxPages = 2;
+		int maxPages = 3;
 		if (sender instanceof Player)
 		{
 			Player p = (Player) sender;
@@ -40,6 +40,8 @@ public class CmdHelp extends Cmd
 					page1(sender);
 				else if(page == 2)
 					page2(sender);
+				else if(page == 3)
+					page3(sender);
 			}
 			else
 			{
@@ -69,6 +71,8 @@ public class CmdHelp extends Cmd
 				page1(sender);
 			else if(page == 2)
 				page2(sender);
+			else if(page == 3)
+				page3(sender);
 		}
 		return true;
 	}
@@ -87,5 +91,13 @@ public class CmdHelp extends Cmd
 		sender.sendMessage(var.defaultCol() + "/hg vote [map number] ~ Votes for map [map number].");
 		sender.sendMessage(var.defaultCol() + "/hg stats [player] ~ Shows the stats of [player].");
 		sender.sendMessage(var.defaultCol() + "/hg forcestart ~ Forces the game to start.");
+	}
+	private void page3(CommandSender sender)
+	{
+		sender.sendMessage(var.defaultCol() + "/hg setcorner [number] ~ Sets the corners for the hunger games either 1 or 2.");
+		sender.sendMessage(var.defaultCol() + "Coming soon.");
+		sender.sendMessage(var.defaultCol() + "Coming soon.");
+		sender.sendMessage(var.defaultCol() + "Coming soon.");
+		sender.sendMessage(var.defaultCol() + "Coming soon.");
 	}
 }

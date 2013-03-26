@@ -4,7 +4,6 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Set;
-
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.YamlConfiguration;
 
@@ -14,6 +13,7 @@ public class Game
 	private static String nextMap = "";
 	private static boolean voting = false;
 	private static ArrayList<String> maps = new ArrayList<String>();
+	private static ArrayList<Integer> mvote = new ArrayList<Integer>();
 	private static HashMap<String, Integer> votes = new HashMap<String, Integer>();
 	private File customConfigFile = new File("plugins/Hunger Games", "spawns.yml");
    	private YamlConfiguration customConfig = YamlConfiguration.loadConfiguration(customConfigFile);
@@ -29,6 +29,14 @@ public class Game
 		else if(nextMap.equals(""))
 			holdVote();
 		return nextMap;
+	}
+	
+	private void m()
+	{//Todo add randomized picking
+		mvote.clear();
+		mvote.add(0);
+		mvote.add(1);
+		mvote.add(2);
 	}
 	
 	public void initMaps()
@@ -55,13 +63,14 @@ public class Game
 	}
 	public void holdVote()
 	{
+		m();
 		voting = true;
 		Bukkit.broadcastMessage(var.defaultCol() + "Maps you can vote for are:");
 		for(int i = 0; i < maps.size(); i++)
 		{
 			if(i == 3)
 				break;
-			Bukkit.broadcastMessage(var.defaultCol() + Integer.toString(i + 1) + " " + maps.get(i));
+			Bukkit.broadcastMessage(var.defaultCol() + Integer.toString(i + 1) + " " + maps.get(mvote.get(i)));
 		}
 	}
 	public void addVote(String name, int map)
@@ -80,13 +89,13 @@ public class Game
 				map3++;
 		}
 		if(map1 > map2 && map1 > map3)
-			nextMap = maps.get(0);
+			nextMap = maps.get(mvote.get(0));
 		else if(map2 > map1 && map2 > map3)
-			nextMap = maps.get(1);
+			nextMap = maps.get(mvote.get(1));
 		else if(map3 > map1 && map3 > map2)
-			nextMap = maps.get(2);
+			nextMap = maps.get(mvote.get(2));
 		else
-			nextMap = maps.get(0);
+			nextMap = maps.get(mvote.get(0));
 	}
 	public void delVote(String name)
 	{

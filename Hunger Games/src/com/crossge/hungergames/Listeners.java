@@ -35,19 +35,29 @@ public class Listeners implements Listener
 	@EventHandler
 	public void onBlockDamage(BlockDamageEvent event)
 	{
-		if(pl.isAlive(event.getPlayer().getName()) || pl.isSpectating(event.getPlayer().getName()))
-		{
-			if(!event.getBlock().getType().equals(Material.LEAVES) || !event.getBlock().getType().isEdible())
+		if(pl.gameGoing())
+    	{
+			if(pl.isAlive(event.getPlayer().getName()))
+			{
+				if(!event.getBlock().getType().equals(Material.LEAVES) || !event.getBlock().getType().isEdible())
+					event.setCancelled(true);
+			}
+			else if(pl.isSpectating(event.getPlayer().getName()))
+			{
 				event.setCancelled(true);
-		}
+			}
+    	}
 	}
 	@EventHandler
 	public void onBlockPlace(BlockPlaceEvent event)
 	{
-		if(pl.isAlive(event.getPlayer().getName()) || pl.isSpectating(event.getPlayer().getName()))
-		{
-			event.setCancelled(true);
-		}
+		if(pl.gameGoing())
+    	{
+			if(pl.isAlive(event.getPlayer().getName()) || pl.isSpectating(event.getPlayer().getName()))
+			{
+				event.setCancelled(true);
+			}
+    	}
 	}
 	@EventHandler
 	public void onPlayerQuit(PlayerQuitEvent event)
@@ -98,26 +108,37 @@ public class Listeners implements Listener
 	public void onPlayerDeath(PlayerDeathEvent event)
 	{
     	Player p = (Player) event.getEntity();
-    	if(pl.isAlive(p.getName()))
+    	if(pl.gameGoing())
     	{
-    		if(event.getDeathMessage().equals(p.getName() + " died"))
-    			event.setDeathMessage(var.defaultCol() + p.getName() + " died while trying to win the hunger games.");
-    		else
-    			event.setDeathMessage(var.defaultCol() + event.getDeathMessage());
-    		Player killer = p.getKiller();
-    		if(killer != null)
-    		{
-    			s.addKill(killer.getName());
-    			s.addPoints(killer.getName(), 7);
-    		}
-    		s.addDeath(p.getName());
-    		pl.addDead(p.getName());
-    		s.addPoints(p.getName(), -7);
-    	}
-    	if(pl.onePlayerLeft())
-    	{
-    		Bukkit.broadcastMessage(var.defaultCol() + pl.winner() + " won the Hunger Games.");
-    		pl.endGame();
+    		if(pl.isAlive(p.getName()))
+	    	{
+	    		if(event.getDeathMessage().equals(p.getName() + " died"))
+	    			event.setDeathMessage(var.defaultCol() + p.getName() + " died while trying to win the hunger games.");
+	    		else
+	    			event.setDeathMessage(var.defaultCol() + event.getDeathMessage());
+	    		Player killer = p.getKiller();
+	    		if(killer != null)
+	    		{
+	    			s.addKill(killer.getName());
+	    			s.addPoints(killer.getName(), 7);
+	    		}
+	    		s.addDeath(p.getName());
+	    		pl.addDead(p.getName());
+	    		s.addPoints(p.getName(), -7);
+	    		if(pl.sponsorStart())
+		    	{
+		    		pl.startSponsor();
+		    	}
+		    	if(pl.deathMatch())
+				{
+		    		pl.deathCountdown();
+				}
+	    	}
+	    	if(pl.onePlayerLeft())
+	    	{
+	    		Bukkit.broadcastMessage(var.defaultCol() + pl.winner() + " won the Hunger Games.");
+	    		pl.endGame();
+	    	}
     	}
 	}
 }
