@@ -22,7 +22,7 @@ public class CmdSpectate extends Cmd
 			{
 				if(pl.isAlive(p.getName()))
 				{
-					p.sendMessage(var.defaultCol() + "You are already in a game.");
+					p.sendMessage(var.errorCol() + "Error: You are already in a game.");
 					return true;
 				}
 				if(pl.gameGoing())
@@ -37,19 +37,13 @@ public class CmdSpectate extends Cmd
 					p.sendMessage(var.defaultCol() + "Now spectating the Hunger Games.");
 				}
 				else
-				{
-					p.sendMessage(var.defaultCol() + "There is no current game.");
-				}
+					p.sendMessage(var.errorCol() + "Error: There is no current game.");
 			}
 			else
-			{
-				p.sendMessage(var.errorCol() + "Error you may not spectate the Hunger Games.");
-			}
+				p.sendMessage(var.errorCol() + "Error: You may not spectate the Hunger Games.");
 		}
 		else
-		{
-			sender.sendMessage("You cannot spectate the hunger games, please log in.");
-		}
+			sender.sendMessage(var.errorCol() + "Error: You cannot spectate the hunger games, please log in.");
 		return true;
 	}
 }

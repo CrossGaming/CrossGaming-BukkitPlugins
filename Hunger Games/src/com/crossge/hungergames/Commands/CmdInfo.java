@@ -25,9 +25,7 @@ public class CmdInfo extends Cmd
 				p.sendMessage(var.defaultCol() + "Dead: " + pl.deceased());
 			}
 			else
-			{
-				p.sendMessage(var.errorCol() + "Error you may not view the info for the current round.");
-			}
+				p.sendMessage(var.errorCol() + "Error: You may not view the info for the current round.");
 		}
 		else
 		{

@@ -39,7 +39,7 @@ public class CmdSetSpawn extends Cmd
 				}
 				if(number > 25)
 				{
-					p.sendMessage(var.defaultCol() + "Max spawns are 25 with the 25th being the spectator spawn");
+					p.sendMessage(var.errorCol() + "Error: Max spawns are 25 with the 25th being the spectator spawn");
 					return false;
 				}
 				String pathx = p.getWorld().getName() + ".s" + Integer.toString(number) + ".x";
@@ -59,14 +59,10 @@ public class CmdSetSpawn extends Cmd
 				g.initMaps();
 			}
 			else
-			{
-				p.sendMessage(var.errorCol() + "Error you may not set the spawnpoints for Hunger Games.");
-			}
+				p.sendMessage(var.errorCol() + "Error: You may not set the spawnpoints for Hunger Games.");
 		}
 		else
-		{
-			sender.sendMessage(var.errorCol() + "You cannot set spawns for the hunger games because you are not an entity, please log in.");
-		}
+			sender.sendMessage(var.errorCol() + "Error: You cannot set spawns for the hunger games because you are not an entity, please log in.");
 		return true;
 	}
 }

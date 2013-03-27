@@ -44,9 +44,7 @@ public class CmdHelp extends Cmd
 					page3(sender);
 			}
 			else
-			{
-				p.sendMessage(var.errorCol() + "Error you may not view the help for Hunger Games.");
-			}
+				p.sendMessage(var.errorCol() + "Error: You may not view the help for Hunger Games.");
 		}
 		else
 		{
@@ -95,8 +93,8 @@ public class CmdHelp extends Cmd
 	private void page3(CommandSender sender)
 	{
 		sender.sendMessage(var.defaultCol() + "/hg setcorner [number] ~ Sets the corners for the hunger games either 1 or 2.");
-		sender.sendMessage(var.defaultCol() + "Coming soon.");
-		sender.sendMessage(var.defaultCol() + "Coming soon.");
+		sender.sendMessage(var.defaultCol() + "/hg sponsor ~ Sponsors yourself.");
+		sender.sendMessage(var.defaultCol() + "/hg kit [kitname] ~ Chooses a kit to use (disabled by default).");
 		sender.sendMessage(var.defaultCol() + "Coming soon.");
 		sender.sendMessage(var.defaultCol() + "Coming soon.");
 	}

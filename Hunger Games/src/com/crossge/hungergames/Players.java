@@ -23,6 +23,7 @@ public class Players
 	private static ArrayList<String> dead = new ArrayList<String>();
 	private static ArrayList<String> queued = new ArrayList<String>();
 	private static ArrayList<String> spectating = new ArrayList<String>();
+	private static ArrayList<String> sponsored = new ArrayList<String>();
 	private File customConfigFile = new File("plugins/Hunger Games", "spawns.yml");
 	private YamlConfiguration customConfig = YamlConfiguration.loadConfiguration(customConfigFile);
 	private static boolean alreadySponsor = false;
@@ -31,6 +32,16 @@ public class Players
 	public Players()
 	{
 		
+	}
+	
+	public boolean alreadySponsored(String name)
+	{
+		return sponsored.contains(name);
+	}
+	
+	public void addSponsored(String name)
+	{
+		sponsored.add(name);
 	}
 	
 	public String leftAlive()
@@ -237,6 +248,7 @@ public class Players
 		alreadySponsor = false;
 		deathStarted = false;
 		spectating.clear();
+		sponsored.clear();
 		g.end();
 	}
 	public void addToQueue(String name)

@@ -27,9 +27,14 @@ permissions:
             HungerGames.vote: true
             HungerGames.forcestart: true
             HungerGames.setcorner: true
+            HungerGames.sponsor: true
+            HungerGames.kit: true
     HungerGames.hg:
         description: Lets you use /hg.
         default: true
+    HungerGames.kit:
+    	description: Lets you use kits during the hunger games.
+    	default: true
     HungerGames.vote:
         description: Lets you vote to start the hunger games.
         default: true
@@ -59,4 +64,7 @@ permissions:
         default: op
     HungerGames.setcorner:
         description: Lets you set the corners for the hunger games.
+        default: op
+    HungerGames.sponsor:
+        description: Lets you sponsor yourself in the hunger games.
         default: op

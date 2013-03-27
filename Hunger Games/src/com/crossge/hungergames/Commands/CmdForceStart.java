@@ -28,14 +28,10 @@ public class CmdForceStart extends Cmd
 					Bukkit.broadcastMessage(var.defaultCol() + p.getName() + " started the game.");
 				}
 				else
-				{
-					p.sendMessage(var.defaultCol() + "Game is already started.");
-				}
+					p.sendMessage(var.errorCol() + "Error: Game is already started.");
 			}
 			else
-			{
-				p.sendMessage(var.errorCol() + "Error you may not vote to start the Hunger Games.");
-			}
+				p.sendMessage(var.errorCol() + "Error: You may not vote to start the Hunger Games.");
 		}
 		else
 		{
@@ -46,9 +42,7 @@ public class CmdForceStart extends Cmd
 				Bukkit.broadcastMessage(var.defaultCol() + "The console started the game.");
 			}
 			else
-			{
-				sender.sendMessage(var.defaultCol() + "Game is already started.");
-			}
+				sender.sendMessage(var.errorCol() + "Error: Game is already started.");
 		}
 		return true;
 	}

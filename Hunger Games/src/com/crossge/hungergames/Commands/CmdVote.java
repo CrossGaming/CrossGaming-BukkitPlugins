@@ -34,7 +34,7 @@ public class CmdVote extends Cmd
 				}
 				if(map == 0 || map > 3)
 				{
-					p.sendMessage(var.errorCol() + "Please enter a number inbetween 1 and 3.");
+					p.sendMessage(var.errorCol() + "Error: Please enter a number inbetween 1 and 3.");
 					return false;
 				}
 				if(!pl.gameGoing())
@@ -46,24 +46,16 @@ public class CmdVote extends Cmd
 						p.sendMessage(var.defaultCol() + "You voted for map " + args[0]);
 					}
 					else
-					{
-						p.sendMessage(var.defaultCol() + "You must join the queue before you can vote.");
-					}
+						p.sendMessage(var.errorCol() + "Error: You must join the queue before you can vote.");
 				}
 				else
-				{
-					p.sendMessage(var.defaultCol() + "Game is already started.");
-				}
+					p.sendMessage(var.errorCol() + "Error: Game is already started.");
 			}
 			else
-			{
-				p.sendMessage(var.errorCol() + "Error you may not vote to start the Hunger Games.");
-			}
+				p.sendMessage(var.errorCol() + "Error: You may not vote to start the Hunger Games.");
 		}
 		else
-		{
-			sender.sendMessage(var.errorCol() + "You cannot vote for starting the hunger games, please log in.");
-		}
+			sender.sendMessage(var.errorCol() + "Error: You cannot vote for starting the hunger games, please log in.");
 		return true;
 	}
 }

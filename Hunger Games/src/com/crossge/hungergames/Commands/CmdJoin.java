@@ -23,7 +23,7 @@ public class CmdJoin extends Cmd
 			{
 				if(pl.isAlive(p.getName()))
 				{
-					p.sendMessage(var.defaultCol() + "You are already in a game.");
+					p.sendMessage(var.errorCol() + "Error: You are already in a game.");
 					return true;
 				}
 				int spot = pl.posInQueue(p.getName()); 
@@ -36,20 +36,16 @@ public class CmdJoin extends Cmd
 				}
 				if(pl.queueFull())
 				{
-					p.sendMessage(var.defaultCol() + " Sorry the next game is full.");
+					p.sendMessage(var.defaultCol() + "Sorry the next game is full.");
 					return true;
 				}
 				p.sendMessage(ChatColor.GOLD + "#" + Integer.toString(spot) + var.defaultCol() + " in line for the next game.");
 			}
 			else
-			{
-				p.sendMessage(var.errorCol() + "Error you may not join the Hunger Games.");
-			}
+				p.sendMessage(var.errorCol() + "Error: You may not join the Hunger Games.");
 		}
 		else
-		{
-			sender.sendMessage(var.errorCol() + "You cannot join the hunger games, please log in.");
-		}
+			sender.sendMessage(var.errorCol() + "Error: You cannot join the hunger games, please log in.");
 		return true;
 	}	
 }

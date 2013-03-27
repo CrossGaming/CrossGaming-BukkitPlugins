@@ -43,7 +43,7 @@ public class CmdSetCorner extends Cmd
 				}
 				if(number > 2)
 				{
-					p.sendMessage(var.defaultCol() + "Only 2 corners are needed.");
+					p.sendMessage(var.errorCol() + "Error: Only 2 corners are needed.");
 					return false;
 				}
 				String pathx = p.getWorld().getName() + ".corner" + Integer.toString(number) + ".x";
@@ -63,14 +63,10 @@ public class CmdSetCorner extends Cmd
 				g.initMaps();
 			}
 			else
-			{
-				p.sendMessage(var.errorCol() + "Error you may not set the corners for Hunger Games.");
-			}
+				p.sendMessage(var.errorCol() + "Error: You may not set the corners for Hunger Games.");
 		}
 		else
-		{
-			sender.sendMessage(var.errorCol() + "You cannot set corners for the hunger games because you are not an entity, please log in.");
-		}
+			sender.sendMessage(var.errorCol() + "Error: You cannot set corners for the hunger games because you are not an entity, please log in.");
 		return true;
 	}
 }

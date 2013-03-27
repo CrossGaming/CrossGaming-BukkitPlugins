@@ -25,7 +25,7 @@ public class CmdLeave extends Cmd
 				if(spot == 0)//In game not in line
 				{
 					p.setHealth(0);
-					p.sendMessage(var.defaultCol() + "Hunger Games left.");
+					p.sendMessage(var.defaultCol() + "You left theHunger Games.");
 					Bukkit.broadcastMessage(var.defaultCol() + p.getName() + " left the current hunger games.");
 					return true;
 				}
@@ -33,14 +33,10 @@ public class CmdLeave extends Cmd
 				p.sendMessage(var.defaultCol() + "Removed from the line for joining the next game.");
 			}
 			else
-			{
-				p.sendMessage(var.errorCol() + "Error you may not leave the Hunger Games.");//wait wtf
-			}
+				p.sendMessage(var.errorCol() + "Error: You may not leave the Hunger Games.");//wait wtf
 		}
 		else
-		{
-			sender.sendMessage("You cannot leave the hunger games, please log in.");
-		}
+			sender.sendMessage(var.errorCol() + "Error: You cannot leave the hunger games, please log in.");
 		return true;
 	}
 }

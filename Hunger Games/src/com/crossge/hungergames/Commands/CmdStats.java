@@ -31,7 +31,7 @@ public class CmdStats extends Cmd
 					String message = s.get(args[0]);
 					if(message == null)
 					{
-						p.sendMessage(var.errorCol() + "Unkown player");
+						p.sendMessage(var.errorCol() + "Error: Unkown player");
 						return false;
 					}
 					message = parseStats(message);
@@ -39,9 +39,7 @@ public class CmdStats extends Cmd
 				}
 			}
 			else
-			{
-				p.sendMessage(var.errorCol() + "Error you may not view your stats.");
-			}
+				p.sendMessage(var.errorCol() + "Error: You may not view your stats.");
 		}
 		else
 		{
@@ -50,7 +48,7 @@ public class CmdStats extends Cmd
 			String message = s.get(args[0]);
 			if(message == null)
 			{
-				sender.sendMessage(var.errorCol() + "Unkown player");
+				sender.sendMessage(var.errorCol() + "Error: Unkown player");
 				return false;
 			}
 			message = parseStats(message);

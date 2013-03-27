@@ -3,6 +3,7 @@ package com.crossge.hungergames;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Random;
 import java.util.Set;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -12,6 +13,9 @@ public class Game
 	Variables var = new Variables();
 	private static String nextMap = "";
 	private static boolean voting = false;
+	private static int map1 = 0;
+	private static int map2 = 0;
+	private static int map3 = 0;
 	private static ArrayList<String> maps = new ArrayList<String>();
 	private static ArrayList<Integer> mvote = new ArrayList<Integer>();
 	private static HashMap<String, Integer> votes = new HashMap<String, Integer>();
@@ -32,11 +36,19 @@ public class Game
 	}
 	
 	private void m()
-	{//Todo add randomized picking
+	{
+		Random r = new Random();
 		mvote.clear();
-		mvote.add(0);
-		mvote.add(1);
-		mvote.add(2);
+		ArrayList<Integer> mid = new ArrayList<Integer>();
+		for(int i = 0; i < maps.size(); i++)
+			mid.add(i);
+		int temp = 0;
+		for(int i = 0; i < 3; i++)
+		{
+			temp = r.nextInt(mid.size());
+			mvote.add(mid.get(temp));
+			mid.remove(temp);
+		}
 	}
 	
 	public void initMaps()
@@ -70,24 +82,27 @@ public class Game
 		{
 			if(i == 3)
 				break;
-			Bukkit.broadcastMessage(var.defaultCol() + Integer.toString(i + 1) + " " + maps.get(mvote.get(i)));
+			Bukkit.broadcastMessage(var.defaultCol() + "Vote " + Integer.toString(i + 1) + " for map " + maps.get(mvote.get(i)));
 		}
 	}
 	public void addVote(String name, int map)
 	{
+		int temp = 0;
+		if(votes.containsKey(name))
+			temp = votes.get(name);
 		votes.put(name, map);
-		int map1 = 0;
-		int map2 = 0;
-		int map3 = 0;
-		for(String vote : votes.keySet())
-		{
-			if(votes.get(vote) == 1)
-				map1++;
-			else if(votes.get(vote) == 2)
-				map2++;
-			else if(votes.get(vote) == 3)
-				map3++;
-		}
+		if(map == 1)
+			map1 = map1 + 1;
+		else if(map == 2)
+			map2 = map2 + 1;
+		else if(map == 3)
+			map3 = map3 + 1;
+		if(temp == 1)
+			map1 = map1 - 1;
+		else if(temp == 2)
+			map2 = map2 - 1;
+		else if(temp == 3)
+			map3 = map3 - 1;
 		if(map1 > map2 && map1 > map3)
 			nextMap = maps.get(mvote.get(0));
 		else if(map2 > map1 && map2 > map3)
@@ -99,6 +114,15 @@ public class Game
 	}
 	public void delVote(String name)
 	{
+		int temp = 0;
+		if(votes.containsKey(name))
+			temp = votes.get(name);
+		if(temp == 1)
+			map1 = map1 - 1;
+		else if(temp == 2)
+			map2 = map2 - 1;
+		else if(temp == 3)
+			map3 = map3 - 1;
 		votes.remove(name);
 	}
 	public void end()

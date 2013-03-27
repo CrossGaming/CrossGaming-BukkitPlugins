@@ -44,6 +44,10 @@ public class CmdHungerGames extends Cmd
 			com = new CmdForceStart();
 		else if(subCom.equalsIgnoreCase("setcorner"))
 			com = new CmdSetCorner();
+		else if(subCom.equalsIgnoreCase("sponsor"))
+			com = new CmdSponsor();
+		else if(subCom.equalsIgnoreCase("kit"))
+			com = new CmdKit();
 		return com.commandUse(sender, argsNew);	
 	}	
 }
