@@ -33,8 +33,8 @@ permissions:
         description: Lets you use /hg.
         default: true
     HungerGames.kit:
-    	description: Lets you use kits during the hunger games.
-    	default: true
+        description: Lets you use kits during the hunger games.
+        default: true
     HungerGames.vote:
         description: Lets you vote to start the hunger games.
         default: true

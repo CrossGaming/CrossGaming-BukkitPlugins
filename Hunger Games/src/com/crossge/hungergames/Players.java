@@ -89,7 +89,7 @@ public class Players
 	}
 	public boolean gameGoing()
 	{
-		return alive.size() > 1;
+		return alive.size() > 0;
 	}
 	public boolean isAlive(String name)
 	{

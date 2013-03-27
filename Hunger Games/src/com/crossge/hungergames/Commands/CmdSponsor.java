@@ -27,7 +27,7 @@ public class CmdSponsor extends Cmd
 					if(pl.alreadySponsored(p.getName()))
 					{
 						p.sendMessage(var.errorCol() + "Error: You already sponsored yourself this round.");
-						return false;
+						return true;
 					}
 					sp.giveItems(p);
 					pl.addSponsored(p.getName());

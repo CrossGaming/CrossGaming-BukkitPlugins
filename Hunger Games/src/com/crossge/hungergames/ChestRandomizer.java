@@ -23,6 +23,7 @@ public class ChestRandomizer
 	private YamlConfiguration customConf = YamlConfiguration.loadConfiguration(customConfFile);
 	private static ArrayList<Integer> blockIds = new ArrayList<Integer>();
 	private static ArrayList<Double> percentChance = new ArrayList<Double>();
+	private static ArrayList<Integer> chestSpots = new ArrayList<Integer>();
 	public ChestRandomizer()
 	{
 		
@@ -81,17 +82,75 @@ public class ChestRandomizer
 					Block b = w.getBlockAt(x, y, z);
 					if(b.getType() == Material.CHEST || b.getType() == Material.TRAPPED_CHEST)
 					{
-						if(b.getState() instanceof Chest)
-						{
-							Chest c = (Chest) b.getState();
-							Inventory inv = c.getBlockInventory();
-							inv.clear();
-							int chestAmount = items();
-							for(int i = 0; i < chestAmount; i++)
-								inv.addItem(new ItemStack(Material.getMaterial(chestId()), 1));
-						}
+						resetSpots();
+						Chest c = (Chest) b.getState();
+						Inventory inv = c.getBlockInventory();
+						inv.clear();
+						int chestAmount = items();
+						for(int i = 0; i < chestAmount; i++)
+							inv.setItem(chestLoc(), new ItemStack(Material.getMaterial(chestId()), 1));
 					}
 				}
+	}
+	
+	public void emptyChests()
+	{
+		setLists();
+		String world = g.getNext();
+		int x1 = customConfig.getInt(world + ".corner1.x");
+		int y1 = customConfig.getInt(world + ".corner1.y");
+		int z1 = customConfig.getInt(world + ".corner1.z");
+		int x2 = customConfig.getInt(world + ".corner2.x");
+		int y2 = customConfig.getInt(world + ".corner2.y");
+		int z2 = customConfig.getInt(world + ".corner2.z");
+		int temp;
+		if(x1 < x2)
+		{
+			temp = x2;
+			x2 = x1;
+			x1 = temp;
+		}
+		if(y1 < y2)
+		{
+			temp = y2;
+			y2 = y1;
+			y1 = temp;
+		}
+		if(z1 < z2)
+		{
+			temp = z2;
+			z2 = z1;
+			z1 = temp;
+		}
+		World w = Bukkit.getWorld(world);
+		for(int x = x2; x <= x1; x++)
+			for(int y = y2; y <= y1; y++)
+				for(int z = z2; z <= z1; z++)
+				{
+					Block b = w.getBlockAt(x, y, z);
+					if(b.getType() == Material.CHEST || b.getType() == Material.TRAPPED_CHEST)
+					{
+						Chest c = (Chest) b.getState();
+						Inventory inv = c.getBlockInventory();
+						inv.clear();
+					}
+				}
+	}
+	
+	private void resetSpots()
+	{
+		chestSpots.clear();
+		for(int i = 0; i < 27; i++)
+			chestSpots.add(i);
+	}
+	
+	private int chestLoc()
+	{
+		Random r = new Random();
+		int temp = r.nextInt(chestSpots.size());
+		int ret = chestSpots.get(temp);
+		chestSpots.remove(temp);
+		return ret;
 	}
 	
 	private int items()
