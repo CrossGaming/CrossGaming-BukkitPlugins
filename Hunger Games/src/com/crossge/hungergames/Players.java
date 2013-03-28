@@ -39,6 +39,11 @@ public class Players
 		return sponsored.contains(name);
 	}
 	
+	public void endTimer()
+	{
+		t.cancel();
+	}
+	
 	public void addSponsored(String name)
 	{
 		sponsored.add(name);
