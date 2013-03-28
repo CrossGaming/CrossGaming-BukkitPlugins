@@ -42,6 +42,8 @@ public class Players
 	public void endTimer()
 	{
 		t.cancel();
+		t.purge();
+		t = new Timer();
 	}
 	
 	public void addSponsored(String name)
@@ -133,7 +135,7 @@ public class Players
 		p.setHealth(20);
 		p.setFlying(false);
 		p.setCanPickupItems(true);
-		p.performCommand("/spawn");
+		p.performCommand("spawn");
 	}
 	public void addDead(String name)
 	{
@@ -144,7 +146,7 @@ public class Players
 		p.setHealth(20);
 		p.setFlying(false);
 		p.setCanPickupItems(true);
-		p.performCommand("/spawn");
+		p.performCommand("spawn");
 	}
 	public String deceased()
 	{
@@ -198,7 +200,7 @@ public class Players
 		p.setHealth(20);
 		p.setFlying(false);
 		p.setCanPickupItems(true);
-		p.performCommand("/spawn");
+		p.performCommand("spawn");
 		return alive.get(0);
 	}
 	public void hideSpectators(Player p)

@@ -39,7 +39,7 @@ public class Listeners implements Listener
     	{
 			if(pl.isAlive(event.getPlayer().getName()))
 			{
-				if(!event.getBlock().getType().equals(Material.LEAVES) || !event.getBlock().getType().isEdible())
+				if(!event.getBlock().getType().equals(Material.LEAVES) && !event.getBlock().getType().isEdible())
 					event.setCancelled(true);
 			}
 			else if(pl.isSpectating(event.getPlayer().getName()))
@@ -135,11 +135,12 @@ public class Listeners implements Listener
 				{
 		    		pl.deathCountdown();
 				}
-	    	}
-	    	if(pl.onePlayerLeft())
-	    	{
-	    		Bukkit.broadcastMessage(var.defaultCol() + pl.winner() + " won the Hunger Games.");
-	    		pl.endGame();
+		    	if(pl.onePlayerLeft())
+		    	{
+		    		Bukkit.broadcastMessage(var.defaultCol() + pl.winner() + " won the Hunger Games.");
+		    		pl.endTimer();
+		    		pl.endGame();
+		    	}
 	    	}
     	}
 	}

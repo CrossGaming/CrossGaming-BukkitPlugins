@@ -42,8 +42,8 @@ public class CmdVote extends Cmd
 					int spot = pl.posInQueue(p.getName()); 
 					if(spot != 0)
 					{
-						g.addVote(p.getName(), map);
-						p.sendMessage(var.defaultCol() + "You voted for map " + args[0]);
+						String m = g.addVote(p.getName(), map);
+						p.sendMessage(var.defaultCol() + "You voted for " + m + ".");
 					}
 					else
 						p.sendMessage(var.errorCol() + "Error: You must join the queue before you can vote.");

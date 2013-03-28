@@ -6,6 +6,8 @@ import java.util.HashMap;
 import java.util.Random;
 import java.util.Set;
 import org.bukkit.Bukkit;
+import org.bukkit.World;
+import org.bukkit.WorldCreator;
 import org.bukkit.configuration.file.YamlConfiguration;
 
 public class Game
@@ -86,7 +88,7 @@ public class Game
 			Bukkit.broadcastMessage(var.defaultCol() + "Vote " + Integer.toString(i + 1) + " for map " + maps.get(mvote.get(i)));
 		}
 	}
-	public void addVote(String name, int map)
+	public String addVote(String name, int map)
 	{
 		int temp = 0;
 		if(votes.containsKey(name))
@@ -112,6 +114,7 @@ public class Game
 			nextMap = maps.get(mvote.get(2));
 		else
 			nextMap = maps.get(mvote.get(0));
+		return maps.get(mvote.get(map - 1));
 	}
 	public void delVote(String name)
 	{
@@ -128,6 +131,8 @@ public class Game
 	}
 	public void end()
 	{
+		Bukkit.unloadWorld(nextMap, false);
+		Bukkit.createWorld(new WorldCreator(nextMap));
 		nextMap = "";
 		kit.clearKits();
 	}
@@ -136,9 +141,19 @@ public class Game
 		new Players().gameStart();
 		votes.clear();
 		voting = false;
+		disableSave();
 	}
 	public boolean voteHappening()
 	{
 		return voting;
+	}
+	public void disableSave()
+	{
+		World w;
+		for(String map : maps)
+		{
+			w = Bukkit.getWorld(map);
+			w.setAutoSave(false);
+		}
 	}
 }
