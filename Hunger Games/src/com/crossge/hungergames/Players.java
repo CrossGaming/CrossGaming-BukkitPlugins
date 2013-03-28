@@ -29,6 +29,7 @@ public class Players
 	private static boolean alreadySponsor = false;
 	private static boolean deathStarted = false;
 	private static Timer t = new Timer();
+	private static Timer count = new Timer();
 	public Players()
 	{
 		
@@ -44,6 +45,9 @@ public class Players
 		t.cancel();
 		t.purge();
 		t = new Timer();
+		count.cancel();
+		count.purge();
+		count = new Timer();
 	}
 	
 	public void addSponsored(String name)
@@ -55,9 +59,7 @@ public class Players
 	{
 		String temp = "";
 		for(int i = 0; i < alive.size(); i++)
-		{
 			temp += alive.get(i) + ", ";
-		}
 		temp = temp.trim();
 		temp = temp.substring(0, temp.length() - 2);
 		temp += ".";
@@ -67,9 +69,7 @@ public class Players
 	{
 		Bukkit.broadcastMessage(var.defaultCol() + "The players left now recieve sponsorships.");
 		for(int i = 0; i < alive.size(); i++)
-		{
 			spons.giveItems(Bukkit.getPlayer(alive.get(i)));
-		}
 	}
 	public void startDeath()
 	{
@@ -126,10 +126,8 @@ public class Players
 	{
 		spectating.remove(name);
 		for(Player p : Bukkit.getOnlinePlayers())
-		{
 			if(!p.canSee(Bukkit.getPlayer(name)))
 				p.hidePlayer(Bukkit.getPlayer(name));
-		}
 		Player p = Bukkit.getPlayer(name);
 		p.setFoodLevel(20);
 		p.setHealth(20);
@@ -154,9 +152,7 @@ public class Players
 			return "none";
 		String temp = "";
 		for(int i = 0; i < dead.size(); i++)
-		{
 			temp += dead.get(i) + ", ";
-		}
 		temp = temp.trim();
 		temp = temp.substring(0, temp.length() - 1);
 		temp += ".";
@@ -168,9 +164,7 @@ public class Players
 			return "none";
 		String temp = "";
 		for(int i = 0; i < alive.size(); i++)
-		{
 			temp += alive.get(i) + ", ";
-		}
 		temp = temp.trim();
 		temp = temp.substring(0, temp.length() - 1);
 		temp += ".";
@@ -208,39 +202,27 @@ public class Players
 		if(spectating.size() == 0)
 			return;
 		for(int i = 0; i < spectating.size(); i++)
-		{
 			p.hidePlayer(Bukkit.getPlayer(spectating.get(i)));
-		}
 	}
 	public void unhideSpectators(Player p)
 	{
 		if(spectating.size() == 0)
 			return;
 		for(int i = 0; i < spectating.size(); i++)
-		{
 			if(!p.canSee(Bukkit.getPlayer(spectating.get(i))))
 				p.showPlayer(Bukkit.getPlayer(spectating.get(i)));
-		}
 	}
 	private void hideSpec()
 	{
 		for(Player p : Bukkit.getOnlinePlayers())
-		{
 			for(int i = 0; i < spectating.size(); i++)
-			{
 				p.hidePlayer(Bukkit.getPlayer(spectating.get(i)));
-			}
-		}
 	}
 	private void unhideSpec()
 	{
 		for(Player p : Bukkit.getOnlinePlayers())
-		{
 			for(int i = 0; i < spectating.size(); i++)
-			{
 				p.showPlayer(Bukkit.getPlayer(spectating.get(i)));
-			}
-		}
 	}
 	public void endGame()
 	{
@@ -248,9 +230,7 @@ public class Players
 		origalive.clear();
 		dead.clear();
 		for(Player p : Bukkit.getOnlinePlayers())
-		{
 			p.setCanPickupItems(true);
-		}
 		unhideSpec();
 		alreadySponsor = false;
 		deathStarted = false;
@@ -260,10 +240,7 @@ public class Players
 	}
 	public void addToQueue(String name)
 	{
-		if(g.getNext().equals(""))
-		{
-		//EMPTY IF :D	
-		}
+		g.getNext();
 		queued.add(name);
 	}
 	public void removeFromQueue(String name)
@@ -281,7 +258,6 @@ public class Players
 	public String district(String name)
 	{
 		for(int i = 0; i < origalive.size(); i++)
-		{
 			if(origalive.get(i).equals(name))
 			{
 				int temp = i + 1;
@@ -289,7 +265,6 @@ public class Players
 					temp = temp - 11;
 				return Integer.toString(temp);
 			}
-		}
 		return null;
 	}
 	public void gameStart()
@@ -305,11 +280,14 @@ public class Players
 		}
 		queued.clear();
 		cr.randomizeChests();
+		countdown();
+	}
+	private void finishGameStart()
+	{
 		joinGame();
 		if(deathMatch())
-		{
 			deathCountdown();
-		}
+		Bukkit.getWorld(g.getNext()).setTime(70584000);//70584000: sunrise. 70620000: evening
 	}
 	private void joinGame()
 	{
@@ -335,6 +313,76 @@ public class Players
 		String pathy = world + ".s" + Integer.toString(number) + ".y";//temporarily only have support for one map name
 		String pathz = world + ".s" + Integer.toString(number) + ".z";//temporarily only have support for one map name
 		return new Location(Bukkit.getWorld(world), customConfig.getInt(pathx), customConfig.getInt(pathy), customConfig.getInt(pathz));
+	}
+	public void countdown()
+	{
+		Bukkit.broadcastMessage(var.defaultCol() + "Game will start in 60 seconds please use /hg join to join.");
+		count.schedule(new TimerTask(){public void run() {countdown2();}}, 15000);
+	}
+	public void countdown2()
+	{
+		Bukkit.broadcastMessage(var.defaultCol() + "Game will start in 45 seconds please use /hg join to join.");
+		count.schedule(new TimerTask(){public void run() {countdown3();}}, 15000);
+	}
+	public void countdown3()
+	{
+		Bukkit.broadcastMessage(var.defaultCol() + "Game will start in 30 seconds please use /hg join to join.");
+		count.schedule(new TimerTask(){public void run() {countdown4();}}, 15000);
+	}
+	public void countdown4()
+	{
+		Bukkit.broadcastMessage(var.defaultCol() + "Game will start in 15 seconds please use /hg join to join.");
+		count.schedule(new TimerTask(){public void run() {countdown5();}}, 5000);
+	}
+	public void countdown5()
+	{
+		Bukkit.broadcastMessage(var.defaultCol() + "Game will start in 10 seconds please use /hg join to join.");
+		count.schedule(new TimerTask(){public void run() {countdown6();}}, 1000);
+	}
+	public void countdown6()
+	{
+		Bukkit.broadcastMessage(var.defaultCol() + "Game will start in 9 seconds please use /hg join to join.");
+		count.schedule(new TimerTask(){public void run() {countdown7();}}, 1000);
+	}
+	public void countdown7()
+	{
+		Bukkit.broadcastMessage(var.defaultCol() + "Game will start in 8 seconds please use /hg join to join.");
+		count.schedule(new TimerTask(){public void run() {countdown8();}}, 1000);
+	}
+	public void countdown8()
+	{
+		Bukkit.broadcastMessage(var.defaultCol() + "Game will start in 7 seconds please use /hg join to join.");
+		count.schedule(new TimerTask(){public void run() {countdown9();}}, 1000);
+	}
+	public void countdown9()
+	{
+		Bukkit.broadcastMessage(var.defaultCol() + "Game will start in 6 seconds please use /hg join to join.");
+		count.schedule(new TimerTask(){public void run() {countdown10();}}, 1000);
+	}
+	public void countdown10()
+	{
+		Bukkit.broadcastMessage(var.defaultCol() + "Game will start in 5 seconds please use /hg join to join.");
+		count.schedule(new TimerTask(){public void run() {countdown11();}}, 1000);
+	}
+	public void countdown11()
+	{
+		Bukkit.broadcastMessage(var.defaultCol() + "Game will start in 4 seconds please use /hg join to join.");
+		count.schedule(new TimerTask(){public void run() {countdown12();}}, 1000);
+	}
+	public void countdown12()
+	{
+		Bukkit.broadcastMessage(var.defaultCol() + "Game will start in 3 seconds please use /hg join to join.");
+		count.schedule(new TimerTask(){public void run() {countdown13();}}, 1000);
+	}
+	public void countdown13()
+	{
+		Bukkit.broadcastMessage(var.defaultCol() + "Game will start in 2 seconds please use /hg join to join.");
+		count.schedule(new TimerTask(){public void run() {countdown14();}}, 1000);
+	}
+	public void countdown14()
+	{
+		Bukkit.broadcastMessage(var.defaultCol() + "Game will start in 1 seconds please use /hg join to join.");
+		count.schedule(new TimerTask(){public void run() {finishGameStart();}}, 1000);
 	}
 	public void deathCountdown()
 	{
@@ -363,11 +411,51 @@ public class Players
 	private void deathCountdown5()
 	{
 		Bukkit.broadcastMessage(var.defaultCol() + "Death match will start in 10 seconds.");
-		t.schedule(new TimerTask(){public void run() {deathCountdown6();}}, 5000);
+		t.schedule(new TimerTask(){public void run() {deathCountdown6();}}, 1000);
 	}
 	private void deathCountdown6()
 	{
+		Bukkit.broadcastMessage(var.defaultCol() + "Death match will start in 9 seconds.");
+		t.schedule(new TimerTask(){public void run() {deathCountdown7();}}, 1000);
+	}
+	private void deathCountdown7()
+	{
+		Bukkit.broadcastMessage(var.defaultCol() + "Death match will start in 8 seconds.");
+		t.schedule(new TimerTask(){public void run() {deathCountdown8();}}, 1000);
+	}
+	private void deathCountdown8()
+	{
+		Bukkit.broadcastMessage(var.defaultCol() + "Death match will start in 7 seconds.");
+		t.schedule(new TimerTask(){public void run() {deathCountdown9();}}, 1000);
+	}
+	private void deathCountdown9()
+	{
+		Bukkit.broadcastMessage(var.defaultCol() + "Death match will start in 6 seconds.");
+		t.schedule(new TimerTask(){public void run() {deathCountdown10();}}, 1000);
+	}
+	private void deathCountdown10()
+	{
 		Bukkit.broadcastMessage(var.defaultCol() + "Death match will start in 5 seconds.");
-		t.schedule(new TimerTask(){public void run() {startDeath();}}, 5000);
+		t.schedule(new TimerTask(){public void run() {deathCountdown11();}}, 1000);
+	}
+	private void deathCountdown11()
+	{
+		Bukkit.broadcastMessage(var.defaultCol() + "Death match will start in 4 seconds.");
+		t.schedule(new TimerTask(){public void run() {deathCountdown12();}}, 1000);
+	}
+	private void deathCountdown12()
+	{
+		Bukkit.broadcastMessage(var.defaultCol() + "Death match will start in 3 seconds.");
+		t.schedule(new TimerTask(){public void run() {deathCountdown13();}}, 1000);
+	}
+	private void deathCountdown13()
+	{
+		Bukkit.broadcastMessage(var.defaultCol() + "Death match will start in 2 seconds.");
+		t.schedule(new TimerTask(){public void run() {deathCountdown14();}}, 1000);
+	}
+	private void deathCountdown14()
+	{
+		Bukkit.broadcastMessage(var.defaultCol() + "Death match will start in 1 seconds.");
+		t.schedule(new TimerTask(){public void run() {startDeath();}}, 1000);
 	}
 }
