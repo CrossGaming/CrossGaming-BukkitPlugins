@@ -38,8 +38,18 @@ public class CmdKit extends Cmd
 								kit.listKits(p);
 							else
 							{
-								//add check if already chose kit
-								kit.giveKit(p, args[0]);
+								if(!kit.chose(p.getName()))
+								{
+									if(kit.exists(args[0]))
+									{
+										kit.giveKit(p, args[0]);
+										p.sendMessage(var.defaultCol() + "You chose the kit " + args[0] + ".");
+									}
+									else
+										p.sendMessage(var.errorCol() + "Error: That kit does not exist.");	
+								}
+								else
+									p.sendMessage(var.errorCol() + "Error: Already chose a kit.");
 							}
 						}
 						else

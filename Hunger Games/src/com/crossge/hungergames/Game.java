@@ -11,6 +11,7 @@ import org.bukkit.configuration.file.YamlConfiguration;
 public class Game
 {
 	Variables var = new Variables();
+	Kits kit = new Kits();
 	private static String nextMap = "";
 	private static boolean voting = false;
 	private static int map1 = 0;
@@ -128,6 +129,7 @@ public class Game
 	public void end()
 	{
 		nextMap = "";
+		kit.clearKits();
 	}
 	public void start()
 	{

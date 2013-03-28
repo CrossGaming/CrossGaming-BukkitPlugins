@@ -13,6 +13,7 @@ public class Initialization
 	private File customConfigFileSQL = null;
 	private File customConfigFileChest = null;
 	private File customConfigFileSponsor = null;
+	private File customConfigFileKits = null;
 	public Initialization()
 	{
 		
@@ -49,6 +50,21 @@ public class Initialization
 				customConfig.set("username", "username");
 				customConfig.set("password", "password");
 				customConfig.save(customConfigFileSQL);
+			}
+			catch (IOException e){}
+		}
+		customConfigFileKits = new File("plugins/Hunger Games", "kits.yml");
+		if(!customConfigFileKits.exists())
+		{
+			try
+			{
+				customConfigFileKits.createNewFile();
+				YamlConfiguration customConfig = YamlConfiguration.loadConfiguration(customConfigFileKits);
+				customConfig.set("Tribute.345", 1);//compass
+				customConfig.set("Tribute.346", 1);//fishing rod
+				customConfig.set("Tribute.272", 1);//stone sword
+				customConfig.set("Tribute.297", 2);//bread
+				customConfig.save(customConfigFileKits);
 			}
 			catch (IOException e){}
 		}
