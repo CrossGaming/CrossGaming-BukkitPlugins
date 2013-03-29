@@ -31,10 +31,8 @@ public class Game
 	
 	public String getNext()
 	{
-		if(maps.size() == 1)
-			nextMap = maps.get(0);
-		else if(nextMap.equals(""))
-			holdVote();
+		if(nextMap.equals(""))
+			nextMap = maps.get(mvote.get(0));
 		return nextMap;
 	}
 	
@@ -59,18 +57,14 @@ public class Game
 		maps.clear();
 		Set<String> temp = customConfig.getKeys(false);
 		for(String r : temp)
-		{
 			maps.add(r);
-		}
 	}
 	
 	public String maps()
 	{
 		String m = "";
 		for(int i = 0; i < maps.size(); i++)
-		{
 			m += maps.get(i) + ", ";
-		}
 		m = m.trim();
 		m = m.substring(0, maps.size() - 1).trim();
 		m = m + ".";
@@ -78,15 +72,28 @@ public class Game
 	}
 	public void holdVote()
 	{
-		m();
+		if(!voting)
+			m();
 		voting = true;
 		Bukkit.broadcastMessage(var.defaultCol() + "Maps you can vote for are:");
 		for(int i = 0; i < maps.size(); i++)
 		{
 			if(i == 3)
 				break;
-			Bukkit.broadcastMessage(var.defaultCol() + "Vote " + Integer.toString(i + 1) + " for map " + maps.get(mvote.get(i)));
+			Bukkit.broadcastMessage(var.defaultCol() + "Vote " + Integer.toString(i + 1) + " for map " + maps.get(mvote.get(i)) +
+					" current votes: " + votes(mvote.get(i)));
 		}
+	}
+	private String votes(int map)
+	{
+		map = map + 1;
+		if(map == 1)
+			return Integer.toString(map1);
+		else if(map == 2)
+			return Integer.toString(map2);
+		else if(map == 3)
+			return Integer.toString(map3);
+		return "";
 	}
 	public String addVote(String name, int map)
 	{
@@ -135,6 +142,7 @@ public class Game
 		Bukkit.createWorld(new WorldCreator(nextMap));
 		nextMap = "";
 		kit.clearKits();
+		start();//comment to stop automation
 	}
 	public void start()
 	{

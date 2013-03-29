@@ -28,8 +28,13 @@ public class Players
 	private YamlConfiguration customConfig = YamlConfiguration.loadConfiguration(customConfigFile);
 	private static boolean alreadySponsor = false;
 	private static boolean deathStarted = false;
+	private static int xmin = 0;
+	private static int xmax = 0;
+	private static int zmin = 0;
+	private static int zmax = 0;
 	private static Timer t = new Timer();
 	private static Timer count = new Timer();
+	private static Timer day = new Timer();
 	public Players()
 	{
 		
@@ -39,7 +44,6 @@ public class Players
 	{
 		return sponsored.contains(name);
 	}
-	
 	public void endTimer()
 	{
 		t.cancel();
@@ -48,13 +52,14 @@ public class Players
 		count.cancel();
 		count.purge();
 		count = new Timer();
+		day.cancel();
+		day.purge();
+		day = new Timer();
 	}
-	
 	public void addSponsored(String name)
 	{
 		sponsored.add(name);
 	}
-	
 	public String leftAlive()
 	{
 		String temp = "";
@@ -71,8 +76,55 @@ public class Players
 		for(int i = 0; i < alive.size(); i++)
 			spons.giveItems(Bukkit.getPlayer(alive.get(i)));
 	}
+	public void escaping(Player p)
+	{
+		int x = p.getLocation().getBlockX();
+		int z = p.getLocation().getBlockZ();
+		if(x == xmax || x == xmin || z == zmax || z == zmin)
+		{
+			Bukkit.broadcastMessage(var.defaultCol() + p.getName() + " is trying to escape the death match.");
+			Player temp;
+			for(int i = 0; i < alive.size(); i++)
+			{
+				temp = Bukkit.getPlayer(alive.get(i));
+				temp.teleport(loc(i + 1));
+			}
+		}
+	}
 	public void startDeath()
 	{
+		String world = g.getNext();
+		String pathx = "";
+		String pathz = "";
+		int tempxmin = 0;
+		int tempxmax = 0;
+		int tempzmin = 0;
+		int tempzmax = 0;
+		int x = 0;
+		int z = 0;
+		for(int i = 1; i < 25; i++)
+		{
+			pathx = world + ".s" + Integer.toString(i) + ".x";
+			pathz = world + ".s" + Integer.toString(i) + ".z";
+			x = customConfig.getInt(pathx);
+			z = customConfig.getInt(pathz);
+			if(z > tempzmax)
+				tempzmax = z;
+			else if(z < tempzmin)
+				tempzmin = z;
+			if(x > tempxmax)
+				tempxmax = x;
+			else if(x < tempxmin)
+				tempxmin = x;
+		}
+		tempzmax = tempzmax + 3;
+		tempzmin = tempzmin - 3;
+		tempxmax = tempxmax + 3;
+		tempxmin = tempxmin - 3;
+		zmax = tempzmax;
+		zmin = tempzmin;
+		xmax = tempxmax;
+		xmin = tempxmin;
 		Bukkit.broadcastMessage(var.defaultCol() + "Death match started.");
 		Player temp;
 		for(int i = 0; i < alive.size(); i++)
@@ -240,7 +292,6 @@ public class Players
 	}
 	public void addToQueue(String name)
 	{
-		g.getNext();
 		queued.add(name);
 	}
 	public void removeFromQueue(String name)
@@ -273,21 +324,33 @@ public class Players
 		origalive.clear();
 		dead.clear();
 		spectating.clear();
+		vote1();
+	}
+	private void finishGameStart()
+	{
+		if(queued.size() < 2)
+		{
+			Bukkit.broadcastMessage(var.defaultCol() + "Not enough players, need at least 2. Restarting countdown.");
+			vote1();
+		}
+		Bukkit.broadcastMessage(var.defaultCol() + "Game will now start.");
+		cr.randomizeChests();
 		for(int i = 0; i < queued.size(); i++)
 		{
 			alive.add(queued.get(i));
 			origalive.add(queued.get(i));
 		}
 		queued.clear();
-		cr.randomizeChests();
-		countdown();
-	}
-	private void finishGameStart()
-	{
 		joinGame();
 		if(deathMatch())
 			deathCountdown();
 		Bukkit.getWorld(g.getNext()).setTime(70584000);//70584000: sunrise. 70620000: evening
+		count.schedule(new TimerTask(){public void run() {refillChests();}}, 660000);//11 minutes
+	}
+	private void refillChests()
+	{
+		cr.randomizeChests();
+		Bukkit.broadcastMessage(var.defaultCol() + "The chests have now been refilled.");
 	}
 	private void joinGame()
 	{
@@ -314,75 +377,41 @@ public class Players
 		String pathz = world + ".s" + Integer.toString(number) + ".z";//temporarily only have support for one map name
 		return new Location(Bukkit.getWorld(world), customConfig.getInt(pathx), customConfig.getInt(pathy), customConfig.getInt(pathz));
 	}
-	public void countdown()
+	public void vote1()
 	{
-		Bukkit.broadcastMessage(var.defaultCol() + "Game will start in 60 seconds please use /hg join to join.");
-		count.schedule(new TimerTask(){public void run() {countdown2();}}, 15000);
+		Bukkit.broadcastMessage(var.defaultCol() + "Game will start in 3 minutes please use /hg join to join.");
+		g.holdVote();
+		count.schedule(new TimerTask(){public void run() {vote2();}}, 30000);
 	}
-	public void countdown2()
+	public void vote2()
 	{
-		Bukkit.broadcastMessage(var.defaultCol() + "Game will start in 45 seconds please use /hg join to join.");
-		count.schedule(new TimerTask(){public void run() {countdown3();}}, 15000);
+		Bukkit.broadcastMessage(var.defaultCol() + "Game will start in 2 minutes 30 seconds please use /hg join to join.");
+		g.holdVote();
+		count.schedule(new TimerTask(){public void run() {vote3();}}, 30000);
 	}
-	public void countdown3()
+	public void vote3()
+	{
+		Bukkit.broadcastMessage(var.defaultCol() + "Game will start in 2 minutes please use /hg join to join.");
+		g.holdVote();
+		count.schedule(new TimerTask(){public void run() {vote4();}}, 30000);
+	}
+	public void vote4()
+	{
+		Bukkit.broadcastMessage(var.defaultCol() + "Game will start in 1 minute 30 seconds please use /hg join to join.");
+		g.holdVote();
+		count.schedule(new TimerTask(){public void run() {vote5();}}, 30000);
+	}
+	public void vote5()
+	{
+		Bukkit.broadcastMessage(var.defaultCol() + "Game will start in 1 minute please use /hg join to join.");
+		g.holdVote();
+		count.schedule(new TimerTask(){public void run() {vote6();}}, 30000);
+	}
+	public void vote6()
 	{
 		Bukkit.broadcastMessage(var.defaultCol() + "Game will start in 30 seconds please use /hg join to join.");
-		count.schedule(new TimerTask(){public void run() {countdown4();}}, 15000);
-	}
-	public void countdown4()
-	{
-		Bukkit.broadcastMessage(var.defaultCol() + "Game will start in 15 seconds please use /hg join to join.");
-		count.schedule(new TimerTask(){public void run() {countdown5();}}, 5000);
-	}
-	public void countdown5()
-	{
-		Bukkit.broadcastMessage(var.defaultCol() + "Game will start in 10 seconds please use /hg join to join.");
-		count.schedule(new TimerTask(){public void run() {countdown6();}}, 1000);
-	}
-	public void countdown6()
-	{
-		Bukkit.broadcastMessage(var.defaultCol() + "Game will start in 9 seconds please use /hg join to join.");
-		count.schedule(new TimerTask(){public void run() {countdown7();}}, 1000);
-	}
-	public void countdown7()
-	{
-		Bukkit.broadcastMessage(var.defaultCol() + "Game will start in 8 seconds please use /hg join to join.");
-		count.schedule(new TimerTask(){public void run() {countdown8();}}, 1000);
-	}
-	public void countdown8()
-	{
-		Bukkit.broadcastMessage(var.defaultCol() + "Game will start in 7 seconds please use /hg join to join.");
-		count.schedule(new TimerTask(){public void run() {countdown9();}}, 1000);
-	}
-	public void countdown9()
-	{
-		Bukkit.broadcastMessage(var.defaultCol() + "Game will start in 6 seconds please use /hg join to join.");
-		count.schedule(new TimerTask(){public void run() {countdown10();}}, 1000);
-	}
-	public void countdown10()
-	{
-		Bukkit.broadcastMessage(var.defaultCol() + "Game will start in 5 seconds please use /hg join to join.");
-		count.schedule(new TimerTask(){public void run() {countdown11();}}, 1000);
-	}
-	public void countdown11()
-	{
-		Bukkit.broadcastMessage(var.defaultCol() + "Game will start in 4 seconds please use /hg join to join.");
-		count.schedule(new TimerTask(){public void run() {countdown12();}}, 1000);
-	}
-	public void countdown12()
-	{
-		Bukkit.broadcastMessage(var.defaultCol() + "Game will start in 3 seconds please use /hg join to join.");
-		count.schedule(new TimerTask(){public void run() {countdown13();}}, 1000);
-	}
-	public void countdown13()
-	{
-		Bukkit.broadcastMessage(var.defaultCol() + "Game will start in 2 seconds please use /hg join to join.");
-		count.schedule(new TimerTask(){public void run() {countdown14();}}, 1000);
-	}
-	public void countdown14()
-	{
-		Bukkit.broadcastMessage(var.defaultCol() + "Game will start in 1 seconds please use /hg join to join.");
-		count.schedule(new TimerTask(){public void run() {finishGameStart();}}, 1000);
+		g.holdVote();
+		count.schedule(new TimerTask(){public void run() {finishGameStart();}}, 30000);
 	}
 	public void deathCountdown()
 	{

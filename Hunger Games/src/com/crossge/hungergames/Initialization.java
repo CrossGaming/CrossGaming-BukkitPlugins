@@ -64,6 +64,10 @@ public class Initialization
 				customConfig.set("Tribute.346", 1);//fishing rod
 				customConfig.set("Tribute.272", 1);//stone sword
 				customConfig.set("Tribute.297", 2);//bread
+				customConfig.set("Survivor.271", 1);//wood axe
+				customConfig.set("Survivor.261", 1);//bow
+				customConfig.set("Survivor.262", 20);//arrow
+				customConfig.set("Survivor.363", 3);//raw steak
 				customConfig.save(customConfigFileKits);
 			}
 			catch (IOException e){}
