@@ -1,5 +1,6 @@
 package com.crossge.hungergames.Commands;
 
+import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import com.crossge.hungergames.*;
@@ -29,12 +30,38 @@ public class CmdSpectate extends Cmd
 				{
 					if(pl.isSpectating(p.getName()))
 					{
-						pl.delSpectating(p.getName());
-						p.sendMessage(var.defaultCol() + "No longer spectating the Hunger Games.");
-						return true;
+						if(args.length == 1)
+						{
+							Player target = Bukkit.getPlayer(args[0]);
+							if(pl.isAlive(target.getName()))
+							{
+								pl.spectate(p, target);
+								p.sendMessage(var.defaultCol() + "Now spectating " + target.getName() + ".");
+							}
+							else
+								p.sendMessage(var.errorCol() + "Error: That player is not playing.");
+						}
+						else
+						{
+							pl.delSpectating(p.getName());
+							p.sendMessage(var.defaultCol() + "No longer spectating the Hunger Games.");
+							return true;
+						}
 					}
 					pl.addSpectating(p.getName());
-					p.sendMessage(var.defaultCol() + "Now spectating the Hunger Games.");
+					if(args.length == 1)
+					{
+						Player target = Bukkit.getPlayer(args[0]);
+						if(pl.isAlive(target.getName()))
+						{
+							pl.spectate(p, target);
+							p.sendMessage(var.defaultCol() + "Now spectating " + target.getName() + ".");
+						}
+						else
+							p.sendMessage(var.errorCol() + "Error: That player is not playing.");
+					}
+					else
+						p.sendMessage(var.defaultCol() + "Now spectating the Hunger Games.");
 				}
 				else
 					p.sendMessage(var.errorCol() + "Error: There is no current game.");

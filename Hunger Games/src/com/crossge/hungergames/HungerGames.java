@@ -32,6 +32,7 @@ public class HungerGames extends JavaPlugin
     public void onDisable()
     {
     	pl.endTimer();
+    	pl.unhideSpec();
     	getLogger().info("Hunger Games disabled.");
     }
 }

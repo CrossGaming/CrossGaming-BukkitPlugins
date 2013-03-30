@@ -28,7 +28,7 @@ public class Listeners implements Listener
 	@EventHandler
 	public void onPlayerMove(PlayerMoveEvent event)
 	{
-		if(pl.deathMatch())
+		if(pl.deathstarted())
 		{
 			Player p = event.getPlayer();
 			if(pl.isAlive(p.getName()))

@@ -27,6 +27,7 @@ public class Players
 	private YamlConfiguration customConfig = YamlConfiguration.loadConfiguration(customConfigFile);
 	private static boolean alreadySponsor = false;
 	private static boolean deathStarted = false;
+	private static boolean death = false;
 	private static int xmin = 0;
 	private static int xmax = 0;
 	private static int zmin = 0;
@@ -92,6 +93,7 @@ public class Players
 	}
 	public void startDeath()
 	{
+		death = true;
 		String world = g.getNext();
 		String pathx = "";
 		String pathz = "";
@@ -116,10 +118,10 @@ public class Players
 			else if(x < tempxmin)
 				tempxmin = x;
 		}
-		tempzmax = tempzmax + 3;
-		tempzmin = tempzmin - 3;
-		tempxmax = tempxmax + 3;
-		tempxmin = tempxmin - 3;
+		tempzmax = tempzmax + 5;
+		tempzmin = tempzmin - 5;
+		tempxmax = tempxmax + 5;
+		tempxmin = tempxmin - 5;
 		zmax = tempzmax;
 		zmin = tempzmin;
 		xmax = tempxmax;
@@ -157,6 +159,10 @@ public class Players
 	{
 		return spectating.contains(name);
 	}
+	public void spectate(Player p, Player target)
+	{
+		p.teleport(target);
+	}
 	public void addSpectating(String name)
 	{
 		String world = g.getNext();
@@ -172,12 +178,16 @@ public class Players
 		p.setCanPickupItems(false);
 		p.teleport(new Location(Bukkit.getWorld(world), customConfig.getInt(pathx), customConfig.getInt(pathy), customConfig.getInt(pathz)));
 	}
+	public boolean deathstarted()
+	{
+		return death;
+	}
 	public void delSpectating(String name)
 	{
 		spectating.remove(name);
 		for(Player p : Bukkit.getOnlinePlayers())
 			if(!p.canSee(Bukkit.getPlayer(name)))
-				p.hidePlayer(Bukkit.getPlayer(name));
+				p.showPlayer(Bukkit.getPlayer(name));
 		Player p = Bukkit.getPlayer(name);
 		p.setFoodLevel(20);
 		p.setHealth(20);
@@ -260,7 +270,7 @@ public class Players
 		if(spectating.size() == 0)
 			return;
 		for(int i = 0; i < spectating.size(); i++)
-			if(!p.canSee(Bukkit.getPlayer(spectating.get(i))))
+			if(Bukkit.getPlayer(spectating.get(i)) != null)
 				p.showPlayer(Bukkit.getPlayer(spectating.get(i)));
 	}
 	private void hideSpec()
@@ -269,11 +279,11 @@ public class Players
 			for(int i = 0; i < spectating.size(); i++)
 				p.hidePlayer(Bukkit.getPlayer(spectating.get(i)));
 	}
-	private void unhideSpec()
+	public void unhideSpec()
 	{
 		for(Player p : Bukkit.getOnlinePlayers())
-			for(int i = 0; i < spectating.size(); i++)
-				p.showPlayer(Bukkit.getPlayer(spectating.get(i)));
+			for(Player j : Bukkit.getOnlinePlayers())
+				p.showPlayer(j);
 	}
 	public void endGame()
 	{

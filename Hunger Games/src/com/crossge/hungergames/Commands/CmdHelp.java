@@ -79,7 +79,7 @@ public class CmdHelp extends Cmd
 		sender.sendMessage(var.defaultCol() + "/hg credits ~ Shows the credits of the team who brought you this plugin.");
 		sender.sendMessage(var.defaultCol() + "/hg help [page] ~ Shows the help page [page] for hunger games.");
 		sender.sendMessage(var.defaultCol() + "/hg join ~ Gets in line for next game.");
-		sender.sendMessage(var.defaultCol() + "/hg spectate ~ Spectates the current game.");
+		sender.sendMessage(var.defaultCol() + "/hg spectate [player] ~ Spectates the current game or [player].");
 		sender.sendMessage(var.defaultCol() + "/hg leave ~ Leaves the current game or if in line, the line.");
 	}
 	private void page2(CommandSender sender)
