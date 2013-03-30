@@ -81,7 +81,7 @@ public class Game
 			if(i == 3)
 				break;
 			Bukkit.broadcastMessage(var.defaultCol() + "Vote " + Integer.toString(i + 1) + " for map " + maps.get(mvote.get(i)) +
-					" current votes: " + votes(mvote.get(i)));
+					" current votes: " + votes(i));
 		}
 	}
 	private String votes(int map)
@@ -142,6 +142,9 @@ public class Game
 		Bukkit.createWorld(new WorldCreator(nextMap));
 		nextMap = "";
 		kit.clearKits();
+		map1 = 0;
+		map2 = 0;
+		map3 = 0;
 		start();//comment to stop automation
 	}
 	public void start()

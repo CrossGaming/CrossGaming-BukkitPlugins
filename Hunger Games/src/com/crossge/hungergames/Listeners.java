@@ -28,8 +28,12 @@ public class Listeners implements Listener
 	@EventHandler
 	public void onPlayerMove(PlayerMoveEvent event)
 	{
-    	Player p = event.getPlayer();
-    	pl.escaping(p);
+		if(pl.deathMatch())
+		{
+			Player p = event.getPlayer();
+			if(pl.isAlive(p.getName()))
+				pl.escaping(p);
+		}
 	}
 	@EventHandler
 	public void onPlayerJoin(PlayerJoinEvent event)

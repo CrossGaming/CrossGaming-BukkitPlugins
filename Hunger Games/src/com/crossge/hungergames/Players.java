@@ -4,7 +4,6 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
-
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.Location;
@@ -80,7 +79,7 @@ public class Players
 	{
 		int x = p.getLocation().getBlockX();
 		int z = p.getLocation().getBlockZ();
-		if(x == xmax || x == xmin || z == zmax || z == zmin)
+		if(x >= xmax || x <= xmin || z >= zmax || z <= zmin)
 		{
 			Bukkit.broadcastMessage(var.defaultCol() + p.getName() + " is trying to escape the death match.");
 			Player temp;
@@ -96,10 +95,10 @@ public class Players
 		String world = g.getNext();
 		String pathx = "";
 		String pathz = "";
-		int tempxmin = 0;
-		int tempxmax = 0;
-		int tempzmin = 0;
-		int tempzmax = 0;
+		int tempxmin = 30000000;
+		int tempxmax = -30000000;
+		int tempzmin = 30000000;
+		int tempzmax = -30000000;
 		int x = 0;
 		int z = 0;
 		for(int i = 1; i < 25; i++)
@@ -167,10 +166,9 @@ public class Players
 		spectating.add(name);
 		hideSpec();
 		Player p = Bukkit.getPlayer(name);
-		p.setGameMode(GameMode.SURVIVAL);
+		p.setGameMode(GameMode.CREATIVE);
 		p.setFoodLevel(20);
 		p.setHealth(20);
-		p.setFlying(true);
 		p.setCanPickupItems(false);
 		p.teleport(new Location(Bukkit.getWorld(world), customConfig.getInt(pathx), customConfig.getInt(pathy), customConfig.getInt(pathz)));
 	}
@@ -192,6 +190,7 @@ public class Players
 		alive.remove(name);
 		dead.add(name);
 		Player p = Bukkit.getPlayer(name);
+		p.setGameMode(GameMode.SURVIVAL);
 		p.setFoodLevel(20);
 		p.setHealth(20);
 		p.setFlying(false);
@@ -326,13 +325,20 @@ public class Players
 		spectating.clear();
 		vote1();
 	}
-	private void finishGameStart()
+	private void checkPlayers()
 	{
 		if(queued.size() < 2)
 		{
 			Bukkit.broadcastMessage(var.defaultCol() + "Not enough players, need at least 2. Restarting countdown.");
 			vote1();
 		}
+		else
+		{
+			finishGameStart();
+		}
+	}
+	private void finishGameStart()
+	{
 		Bukkit.broadcastMessage(var.defaultCol() + "Game will now start.");
 		cr.randomizeChests();
 		for(int i = 0; i < queued.size(); i++)
@@ -363,7 +369,7 @@ public class Players
 			temp.setHealth(20);
 			temp.setFlying(false);
 			temp.teleport(loc(i + 1));
-			temp.getInventory().clear();
+			temp.getInventory().clear();	
 			temp.getEquipment().clear();
 			temp.setExp(-temp.getExp());
 			s.addGame(alive.get(i));
@@ -411,7 +417,7 @@ public class Players
 	{
 		Bukkit.broadcastMessage(var.defaultCol() + "Game will start in 30 seconds please use /hg join to join.");
 		g.holdVote();
-		count.schedule(new TimerTask(){public void run() {finishGameStart();}}, 30000);
+		count.schedule(new TimerTask(){public void run() {checkPlayers();}}, 30000);
 	}
 	public void deathCountdown()
 	{
