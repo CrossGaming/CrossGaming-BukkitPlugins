@@ -43,6 +43,8 @@ public class Game
 		ArrayList<Integer> mid = new ArrayList<Integer>();
 		for(int i = 0; i < maps.size(); i++)
 			mid.add(i);
+		if(mid.size() == 0)
+			return;
 		int temp = 0;
 		for(int i = 0; i < 3; i++)
 		{
@@ -149,6 +151,8 @@ public class Game
 	}
 	public void start()
 	{
+		if(maps.size() == 0)
+			return;
 		new Players().gameStart();
 		votes.clear();
 		voting = false;

@@ -13,7 +13,7 @@ public class CmdHelp extends Cmd
 	}
 	public boolean commandUse(CommandSender sender, String[] args)
 	{
-		int maxPages = 3;
+		int maxPages = 4;
 		if (sender instanceof Player)
 		{
 			Player p = (Player) sender;
@@ -42,6 +42,8 @@ public class CmdHelp extends Cmd
 					page2(sender);
 				else if(page == 3)
 					page3(sender);
+				else if(page == 4)
+					page4(sender);
 			}
 			else
 				p.sendMessage(var.errorCol() + "Error: You may not view the help for Hunger Games.");
@@ -71,6 +73,8 @@ public class CmdHelp extends Cmd
 				page2(sender);
 			else if(page == 3)
 				page3(sender);
+			else if(page == 4)
+				page4(sender);
 		}
 		return true;
 	}
@@ -97,5 +101,13 @@ public class CmdHelp extends Cmd
 		sender.sendMessage(var.defaultCol() + "/hg kit [kitname] ~ Chooses a kit to use (disabled by default).");
 		sender.sendMessage(var.defaultCol() + "/hg modify [player] [stats class] [amount] ~ Modifies [player]'s [stats class] by [amount].");
 		sender.sendMessage(var.defaultCol() + "Stat Classes: deaths, games, kills, points, wins.");
+	}
+	private void page4(CommandSender sender)
+	{
+		sender.sendMessage(var.defaultCol() + "Coming soon /hg convert [mysql:yml] ~ Converts stats from one database to specified one.");
+		sender.sendMessage(var.defaultCol() + "Coming soon.");
+		sender.sendMessage(var.defaultCol() + "Coming soon.");
+		sender.sendMessage(var.defaultCol() + "Coming soon.");
+		sender.sendMessage(var.defaultCol() + "Coming soon.");
 	}
 }

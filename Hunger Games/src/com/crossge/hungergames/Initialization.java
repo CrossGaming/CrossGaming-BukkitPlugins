@@ -9,11 +9,13 @@ public class Initialization
 {
 	Game g = new Game();
 	Stats s = new Stats();
-	private File customConfigFile = null;
-	private File customConfigFileSQL = null;
-	private File customConfigFileChest = null;
-	private File customConfigFileSponsor = null;
-	private File customConfigFileKits = null;
+	private File customConfigFile = new File("plugins/Hunger Games", "config.yml");
+	private File customConfigFileSpawns = new File("plugins/Hunger Games", "spawns.yml");
+	private File customConfigFileSQL = new File("plugins/Hunger Games", "sql.yml");
+	private File customConfigFileChest = new File("plugins/Hunger Games", "chests.yml");
+	private File customConfigFileSponsor = new File("plugins/Hunger Games", "sponsors.yml");
+	private File customConfigFileKits = new File("plugins/Hunger Games", "kits.yml");
+	private File customConfigFileStats = new File("plugins/Hunger Games", "stats.yml");
 	public Initialization()
 	{
 		
@@ -28,16 +30,56 @@ public class Initialization
 	
 	public void createYaml()
 	{
-		customConfigFile = new File("plugins/Hunger Games", "spawns.yml");
 		if(!customConfigFile.exists())
 		{
 			try
 			{
 				customConfigFile.createNewFile();
+				YamlConfiguration customConfig = YamlConfiguration.loadConfiguration(customConfigFile);
+				customConfig.set("minPerChest", 3);
+				customConfig.set("maxPerChest", 7);
+				customConfig.set("itemsPerSponsor", 3);
+				customConfig.set("useKits", false);
+				customConfig.set("useMySQL", false);
+				customConfig.save(customConfigFile);
 			}
 			catch (IOException e){}
 		}
-		customConfigFileSQL = new File("plugins/Hunger Games", "sql.yml");
+		else
+		{
+			YamlConfiguration customConfig = YamlConfiguration.loadConfiguration(customConfigFile);
+			try
+			{
+				if(!customConfig.contains("minPerChest"))
+					customConfig.set("minPerChest", 3);
+				if(!customConfig.contains("maxPerChest"))
+					customConfig.set("maxPerChest", 7);
+				if(!customConfig.contains("itemsPerSponsor"))
+					customConfig.set("itemsPerSponsor", 3);
+				if(!customConfig.contains("useKits"))
+					customConfig.set("useKits", false);
+				if(!customConfig.contains("useMySQL"))
+					customConfig.set("useMySQL", false);
+				customConfig.save(customConfigFile);
+			}
+			catch (IOException e){}
+		}
+		if(!customConfigFileSpawns.exists())
+		{
+			try
+			{
+				customConfigFileSpawns.createNewFile();
+			}
+			catch (IOException e){}
+		}	
+		if(!customConfigFileStats.exists())
+		{
+			try
+			{
+				customConfigFileStats.createNewFile();
+			}
+			catch (IOException e){}
+		}	
 		if(!customConfigFileSQL.exists())
 		{
 			try
@@ -53,7 +95,6 @@ public class Initialization
 			}
 			catch (IOException e){}
 		}
-		customConfigFileKits = new File("plugins/Hunger Games", "kits.yml");
 		if(!customConfigFileKits.exists())
 		{
 			try
@@ -72,7 +113,6 @@ public class Initialization
 			}
 			catch (IOException e){}
 		}
-		customConfigFileChest = new File("plugins/Hunger Games", "chests.yml");
 		if(!customConfigFileChest.exists())
 		{
 			try
@@ -149,7 +189,6 @@ public class Initialization
 			}
 			catch (IOException e){}
 		}
-		customConfigFileSponsor = new File("plugins/Hunger Games", "sponsors.yml");
 		if(!customConfigFileSponsor.exists())
 		{
 			try
