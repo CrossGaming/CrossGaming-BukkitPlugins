@@ -248,7 +248,7 @@ public class Players
 	}
 	public String winner()
 	{
-		s.addWin(alive.get(0));
+		s.addWin(alive.get(0), 1);
 		s.addPoints(alive.get(0), 20);
 		Player p = Bukkit.getPlayer(alive.get(0));
 		p.setFoodLevel(20);
@@ -343,9 +343,7 @@ public class Players
 			vote1();
 		}
 		else
-		{
 			finishGameStart();
-		}
 	}
 	private void finishGameStart()
 	{
@@ -382,7 +380,7 @@ public class Players
 			temp.getInventory().clear();	
 			temp.getEquipment().clear();
 			temp.setExp(-temp.getExp());
-			s.addGame(alive.get(i));
+			s.addGame(alive.get(i), 1);
 		}
 	}
 	private Location loc(int number)

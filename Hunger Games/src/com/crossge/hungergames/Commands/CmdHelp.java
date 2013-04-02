@@ -95,7 +95,7 @@ public class CmdHelp extends Cmd
 		sender.sendMessage(var.defaultCol() + "/hg setcorner [number] ~ Sets the corners for the hunger games either 1 or 2.");
 		sender.sendMessage(var.defaultCol() + "/hg sponsor ~ Sponsors yourself.");
 		sender.sendMessage(var.defaultCol() + "/hg kit [kitname] ~ Chooses a kit to use (disabled by default).");
-		sender.sendMessage(var.defaultCol() + "Coming soon.");
-		sender.sendMessage(var.defaultCol() + "Coming soon.");
+		sender.sendMessage(var.defaultCol() + "/hg modify [player] [stats class] [amount] ~ Modifies [player]'s [stats class] by [amount].");
+		sender.sendMessage(var.defaultCol() + "Stat Classes: deaths, games, kills, points, wins.");
 	}
 }

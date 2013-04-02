@@ -28,12 +28,9 @@ public class Listeners implements Listener
 	@EventHandler
 	public void onPlayerMove(PlayerMoveEvent event)
 	{
-		if(pl.deathstarted())
-		{
-			Player p = event.getPlayer();
-			if(pl.isAlive(p.getName()))
-				pl.escaping(p);
-		}
+		Player p = event.getPlayer();
+		if(pl.deathstarted() && pl.isAlive(p.getName()))
+			pl.escaping(p);
 	}
 	@EventHandler
 	public void onPlayerJoin(PlayerJoinEvent event)
@@ -54,21 +51,15 @@ public class Listeners implements Listener
 					event.setCancelled(true);
 			}
 			else if(pl.isSpectating(event.getPlayer().getName()))
-			{
 				event.setCancelled(true);
-			}
     	}
 	}
 	@EventHandler
 	public void onBlockPlace(BlockPlaceEvent event)
 	{
 		if(pl.gameGoing())
-    	{
 			if(pl.isAlive(event.getPlayer().getName()) || pl.isSpectating(event.getPlayer().getName()))
-			{
 				event.setCancelled(true);
-			}
-    	}
 	}
 	@EventHandler
 	public void onPlayerQuit(PlayerQuitEvent event)
@@ -108,14 +99,9 @@ public class Listeners implements Listener
 	@EventHandler
 	public void onEntityDamage(EntityDamageByEntityEvent event)
 	{
-		if(event.getDamager() instanceof Player )
-		{
-			if(pl.gameGoing())
-			{
-				if(!pl.isAlive(((Player)event.getDamager()).getName()))
-					event.setCancelled(true);
-			}
-		}
+		if(event.getDamager() instanceof Player)
+			if(pl.gameGoing() && !pl.isAlive(((Player)event.getDamager()).getName()))
+				event.setCancelled(true);
 	}
 	@EventHandler
 	public void onPlayerDeath(PlayerDeathEvent event)
@@ -132,20 +118,16 @@ public class Listeners implements Listener
 	    		Player killer = p.getKiller();
 	    		if(killer != null)
 	    		{
-	    			s.addKill(killer.getName());
+	    			s.addKill(killer.getName(), 1);
 	    			s.addPoints(killer.getName(), 7);
 	    		}
-	    		s.addDeath(p.getName());
+	    		s.addDeath(p.getName(), 1);
 	    		pl.addDead(p.getName());
 	    		s.addPoints(p.getName(), -7);
 	    		if(pl.sponsorStart())
-		    	{
 		    		pl.startSponsor();
-		    	}
 		    	if(pl.deathMatch())
-				{
 		    		pl.deathCountdown();
-				}
 		    	if(pl.onePlayerLeft())
 		    	{
 		    		Bukkit.broadcastMessage(var.defaultCol() + pl.winner() + " won the Hunger Games.");

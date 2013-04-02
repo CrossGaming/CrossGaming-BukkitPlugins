@@ -54,9 +54,7 @@ public class Kits
 		setLists();
 		String temp = "";
 		for(String kit : classes)
-		{
 			temp = temp + kit + ", ";
-		}
 		temp = temp.trim();
 		temp = temp.substring(0, temp.length() - 1);
 		p.sendMessage(var.defaultCol() + "Available kits: " + temp + ".");

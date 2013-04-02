@@ -1,6 +1,6 @@
 name: Hunger Games
 main: com.crossge.hungergames.HungerGames
-version: 1.0.1
+version: 1.0.2
 website: http://crossge.com
 description: Adds in the hunger games
 authors: [Cross Gaming Development Team]
@@ -29,6 +29,7 @@ permissions:
             HungerGames.setcorner: true
             HungerGames.sponsor: true
             HungerGames.kit: true
+            HungerGames.modify: true
     HungerGames.hg:
         description: Lets you use /hg.
         default: true
@@ -67,4 +68,7 @@ permissions:
         default: op
     HungerGames.sponsor:
         description: Lets you sponsor yourself in the hunger games.
+        default: op
+    HungerGames.modify:
+        description: Lets you modify a players stats for the hunger games.
         default: op

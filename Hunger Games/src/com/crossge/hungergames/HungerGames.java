@@ -16,6 +16,13 @@ public class HungerGames extends JavaPlugin
 		this.saveDefaultConfig();
 		Initialization init = new Initialization();
 		init.initiateFiles();
+		try
+		{
+		    Metrics metrics = new Metrics(this);
+		    metrics.start();
+		    getLogger().info("Hunger Games: Metrics enabled.");
+		}
+		catch (Exception e){}
 		getLogger().info("Hunger Games brought to you by Cross GE has been enabled.");
 		g.start();//comment to stop automation
     }

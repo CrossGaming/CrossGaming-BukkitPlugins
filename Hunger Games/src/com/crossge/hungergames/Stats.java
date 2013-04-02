@@ -32,38 +32,38 @@ public class Stats
         }
 		catch (Exception e){System.out.print(e.getCause()); e.printStackTrace();}
 	}
-	public void addGame(String name)
+	public void addGame(String name, int games)//Should be 1 except for when editing stats
 	{
 		try
 		{
-			PreparedStatement stmt = conn.prepareStatement("UPDATE HungerGames SET Games = Games + 1 WHERE Name = '" + name + "'");
+			PreparedStatement stmt = conn.prepareStatement("UPDATE HungerGames SET Games = Games + " + Integer.toString(games) + " WHERE Name = '" + name + "'");
 			stmt.executeUpdate();
         }
 		catch (Exception e){System.out.print(e.getCause()); e.printStackTrace();}
 	}
-	public void addDeath(String name)
+	public void addDeath(String name, int deaths)//Should be 1 except for when editing stats
 	{
 		try
 		{
-			PreparedStatement stmt = conn.prepareStatement("UPDATE HungerGames SET Deaths = Deaths + 1 WHERE Name = '" + name + "'");
+			PreparedStatement stmt = conn.prepareStatement("UPDATE HungerGames SET Deaths = Deaths + " + Integer.toString(deaths) + " WHERE Name = '" + name + "'");
 			stmt.executeUpdate();
         }
 		catch (Exception e){System.out.print(e.getCause()); e.printStackTrace();}
 	}
-	public void addKill(String name)
+	public void addKill(String name, int kills)//Should be 1 except for when editing stats
 	{
 		try
 		{
-			PreparedStatement stmt = conn.prepareStatement("UPDATE HungerGames SET Kills = Kills + 1 WHERE Name = '" + name + "'");
+			PreparedStatement stmt = conn.prepareStatement("UPDATE HungerGames SET Kills = Kills + " + Integer.toString(kills) + " WHERE Name = '" + name + "'");
 			stmt.executeUpdate();
         }
 		catch (Exception e){System.out.print(e.getCause()); e.printStackTrace();}
 	}
-	public void addWin(String name)
+	public void addWin(String name, int wins)//Should be 1 except for when editing stats
 	{
 		try
 		{ 
-			PreparedStatement stmt = conn.prepareStatement("UPDATE HungerGames SET Wins = Wins + 1 WHERE Name = '" + name + "'");
+			PreparedStatement stmt = conn.prepareStatement("UPDATE HungerGames SET Wins = Wins + " + Integer.toString(wins) + " WHERE Name = '" + name + "'");
 			stmt.executeUpdate();
         }
 		catch (Exception e){System.out.print(e.getCause()); e.printStackTrace();}
