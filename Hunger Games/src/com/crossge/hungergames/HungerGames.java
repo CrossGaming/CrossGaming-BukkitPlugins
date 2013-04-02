@@ -13,7 +13,6 @@ public class HungerGames extends JavaPlugin
     public void onEnable()
 	{	
 		getServer().getPluginManager().registerEvents(new Listeners(), this);
-		this.saveDefaultConfig();
 		Initialization init = new Initialization();
 		init.initiateFiles();
 		try

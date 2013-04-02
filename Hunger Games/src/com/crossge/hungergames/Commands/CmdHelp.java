@@ -104,7 +104,7 @@ public class CmdHelp extends Cmd
 	}
 	private void page4(CommandSender sender)
 	{
-		sender.sendMessage(var.defaultCol() + "Coming soon /hg convert [mysql:yml] ~ Converts stats from one database to specified one.");
+		sender.sendMessage(var.defaultCol() + "/hg convert [mysql:yml] ~ Converts stats from one database to specified one.");
 		sender.sendMessage(var.defaultCol() + "Coming soon.");
 		sender.sendMessage(var.defaultCol() + "Coming soon.");
 		sender.sendMessage(var.defaultCol() + "Coming soon.");

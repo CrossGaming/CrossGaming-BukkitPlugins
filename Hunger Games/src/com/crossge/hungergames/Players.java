@@ -28,6 +28,7 @@ public class Players
 	private static boolean alreadySponsor = false;
 	private static boolean deathStarted = false;
 	private static boolean death = false;
+	private static boolean gameStarted = false;
 	private static int xmin = 0;
 	private static int xmax = 0;
 	private static int zmin = 0;
@@ -149,7 +150,7 @@ public class Players
 	}
 	public boolean gameGoing()
 	{
-		return alive.size() > 0;
+		return gameStarted;
 	}
 	public boolean isAlive(String name)
 	{
@@ -295,6 +296,8 @@ public class Players
 		unhideSpec();
 		alreadySponsor = false;
 		deathStarted = false;
+		gameStarted = false;
+		cr.emptyChests();
 		spectating.clear();
 		sponsored.clear();
 		g.end();
@@ -333,6 +336,7 @@ public class Players
 		origalive.clear();
 		dead.clear();
 		spectating.clear();
+		gameStarted = true;
 		vote1();
 	}
 	private void checkPlayers()

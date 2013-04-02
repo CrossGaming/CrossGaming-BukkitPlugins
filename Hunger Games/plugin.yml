@@ -1,6 +1,6 @@
 name: Hunger Games
 main: com.crossge.hungergames.HungerGames
-version: 1.0.3
+version: 1.0.4
 website: http://crossge.com
 description: Adds in the hunger games
 authors: [Cross Gaming Development Team]
@@ -30,6 +30,7 @@ permissions:
             HungerGames.sponsor: true
             HungerGames.kit: true
             HungerGames.modify: true
+            HungerGames.convert: true
     HungerGames.hg:
         description: Lets you use /hg.
         default: true
@@ -71,4 +72,7 @@ permissions:
         default: op
     HungerGames.modify:
         description: Lets you modify a players stats for the hunger games.
+        default: op
+    HungerGames.convert:
+        description: Lets you conver mysql into yml or yml into mysql for the hunger games.
         default: op

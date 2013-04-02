@@ -77,6 +77,29 @@ public class Stats
 			save();
 		}
 	}
+	public void convertToYML()
+	{
+		if(!customConf.getBoolean("useMySQL"))
+			return;
+		try
+		{
+			if(conn.isClosed())
+				return;
+	    	PreparedStatement stmt = conn.prepareStatement("SELECT * FROM HungerGames");//Points, Wins, Kills, Deaths, Games
+            ResultSet rs = stmt.executeQuery();
+            while(rs.next())
+            {
+                	customConfigStats.set(rs.getString("Name") + ".points", rs.getInt("Points"));
+            		customConfigStats.set(rs.getString("Name") + ".wins", rs.getInt("Wins"));
+            		customConfigStats.set(rs.getString("Name") + ".kills", rs.getInt("Kills"));
+            		customConfigStats.set(rs.getString("Name") + ".deaths", rs.getInt("Deaths"));
+            		customConfigStats.set(rs.getString("Name") + ".games", rs.getInt("Games"));
+            }
+            save();
+        }
+		catch (Exception e){System.out.print(e.getCause()); e.printStackTrace();}
+		
+	}
 	public void addDeath(String name, int deaths)//Should be 1 except for when editing stats
 	{
 		if(customConf.getBoolean("useMySQL"))
@@ -162,7 +185,7 @@ public class Stats
 			{
 				if(conn.isClosed())
 					return null;
-		    	PreparedStatement stmt = conn.prepareStatement("SELECT * FROM HungerGames");//Points, Wins, Kills, Deaths, Games
+		    	PreparedStatement stmt = conn.prepareStatement("SELECT * FROM HungerGames");//Name, Points, Wins, Kills, Deaths, Games
 	            ResultSet rs = stmt.executeQuery();
 	            while(rs.next())
 	            {

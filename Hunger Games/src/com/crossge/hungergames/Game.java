@@ -32,7 +32,12 @@ public class Game
 	public String getNext()
 	{
 		if(nextMap.equals(""))
-			nextMap = maps.get(mvote.get(0));
+		{
+			if(mvote.size() == 0)
+				nextMap = maps.get(0);
+			else
+				nextMap = maps.get(mvote.get(0));
+		}
 		return nextMap;
 	}
 	
@@ -43,8 +48,6 @@ public class Game
 		ArrayList<Integer> mid = new ArrayList<Integer>();
 		for(int i = 0; i < maps.size(); i++)
 			mid.add(i);
-		if(mid.size() == 0)
-			return;
 		int temp = 0;
 		for(int i = 0; i < 3; i++)
 		{
@@ -74,6 +77,8 @@ public class Game
 	}
 	public void holdVote()
 	{
+		if(maps.size() == 0 || maps.size() == 1)
+			return;
 		if(!voting)
 			m();
 		voting = true;
