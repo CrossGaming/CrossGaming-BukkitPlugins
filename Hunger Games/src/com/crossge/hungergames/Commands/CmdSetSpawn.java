@@ -14,6 +14,8 @@ public class CmdSetSpawn extends Cmd
 	Game g = new Game();
 	private File customConfigFile = new File("plugins/Hunger Games", "spawns.yml");
    	private YamlConfiguration customConfig = YamlConfiguration.loadConfiguration(customConfigFile);
+   	private File customConfFile = new File("plugins/Hunger Games", "config.yml");
+   	private YamlConfiguration customConf = YamlConfiguration.loadConfiguration(customConfFile);
 	public CmdSetSpawn()
 	{
 		
@@ -28,7 +30,7 @@ public class CmdSetSpawn extends Cmd
 			Player p = (Player) sender;
 			if(p.hasPermission("HungerGames.setspawn"))
 			{
-				int number = 1;
+				int number = 0;
 				try
 				{
 					number = Integer.parseInt(args[0]);
@@ -37,9 +39,10 @@ public class CmdSetSpawn extends Cmd
 				{
 					return false;
 				}
-				if(number > 25)
+				int maxSpawns = customConf.getInt("maxPlayers");
+				if(number > maxSpawns || number < 0)
 				{
-					p.sendMessage(var.errorCol() + "Error: Max spawns are 25 with the 25th being the spectator spawn");
+					p.sendMessage(var.errorCol() + "Error: Max spawns are " + Integer.toString(maxSpawns) + " with the 0 being the spectator spawn");
 					return false;
 				}
 				String pathx = p.getWorld().getName() + ".s" + Integer.toString(number) + ".x";

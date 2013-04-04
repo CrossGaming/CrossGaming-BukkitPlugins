@@ -1,8 +1,11 @@
 package com.crossge.hungergames;
 
+import java.io.File;
+
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
+import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -22,6 +25,10 @@ public class Listeners implements Listener
 	Variables var = new Variables();
 	Game g = new Game();
 	Stats s = new Stats();
+	private File customConfigFileBreakable = new File("plugins/Hunger Games", "breakable.yml");
+	private YamlConfiguration customConfig = YamlConfiguration.loadConfiguration(customConfigFileBreakable);
+	private File customConfigFileCommands = new File("plugins/Hunger Games", "commands.yml");
+	private YamlConfiguration customConfigCommands = YamlConfiguration.loadConfiguration(customConfigFileCommands);
 	public Listeners()
 	{
 		
@@ -37,10 +44,23 @@ public class Listeners implements Listener
 	public void onPlayerCommand(PlayerCommandPreprocessEvent event)
 	{
 		Player p = event.getPlayer();
-		if((pl.isAlive(p.getName()) || pl.isSpectating(p.getName())) && !event.getMessage().equalsIgnoreCase("hungergames") && !event.getMessage().equalsIgnoreCase("spawn"))
+		String com = "";
+		if(event.getMessage().length() > 1)
+			com = event.getMessage().substring(1).split(" ")[0];
+		if(pl.isAlive(p.getName()) || pl.isSpectating(p.getName()))
 		{
-			p.sendMessage(var.errorCol() + "Error: You may not perform commands while in the hunger games.");
-			event.setCancelled(true);
+			boolean cancel = true;
+			for(String path : customConfigCommands.getKeys(false))
+			{
+				if(com.equalsIgnoreCase(path) && customConfigCommands.getBoolean(path))
+				{
+					cancel = false;
+					break;
+				}
+			}
+			if(cancel)
+				p.sendMessage(var.errorCol() + "Error: You may not perform commands while in the hunger games.");
+			event.setCancelled(cancel);
 		}
 	}
 	@EventHandler
@@ -58,8 +78,16 @@ public class Listeners implements Listener
     	{
 			if(pl.isAlive(event.getPlayer().getName()))
 			{
-				if(!event.getBlock().getType().equals(Material.LEAVES) && !event.getBlock().getType().isEdible())
-					event.setCancelled(true);
+				boolean cancel = true;
+				for(String path : customConfig.getKeys(false))
+				{
+					if(event.getBlock().getType().equals(Material.getMaterial(Integer.parseInt(path))) && customConfig.getBoolean(path))
+					{
+						cancel = false;
+						break;
+					}
+				}
+				event.setCancelled(cancel);
 			}
 			else if(pl.isSpectating(event.getPlayer().getName()))
 				event.setCancelled(true);

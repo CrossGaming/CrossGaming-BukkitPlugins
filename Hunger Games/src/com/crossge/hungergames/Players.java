@@ -28,6 +28,8 @@ public class Players
 	private static ArrayList<String> sponsored = new ArrayList<String>();
 	private File customConfigFile = new File("plugins/Hunger Games", "spawns.yml");
 	private YamlConfiguration customConfig = YamlConfiguration.loadConfiguration(customConfigFile);
+	private File customConfFile = new File("plugins/Hunger Games", "config.yml");
+   	private YamlConfiguration customConf = YamlConfiguration.loadConfiguration(customConfFile);
 	private static boolean alreadySponsor = false;
 	private static boolean deathStarted = false;
 	private static boolean death = false;
@@ -107,14 +109,14 @@ public class Players
 		int tempzmax = -30000000;
 		int x = 0;
 		int z = 0;
-		for(int i = 1; i < 25; i++)
+		for(int i = 1; i < customConf.getInt("maxPlayers"); i++)
 		{
 			pathx = world + ".s" + Integer.toString(i) + ".x";
 			pathz = world + ".s" + Integer.toString(i) + ".z";
-			x = customConfig.getInt(pathx);
-			z = customConfig.getInt(pathz);
 			if(customConfig.get(pathz) != null && customConfig.get(pathx) != null)
 			{
+				x = customConfig.getInt(pathx);
+				z = customConfig.getInt(pathz);
 				if(z > tempzmax)
 					tempzmax = z;
 				else if(z < tempzmin)
@@ -177,9 +179,9 @@ public class Players
 	public void addSpectating(String name)
 	{
 		String world = g.getNext();
-		String pathx = world + ".s25.x";
-		String pathy = world + ".s25.y";
-		String pathz = world + ".s25.z";
+		String pathx = world + ".s0.x";
+		String pathy = world + ".s0.y";
+		String pathz = world + ".s0.z";
 		spectating.add(name);
 		hideSpec();
 		Player p = Bukkit.getPlayer(name);
@@ -328,7 +330,7 @@ public class Players
 	}
 	public boolean queueFull()
 	{
-		return queued.size() == 24;
+		return queued.size() == customConf.getInt("maxPlayers");
 	}
 	public int posInQueue(String name)
 	{

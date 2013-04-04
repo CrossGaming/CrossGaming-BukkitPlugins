@@ -16,6 +16,8 @@ public class Initialization
 	private File customConfigFileSponsor = new File("plugins/Hunger Games", "sponsors.yml");
 	private File customConfigFileKits = new File("plugins/Hunger Games", "kits.yml");
 	private File customConfigFileStats = new File("plugins/Hunger Games", "stats.yml");
+	private File customConfigFileBreakable = new File("plugins/Hunger Games", "breakable.yml");
+	private File customConfigFileCommands = new File("plugins/Hunger Games", "commands.yml");
 	public Initialization()
 	{
 		
@@ -41,6 +43,7 @@ public class Initialization
 				customConfig.set("itemsPerSponsor", 3);
 				customConfig.set("useKits", false);
 				customConfig.set("useMySQL", false);
+				customConfig.set("maxPlayers", 24);
 				customConfig.save(customConfigFile);
 			}
 			catch (IOException e){}
@@ -60,6 +63,8 @@ public class Initialization
 					customConfig.set("useKits", false);
 				if(!customConfig.contains("useMySQL"))
 					customConfig.set("useMySQL", false);
+				if(!customConfig.contains("maxPlayers"))
+					customConfig.set("maxPlayers", 24);
 				customConfig.save(customConfigFile);
 			}
 			catch (IOException e){}
@@ -71,7 +76,33 @@ public class Initialization
 				customConfigFileSpawns.createNewFile();
 			}
 			catch (IOException e){}
-		}	
+		}
+		if(!customConfigFileCommands.exists())
+		{
+			try
+			{
+				customConfigFileCommands.createNewFile();
+				YamlConfiguration customConfig = YamlConfiguration.loadConfiguration(customConfigFileBreakable);
+				customConfig.set("hungergames", true);
+				customConfig.set("survivalgames", true);
+				customConfig.set("hg", true);
+				customConfig.set("sg", true);
+				customConfig.set("spawn", true);
+				customConfig.save(customConfigFileCommands);
+			}
+			catch (IOException e){}
+		}
+		if(!customConfigFileBreakable.exists())
+		{
+			try
+			{
+				customConfigFileBreakable.createNewFile();
+				YamlConfiguration customConfig = YamlConfiguration.loadConfiguration(customConfigFileBreakable);
+				customConfig.set("18", true);
+				customConfig.save(customConfigFileBreakable);
+			}
+			catch (IOException e){}
+		}
 		if(!customConfigFileStats.exists())
 		{
 			try

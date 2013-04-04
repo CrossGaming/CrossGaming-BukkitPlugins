@@ -23,7 +23,10 @@ public class Kits
 	
 	public boolean exists(String kitName)
 	{
-		return classes.contains(kitName);
+		for(String path : customConfig.getKeys(false))
+			if(path.equalsIgnoreCase(kitName))
+				return true;
+		return false;
 	}
 	
 	public boolean chose(String name)
@@ -42,12 +45,18 @@ public class Kits
 		setLists();
 		alreadyChose.add(p.getName());
 		PlayerInventory inv = p.getInventory();
-		ArrayList<Integer> temp = new ArrayList<Integer>();
+		String truePath = "";
+		short data = 0;
 		for(String path : customConfig.getKeys(true))
 			if(!path.equalsIgnoreCase(kit) && path.toUpperCase().startsWith(kit.toUpperCase()))
-				temp.add(Integer.parseInt(path.substring(kit.length() + 1, path.length())));
-		for(int i = 0; i < temp.size(); i++)
-			inv.addItem(new ItemStack(Material.getMaterial(temp.get(i)), customConfig.getInt(kit + "." + Integer.toString(temp.get(i)))));
+			{
+				truePath = path.substring(kit.length() + 1, path.length());
+				if(truePath.split(":").length > 1)
+					data = (short) Integer.parseInt(truePath.split(":")[1]);
+				else
+					data = 0;
+				inv.addItem(new ItemStack(Material.getMaterial(Integer.parseInt(truePath.split(":")[0])), customConfig.getInt(kit + "." + truePath), data));
+			}
 	}
 	public void listKits(Player p)
 	{

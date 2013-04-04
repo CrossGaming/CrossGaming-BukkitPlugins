@@ -88,7 +88,7 @@ public class CmdHelp extends Cmd
 	}
 	private void page2(CommandSender sender)
 	{
-		sender.sendMessage(var.defaultCol() + "/hg setspawn [number] ~ Sets the [number] spawnpoint(max 24).");
+		sender.sendMessage(var.defaultCol() + "/hg setspawn [number] ~ Sets the [number] spawnpoint(max set in config.yml bye maxPlayers) 0 is the specator spawnpoint.");
 		sender.sendMessage(var.defaultCol() + "/hg info ~ Views info about the current round.");
 		sender.sendMessage(var.defaultCol() + "/hg vote [map number] ~ Votes for map [map number].");
 		sender.sendMessage(var.defaultCol() + "/hg stats [player] ~ Shows the stats of [player].");
