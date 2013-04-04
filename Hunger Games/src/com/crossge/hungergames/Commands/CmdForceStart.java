@@ -21,7 +21,7 @@ public class CmdForceStart extends Cmd
 			Player p = (Player) sender;
 			if(p.hasPermission("HungerGames.forcestart"))
 			{
-				if(!pl.gameGoing())
+				if(!pl.allowStart())
 				{
 					pl.gameStart();
 					p.sendMessage(var.defaultCol() + "You started the game.");

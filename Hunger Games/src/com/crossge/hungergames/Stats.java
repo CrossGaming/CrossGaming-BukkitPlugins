@@ -218,19 +218,13 @@ public class Stats
 		    	PreparedStatement stmt = conn.prepareStatement("SELECT * FROM HungerGames");//Points, Wins, Kills, Deaths, Games
 	            ResultSet rs = stmt.executeQuery();
 	            while(rs.next())
-	            {
 	                if(rs.getString("Name").equals(name))
-	                {
 	                	return Integer.toString(rs.getInt("Points"));
-	                }
-	            }
 	        }
 			catch (Exception e){System.out.print(e.getCause()); e.printStackTrace();}
 		}
 		else
-		{
 			return Integer.toString(customConfigStats.getInt(name + ".points"));
-		}
 		return null;
 	}
 	

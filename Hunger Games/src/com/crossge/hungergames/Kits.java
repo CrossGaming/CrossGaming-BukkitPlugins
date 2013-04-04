@@ -61,7 +61,8 @@ public class Kits
 	}
 	private void setLists()
 	{
-		classes.clear();
+		if(!classes.isEmpty())
+			classes.clear();
 		for(String kit : customConfig.getKeys(false))
 			classes.add(kit);
 	}

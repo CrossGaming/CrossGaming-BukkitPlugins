@@ -7,8 +7,11 @@ import java.util.TimerTask;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.Location;
+import org.bukkit.Material;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.PlayerInventory;
 
 public class Players
 {
@@ -110,14 +113,17 @@ public class Players
 			pathz = world + ".s" + Integer.toString(i) + ".z";
 			x = customConfig.getInt(pathx);
 			z = customConfig.getInt(pathz);
-			if(z > tempzmax)
-				tempzmax = z;
-			else if(z < tempzmin)
-				tempzmin = z;
-			if(x > tempxmax)
-				tempxmax = x;
-			else if(x < tempxmin)
-				tempxmin = x;
+			if(customConfig.get(pathz) != null && customConfig.get(pathx) != null)
+			{
+				if(z > tempzmax)
+					tempzmax = z;
+				else if(z < tempzmin)
+					tempzmin = z;
+				if(x > tempxmax)
+					tempxmax = x;
+				else if(x < tempxmin)
+					tempxmin = x;
+			}
 		}
 		tempzmax = tempzmax + 5;
 		tempzmin = tempzmin - 5;
@@ -149,6 +155,10 @@ public class Players
 		return false;
 	}
 	public boolean gameGoing()
+	{
+		return alive.size() > 1;
+	}
+	public boolean allowStart()
 	{
 		return gameStarted;
 	}
@@ -206,6 +216,12 @@ public class Players
 		p.setHealth(20);
 		p.setFlying(false);
 		p.setCanPickupItems(true);
+		PlayerInventory inv = p.getInventory();
+		inv.clear();
+		inv.setBoots(new ItemStack(Material.AIR));
+		inv.setLeggings(new ItemStack(Material.AIR));
+		inv.setChestplate(new ItemStack(Material.AIR));
+		inv.setHelmet(new ItemStack(Material.AIR));
 		p.performCommand("spawn");
 	}
 	public String deceased()
@@ -381,8 +397,12 @@ public class Players
 			temp.setHealth(20);
 			temp.setFlying(false);
 			temp.teleport(loc(i + 1));
-			temp.getInventory().clear();	
-			temp.getEquipment().clear();
+			PlayerInventory inv = temp.getInventory();
+			inv.clear();
+			inv.setBoots(new ItemStack(Material.AIR));
+			inv.setLeggings(new ItemStack(Material.AIR));
+			inv.setChestplate(new ItemStack(Material.AIR));
+			inv.setHelmet(new ItemStack(Material.AIR));
 			temp.setExp(-temp.getExp());
 			s.addGame(alive.get(i), 1);
 		}
