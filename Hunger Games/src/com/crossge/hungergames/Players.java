@@ -38,6 +38,11 @@ public class Players
 	private static int xmax = 0;
 	private static int zmin = 0;
 	private static int zmax = 0;
+	private static int xCornMin = 0;
+	private static int xCornMax = 0;
+	private static int zCornMin = 0;
+	private static int zCornMax = 0;
+	private static String worldName = "";
 	private static Timer t = new Timer();
 	private static Timer count = new Timer();
 	private static Timer day = new Timer();
@@ -195,6 +200,68 @@ public class Players
 	{
 		return death;
 	}
+	public void escapingArena(Player p)
+	{
+		String world = g.getNext();
+		if(!worldName.equalsIgnoreCase(world))
+		{
+			int x1 = customConfig.getInt(world + ".corner1.x");
+			int y1 = customConfig.getInt(world + ".corner1.y");
+			int z1 = customConfig.getInt(world + ".corner1.z");
+			int x2 = customConfig.getInt(world + ".corner2.x");
+			int y2 = customConfig.getInt(world + ".corner2.y");
+			int z2 = customConfig.getInt(world + ".corner2.z");
+			int temp;
+			if(x1 < x2)
+			{
+				temp = x2;
+				x2 = x1;
+				x1 = temp;
+			}
+			if(y1 < y2)
+			{
+				temp = y2;
+				y2 = y1;
+				y1 = temp;
+			}
+			if(z1 < z2)
+			{
+				temp = z2;
+				z2 = z1;
+				z1 = temp;
+			}
+			xCornMax = x1;
+			xCornMin = x2;
+			zCornMax = z1;
+			zCornMin = z2;
+		}
+		int x = p.getLocation().getBlockX();
+		int z = p.getLocation().getBlockZ();
+		if(x >= xCornMax)
+		{
+			p.sendMessage(var.defaultCol() + "You may not leave the arena.");
+			Location l = new Location(p.getWorld(), x - 1, p.getLocation().getBlockY(), z);
+			p.teleport(l);
+		}
+		else if(x <= xCornMin)
+		{
+			p.sendMessage(var.defaultCol() + "You may not leave the arena.");
+			Location l = new Location(p.getWorld(), x + 1, p.getLocation().getBlockY(), z);
+			p.teleport(l);
+		}
+		else if(z >= zCornMax)
+		{
+			p.sendMessage(var.defaultCol() + "You may not leave the arena.");
+			Location l = new Location(p.getWorld(), x, p.getLocation().getBlockY(), z - 1);
+			p.teleport(l);
+		}
+		else if(z <= zCornMin)
+		{
+			p.sendMessage(var.defaultCol() + "You may not leave the arena.");
+			Location l = new Location(p.getWorld(), x, p.getLocation().getBlockY(), z + 1);
+			p.teleport(l);
+		}
+	}
 	public void delSpectating(String name)
 	{
 		spectating.remove(name);
@@ -312,6 +379,7 @@ public class Players
 		for(Player p : Bukkit.getOnlinePlayers())
 			p.setCanPickupItems(true);
 		unhideSpec();
+		death = false;
 		alreadySponsor = false;
 		deathStarted = false;
 		gameStarted = false;

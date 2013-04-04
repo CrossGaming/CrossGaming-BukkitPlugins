@@ -1,6 +1,6 @@
 name: Hunger Games
 main: com.crossge.hungergames.HungerGames
-version: 1.0.7
+version: 1.0.8
 website: http://crossge.com
 description: Adds in the hunger games
 authors: [Cross Gaming Development Team]
@@ -31,11 +31,15 @@ permissions:
             HungerGames.kit: true
             HungerGames.modify: true
             HungerGames.convert: true
+            HungerGames.leaderboards: true
     HungerGames.hg:
         description: Lets you use /hg.
         default: true
     HungerGames.kit:
         description: Lets you use kits during the hunger games.
+        default: true
+    HungerGames.leaderboards:
+        description: Lets you view the leader boards for the hunger games.
         default: true
     HungerGames.vote:
         description: Lets you vote to start the hunger games.

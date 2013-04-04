@@ -25,8 +25,12 @@ public class Listeners implements Listener
 	Variables var = new Variables();
 	Game g = new Game();
 	Stats s = new Stats();
+	private File customConfigFile = new File("plugins/Hunger Games", "config.yml");
+	private YamlConfiguration customConfig = YamlConfiguration.loadConfiguration(customConfigFile);
 	private File customConfigFileBreakable = new File("plugins/Hunger Games", "breakable.yml");
-	private YamlConfiguration customConfig = YamlConfiguration.loadConfiguration(customConfigFileBreakable);
+	private YamlConfiguration customConfigBreakable = YamlConfiguration.loadConfiguration(customConfigFileBreakable);
+	private File customConfigFilePlaceable = new File("plugins/Hunger Games", "placeable.yml");
+	private YamlConfiguration customConfigPlaceable = YamlConfiguration.loadConfiguration(customConfigFilePlaceable);
 	private File customConfigFileCommands = new File("plugins/Hunger Games", "commands.yml");
 	private YamlConfiguration customConfigCommands = YamlConfiguration.loadConfiguration(customConfigFileCommands);
 	public Listeners()
@@ -39,6 +43,8 @@ public class Listeners implements Listener
 		Player p = event.getPlayer();
 		if(pl.deathstarted() && pl.isAlive(p.getName()))
 			pl.escaping(p);
+		else if(pl.isAlive(p.getName()))//Player is alive but deathmatch has not started
+			pl.escapingArena(p);
 	}
 	@EventHandler
 	public void onPlayerCommand(PlayerCommandPreprocessEvent event)
@@ -79,9 +85,9 @@ public class Listeners implements Listener
 			if(pl.isAlive(event.getPlayer().getName()))
 			{
 				boolean cancel = true;
-				for(String path : customConfig.getKeys(false))
+				for(String path : customConfigBreakable.getKeys(false))
 				{
-					if(event.getBlock().getType().equals(Material.getMaterial(Integer.parseInt(path))) && customConfig.getBoolean(path))
+					if(event.getBlock().getType().equals(Material.getMaterial(Integer.parseInt(path))) && customConfigBreakable.getBoolean(path))
 					{
 						cancel = false;
 						break;
@@ -97,8 +103,26 @@ public class Listeners implements Listener
 	public void onBlockPlace(BlockPlaceEvent event)
 	{
 		if(pl.gameGoing())
-			if(pl.isAlive(event.getPlayer().getName()) || pl.isSpectating(event.getPlayer().getName()))
+		{
+			if(pl.isAlive(event.getPlayer().getName()))
+			{
+				if(!customConfig.getBoolean("placeBlocks"))
+				{
+					boolean cancel = true;
+					for(String path : customConfigPlaceable.getKeys(false))
+					{
+						if(event.getBlock().getType().equals(Material.getMaterial(Integer.parseInt(path))) && customConfigPlaceable.getBoolean(path))
+						{
+							cancel = false;
+							break;
+						}
+					}
+					event.setCancelled(cancel);
+				}
+			}
+			else if(pl.isSpectating(event.getPlayer().getName()))
 				event.setCancelled(true);
+		}
 	}
 	@EventHandler
 	public void onPlayerQuit(PlayerQuitEvent event)

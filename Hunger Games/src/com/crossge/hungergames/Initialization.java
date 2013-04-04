@@ -17,6 +17,7 @@ public class Initialization
 	private File customConfigFileKits = new File("plugins/Hunger Games", "kits.yml");
 	private File customConfigFileStats = new File("plugins/Hunger Games", "stats.yml");
 	private File customConfigFileBreakable = new File("plugins/Hunger Games", "breakable.yml");
+	private File customConfigFilePlaceable = new File("plugins/Hunger Games", "placeable.yml");
 	private File customConfigFileCommands = new File("plugins/Hunger Games", "commands.yml");
 	public Initialization()
 	{
@@ -44,6 +45,7 @@ public class Initialization
 				customConfig.set("useKits", false);
 				customConfig.set("useMySQL", false);
 				customConfig.set("maxPlayers", 24);
+				customConfig.set("placeBlocks", false);
 				customConfig.save(customConfigFile);
 			}
 			catch (IOException e){}
@@ -65,6 +67,8 @@ public class Initialization
 					customConfig.set("useMySQL", false);
 				if(!customConfig.contains("maxPlayers"))
 					customConfig.set("maxPlayers", 24);
+				if(!customConfig.contains("placeBlocks"))
+					customConfig.set("placeBlocks", false);
 				customConfig.save(customConfigFile);
 			}
 			catch (IOException e){}
@@ -100,6 +104,17 @@ public class Initialization
 				YamlConfiguration customConfig = YamlConfiguration.loadConfiguration(customConfigFileBreakable);
 				customConfig.set("18", true);
 				customConfig.save(customConfigFileBreakable);
+			}
+			catch (IOException e){}
+		}
+		if(!customConfigFilePlaceable.exists())
+		{
+			try
+			{
+				customConfigFilePlaceable.createNewFile();
+				YamlConfiguration customConfig = YamlConfiguration.loadConfiguration(customConfigFilePlaceable);
+				customConfig.set("18", true);
+				customConfig.save(customConfigFilePlaceable);
 			}
 			catch (IOException e){}
 		}
