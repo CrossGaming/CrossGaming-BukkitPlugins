@@ -11,6 +11,7 @@ import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
+import org.bukkit.event.player.PlayerCommandPreprocessEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
@@ -31,6 +32,16 @@ public class Listeners implements Listener
 		Player p = event.getPlayer();
 		if(pl.deathstarted() && pl.isAlive(p.getName()))
 			pl.escaping(p);
+	}
+	@EventHandler
+	public void onPlayerCommand(PlayerCommandPreprocessEvent event)
+	{
+		Player p = event.getPlayer();
+		if((pl.isAlive(p.getName()) || pl.isSpectating(p.getName())) && !event.getMessage().equalsIgnoreCase("hungergames") && !event.getMessage().equalsIgnoreCase("spawn"))
+		{
+			p.sendMessage(var.errorCol() + "Error: You may not perform commands while in the hunger games.");
+			event.setCancelled(true);
+		}
 	}
 	@EventHandler
 	public void onPlayerJoin(PlayerJoinEvent event)

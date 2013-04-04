@@ -23,26 +23,27 @@ public class ChestRandomizer
 	private YamlConfiguration customConf = YamlConfiguration.loadConfiguration(customConfFile);
 	private static ArrayList<Integer> blockIds = new ArrayList<Integer>();
 	private static ArrayList<Double> percentChance = new ArrayList<Double>();
+	private static ArrayList<Short> damageValue = new ArrayList<Short>();
 	private static ArrayList<Integer> chestSpots = new ArrayList<Integer>();
 	public ChestRandomizer()
 	{
 		
 	}
 	
-	public int chestId()
+	public int chestIdLocation()
     {
 		Random r = new Random();
         int temp = r.nextInt(1000);//Gives a number to find the random.
         double totalPercent = 0;
         for(int x = 0; x < blockIds.size(); x++)//Runs through 5 times, 5 items.
         {
-        	totalPercent = 0;
+        	totalPercent = percentChance.get(x);
             for(int y = x; y > 0; y--)//Calculates for total percentage of all items up to the current item.
                 totalPercent = totalPercent + percentChance.get(y);
             if(temp < 10*totalPercent && temp > 10*totalPercent - 10*percentChance.get(x))
-                return blockIds.get(x);
+                return x;
         }
-        return 0;
+        return -1;
     }
 	
 	public void randomizeChests()
@@ -75,6 +76,10 @@ public class ChestRandomizer
 			z1 = temp;
 		}
 		World w = Bukkit.getWorld(world);
+		int chestAmount;
+		int loc;
+		int mat;
+		short data;
 		for(int x = x2; x <= x1; x++)
 			for(int y = y2; y <= y1; y++)
 				for(int z = z2; z <= z1; z++)
@@ -86,9 +91,19 @@ public class ChestRandomizer
 						Chest c = (Chest) b.getState();
 						Inventory inv = c.getBlockInventory();
 						inv.clear();
-						int chestAmount = items();
+						chestAmount = items();
 						for(int i = 0; i < chestAmount; i++)
-							inv.setItem(chestLoc(), new ItemStack(Material.getMaterial(chestId()), 1));
+						{
+							loc = chestIdLocation();
+							mat = 0;
+							data = 0;
+							if(loc != -1)
+							{
+								mat = blockIds.get(loc);
+								data = damageValue.get(loc);
+							}
+							inv.setItem(chestLoc(), new ItemStack(Material.getMaterial(mat), 1, data));
+						}
 					}
 				}
 	}
@@ -170,9 +185,20 @@ public class ChestRandomizer
 	{
 		blockIds.clear();
 		percentChance.clear();
+		short data = 0;
 		for(String path : customConfigChest.getKeys(false))
 		{
-			blockIds.add(Integer.parseInt(path));
+			if(path.split(":").length > 1)
+			{
+				blockIds.add(Integer.parseInt(path.split(":")[0]));
+				data = (short) Integer.parseInt(path.split(":")[1]);
+			}
+			else
+			{
+				blockIds.add(Integer.parseInt(path));
+				data = 0;
+			}
+			damageValue.add(data);
 			percentChance.add(customConfigChest.getDouble(path));
 		}
 	}
