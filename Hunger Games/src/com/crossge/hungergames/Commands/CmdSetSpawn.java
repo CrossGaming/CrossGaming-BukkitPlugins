@@ -5,13 +5,9 @@ import java.io.IOException;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
-import com.crossge.hungergames.*;
 
 public class CmdSetSpawn extends Cmd
 {
-	Variables var = new Variables();
-	Players pl = new Players();
-	Game g = new Game();
 	private File customConfigFile = new File("plugins/Hunger Games", "spawns.yml");
    	private YamlConfiguration customConfig = YamlConfiguration.loadConfiguration(customConfigFile);
    	private File customConfFile = new File("plugins/Hunger Games", "config.yml");

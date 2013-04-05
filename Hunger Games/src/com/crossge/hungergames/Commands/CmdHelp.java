@@ -2,11 +2,9 @@ package com.crossge.hungergames.Commands;
 
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-import com.crossge.hungergames.Variables;
 
 public class CmdHelp extends Cmd
 {
-	Variables var = new Variables();
 	public CmdHelp()
 	{
 		
@@ -105,8 +103,8 @@ public class CmdHelp extends Cmd
 	private void page4(CommandSender sender)
 	{
 		sender.sendMessage(var.defaultCol() + "/hg convert [mysql:yml] ~ Converts stats from one database to specified one.");
-		sender.sendMessage(var.defaultCol() + "Coming soon.");
-		sender.sendMessage(var.defaultCol() + "Coming soon.");
+		sender.sendMessage(var.defaultCol() + "/hg leaderboard [stats class] [page] ~ Leaderboard of each stat class.");
+		sender.sendMessage(var.defaultCol() + "Stat Classes: deaths, games, kills, points, wins.");
 		sender.sendMessage(var.defaultCol() + "Coming soon.");
 		sender.sendMessage(var.defaultCol() + "Coming soon.");
 	}

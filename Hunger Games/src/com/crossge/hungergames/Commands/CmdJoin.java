@@ -3,12 +3,9 @@ package com.crossge.hungergames.Commands;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-import com.crossge.hungergames.*;
 
 public class CmdJoin extends Cmd
 {
-	Variables var = new Variables();
-	Players pl = new Players();
 	public CmdJoin()
 	{
 		

@@ -1,9 +1,9 @@
 name: Hunger Games
 main: com.crossge.hungergames.HungerGames
-version: 1.0.8
+version: 1.0.9
 website: http://crossge.com
 description: Adds in the hunger games
-authors: [Cross Gaming Development Team]
+authors: [Cross GE Development Team]
 
 commands:
    hungergames:

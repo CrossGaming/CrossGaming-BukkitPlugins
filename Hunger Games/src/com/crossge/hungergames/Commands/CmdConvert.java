@@ -4,13 +4,9 @@ import java.io.File;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
-import com.crossge.hungergames.*;
 
 public class CmdConvert extends Cmd
 {
-	Variables var = new Variables();
-	Players pl = new Players();
-	Stats s = new Stats();
 	private File customConfigFileStats = new File("plugins/Hunger Games", "stats.yml");
    	private YamlConfiguration customConfigStats = YamlConfiguration.loadConfiguration(customConfigFileStats);
 	public CmdConvert()

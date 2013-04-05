@@ -2,20 +2,12 @@ package com.crossge.hungergames.Commands;
 
 import java.io.File;
 import java.io.IOException;
-
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 
-import com.crossge.hungergames.Game;
-import com.crossge.hungergames.Players;
-import com.crossge.hungergames.Variables;
-
 public class CmdSetCorner extends Cmd
 {
-	Variables var = new Variables();
-	Players pl = new Players();
-	Game g = new Game();
 	private File customConfigFile = new File("plugins/Hunger Games", "spawns.yml");
    	private YamlConfiguration customConfig = YamlConfiguration.loadConfiguration(customConfigFile);
 	public CmdSetCorner()

@@ -2,13 +2,9 @@ package com.crossge.hungergames.Commands;
 
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-import com.crossge.hungergames.*;
 
 public class CmdSponsor extends Cmd
 {
-	Variables var = new Variables();
-	Players pl = new Players();
-	Sponsor sp = new Sponsor();
 	public CmdSponsor()
 	{
 		

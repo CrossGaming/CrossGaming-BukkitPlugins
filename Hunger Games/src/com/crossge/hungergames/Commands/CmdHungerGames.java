@@ -50,7 +50,7 @@ public class CmdHungerGames extends Cmd
 			com = new CmdKit();
 		else if(subCom.equalsIgnoreCase("modify"))
 			com = new CmdModify();
-		else if(subCom.equalsIgnoreCase("leaderboards"))
+		else if(subCom.equalsIgnoreCase("leaderboards") || subCom.equalsIgnoreCase("leaderboard"))
 			com = new CmdLeaderboards();
 		else if(subCom.equalsIgnoreCase("convert") || subCom.equalsIgnoreCase("convertto"))
 			com = new CmdConvert();

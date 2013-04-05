@@ -2,6 +2,8 @@ package com.crossge.hungergames;
 
 import java.io.File;
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Properties;
 
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -227,7 +229,38 @@ public class Stats
 			return Integer.toString(customConfigStats.getInt(name + ".points"));
 		return null;
 	}
-	
+	public ArrayList<String> leaderboards()
+	{
+		ArrayList<String> temp = new ArrayList<String>();
+		if(customConf.getBoolean("useMySQL"))
+		{
+			try
+			{
+				if(conn.isClosed())
+					return null;
+		    	PreparedStatement stmt = conn.prepareStatement("SELECT * FROM HungerGames");//Name, Points, Wins, Kills, Deaths, Games
+	            ResultSet rs = stmt.executeQuery();
+	            while(rs.next())
+	            {
+	            	temp.add(rs.getString("Name") + " " + Integer.toString(rs.getInt("Points")) + " " + Integer.toString(rs.getInt("Wins"))
+                			 + " " + Integer.toString(rs.getInt("Kills")) + " " + Integer.toString(rs.getInt("Deaths"))
+                			+ " " + Integer.toString(rs.getInt("Games")));
+	            }
+	        }
+			catch (Exception e){System.out.print(e.getCause()); e.printStackTrace();}
+		}
+		else
+		{
+			for(String path : customConfigStats.getKeys(false))
+			{
+				temp.add(path + " " + Integer.toString(customConfigStats.getInt(path + ".points")) + " " + Integer.toString(customConfigStats.getInt(path + ".wins"))
+						+ " " + Integer.toString(customConfigStats.getInt(path + ".kills")) + " " + Integer.toString(customConfigStats.getInt(path + ".deaths"))
+						+ " " + Integer.toString(customConfigStats.getInt(path + ".games")));
+			}
+		}
+		Collections.sort(temp);
+		return temp;
+	}
 	public void connect()
 	{
 		if(customConf.getBoolean("useMySQL"))

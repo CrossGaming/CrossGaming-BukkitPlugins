@@ -2,15 +2,9 @@ package com.crossge.hungergames.Commands;
 
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-import com.crossge.hungergames.Players;
-import com.crossge.hungergames.Stats;
-import com.crossge.hungergames.Variables;
 
 public class CmdModify extends Cmd
 {
-	Variables var = new Variables();
-	Players pl = new Players();
-	Stats s = new Stats();
 	public CmdModify()
 	{
 		

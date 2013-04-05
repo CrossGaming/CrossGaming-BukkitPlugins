@@ -202,11 +202,9 @@ public class Metrics
             // Did we opt out?
             if (isOptOut())
                 return false;
-
             // Is metrics already running?
             if (task != null)
                 return true;
-
             // Begin hitting the server with glorious data
             task = plugin.getServer().getScheduler().runTaskTimerAsynchronously(plugin, new Runnable()
             {
@@ -325,7 +323,8 @@ public class Metrics
      *
      * @return the File object for the config file
      */
-    public File getConfigFile() {
+    public File getConfigFile()
+    {
         // I believe the easiest way to get the base folder (e.g craftbukkit set via -P) for plugins to use
         // is to abuse the plugin object we already have
         // plugin.getDataFolder() => base/plugins/PluginA/
@@ -432,20 +431,16 @@ public class Metrics
 
         if (response == null || response.startsWith("ERR"))
             throw new IOException(response); //Throw the exception
-        else
+        else if (response.contains("OK This is your first update this hour"))// Is this the first update this hour?
         {
-            // Is this the first update this hour?
-            if (response.contains("OK This is your first update this hour"))
+            synchronized (graphs)
             {
-                synchronized (graphs)
+                final Iterator<Graph> iter = graphs.iterator();
+                while (iter.hasNext())
                 {
-                    final Iterator<Graph> iter = graphs.iterator();
-                    while (iter.hasNext())
-                    {
-                        final Graph graph = iter.next();
-                        for (Plotter plotter : graph.getPlotters())
-                            plotter.reset();
-                    }
+                    final Graph graph = iter.next();
+                    for (Plotter plotter : graph.getPlotters())
+                        plotter.reset();
                 }
             }
         }
@@ -524,7 +519,8 @@ public class Metrics
          *
          * @return the Graph's name
          */
-        public String getName() {
+        public String getName()
+        {
             return name;
         }
 

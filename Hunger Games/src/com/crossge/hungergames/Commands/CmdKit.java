@@ -5,15 +5,9 @@ import java.io.File;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
-import com.crossge.hungergames.Kits;
-import com.crossge.hungergames.Players;
-import com.crossge.hungergames.Variables;
 
 public class CmdKit extends Cmd
 {
-	Variables var = new Variables();
-	Players pl = new Players();
-	Kits kit = new Kits();
 	private File customConfigFile = new File("plugins/Hunger Games", "config.yml");
    	private YamlConfiguration customConfig = YamlConfiguration.loadConfiguration(customConfigFile);
 	public CmdKit()

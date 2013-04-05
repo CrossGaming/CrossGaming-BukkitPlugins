@@ -51,9 +51,7 @@ public class Sponsor
         double totalPercent = 0;
         for(int x = 0; x < blockIds.size(); x++)//Runs through 5 times, 5 items.
         {
-        	totalPercent = percentChance.get(x);
-        	for(int y = x; y > 0; y--)//Calculates for total percentage of all items up to the current item.
-            	totalPercent = totalPercent + percentChance.get(y);
+        	totalPercent = totalPercent + percentChance.get(x);//Calculates for total percentage of all items up to the current item.
         	if(temp < 10*totalPercent && temp > 10*totalPercent - 10*percentChance.get(x))
             	return x;
         }
