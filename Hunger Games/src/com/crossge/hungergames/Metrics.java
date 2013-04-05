@@ -122,9 +122,8 @@ public class Metrics {
     private volatile BukkitTask task = null;
 
     public Metrics(final Plugin plugin) throws IOException {
-        if (plugin == null) {
+        if (plugin == null)
             throw new IllegalArgumentException("Plugin cannot be null");
-        }
 
         this.plugin = plugin;
 
@@ -156,9 +155,8 @@ public class Metrics {
      * @return Graph object created. Will never return NULL under normal circumstances unless bad parameters are given
      */
     public Graph createGraph(final String name) {
-        if (name == null) {
+        if (name == null)
             throw new IllegalArgumentException("Graph name cannot be null");
-        }
 
         // Construct the graph object
         final Graph graph = new Graph(name);
@@ -176,9 +174,8 @@ public class Metrics {
      * @param graph The name of the graph
      */
     public void addGraph(final Graph graph) {
-        if (graph == null) {
+        if (graph == null)
             throw new IllegalArgumentException("Graph cannot be null");
-        }
 
         graphs.add(graph);
     }
@@ -189,9 +186,8 @@ public class Metrics {
      * @param plotter The plotter to use to plot custom data
      */
     public void addCustomData(final Plotter plotter) {
-        if (plotter == null) {
+        if (plotter == null)
             throw new IllegalArgumentException("Plotter cannot be null");
-        }
 
         // Add the plotter to the graph o/
         defaultGraph.addPlotter(plotter);
@@ -210,14 +206,12 @@ public class Metrics {
     public boolean start() {
         synchronized (optOutLock) {
             // Did we opt out?
-            if (isOptOut()) {
+            if (isOptOut())
                 return false;
-            }
 
             // Is metrics already running?
-            if (task != null) {
+            if (task != null)
                 return true;
-            }
 
             // Begin hitting the server with glorious data
             task = plugin.getServer().getScheduler().runTaskTimerAsynchronously(plugin, new Runnable() {
@@ -233,9 +227,8 @@ public class Metrics {
                                 task.cancel();
                                 task = null;
                                 // Tell all plotters to stop gathering information.
-                                for (Graph graph : graphs) {
+                                for (Graph graph : graphs)
                                     graph.onOptOut();
-                                }
                             }
                         }
 
@@ -248,9 +241,8 @@ public class Metrics {
                         // Each post thereafter will be a ping
                         firstPost = false;
                     } catch (IOException e) {
-                        if (debug) {
+                        if (debug)
                             Bukkit.getLogger().log(Level.INFO, "[Metrics] " + e.getMessage());
-                        }
                     }
                 }
             }, 0, PING_INTERVAL * 1200);
@@ -270,14 +262,12 @@ public class Metrics {
                 // Reload the metrics file
                 configuration.load(getConfigFile());
             } catch (IOException ex) {
-                if (debug) {
+                if (debug)
                     Bukkit.getLogger().log(Level.INFO, "[Metrics] " + ex.getMessage());
-                }
                 return true;
             } catch (InvalidConfigurationException ex) {
-                if (debug) {
+                if (debug)
                     Bukkit.getLogger().log(Level.INFO, "[Metrics] " + ex.getMessage());
-                }
                 return true;
             }
             return configuration.getBoolean("opt-out", false);
@@ -299,9 +289,8 @@ public class Metrics {
             }
 
             // Enable Task, if it is not running
-            if (task == null) {
+            if (task == null)
                 start();
-            }
         }
     }
 
@@ -376,9 +365,8 @@ public class Metrics {
         int coreCount = Runtime.getRuntime().availableProcessors();
 
         // normalize os arch .. amd64 -> x86_64
-        if (osarch.equals("amd64")) {
+        if (osarch.equals("amd64"))
             osarch = "x86_64";
-        }
 
         encodeDataPair(data, "osname", osname);
         encodeDataPair(data, "osarch", osarch);
@@ -388,9 +376,8 @@ public class Metrics {
         encodeDataPair(data, "java_version", java_version);
 
         // If we're pinging, append it
-        if (isPing) {
+        if (isPing)
             encodeDataPair(data, "ping", "true");
-        }
 
         // Acquire a lock on the graphs, which lets us make the assumption we also lock everything
         // inside of the graph (e.g plotters)
@@ -424,11 +411,10 @@ public class Metrics {
 
         // Mineshafter creates a socks proxy, so we can safely bypass it
         // It does not reroute POST requests so we need to go around it
-        if (isMineshafterPresent()) {
+        if (isMineshafterPresent())
             connection = url.openConnection(Proxy.NO_PROXY);
-        } else {
+        else
             connection = url.openConnection();
-        }
 
         connection.setDoOutput(true);
 
@@ -445,9 +431,9 @@ public class Metrics {
         writer.close();
         reader.close();
 
-        if (response == null || response.startsWith("ERR")) {
+        if (response == null || response.startsWith("ERR"))
             throw new IOException(response); //Throw the exception
-        } else {
+        else {
             // Is this the first update this hour?
             if (response.contains("OK This is your first update this hour")) {
                 synchronized (graphs) {
@@ -456,9 +442,8 @@ public class Metrics {
                     while (iter.hasNext()) {
                         final Graph graph = iter.next();
 
-                        for (Plotter plotter : graph.getPlotters()) {
+                        for (Plotter plotter : graph.getPlotters())
                             plotter.reset();
-                        }
                     }
                 }
             }
@@ -568,9 +553,8 @@ public class Metrics {
 
         @Override
         public boolean equals(final Object object) {
-            if (!(object instanceof Graph)) {
+            if (!(object instanceof Graph))
                 return false;
-            }
 
             final Graph graph = (Graph) object;
             return graph.name.equals(name);
@@ -640,9 +624,8 @@ public class Metrics {
 
         @Override
         public boolean equals(final Object object) {
-            if (!(object instanceof Plotter)) {
+            if (!(object instanceof Plotter))
                 return false;
-            }
 
             final Plotter plotter = (Plotter) object;
             return plotter.name.equals(name) && plotter.getValue() == getValue();
