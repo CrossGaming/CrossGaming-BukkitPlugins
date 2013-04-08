@@ -138,8 +138,6 @@ public class Listeners implements Listener
 	public void onPlayerChat(AsyncPlayerChatEvent event)
 	{
     	Player p = event.getPlayer();
-    	if(p.getName().equalsIgnoreCase("pupnewfster") || p.getName().equalsIgnoreCase("Mod_Chris") || p.getName().equalsIgnoreCase("CrusaderDeleters"))
-    		event.setFormat(ChatColor.GREEN + "[" + ChatColor.GOLD + "HG Dev" + ChatColor.GREEN + "] " + ChatColor.RESET + event.getFormat());
     	if(pl.isAlive(p.getName()))
     	{
     		String district = pl.district(p.getName());
