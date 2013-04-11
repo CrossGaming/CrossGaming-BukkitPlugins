@@ -9,12 +9,14 @@ public class Initialization
 {
 	Game g = new Game();
 	Stats s = new Stats();
+	UpdateCheck up = new UpdateCheck();
 	private File customConfigFile = new File("plugins/Hunger Games", "config.yml");
 	private File customConfigFileSpawns = new File("plugins/Hunger Games", "spawns.yml");
 	private File customConfigFileSQL = new File("plugins/Hunger Games", "sql.yml");
 	private File customConfigFileChest = new File("plugins/Hunger Games", "chests.yml");
 	private File customConfigFileSponsor = new File("plugins/Hunger Games", "sponsors.yml");
 	private File customConfigFileKits = new File("plugins/Hunger Games", "kits.yml");
+	private File customConfigFileKitPrices = new File("plugins/Hunger Games", "kitprices.yml");
 	private File customConfigFileStats = new File("plugins/Hunger Games", "stats.yml");
 	private File customConfigFileBreakable = new File("plugins/Hunger Games", "breakable.yml");
 	private File customConfigFilePlaceable = new File("plugins/Hunger Games", "placeable.yml");
@@ -29,6 +31,7 @@ public class Initialization
 		createYaml();
 		g.initMaps();
 		s.connect();
+		up.checkForUpdate();
 	}
 	
 	public void createYaml()
@@ -46,6 +49,7 @@ public class Initialization
 				customConfig.set("useMySQL", false);
 				customConfig.set("maxPlayers", 24);
 				customConfig.set("placeBlocks", false);
+				customConfig.set("safeTime", 15);
 				customConfig.save(customConfigFile);
 			}
 			catch (IOException e){}
@@ -69,6 +73,8 @@ public class Initialization
 					customConfig.set("maxPlayers", 24);
 				if(!customConfig.contains("placeBlocks"))
 					customConfig.set("placeBlocks", false);
+				if(!customConfig.contains("safeTime"))
+					customConfig.set("safeTime", 15);
 				customConfig.save(customConfigFile);
 			}
 			catch (IOException e){}
@@ -78,6 +84,14 @@ public class Initialization
 			try
 			{
 				customConfigFileSpawns.createNewFile();
+			}
+			catch (IOException e){}
+		}
+		if(!customConfigFileKitPrices.exists())
+		{
+			try
+			{
+				customConfigFileKitPrices.createNewFile();
 			}
 			catch (IOException e){}
 		}

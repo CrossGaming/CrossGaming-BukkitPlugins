@@ -33,14 +33,17 @@ public class Game
 	{
 		if(nextMap.equals(""))
 		{
-			if(mvote.size() == 0)
+			if(mvote.isEmpty())
 				nextMap = maps.get(0);
 			else
 				nextMap = maps.get(mvote.get(0));
 		}
 		return nextMap;
 	}
-	
+	public boolean canVote()
+	{
+		return !(maps.isEmpty() || maps.size() == 1);
+	}
 	private void m()
 	{
 		Random r = new Random();
@@ -56,15 +59,14 @@ public class Game
 			mid.remove(temp);
 		}
 	}
-	
 	public void initMaps()
 	{
 		maps.clear();
 		Set<String> temp = customConfig.getKeys(false);
 		for(String r : temp)
-			maps.add(r);
+			if(!r.equalsIgnoreCase("worldS"))
+				maps.add(r);
 	}
-	
 	public String maps()
 	{
 		String m = "";
@@ -77,7 +79,7 @@ public class Game
 	}
 	public void holdVote()
 	{
-		if(maps.size() == 0 || maps.size() == 1)
+		if(maps.isEmpty() || maps.size() == 1)
 			return;
 		if(!voting)
 			m();

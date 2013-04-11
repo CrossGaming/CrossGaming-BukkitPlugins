@@ -17,6 +17,7 @@ public class CmdInfo extends Cmd
 			Player p = (Player) sender;
 			if(p.hasPermission("HungerGames.info"))
 			{
+				p.sendMessage(var.defaultCol() + "Map: " + g.getNext());
 				p.sendMessage(var.defaultCol() + pl.amount());
 				p.sendMessage(var.defaultCol() + "Alive: " + pl.breathing());
 				p.sendMessage(var.defaultCol() + "Dead: " + pl.deceased());

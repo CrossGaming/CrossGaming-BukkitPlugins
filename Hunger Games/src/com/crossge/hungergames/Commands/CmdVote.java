@@ -19,33 +19,38 @@ public class CmdVote extends Cmd
 			Player p = (Player) sender;
 			if(p.hasPermission("HungerGames.vote"))
 			{
-				int map = 1;
-				try
+				if(g.canVote())
 				{
-					map = Integer.parseInt(args[0]);
-				}
-				catch(Exception e)
-				{
-					return false;
-				}
-				if(map == 0 || map > 3)
-				{
-					p.sendMessage(var.errorCol() + "Error: Please enter a number inbetween 1 and 3.");
-					return false;
-				}
-				if(!pl.gameGoing())
-				{
-					int spot = pl.posInQueue(p.getName()); 
-					if(spot != 0)
+					int map = 1;
+					try
 					{
-						String m = g.addVote(p.getName(), map);
-						p.sendMessage(var.defaultCol() + "You voted for " + m + ".");
+						map = Integer.parseInt(args[0]);
+					}
+					catch(Exception e)
+					{
+						return false;
+					}
+					if(map == 0 || map > 3)
+					{
+						p.sendMessage(var.errorCol() + "Error: Please enter a number inbetween 1 and 3.");
+						return false;
+					}
+					if(!pl.gameGoing())
+					{
+						int spot = pl.posInQueue(p.getName()); 
+						if(spot != 0)
+						{
+							String m = g.addVote(p.getName(), map);
+							p.sendMessage(var.defaultCol() + "You voted for " + m + ".");
+						}
+						else
+							p.sendMessage(var.errorCol() + "Error: You must join the queue before you can vote.");
 					}
 					else
-						p.sendMessage(var.errorCol() + "Error: You must join the queue before you can vote.");
+						p.sendMessage(var.errorCol() + "Error: Game is already started.");
 				}
 				else
-					p.sendMessage(var.errorCol() + "Error: Game is already started.");
+					p.sendMessage(var.errorCol() + "Error: Only one map that could be voted for so voting is disabled.");
 			}
 			else
 				p.sendMessage(var.errorCol() + "Error: You may not vote to start the Hunger Games.");

@@ -34,6 +34,7 @@ public class Players
 	private static boolean deathStarted = false;
 	private static boolean death = false;
 	private static boolean gameStarted = false;
+	private static boolean invincible = true;
 	private static int xmin = 0;
 	private static int xmax = 0;
 	private static int zmin = 0;
@@ -46,6 +47,7 @@ public class Players
 	private static Timer t = new Timer();
 	private static Timer count = new Timer();
 	private static Timer day = new Timer();
+	private static Timer invinc = new Timer();
 	public Players()
 	{
 		
@@ -54,6 +56,20 @@ public class Players
 	public boolean alreadySponsored(String name)
 	{
 		return sponsored.contains(name);
+	}
+	public void sendToWSpawn()
+	{
+		Player p;
+		for(int i = 0; i < alive.size(); i++)
+		{
+			p = Bukkit.getPlayer(alive.get(i));
+			p.teleport(spawnLoc());
+		}
+		for(int i = 0; i < spectating.size(); i++)
+		{
+			p = Bukkit.getPlayer(spectating.get(i));
+			p.teleport(spawnLoc());
+		}
 	}
 	public void endTimer()
 	{
@@ -66,6 +82,9 @@ public class Players
 		day.cancel();
 		day.purge();
 		day = new Timer();
+		invinc.cancel();
+		invinc.purge();
+		invinc = new Timer();
 	}
 	public void addSponsored(String name)
 	{
@@ -168,6 +187,10 @@ public class Players
 	public boolean allowStart()
 	{
 		return gameStarted;
+	}
+	public boolean safeTime()
+	{
+		return invincible;
 	}
 	public boolean isAlive(String name)
 	{
@@ -273,7 +296,7 @@ public class Players
 		p.setHealth(20);
 		p.setFlying(false);
 		p.setCanPickupItems(true);
-		p.performCommand("spawn");
+		p.teleport(spawnLoc());
 	}
 	public void addDead(String name)
 	{
@@ -291,7 +314,8 @@ public class Players
 		inv.setLeggings(new ItemStack(Material.AIR));
 		inv.setChestplate(new ItemStack(Material.AIR));
 		inv.setHelmet(new ItemStack(Material.AIR));
-		p.performCommand("spawn");
+		p.setExp(-p.getExp());
+		p.teleport(spawnLoc());
 	}
 	public String deceased()
 	{
@@ -341,7 +365,14 @@ public class Players
 		p.setHealth(20);
 		p.setFlying(false);
 		p.setCanPickupItems(true);
-		p.performCommand("spawn");
+		PlayerInventory inv = p.getInventory();
+		inv.clear();
+		inv.setBoots(new ItemStack(Material.AIR));
+		inv.setLeggings(new ItemStack(Material.AIR));
+		inv.setChestplate(new ItemStack(Material.AIR));
+		inv.setHelmet(new ItemStack(Material.AIR));
+		p.setExp(-p.getExp());
+		p.teleport(spawnLoc());
 		return alive.get(0);
 	}
 	public void hideSpectators(Player p)
@@ -388,6 +419,11 @@ public class Players
 		sponsored.clear();
 		g.end();
 	}
+	private void safeEnd()
+	{
+		Bukkit.broadcastMessage(var.defaultCol() + "Players are no longer invincible.");
+		invincible = false;
+	}
 	public void addToQueue(String name)
 	{
 		queued.add(name);
@@ -423,6 +459,7 @@ public class Players
 		dead.clear();
 		spectating.clear();
 		gameStarted = true;
+		invincible = true;
 		vote1();
 	}
 	private void checkPlayers()
@@ -446,6 +483,7 @@ public class Players
 		}
 		queued.clear();
 		joinGame();
+		safeTimer();
 		if(deathMatch())
 			deathCountdown();
 		Bukkit.getWorld(g.getNext()).setTime(70584000);//70584000: sunrise. 70620000: evening
@@ -480,10 +518,24 @@ public class Players
 	private Location loc(int number)
 	{
 		String world = g.getNext();
-		String pathx = world + ".s" + Integer.toString(number) + ".x";//temporarily only have support for one map name
-		String pathy = world + ".s" + Integer.toString(number) + ".y";//temporarily only have support for one map name
-		String pathz = world + ".s" + Integer.toString(number) + ".z";//temporarily only have support for one map name
+		String pathx = world + ".s" + Integer.toString(number) + ".x";
+		String pathy = world + ".s" + Integer.toString(number) + ".y";
+		String pathz = world + ".s" + Integer.toString(number) + ".z";
 		return new Location(Bukkit.getWorld(world), customConfig.getInt(pathx), customConfig.getInt(pathy), customConfig.getInt(pathz));
+	}
+	private Location spawnLoc()
+	{
+		String world = customConfig.getString("worldS.world");
+		String pathx = "worldS.x";
+		String pathy = "worldS.y";
+		String pathz = "worldS.z";
+		return new Location(Bukkit.getWorld(world), customConfig.getInt(pathx), customConfig.getInt(pathy), customConfig.getInt(pathz));
+	}
+	public void safeTimer()
+	{
+		int time = customConf.getInt("safeTime");
+		Bukkit.broadcastMessage(var.defaultCol() + "Players are now invincible for " + Integer.toString(time) + " seconds.");
+		count.schedule(new TimerTask(){public void run() {safeEnd();}}, time * 1000);
 	}
 	public void vote1()
 	{

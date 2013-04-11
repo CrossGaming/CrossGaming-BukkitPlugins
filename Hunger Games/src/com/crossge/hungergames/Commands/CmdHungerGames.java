@@ -50,6 +50,14 @@ public class CmdHungerGames extends Cmd
 			com = new CmdKit();
 		else if(subCom.equalsIgnoreCase("modify"))
 			com = new CmdModify();
+		else if(subCom.equalsIgnoreCase("setworldspawn"))
+			com = new CmdWorldSpawn();
+		else if(subCom.equalsIgnoreCase("buykit"))
+			com = new CmdBuyKit();
+		else if(subCom.equalsIgnoreCase("kitprices"))
+			com = new CmdKitPrices();
+		else if(subCom.equalsIgnoreCase("setkitprice") || subCom.equalsIgnoreCase("skp"))
+			com = new CmdSetKitPrice();
 		else if(subCom.equalsIgnoreCase("leaderboards") || subCom.equalsIgnoreCase("leaderboard"))
 			com = new CmdLeaderboards();
 		else if(subCom.equalsIgnoreCase("convert") || subCom.equalsIgnoreCase("convertto"))

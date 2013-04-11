@@ -21,10 +21,11 @@ import org.bukkit.event.player.PlayerQuitEvent;
 
 public class Listeners implements Listener
 {
-	Players pl = new Players();
+	UpdateCheck up = new UpdateCheck();
 	Variables var = new Variables();
-	Game g = new Game();
+	Players pl = new Players();
 	Stats s = new Stats();
+	Game g = new Game();
 	private File customConfigFile = new File("plugins/Hunger Games", "config.yml");
 	private YamlConfiguration customConfig = YamlConfiguration.loadConfiguration(customConfigFile);
 	private File customConfigFileBreakable = new File("plugins/Hunger Games", "breakable.yml");
@@ -76,6 +77,8 @@ public class Listeners implements Listener
     	if(s.get(p.getName()) == null)
     		s.write(p.getName(), 0, 0, 0, 0, 0);
     	pl.hideSpectators(p);
+    	if(p.hasPermission("HungerGames.update"))
+    		up.tellOp(p);
 	}
 	@EventHandler
 	public void onBlockDamage(BlockDamageEvent event)
@@ -161,7 +164,7 @@ public class Listeners implements Listener
 	public void onEntityDamage(EntityDamageByEntityEvent event)
 	{
 		if(event.getDamager() instanceof Player)
-			if(pl.gameGoing() && !pl.isAlive(((Player)event.getDamager()).getName()))
+			if(pl.gameGoing() && (!pl.isAlive(((Player)event.getDamager()).getName()) || pl.safeTime()))
 				event.setCancelled(true);
 	}
 	@EventHandler

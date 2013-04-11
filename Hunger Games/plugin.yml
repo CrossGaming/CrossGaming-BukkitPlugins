@@ -1,6 +1,6 @@
 name: Hunger Games
 main: com.crossge.hungergames.HungerGames
-version: 1.0.9
+version: 1.1.0
 website: http://crossge.com
 description: Adds in the hunger games
 authors: [Cross GE Development Team]
@@ -32,6 +32,8 @@ permissions:
             HungerGames.modify: true
             HungerGames.convert: true
             HungerGames.leaderboards: true
+            HungerGames.setworldspawn: true
+            HungerGames.update: true
     HungerGames.hg:
         description: Lets you use /hg.
         default: true
@@ -79,4 +81,10 @@ permissions:
         default: op
     HungerGames.convert:
         description: Lets you conver mysql into yml or yml into mysql for the hunger games.
+        default: op
+    HungerGames.setworldspawn:
+        description: Lets you set the spawn players go to when game is over.
+        default: op
+    HungerGames.update:
+        description: Gets notified if there is an update for Hunger Games.
         default: op
