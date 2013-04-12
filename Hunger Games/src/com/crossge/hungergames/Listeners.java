@@ -4,6 +4,7 @@ import java.io.File;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
@@ -18,6 +19,8 @@ import org.bukkit.event.player.PlayerCommandPreprocessEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
+import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.PlayerInventory;
 
 public class Listeners implements Listener
 {
@@ -28,6 +31,8 @@ public class Listeners implements Listener
 	Game g = new Game();
 	private File customConfigFile = new File("plugins/Hunger Games", "config.yml");
 	private YamlConfiguration customConfig = YamlConfiguration.loadConfiguration(customConfigFile);
+	private File customConfigFileSpawn = new File("plugins/Hunger Games", "spawns.yml");
+	private YamlConfiguration customConfigSpawn = YamlConfiguration.loadConfiguration(customConfigFileSpawn);
 	private File customConfigFileBreakable = new File("plugins/Hunger Games", "breakable.yml");
 	private YamlConfiguration customConfigBreakable = YamlConfiguration.loadConfiguration(customConfigFileBreakable);
 	private File customConfigFilePlaceable = new File("plugins/Hunger Games", "placeable.yml");
@@ -42,7 +47,9 @@ public class Listeners implements Listener
 	public void onPlayerMove(PlayerMoveEvent event)
 	{
 		Player p = event.getPlayer();
-		if(pl.deathstarted() && pl.isAlive(p.getName()))
+		if(pl.denyMoving() && pl.isAlive(p.getName()))
+			p.teleport(pl.pSpawnPoint(p));
+		else if(pl.deathstarted() && pl.isAlive(p.getName()))
 			pl.escaping(p);
 		else if(pl.isAlive(p.getName()))//Player is alive but deathmatch has not started
 			pl.escapingArena(p);
@@ -134,7 +141,23 @@ public class Listeners implements Listener
     	pl.removeFromQueue(p.getName());
     	g.delVote(p.getName());
     	if(pl.isAlive(p.getName()))
+    	{
     		p.setHealth(0);
+    		p.setFlying(false);
+    		p.setCanPickupItems(true);
+    		PlayerInventory inv = p.getInventory();
+    		inv.clear();
+    		inv.setBoots(new ItemStack(Material.AIR));
+    		inv.setLeggings(new ItemStack(Material.AIR));
+    		inv.setChestplate(new ItemStack(Material.AIR));
+    		inv.setHelmet(new ItemStack(Material.AIR));
+    		p.setExp(-p.getExp());
+    		String world = customConfigSpawn.getString("worldS.world");
+    		String pathx = "worldS.x";
+    		String pathy = "worldS.y";
+    		String pathz = "worldS.z";
+    		p.teleport(new Location(Bukkit.getWorld(world), customConfigSpawn.getInt(pathx), customConfigSpawn.getInt(pathy), customConfigSpawn.getInt(pathz)));
+    	}
     	pl.unhideSpectators(p);
 	}
 	@EventHandler
@@ -176,9 +199,9 @@ public class Listeners implements Listener
     		if(pl.isAlive(p.getName()))
 	    	{
 	    		if(event.getDeathMessage().equals(p.getName() + " died"))
-	    			event.setDeathMessage(var.defaultCol() + p.getName() + " died while trying to win the hunger games.");
+	    			event.setDeathMessage(var.deathCol() + p.getName() + " died while trying to win the hunger games.");
 	    		else
-	    			event.setDeathMessage(var.defaultCol() + event.getDeathMessage());
+	    			event.setDeathMessage(var.deathCol() + event.getDeathMessage());
 	    		Player killer = p.getKiller();
 	    		if(killer != null)
 	    		{

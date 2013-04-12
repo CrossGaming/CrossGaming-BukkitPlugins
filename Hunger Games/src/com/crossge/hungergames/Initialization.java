@@ -50,6 +50,10 @@ public class Initialization
 				customConfig.set("maxPlayers", 24);
 				customConfig.set("placeBlocks", false);
 				customConfig.set("safeTime", 15);
+				customConfig.set("tpCoolDown", 30);
+				customConfig.set("minPlayers", 2);
+				customConfig.set("playersDeathMatch", 3);
+				customConfig.set("deathTime", 60);
 				customConfig.save(customConfigFile);
 			}
 			catch (IOException e){}
@@ -75,6 +79,14 @@ public class Initialization
 					customConfig.set("placeBlocks", false);
 				if(!customConfig.contains("safeTime"))
 					customConfig.set("safeTime", 15);
+				if(!customConfig.contains("tpCoolDown"))
+					customConfig.set("tpCoolDown", 30);
+				if(!customConfig.contains("minPlayers"))
+					customConfig.set("minPlayers", 2);
+				if(!customConfig.contains("deathTime"))
+					customConfig.set("deathTime", 60);
+				if(!customConfig.contains("playersDeathMatch"))
+					customConfig.set("playersDeathMatch", 3);
 				customConfig.save(customConfigFile);
 			}
 			catch (IOException e){}

@@ -8,6 +8,7 @@ import com.crossge.hungergames.Commands.*;
 public class HungerGames extends JavaPlugin
 {
 	Players pl = new Players();
+	ChestRandomizer cr = new ChestRandomizer();
 	Game g = new Game();
 	@Override
     public void onEnable()
@@ -19,7 +20,7 @@ public class HungerGames extends JavaPlugin
 		{
 		    Metrics metrics = new Metrics(this);
 		    metrics.start();
-		    getLogger().info("Hunger Games: Metrics enabled.");
+		    getLogger().info("Metrics enabled.");
 		}
 		catch (Exception e){}
 		getLogger().info("Hunger Games brought to you by Cross GE has been enabled.");
@@ -40,6 +41,7 @@ public class HungerGames extends JavaPlugin
     	pl.endTimer();
     	pl.sendToWSpawn();
     	pl.unhideSpec();
+    	cr.emptyChests();
     	getLogger().info("Hunger Games disabled.");
     }
 }

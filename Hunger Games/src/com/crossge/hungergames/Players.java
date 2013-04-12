@@ -35,6 +35,7 @@ public class Players
 	private static boolean death = false;
 	private static boolean gameStarted = false;
 	private static boolean invincible = true;
+	private static boolean moveDeny = true;
 	private static int xmin = 0;
 	private static int xmax = 0;
 	private static int zmin = 0;
@@ -48,6 +49,7 @@ public class Players
 	private static Timer count = new Timer();
 	private static Timer day = new Timer();
 	private static Timer invinc = new Timer();
+	private static Timer noMove = new Timer();
 	public Players()
 	{
 		
@@ -63,11 +65,33 @@ public class Players
 		for(int i = 0; i < alive.size(); i++)
 		{
 			p = Bukkit.getPlayer(alive.get(i));
+			p.setFoodLevel(20);
+			p.setHealth(20);
+			p.setFlying(false);
+			p.setCanPickupItems(true);
+			PlayerInventory inv = p.getInventory();
+			inv.clear();
+			inv.setBoots(new ItemStack(Material.AIR));
+			inv.setLeggings(new ItemStack(Material.AIR));
+			inv.setChestplate(new ItemStack(Material.AIR));
+			inv.setHelmet(new ItemStack(Material.AIR));
+			p.setExp(-p.getExp());
 			p.teleport(spawnLoc());
 		}
 		for(int i = 0; i < spectating.size(); i++)
 		{
 			p = Bukkit.getPlayer(spectating.get(i));
+			p.setFoodLevel(20);
+			p.setHealth(20);
+			p.setFlying(false);
+			p.setCanPickupItems(true);
+			PlayerInventory inv = p.getInventory();
+			inv.clear();
+			inv.setBoots(new ItemStack(Material.AIR));
+			inv.setLeggings(new ItemStack(Material.AIR));
+			inv.setChestplate(new ItemStack(Material.AIR));
+			inv.setHelmet(new ItemStack(Material.AIR));
+			p.setExp(-p.getExp());
 			p.teleport(spawnLoc());
 		}
 	}
@@ -85,6 +109,9 @@ public class Players
 		invinc.cancel();
 		invinc.purge();
 		invinc = new Timer();
+		noMove.cancel();
+		noMove.purge();
+		noMove = new Timer();
 	}
 	public void addSponsored(String name)
 	{
@@ -169,11 +196,11 @@ public class Players
 	}
 	public boolean deathMatch()
 	{
-		return alive.size() <= 3;
+		return alive.size() <= customConf.getInt("playersDeathMatch");
 	}
 	public boolean sponsorStart()
 	{
-		if(((origalive.size() / 5) >= alive.size() || alive.size() == 4) && !alreadySponsor)
+		if(((origalive.size() / 5) >= alive.size() || alive.size() == customConf.getInt("playersDeathMatch") + 1) && !alreadySponsor)
 		{
 			alreadySponsor = true;
 			return true;
@@ -296,6 +323,13 @@ public class Players
 		p.setHealth(20);
 		p.setFlying(false);
 		p.setCanPickupItems(true);
+		PlayerInventory inv = p.getInventory();
+		inv.clear();
+		inv.setBoots(new ItemStack(Material.AIR));
+		inv.setLeggings(new ItemStack(Material.AIR));
+		inv.setChestplate(new ItemStack(Material.AIR));
+		inv.setHelmet(new ItemStack(Material.AIR));
+		p.setExp(-p.getExp());
 		p.teleport(spawnLoc());
 	}
 	public void addDead(String name)
@@ -460,17 +494,26 @@ public class Players
 		spectating.clear();
 		gameStarted = true;
 		invincible = true;
+		moveDeny = true;
 		vote1();
+	}
+	public Location pSpawnPoint(Player p)
+	{
+		return loc(alive.indexOf(p.getName()) + 1);
 	}
 	private void checkPlayers()
 	{
-		if(queued.size() < 2)
+		if(queued.size() < customConf.getInt("minPlayers"))
 		{
-			Bukkit.broadcastMessage(var.defaultCol() + "Not enough players, need at least 2. Restarting countdown.");
+			Bukkit.broadcastMessage(var.defaultCol() + "Not enough players, need at least " + Integer.toString(customConf.getInt("minPlayers")) + ". Restarting countdown.");
 			vote1();
 		}
 		else
 			finishGameStart();
+	}
+	public boolean denyMoving()
+	{
+		return moveDeny;
 	}
 	private void finishGameStart()
 	{
@@ -483,6 +526,12 @@ public class Players
 		}
 		queued.clear();
 		joinGame();
+		tpCool();
+	}
+	private void finishGameStart2()
+	{
+		Bukkit.broadcastMessage(var.defaultCol() + "Players may now move.");
+		moveDeny = false;
 		safeTimer();
 		if(deathMatch())
 			deathCountdown();
@@ -535,7 +584,13 @@ public class Players
 	{
 		int time = customConf.getInt("safeTime");
 		Bukkit.broadcastMessage(var.defaultCol() + "Players are now invincible for " + Integer.toString(time) + " seconds.");
-		count.schedule(new TimerTask(){public void run() {safeEnd();}}, time * 1000);
+		invinc.schedule(new TimerTask(){public void run() {safeEnd();}}, time * 1000);
+	}
+	public void tpCool()
+	{
+		int time = customConf.getInt("tpCoolDown");
+		Bukkit.broadcastMessage(var.defaultCol() + "Players may move in " + Integer.toString(time) + " seconds.");
+		noMove.schedule(new TimerTask(){public void run() {finishGameStart2();}}, time * 1000);
 	}
 	public void vote1()
 	{
@@ -578,73 +633,9 @@ public class Players
 		if(!deathStarted)
 		{
 			deathStarted = true;
-			Bukkit.broadcastMessage(var.defaultCol() + "Death match will start in 60 seconds.");
-			t.schedule(new TimerTask(){public void run() {deathCountdown2();}}, 15000);
+			int time = customConf.getInt("deathTime");
+			Bukkit.broadcastMessage(var.defaultCol() + "Death match will start in " + Integer.toString(time) + " seconds.");
+			t.schedule(new TimerTask(){public void run() {startDeath();}}, time * 1000);
 		}
-	}
-	private void deathCountdown2()
-	{
-		Bukkit.broadcastMessage(var.defaultCol() + "Death match will start in 45 seconds.");
-		t.schedule(new TimerTask(){public void run() {deathCountdown3();}}, 15000);
-	}
-	private void deathCountdown3()
-	{
-		Bukkit.broadcastMessage(var.defaultCol() + "Death match will start in 30 seconds.");
-		t.schedule(new TimerTask(){public void run() {deathCountdown4();}}, 15000);
-	}
-	private void deathCountdown4()
-	{
-		Bukkit.broadcastMessage(var.defaultCol() + "Death match will start in 15 seconds.");
-		t.schedule(new TimerTask(){public void run() {deathCountdown5();}}, 5000);
-	}
-	private void deathCountdown5()
-	{
-		Bukkit.broadcastMessage(var.defaultCol() + "Death match will start in 10 seconds.");
-		t.schedule(new TimerTask(){public void run() {deathCountdown6();}}, 1000);
-	}
-	private void deathCountdown6()
-	{
-		Bukkit.broadcastMessage(var.defaultCol() + "Death match will start in 9 seconds.");
-		t.schedule(new TimerTask(){public void run() {deathCountdown7();}}, 1000);
-	}
-	private void deathCountdown7()
-	{
-		Bukkit.broadcastMessage(var.defaultCol() + "Death match will start in 8 seconds.");
-		t.schedule(new TimerTask(){public void run() {deathCountdown8();}}, 1000);
-	}
-	private void deathCountdown8()
-	{
-		Bukkit.broadcastMessage(var.defaultCol() + "Death match will start in 7 seconds.");
-		t.schedule(new TimerTask(){public void run() {deathCountdown9();}}, 1000);
-	}
-	private void deathCountdown9()
-	{
-		Bukkit.broadcastMessage(var.defaultCol() + "Death match will start in 6 seconds.");
-		t.schedule(new TimerTask(){public void run() {deathCountdown10();}}, 1000);
-	}
-	private void deathCountdown10()
-	{
-		Bukkit.broadcastMessage(var.defaultCol() + "Death match will start in 5 seconds.");
-		t.schedule(new TimerTask(){public void run() {deathCountdown11();}}, 1000);
-	}
-	private void deathCountdown11()
-	{
-		Bukkit.broadcastMessage(var.defaultCol() + "Death match will start in 4 seconds.");
-		t.schedule(new TimerTask(){public void run() {deathCountdown12();}}, 1000);
-	}
-	private void deathCountdown12()
-	{
-		Bukkit.broadcastMessage(var.defaultCol() + "Death match will start in 3 seconds.");
-		t.schedule(new TimerTask(){public void run() {deathCountdown13();}}, 1000);
-	}
-	private void deathCountdown13()
-	{
-		Bukkit.broadcastMessage(var.defaultCol() + "Death match will start in 2 seconds.");
-		t.schedule(new TimerTask(){public void run() {deathCountdown14();}}, 1000);
-	}
-	private void deathCountdown14()
-	{
-		Bukkit.broadcastMessage(var.defaultCol() + "Death match will start in 1 seconds.");
-		t.schedule(new TimerTask(){public void run() {startDeath();}}, 1000);
 	}
 }
