@@ -2,6 +2,7 @@ package com.crossge.hungergames;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
@@ -9,6 +10,8 @@ import org.bukkit.World;
 import org.bukkit.block.Block;
 import org.bukkit.block.Chest;
 import org.bukkit.configuration.file.YamlConfiguration;
+import org.bukkit.entity.Entity;
+import org.bukkit.entity.Item;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 
@@ -148,6 +151,11 @@ public class ChestRandomizer
 						inv.clear();
 					}
 				}
+        List<Entity> entList = w.getEntities();
+        for(Entity current : entList)
+            if (current instanceof Item && (current.getLocation().getBlockX() >= x2 && current.getLocation().getBlockX() <= x1
+            							&& current.getLocation().getBlockZ() >= z2 && current.getLocation().getBlockZ() <= z1))
+            	current.remove();
 	}
 	
 	private void resetSpots()

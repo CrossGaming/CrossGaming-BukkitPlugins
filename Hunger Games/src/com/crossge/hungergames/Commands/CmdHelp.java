@@ -115,7 +115,7 @@ public class CmdHelp extends Cmd
 	private void page5(CommandSender sender)
 	{
 		sender.sendMessage(var.defaultCol() + "/hg setcorner [number] ~ Sets the corners for the hunger games either 1 or 2.");
-		sender.sendMessage(var.defaultCol() + "Coming soon.");
+		sender.sendMessage(var.defaultCol() + "/hg forcestop ~ Forces the current game to stop.");
 		sender.sendMessage(var.defaultCol() + "Coming soon.");
 		sender.sendMessage(var.defaultCol() + "Coming soon.");
 		sender.sendMessage(var.defaultCol() + "Coming soon.");

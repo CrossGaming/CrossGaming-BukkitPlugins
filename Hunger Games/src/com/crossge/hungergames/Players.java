@@ -438,6 +438,7 @@ public class Players
 	}
 	public void endGame()
 	{
+		sendToWSpawn();
 		alive.clear();
 		origalive.clear();
 		dead.clear();
@@ -572,7 +573,7 @@ public class Players
 		String pathz = world + ".s" + Integer.toString(number) + ".z";
 		return new Location(Bukkit.getWorld(world), customConfig.getInt(pathx), customConfig.getInt(pathy), customConfig.getInt(pathz));
 	}
-	private Location spawnLoc()
+	public Location spawnLoc()
 	{
 		String world = customConfig.getString("worldS.world");
 		String pathx = "worldS.x";

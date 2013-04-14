@@ -42,6 +42,8 @@ public class CmdHungerGames extends Cmd
 			com = new CmdCredits();
 		else if(subCom.equalsIgnoreCase("forcestart"))
 			com = new CmdForceStart();
+		else if(subCom.equalsIgnoreCase("forcestop"))
+			com = new CmdForceStop();
 		else if(subCom.equalsIgnoreCase("setcorner"))
 			com = new CmdSetCorner();
 		else if(subCom.equalsIgnoreCase("sponsor"))

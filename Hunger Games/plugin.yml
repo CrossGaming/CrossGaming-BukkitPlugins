@@ -26,6 +26,7 @@ permissions:
             HungerGames.setspawn: true
             HungerGames.vote: true
             HungerGames.forcestart: true
+            HungerGames.forcestop: true
             HungerGames.setcorner: true
             HungerGames.sponsor: true
             HungerGames.kit: true
@@ -69,6 +70,9 @@ permissions:
         default: op
     HungerGames.forcestart:
         description: Lets you force start the hunger games.
+        default: op
+    HungerGames.forcestop:
+        description: Lets you force stop the hunger games.
         default: op
     HungerGames.setcorner:
         description: Lets you set the corners for the hunger games.

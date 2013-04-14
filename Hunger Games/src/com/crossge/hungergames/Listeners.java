@@ -1,6 +1,7 @@
 package com.crossge.hungergames;
 
 import java.io.File;
+import java.util.List;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -19,6 +20,7 @@ import org.bukkit.event.player.PlayerCommandPreprocessEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
+import org.bukkit.event.player.PlayerRespawnEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.PlayerInventory;
 
@@ -48,7 +50,12 @@ public class Listeners implements Listener
 	{
 		Player p = event.getPlayer();
 		if(pl.denyMoving() && pl.isAlive(p.getName()))
-			p.teleport(pl.pSpawnPoint(p));
+		{
+			if(event.getFrom().getBlockX() != event.getTo().getBlockX()
+					|| event.getFrom().getBlockY() != event.getTo().getBlockY()
+					|| event.getFrom().getBlockZ() != event.getTo().getBlockZ())
+				p.teleport(pl.pSpawnPoint(p));
+		}
 		else if(pl.deathstarted() && pl.isAlive(p.getName()))
 			pl.escaping(p);
 		else if(pl.isAlive(p.getName()))//Player is alive but deathmatch has not started
@@ -191,36 +198,46 @@ public class Listeners implements Listener
 				event.setCancelled(true);
 	}
 	@EventHandler
+	public void onPlayerRespawn(PlayerRespawnEvent event)
+	{
+		event.setRespawnLocation(pl.spawnLoc());
+	}
+	@EventHandler
 	public void onPlayerDeath(PlayerDeathEvent event)
 	{
-    	Player p = (Player) event.getEntity();
-    	if(pl.gameGoing())
+		Player p = (Player) event.getEntity();
+    	if(pl.gameGoing() && pl.isAlive(p.getName()))
     	{
-    		if(pl.isAlive(p.getName()))
+    		if(event.getDeathMessage().equals(p.getName() + " died"))
+    			event.setDeathMessage(var.deathCol() + p.getName() + " died while trying to win the hunger games.");
+    		else
+    			event.setDeathMessage(var.deathCol() + event.getDeathMessage());
+    		List<ItemStack> inv = event.getDrops();
+    		for(int i = 0; i < inv.size(); i++)
+    			if(inv.get(i) != null && !inv.get(i).getData().getItemType().equals(Material.AIR))
+    			{
+    				p.getWorld().dropItemNaturally(p.getLocation(), inv.get(i));
+    				inv.set(i, new ItemStack(Material.AIR));
+    			}
+    		p.getWorld().strikeLightningEffect(p.getLocation());
+    		Player killer = p.getKiller();
+    		if(killer != null)
+    		{
+    			s.addKill(killer.getName(), 1);
+    			s.addPoints(killer.getName(), 7);
+    		}
+    		s.addDeath(p.getName(), 1);
+    		pl.addDead(p.getName());
+    		s.addPoints(p.getName(), -7);
+    		if(pl.sponsorStart())
+	    		pl.startSponsor();
+	    	if(pl.deathMatch())
+	    		pl.deathCountdown();
+	    	if(pl.onePlayerLeft())
 	    	{
-	    		if(event.getDeathMessage().equals(p.getName() + " died"))
-	    			event.setDeathMessage(var.deathCol() + p.getName() + " died while trying to win the hunger games.");
-	    		else
-	    			event.setDeathMessage(var.deathCol() + event.getDeathMessage());
-	    		Player killer = p.getKiller();
-	    		if(killer != null)
-	    		{
-	    			s.addKill(killer.getName(), 1);
-	    			s.addPoints(killer.getName(), 7);
-	    		}
-	    		s.addDeath(p.getName(), 1);
-	    		pl.addDead(p.getName());
-	    		s.addPoints(p.getName(), -7);
-	    		if(pl.sponsorStart())
-		    		pl.startSponsor();
-		    	if(pl.deathMatch())
-		    		pl.deathCountdown();
-		    	if(pl.onePlayerLeft())
-		    	{
-		    		Bukkit.broadcastMessage(var.defaultCol() + pl.winner() + " won the Hunger Games.");
-		    		pl.endTimer();
-		    		pl.endGame();
-		    	}
+	    		Bukkit.broadcastMessage(var.defaultCol() + pl.winner() + " won the Hunger Games.");
+	    		pl.endTimer();
+	    		pl.endGame();
 	    	}
     	}
 	}

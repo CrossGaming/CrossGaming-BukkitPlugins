@@ -12,7 +12,7 @@ public class HungerGames extends JavaPlugin
 	Game g = new Game();
 	@Override
     public void onEnable()
-	{	
+	{
 		getServer().getPluginManager().registerEvents(new Listeners(), this);
 		Initialization init = new Initialization();
 		init.initiateFiles();
