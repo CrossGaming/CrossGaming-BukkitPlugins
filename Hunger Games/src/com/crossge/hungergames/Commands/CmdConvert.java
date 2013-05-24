@@ -9,10 +9,6 @@ public class CmdConvert extends Cmd
 {
 	private File customConfigFileStats = new File("plugins/Hunger Games", "stats.yml");
    	private YamlConfiguration customConfigStats = YamlConfiguration.loadConfiguration(customConfigFileStats);
-	public CmdConvert()
-	{
-		
-	}
 	
 	public boolean commandUse(CommandSender sender, String[] args)
 	{

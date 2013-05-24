@@ -5,12 +5,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 public class CmdForceStop extends Cmd
-{
-	public CmdForceStop()
-	{
-		
-	}
-	
+{	
 	public boolean commandUse(CommandSender sender, String[] args)
 	{
 		if (sender instanceof Player)

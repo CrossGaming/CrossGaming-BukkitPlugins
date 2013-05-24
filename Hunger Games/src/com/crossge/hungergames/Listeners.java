@@ -17,10 +17,12 @@ import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
 import org.bukkit.event.player.PlayerCommandPreprocessEvent;
+import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.event.player.PlayerRespawnEvent;
+import org.bukkit.event.server.ServerListPingEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.PlayerInventory;
 
@@ -41,19 +43,14 @@ public class Listeners implements Listener
 	private YamlConfiguration customConfigPlaceable = YamlConfiguration.loadConfiguration(customConfigFilePlaceable);
 	private File customConfigFileCommands = new File("plugins/Hunger Games", "commands.yml");
 	private YamlConfiguration customConfigCommands = YamlConfiguration.loadConfiguration(customConfigFileCommands);
-	public Listeners()
-	{
-		
-	}
+
 	@EventHandler
 	public void onPlayerMove(PlayerMoveEvent event)
 	{
 		Player p = event.getPlayer();
 		if(pl.denyMoving() && pl.isAlive(p.getName()))
 		{
-			if(event.getFrom().getBlockX() != event.getTo().getBlockX()
-					|| event.getFrom().getBlockY() != event.getTo().getBlockY()
-					|| event.getFrom().getBlockZ() != event.getTo().getBlockZ())
+			if(event.getFrom().getBlockX() != event.getTo().getBlockX() || event.getFrom().getBlockZ() != event.getTo().getBlockZ())
 				p.teleport(pl.pSpawnPoint(p));
 		}
 		else if(pl.deathstarted() && pl.isAlive(p.getName()))
@@ -165,6 +162,8 @@ public class Listeners implements Listener
     		String pathz = "worldS.z";
     		p.teleport(new Location(Bukkit.getWorld(world), customConfigSpawn.getInt(pathx), customConfigSpawn.getInt(pathy), customConfigSpawn.getInt(pathz)));
     	}
+    	else if(pl.isSpectating(p.getName()))
+    		pl.delSpectating(p.getName());
     	pl.unhideSpectators(p);
 	}
 	@EventHandler
@@ -196,6 +195,18 @@ public class Listeners implements Listener
 		if(event.getDamager() instanceof Player)
 			if(pl.gameGoing() && (!pl.isAlive(((Player)event.getDamager()).getName()) || pl.safeTime()))
 				event.setCancelled(true);
+	}
+	@EventHandler
+	public void onPlayerInteract(PlayerInteractEvent event)
+	{
+		if(pl.gameGoing() && pl.isSpectating(event.getPlayer().getName()))
+			event.setCancelled(true);
+	}
+	@EventHandler
+	public void onPlayerPingServer(final ServerListPingEvent event)
+	{
+		if(customConfig.getBoolean("updateMOTD"))
+			event.setMotd(Bukkit.getMotd() + " " + ChatColor.GREEN + pl.getMotd());
 	}
 	@EventHandler
 	public void onPlayerRespawn(PlayerRespawnEvent event)

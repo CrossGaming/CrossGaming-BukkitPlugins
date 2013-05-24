@@ -4,11 +4,6 @@ import org.bukkit.command.CommandSender;
 
 public class CmdCredits extends Cmd
 {
-	public CmdCredits()
-	{
-		
-	}
-	
 	public boolean commandUse(CommandSender sender, String[] args)
 	{
 		sender.sendMessage(var.defaultCol() + "Credits for this plugin go to the Cross GE Development team.");

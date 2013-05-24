@@ -50,14 +50,14 @@ public class Players
 	private static Timer day = new Timer();
 	private static Timer invinc = new Timer();
 	private static Timer noMove = new Timer();
-	public Players()
-	{
-		
-	}
-	
+	private static String motd = "Voting";
 	public boolean alreadySponsored(String name)
 	{
 		return sponsored.contains(name);
+	}
+	public String getMotd()
+	{
+		return motd;
 	}
 	public void sendToWSpawn()
 	{
@@ -187,6 +187,7 @@ public class Players
 		xmax = tempxmax;
 		xmin = tempxmin;
 		Bukkit.broadcastMessage(var.defaultCol() + "Death match started.");
+		motd = "Deathmatch";
 		Player temp;
 		for(int i = 0; i < alive.size(); i++)
 		{
@@ -438,6 +439,7 @@ public class Players
 	}
 	public void endGame()
 	{
+		motd = "Game over";
 		sendToWSpawn();
 		alive.clear();
 		origalive.clear();
@@ -489,6 +491,7 @@ public class Players
 	}
 	public void gameStart()
 	{
+		motd = "Voting";
 		alive.clear();
 		origalive.clear();
 		dead.clear();
@@ -519,6 +522,7 @@ public class Players
 	private void finishGameStart()
 	{
 		Bukkit.broadcastMessage(var.defaultCol() + "Game will now start.");
+		cr.emptyChests();
 		cr.randomizeChests();
 		for(int i = 0; i < queued.size(); i++)
 		{
@@ -527,10 +531,12 @@ public class Players
 		}
 		queued.clear();
 		joinGame();
+		motd = g.getNext() + " Pre-game";
 		tpCool();
 	}
 	private void finishGameStart2()
 	{
+		motd = g.getNext() + " Game in progress";
 		Bukkit.broadcastMessage(var.defaultCol() + "Players may now move.");
 		moveDeny = false;
 		safeTimer();

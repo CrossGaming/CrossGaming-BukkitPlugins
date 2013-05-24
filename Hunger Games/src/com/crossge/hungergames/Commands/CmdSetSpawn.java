@@ -12,10 +12,6 @@ public class CmdSetSpawn extends Cmd
    	private YamlConfiguration customConfig = YamlConfiguration.loadConfiguration(customConfigFile);
    	private File customConfFile = new File("plugins/Hunger Games", "config.yml");
    	private YamlConfiguration customConf = YamlConfiguration.loadConfiguration(customConfFile);
-	public CmdSetSpawn()
-	{
-		
-	}
 	
 	public boolean commandUse(CommandSender sender, String[] args)
 	{

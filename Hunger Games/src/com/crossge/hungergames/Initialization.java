@@ -21,10 +21,7 @@ public class Initialization
 	private File customConfigFileBreakable = new File("plugins/Hunger Games", "breakable.yml");
 	private File customConfigFilePlaceable = new File("plugins/Hunger Games", "placeable.yml");
 	private File customConfigFileCommands = new File("plugins/Hunger Games", "commands.yml");
-	public Initialization()
-	{
-		
-	}
+
 	public void initiateFiles()
 	{
 		dirCreate("plugins/Hunger Games");
@@ -54,6 +51,7 @@ public class Initialization
 				customConfig.set("minPlayers", 2);
 				customConfig.set("playersDeathMatch", 3);
 				customConfig.set("deathTime", 60);
+				customConfig.set("updateMOTD", false);
 				customConfig.save(customConfigFile);
 			}
 			catch (IOException e){}
@@ -87,6 +85,8 @@ public class Initialization
 					customConfig.set("deathTime", 60);
 				if(!customConfig.contains("playersDeathMatch"))
 					customConfig.set("playersDeathMatch", 3);
+				if(!customConfig.contains("updateMOTD"))
+					customConfig.set("updateMOTD", false);
 				customConfig.save(customConfigFile);
 			}
 			catch (IOException e){}
@@ -281,33 +281,33 @@ public class Initialization
 				customConfig.set("271", 0.86);//wood axe
 				customConfig.set("272", 0.08);//stone sword
 				customConfig.set("275", 0.08);//stone axe
-				customConfig.set("276", 0.05);//diamond sword
-				customConfig.set("279", 0.05);//diamond axe
+				customConfig.set("276", 0.15);//diamond sword
+				customConfig.set("279", 0.15);//diamond axe
 				customConfig.set("280", 5.14);//stick
 				customConfig.set("282", 0.86);//stew
-				customConfig.set("283", 0.08);//gold sword
-				customConfig.set("286", 0.08);//gold axe
+				customConfig.set("283", 0.18);//gold sword
+				customConfig.set("286", 0.18);//gold axe
 				customConfig.set("297", 0.68);//bread
 				customConfig.set("298", 0.68);//leather hat
 				customConfig.set("299", 0.43);//leather chest
 				customConfig.set("300", 0.43);//leather pants
 				customConfig.set("301", 0.86);//leather boots
-				customConfig.set("302", 0.08);//chain hat
-				customConfig.set("303", 0.04);//chain chest
-				customConfig.set("304", 0.04);//chain pants
-				customConfig.set("305", 0.08);//chain boots
-				customConfig.set("306", 0.08);//iron hat
-				customConfig.set("307", 0.04);//iron chest
-				customConfig.set("308", 0.04);//iron pants
-				customConfig.set("309", 0.08);//iron boots
-				customConfig.set("310", 0.04);//diamond hat
-				customConfig.set("311", 0.02);//diamond chest
-				customConfig.set("312", 0.02);//diamond pants
-				customConfig.set("313", 0.04);//diamond boots
-				customConfig.set("314", 0.08);//gold hat
-				customConfig.set("315", 0.04);//gold chest
-				customConfig.set("316", 0.04);//gold pants
-				customConfig.set("317", 0.08);//gold boots
+				customConfig.set("302", 0.18);//chain hat
+				customConfig.set("303", 0.14);//chain chest
+				customConfig.set("304", 0.14);//chain pants
+				customConfig.set("305", 0.18);//chain boots
+				customConfig.set("306", 0.18);//iron hat
+				customConfig.set("307", 0.14);//iron chest
+				customConfig.set("308", 0.14);//iron pants
+				customConfig.set("309", 0.18);//iron boots
+				customConfig.set("310", 0.14);//diamond hat
+				customConfig.set("311", 0.12);//diamond chest
+				customConfig.set("312", 0.12);//diamond pants
+				customConfig.set("313", 0.14);//diamond boots
+				customConfig.set("314", 0.18);//gold hat
+				customConfig.set("315", 0.14);//gold chest
+				customConfig.set("316", 0.14);//gold pants
+				customConfig.set("317", 0.18);//gold boots
 				customConfig.set("319", 3.00);//raw pork
 				customConfig.set("320", 0.43);//cooked pork
 				customConfig.set("322", 0.08);//gold apple

@@ -10,11 +10,7 @@ public class CmdKit extends Cmd
 {
 	private File customConfigFile = new File("plugins/Hunger Games", "config.yml");
    	private YamlConfiguration customConfig = YamlConfiguration.loadConfiguration(customConfigFile);
-	public CmdKit()
-	{
-		
-	}
-	
+
 	public boolean commandUse(CommandSender sender, String[] args)
 	{
 		if (sender instanceof Player)

@@ -13,11 +13,7 @@ public class UpdateCheck
 	private static boolean update = false;
 	private static String newVersion = "";
 	private static String currentVersion = "";
-	public UpdateCheck()
-	{
-		
-	}
-	
+
 	public void tellOp(Player p)
 	{
 		if(update)

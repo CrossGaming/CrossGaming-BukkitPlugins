@@ -6,11 +6,6 @@ import org.bukkit.entity.Player;
 
 public class CmdSpectate extends Cmd
 {
-	public CmdSpectate()
-	{
-		
-	}
-	
 	public boolean commandUse(CommandSender sender, String[] args)
 	{
 		if (sender instanceof Player)

@@ -18,10 +18,6 @@ public class Sponsor
 	private static ArrayList<Integer> blockIds = new ArrayList<Integer>();
 	private static ArrayList<Double> percentChance = new ArrayList<Double>();
 	private static ArrayList<Short> damageValue = new ArrayList<Short>();
-	public Sponsor()
-	{
-		
-	}
 	
 	public void giveItems(Player p)
 	{

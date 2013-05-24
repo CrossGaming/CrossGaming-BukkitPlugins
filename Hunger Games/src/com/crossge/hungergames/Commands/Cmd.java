@@ -11,10 +11,7 @@ public class Cmd
 	Kits kit = new Kits();
 	Stats s = new Stats();
 	Game g = new Game();
-	public Cmd()
-	{
 
-	}
 	public boolean commandUse(CommandSender sender, String[] args)
 	{
 		return false;

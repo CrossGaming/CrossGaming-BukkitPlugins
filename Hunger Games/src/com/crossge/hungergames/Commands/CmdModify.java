@@ -4,12 +4,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 public class CmdModify extends Cmd
-{
-	public CmdModify()
-	{
-		
-	}
-	
+{	
 	public boolean commandUse(CommandSender sender, String[] args)
 	{
 		if(args.length != 3)

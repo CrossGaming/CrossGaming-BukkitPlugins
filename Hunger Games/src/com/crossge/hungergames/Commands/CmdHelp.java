@@ -5,10 +5,6 @@ import org.bukkit.entity.Player;
 
 public class CmdHelp extends Cmd
 {
-	public CmdHelp()
-	{
-		
-	}
 	public boolean commandUse(CommandSender sender, String[] args)
 	{
 		int maxPages = 5;

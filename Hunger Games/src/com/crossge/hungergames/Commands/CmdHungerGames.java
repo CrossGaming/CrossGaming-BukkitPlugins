@@ -3,12 +3,7 @@ package com.crossge.hungergames.Commands;
 import org.bukkit.command.CommandSender;
 
 public class CmdHungerGames extends Cmd
-{
-	public CmdHungerGames()
-	{
-		
-	}
-	
+{	
 	public boolean commandUse(CommandSender sender, String[] args)
 	{
 		Cmd com = new Cmd();

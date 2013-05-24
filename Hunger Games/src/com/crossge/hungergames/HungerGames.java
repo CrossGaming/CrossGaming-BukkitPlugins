@@ -23,8 +23,8 @@ public class HungerGames extends JavaPlugin
 		    getLogger().info("Metrics enabled.");
 		}
 		catch (Exception e){}
+		g.start();
 		getLogger().info("Hunger Games brought to you by Cross GE has been enabled.");
-		g.start();//comment to stop automation
     }
 	
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args)

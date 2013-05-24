@@ -10,10 +10,6 @@ public class CmdSetCorner extends Cmd
 {
 	private File customConfigFile = new File("plugins/Hunger Games", "spawns.yml");
    	private YamlConfiguration customConfig = YamlConfiguration.loadConfiguration(customConfigFile);
-	public CmdSetCorner()
-	{
-		
-	}
 	
 	public boolean commandUse(CommandSender sender, String[] args)
 	{
@@ -33,7 +29,7 @@ public class CmdSetCorner extends Cmd
 				{
 					return false;
 				}
-				if(number > 2)
+				if(number > 2 || number < 1)
 				{
 					p.sendMessage(var.errorCol() + "Error: Only 2 corners are needed.");
 					return false;

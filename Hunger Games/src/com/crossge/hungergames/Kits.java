@@ -16,10 +16,6 @@ public class Kits
 	private static ArrayList<String> alreadyChose = new ArrayList<String>();
 	private File customConfigFile = new File("plugins/Hunger Games", "kits.yml");
 	private YamlConfiguration customConfig = YamlConfiguration.loadConfiguration(customConfigFile);
-	public Kits()
-	{
-		
-	}
 	
 	public boolean exists(String kitName)
 	{

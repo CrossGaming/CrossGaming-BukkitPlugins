@@ -28,10 +28,6 @@ public class ChestRandomizer
 	private static ArrayList<Double> percentChance = new ArrayList<Double>();
 	private static ArrayList<Short> damageValue = new ArrayList<Short>();
 	private static ArrayList<Integer> chestSpots = new ArrayList<Integer>();
-	public ChestRandomizer()
-	{
-		
-	}
 	
 	public int chestIdLocation()
     {

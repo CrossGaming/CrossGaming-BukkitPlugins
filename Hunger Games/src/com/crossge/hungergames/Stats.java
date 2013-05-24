@@ -22,11 +22,7 @@ public class Stats
 	private static final String dbName = customConfig.getString("dbName");
 	private static final String DB_URL = "jdbc:mysql://" + hostname + ":" + port + "/" + dbName;
 	private static final String USER = customConfig.getString("username");
-	private static final String PASS = customConfig.getString("password");
-	public Stats()
-	{
-		
-	}	
+	private static final String PASS = customConfig.getString("password");	
 	
 	public void write(String name, int points, int wins, int kills, int deaths, int games)
 	{

@@ -5,10 +5,6 @@ import org.bukkit.entity.Player;
 
 public class CmdSponsor extends Cmd
 {
-	public CmdSponsor()
-	{
-		
-	}
 	public boolean commandUse(CommandSender sender, String[] args)
 	{
 		if (sender instanceof Player)

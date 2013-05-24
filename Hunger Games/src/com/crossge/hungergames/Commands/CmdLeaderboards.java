@@ -7,11 +7,6 @@ import org.bukkit.entity.Player;
 
 public class CmdLeaderboards extends Cmd
 {
-	public CmdLeaderboards()
-	{
-		
-	}
-	
 	public boolean commandUse(CommandSender sender, String[] args)
 	{
 		if(args.length == 0 || args.length > 2)

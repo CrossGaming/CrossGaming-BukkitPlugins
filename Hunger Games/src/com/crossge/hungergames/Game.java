@@ -24,10 +24,6 @@ public class Game
 	private static HashMap<String, Integer> votes = new HashMap<String, Integer>();
 	private File customConfigFile = new File("plugins/Hunger Games", "spawns.yml");
    	private YamlConfiguration customConfig = YamlConfiguration.loadConfiguration(customConfigFile);
-	public Game()
-	{
-		
-	}
 	
 	public String getNext()
 	{
@@ -154,7 +150,7 @@ public class Game
 		map1 = 0;
 		map2 = 0;
 		map3 = 0;
-		start();//comment to stop automation
+		start();
 	}
 	public void start()
 	{

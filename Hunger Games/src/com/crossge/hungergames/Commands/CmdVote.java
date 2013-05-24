@@ -5,11 +5,6 @@ import org.bukkit.entity.Player;
 
 public class CmdVote extends Cmd
 {
-	public CmdVote()
-	{
-		
-	}
-	
 	public boolean commandUse(CommandSender sender, String[] args)
 	{
 		if (sender instanceof Player)

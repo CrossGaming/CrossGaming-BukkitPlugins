@@ -4,10 +4,6 @@ import org.bukkit.ChatColor;
 
 public class Variables
 {
-	public Variables()
-	{
-		
-	}
 	private ChatColor def = ChatColor.BLUE;
 	private ChatColor error = ChatColor.DARK_RED;
 	private ChatColor death = ChatColor.DARK_RED;

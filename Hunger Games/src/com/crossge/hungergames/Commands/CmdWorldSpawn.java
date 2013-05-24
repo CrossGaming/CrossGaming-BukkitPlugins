@@ -11,10 +11,6 @@ public class CmdWorldSpawn extends Cmd
 {
 	private File customConfigFile = new File("plugins/Hunger Games", "spawns.yml");
    	private YamlConfiguration customConfig = YamlConfiguration.loadConfiguration(customConfigFile);
-   	public CmdWorldSpawn()
-	{
-		
-	}
    	
 	public boolean commandUse(CommandSender sender, String[] args)
 	{
