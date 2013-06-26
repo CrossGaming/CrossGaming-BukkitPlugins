@@ -1,6 +1,7 @@
 package com.crossge.hungergames;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -24,6 +25,8 @@ public class ChestRandomizer
 	private YamlConfiguration customConfigChest = YamlConfiguration.loadConfiguration(customConfigFileChest);
 	private File customConfFile = new File("plugins/Hunger Games", "config.yml");
 	private YamlConfiguration customConf = YamlConfiguration.loadConfiguration(customConfFile);
+	private File customConfFileLocs = new File("plugins/Hunger Games", "chestlocs.yml");
+	private YamlConfiguration customConfLocs = YamlConfiguration.loadConfiguration(customConfFileLocs);
 	private static ArrayList<Integer> blockIds = new ArrayList<Integer>();
 	private static ArrayList<Double> percentChance = new ArrayList<Double>();
 	private static ArrayList<Short> damageValue = new ArrayList<Short>();
@@ -47,6 +50,45 @@ public class ChestRandomizer
 	{
 		setLists();
 		String world = g.getNext();
+		World w = Bukkit.getWorld(world);
+		int chestNum = 0;
+		int x, y, z, chestAmount, loc, mat;
+		short data;
+		for(String path : customConfLocs.getKeys(true))
+		{
+			if(path.toUpperCase().startsWith(world.toUpperCase()))
+			{
+				x = customConfLocs.getInt(world + ".c" + Integer.toString(chestNum) + ".x");
+				y = customConfLocs.getInt(world + ".c" + Integer.toString(chestNum) + ".y");
+				z = customConfLocs.getInt(world + ".c" + Integer.toString(chestNum) + ".z");
+				Block b = w.getBlockAt(x, y, z);
+				if(b.getType() == Material.CHEST || b.getType() == Material.TRAPPED_CHEST)
+				{
+					resetSpots();
+					Chest c = (Chest) b.getState();
+					Inventory inv = c.getBlockInventory();
+					inv.clear();
+					chestAmount = items();
+					for(int i = 0; i < chestAmount; i++)
+					{
+						loc = chestIdLocation();
+						mat = 0;
+						data = 0;
+						if(loc != -1)
+						{
+							mat = blockIds.get(loc);
+							data = damageValue.get(loc);
+						}
+						inv.setItem(chestLoc(), new ItemStack(Material.getMaterial(mat), 1, data));
+					}
+				}
+				chestNum++;
+			}
+		}
+	}
+	
+	public void chests(String world)
+	{
 		int x1 = customConfig.getInt(world + ".corner1.x");
 		int y1 = customConfig.getInt(world + ".corner1.y");
 		int z1 = customConfig.getInt(world + ".corner1.z");
@@ -73,10 +115,8 @@ public class ChestRandomizer
 			z1 = temp;
 		}
 		World w = Bukkit.getWorld(world);
-		int chestAmount;
-		int loc;
-		int mat;
-		short data;
+		customConfLocs.set(world, null);
+		int chestNum = 0;
 		for(int x = x2; x <= x1; x++)
 			for(int y = y2; y <= y1; y++)
 				for(int z = z2; z <= z1; z++)
@@ -84,25 +124,17 @@ public class ChestRandomizer
 					Block b = w.getBlockAt(x, y, z);
 					if(b.getType() == Material.CHEST || b.getType() == Material.TRAPPED_CHEST)
 					{
-						resetSpots();
-						Chest c = (Chest) b.getState();
-						Inventory inv = c.getBlockInventory();
-						inv.clear();
-						chestAmount = items();
-						for(int i = 0; i < chestAmount; i++)
-						{
-							loc = chestIdLocation();
-							mat = 0;
-							data = 0;
-							if(loc != -1)
-							{
-								mat = blockIds.get(loc);
-								data = damageValue.get(loc);
-							}
-							inv.setItem(chestLoc(), new ItemStack(Material.getMaterial(mat), 1, data));
-						}
+						customConfLocs.set(world + ".c" + Integer.toString(chestNum) + ".x", x);
+						customConfLocs.set(world + ".c" + Integer.toString(chestNum) + ".y", y);
+						customConfLocs.set(world + ".c" + Integer.toString(chestNum) + ".z", z);
+						chestNum++;
 					}
 				}
+		try
+	   	{
+			customConfLocs.save(customConfFileLocs);
+		}
+	   	catch (IOException e) {}
 	}
 	
 	public void emptyChests()
@@ -135,18 +167,25 @@ public class ChestRandomizer
 			z1 = temp;
 		}
 		World w = Bukkit.getWorld(world);
-		for(int x = x2; x <= x1; x++)
-			for(int y = y2; y <= y1; y++)
-				for(int z = z2; z <= z1; z++)
+		int chestNum = 0;
+		int x, y, z;
+		for(String path : customConfLocs.getKeys(true))
+		{
+			if(path.toUpperCase().startsWith(world.toUpperCase()))
+			{
+				x = customConfLocs.getInt(world + ".c" + Integer.toString(chestNum) + ".x");
+				y = customConfLocs.getInt(world + ".c" + Integer.toString(chestNum) + ".y");
+				z = customConfLocs.getInt(world + ".c" + Integer.toString(chestNum) + ".z");
+				Block b = w.getBlockAt(x, y, z);
+				if(b.getType() == Material.CHEST || b.getType() == Material.TRAPPED_CHEST)
 				{
-					Block b = w.getBlockAt(x, y, z);
-					if(b.getType() == Material.CHEST || b.getType() == Material.TRAPPED_CHEST)
-					{
-						Chest c = (Chest) b.getState();
-						Inventory inv = c.getBlockInventory();
-						inv.clear();
-					}
+					Chest c = (Chest) b.getState();
+					Inventory inv = c.getBlockInventory();
+					inv.clear();
 				}
+				chestNum++;
+			}
+		}
         List<Entity> entList = w.getEntities();
         for(Entity current : entList)
             if (current instanceof Item && (current.getLocation().getBlockX() >= x2 && current.getLocation().getBlockX() <= x1

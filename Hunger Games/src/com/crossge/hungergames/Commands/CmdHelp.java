@@ -112,7 +112,7 @@ public class CmdHelp extends Cmd
 	{
 		sender.sendMessage(var.defaultCol() + "/hg setcorner [number] ~ Sets the corners for the hunger games either 1 or 2.");
 		sender.sendMessage(var.defaultCol() + "/hg forcestop ~ Forces the current game to stop.");
-		sender.sendMessage(var.defaultCol() + "Coming soon.");
+		sender.sendMessage(var.defaultCol() + "/hg setchests [world] ~ Locates the chest locations for given world.");
 		sender.sendMessage(var.defaultCol() + "Coming soon.");
 		sender.sendMessage(var.defaultCol() + "Coming soon.");
 	}

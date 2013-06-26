@@ -23,6 +23,8 @@ public class CmdHungerGames extends Cmd
 			com = new CmdJoin();
 		else if(subCom.equalsIgnoreCase("leave"))
 			com = new CmdLeave();
+		else if(subCom.equalsIgnoreCase("setchests"))
+			com = new CmdSetChests();
 		else if(subCom.equalsIgnoreCase("spectate") || subCom.equalsIgnoreCase("spec"))
 			com = new CmdSpectate();
 		else if(subCom.equalsIgnoreCase("setspawn"))

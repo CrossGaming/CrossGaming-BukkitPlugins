@@ -21,6 +21,7 @@ public class Initialization
 	private File customConfigFileBreakable = new File("plugins/Hunger Games", "breakable.yml");
 	private File customConfigFilePlaceable = new File("plugins/Hunger Games", "placeable.yml");
 	private File customConfigFileCommands = new File("plugins/Hunger Games", "commands.yml");
+	private File customConfigFileChestLocations = new File("plugins/Hunger Games", "chestlocs.yml");
 
 	public void initiateFiles()
 	{
@@ -88,6 +89,14 @@ public class Initialization
 				if(!customConfig.contains("updateMOTD"))
 					customConfig.set("updateMOTD", false);
 				customConfig.save(customConfigFile);
+			}
+			catch (IOException e){}
+		}
+		if(!customConfigFileChestLocations.exists())
+		{
+			try
+			{
+				customConfigFileChestLocations.createNewFile();
 			}
 			catch (IOException e){}
 		}

@@ -35,6 +35,7 @@ permissions:
             HungerGames.leaderboards: true
             HungerGames.setworldspawn: true
             HungerGames.update: true
+            HungerGames.setchests: true
     HungerGames.hg:
         description: Lets you use /hg.
         default: true
@@ -91,4 +92,7 @@ permissions:
         default: op
     HungerGames.update:
         description: Gets notified if there is an update for Hunger Games.
+        default: op
+    HungerGames.setchests:
+        description: Sets the locations of the chests for a world.
         default: op
