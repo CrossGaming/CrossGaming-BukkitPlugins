@@ -54,6 +54,8 @@ public class Initialization
 				customConfig.set("deathTime", 60);
 				customConfig.set("updateMOTD", false);
 				customConfig.set("language", "en");
+				customConfig.set("votingTime", 180);
+				customConfig.set("messageFrequency", 30);
 				customConfig.save(customConfigFile);
 			}
 			catch (IOException e){}
@@ -90,7 +92,11 @@ public class Initialization
 				if(!customConfig.contains("updateMOTD"))
 					customConfig.set("updateMOTD", false);
 				if(!customConfig.contains("language"))
-					customConfig.set("language", "en");				
+					customConfig.set("language", "en");
+				if(!customConfig.contains("votingTime"))
+					customConfig.set("votingTime", 180);
+				if(!customConfig.contains("messageFrequency"))
+					customConfig.set("messageFrequency", 30);
 				customConfig.save(customConfigFile);
 			}
 			catch (IOException e){}

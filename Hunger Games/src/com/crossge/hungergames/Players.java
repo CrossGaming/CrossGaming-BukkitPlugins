@@ -37,6 +37,9 @@ public class Players
 	private static boolean gameStarted = false;
 	private static boolean invincible = true;
 	private static boolean moveDeny = true;
+	private static int time = 0;
+	private static int tptime = 0;
+	private static int stime = 0;
 	private static int xmin = 0;
 	private static int xmax = 0;
 	private static int zmin = 0;
@@ -501,7 +504,7 @@ public class Players
 		gameStarted = true;
 		invincible = true;
 		moveDeny = true;
-		vote1();
+		vote();
 	}
 	public Location pSpawnPoint(Player p)
 	{
@@ -513,7 +516,7 @@ public class Players
 		{
 			Bukkit.broadcastMessage(var.defaultCol() + lang.translate("Not enough players, need at least") + " " +
 							Integer.toString(customConf.getInt("minPlayers")) + ". " + lang.translate("Restarting countdown."));
-			vote1();
+			vote();
 		}
 		else
 			finishGameStart();
@@ -591,64 +594,85 @@ public class Players
 		return new Location(Bukkit.getWorld(world), customConfig.getInt(pathx), customConfig.getInt(pathy), customConfig.getInt(pathz));
 	}
 	public void safeTimer()
-	{
-		int time = customConf.getInt("safeTime");
-		Bukkit.broadcastMessage(var.defaultCol() + lang.translate("Players are now invincible for") + " " + Integer.toString(time) +
-									" " + lang.translate("seconds."));
-		invinc.schedule(new TimerTask(){public void run() {safeEnd();}}, time * 1000);
+	{		
+		if(stime == 0)
+			stime = customConf.getInt("safeTime");
+		int freq = customConf.getInt("messageFrequency");
+		Bukkit.broadcastMessage(var.defaultCol() + lang.translate("Players are now invincible for") + " " + getTime(stime));
+		if(freq >= stime)
+		{
+			int temp = stime;
+			stime = 0;
+			invinc.schedule(new TimerTask(){public void run() {safeEnd();}}, temp * 1000);
+		}
+		else
+		{
+			stime -= freq;
+			invinc.schedule(new TimerTask(){public void run() {safeTimer();}}, freq * 1000);
+		}
 	}
 	public void tpCool()
-	{
-		int time = customConf.getInt("tpCoolDown");
-		Bukkit.broadcastMessage(var.defaultCol() + lang.translate("Players may move in") + " " + Integer.toString(time) + " " +
-					lang.translate("seconds."));
-		noMove.schedule(new TimerTask(){public void run() {finishGameStart2();}}, time * 1000);
-	}
-	public void vote1()
-	{
-		Bukkit.broadcastMessage(var.defaultCol() + lang.translate("Game will start in 3 minutes please use /hg join to join."));
-		g.holdVote();
-		count.schedule(new TimerTask(){public void run() {vote2();}}, 30000);
-	}
-	public void vote2()
-	{
-		Bukkit.broadcastMessage(var.defaultCol() + lang.translate("Game will start in 2 minutes 30 seconds please use /hg join to join."));
-		g.holdVote();
-		count.schedule(new TimerTask(){public void run() {vote3();}}, 30000);
-	}
-	public void vote3()
-	{
-		Bukkit.broadcastMessage(var.defaultCol() + lang.translate("Game will start in 2 minutes please use /hg join to join."));
-		g.holdVote();
-		count.schedule(new TimerTask(){public void run() {vote4();}}, 30000);
-	}
-	public void vote4()
-	{
-		Bukkit.broadcastMessage(var.defaultCol() + lang.translate("Game will start in 1 minute 30 seconds please use /hg join to join."));
-		g.holdVote();
-		count.schedule(new TimerTask(){public void run() {vote5();}}, 30000);
-	}
-	public void vote5()
-	{
-		Bukkit.broadcastMessage(var.defaultCol() + lang.translate("Game will start in 1 minute please use /hg join to join."));
-		g.holdVote();
-		count.schedule(new TimerTask(){public void run() {vote6();}}, 30000);
-	}
-	public void vote6()
-	{
-		Bukkit.broadcastMessage(var.defaultCol() + lang.translate("Game will start in 30 seconds please use /hg join to join."));
-		g.holdVote();
-		count.schedule(new TimerTask(){public void run() {checkPlayers();}}, 30000);
+	{		
+		if(tptime == 0)
+			tptime = customConf.getInt("tpCoolDown");
+		int freq = customConf.getInt("messageFrequency");
+		Bukkit.broadcastMessage(var.defaultCol() + lang.translate("Players may move in") + " " + getTime(tptime));
+		if(freq >= tptime)
+		{
+			int temp = tptime;
+			tptime = 0;
+			noMove.schedule(new TimerTask(){public void run() {finishGameStart2();}}, temp * 1000);
+		}
+		else
+		{
+			tptime -= freq;
+			noMove.schedule(new TimerTask(){public void run() {tpCool();}}, freq * 1000);
+		}
 	}
 	public void deathCountdown()
 	{
 		if(!deathStarted)
 		{
 			deathStarted = true;
-			int time = customConf.getInt("deathTime");
-			Bukkit.broadcastMessage(var.defaultCol() + lang.translate("Death match will start in") + " " + Integer.toString(time) + " " +
-										lang.translate("seconds."));
-			t.schedule(new TimerTask(){public void run() {startDeath();}}, time * 1000);
+			int dtime = customConf.getInt("deathTime");
+			Bukkit.broadcastMessage(var.defaultCol() + lang.translate("Death match will start in") + " " + getTime(dtime));
+			t.schedule(new TimerTask(){public void run() {startDeath();}}, dtime * 1000);
 		}
+	}
+	public void vote()
+	{
+		if(time == 0)
+			time = customConf.getInt("votingTime");
+		int freq = customConf.getInt("messageFrequency");
+		Bukkit.broadcastMessage(var.defaultCol() + lang.translate("Game will start in") + " " + getTime(time) + " " +
+				lang.translate("please use /hg join to join."));
+		g.holdVote();
+		if(freq >= time)
+		{
+			int temp = time;
+			time = 0;
+			count.schedule(new TimerTask(){public void run() {checkPlayers();}}, temp * 1000);
+		}
+		else
+		{
+			time -= freq;
+			count.schedule(new TimerTask(){public void run() {vote();}}, freq * 1000);
+		}
+	}
+	private String getTime(int time)
+	{
+		int seconds = time % 60;
+		int minutes = time / 60;
+		String message = "";
+		if(minutes == 1)
+			message = "1 " + lang.translate("minute");
+		else if(minutes > 1)
+			message = Integer.toString(minutes) + " " + lang.translate("minutes");
+		if(seconds == 1)
+			message += " 1 " + lang.translate("second");
+		else if(seconds > 1)
+			message += " " + Integer.toString(seconds) + " " + lang.translate("seconds");
+		message = message.trim();
+		return message;
 	}
 }
