@@ -18,21 +18,21 @@ public class CmdSponsor extends Cmd
 				{
 					if(pl.alreadySponsored(p.getName()))
 					{
-						p.sendMessage(var.errorCol() + "Error: You already sponsored yourself this round.");
+						p.sendMessage(var.errorCol() + lang.translate("Error: You already sponsored yourself this round."));
 						return true;
 					}
 					sp.giveItems(p);
 					pl.addSponsored(p.getName());
-					p.sendMessage(var.defaultCol() + "You sponsored yourself.");
+					p.sendMessage(var.defaultCol() + lang.translate("You sponsored yourself."));
 				}
 				else
-					p.sendMessage(var.errorCol() + "Error: Game not going.");
+					p.sendMessage(var.errorCol() + lang.translate("Error: Game not going."));
 			}
 			else
-				p.sendMessage(var.errorCol() + "Error: You may not view the help for Hunger Games.");
+				p.sendMessage(var.errorCol() + lang.translate("Error: You may not view the help for Hunger Games."));
 		}
 		else
-			sender.sendMessage(var.defaultCol() + "You may not sponsor yourself.");
+			sender.sendMessage(var.errorCol() + lang.translate("Error: You may not sponsor yourself."));
 		return true;
 	}
 }

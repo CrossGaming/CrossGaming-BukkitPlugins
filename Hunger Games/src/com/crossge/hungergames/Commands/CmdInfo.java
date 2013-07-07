@@ -12,19 +12,20 @@ public class CmdInfo extends Cmd
 			Player p = (Player) sender;
 			if(p.hasPermission("HungerGames.info"))
 			{
-				p.sendMessage(var.defaultCol() + "Map: " + g.getNext());
+				p.sendMessage(var.defaultCol() + lang.translate("Map") + ": " + g.getNext());
 				p.sendMessage(var.defaultCol() + pl.amount());
-				p.sendMessage(var.defaultCol() + "Alive: " + pl.breathing());
-				p.sendMessage(var.defaultCol() + "Dead: " + pl.deceased());
+				p.sendMessage(var.defaultCol() + lang.translate("Alive") + ": " + pl.breathing());
+				p.sendMessage(var.defaultCol() + lang.translate("Dead") + ": " + pl.deceased());
 			}
 			else
-				p.sendMessage(var.errorCol() + "Error: You may not view the info for the current round.");
+				p.sendMessage(var.errorCol() + lang.translate("Error: You may not view the info for the current round."));
 		}
 		else
 		{
+			sender.sendMessage(var.defaultCol() + lang.translate("Map") + ": " + g.getNext());
 			sender.sendMessage(var.defaultCol() + pl.amount());
-			sender.sendMessage(var.defaultCol() + "Alive: " + pl.breathing());
-			sender.sendMessage(var.defaultCol() + "Dead: " + pl.deceased());
+			sender.sendMessage(var.defaultCol() + lang.translate("Alive") + ": " + pl.breathing());
+			sender.sendMessage(var.defaultCol() + lang.translate("Dead") + ": " + pl.deceased());
 		}
 		return true;
 	}

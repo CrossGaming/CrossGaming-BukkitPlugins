@@ -222,6 +222,30 @@ public class ChestRandomizer
 		return temp;
 	}
 	
+	private void balance()
+	{
+		double total = 0;
+		for(double d : percentChance)
+			total += d;			
+		if(total == 0)
+			return;
+		for(int i = 0; i < percentChance.size(); i++)
+			percentChance.set(i, percentChance.get(i)*100/total);
+		int i = 0;
+		for(String path : customConfigChest.getKeys(false))
+		{
+			if(i >= percentChance.size())
+				break;
+			customConfigChest.set(path, percentChance.get(i));
+			i++;
+		}
+		try
+	   	{
+			customConfigChest.save(customConfigFileChest);
+		}
+	   	catch (IOException e) {}
+	}
+	
 	private void setLists()
 	{
 		blockIds.clear();
@@ -242,5 +266,6 @@ public class ChestRandomizer
 			damageValue.add(data);
 			percentChance.add(customConfigChest.getDouble(path));
 		}
+		balance();
 	}
 }

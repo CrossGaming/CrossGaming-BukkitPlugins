@@ -30,6 +30,7 @@ public class Listeners implements Listener
 {
 	UpdateCheck up = new UpdateCheck();
 	Variables var = new Variables();
+	Language lang = new Language();
 	Players pl = new Players();
 	Stats s = new Stats();
 	Game g = new Game();
@@ -77,7 +78,7 @@ public class Listeners implements Listener
 				}
 			}
 			if(cancel)
-				p.sendMessage(var.errorCol() + "Error: You may not perform commands while in the hunger games.");
+				p.sendMessage(var.errorCol() + lang.translate("Error: You may not perform commands while in the hunger games."));
 			event.setCancelled(cancel);
 		}
 	}
@@ -246,7 +247,7 @@ public class Listeners implements Listener
 	    		pl.deathCountdown();
 	    	if(pl.onePlayerLeft())
 	    	{
-	    		Bukkit.broadcastMessage(var.defaultCol() + pl.winner() + " won the Hunger Games.");
+	    		Bukkit.broadcastMessage(var.defaultCol() + pl.winner() + " " + lang.translate("won the Hunger Games."));
 	    		pl.endTimer();
 	    		pl.endGame();
 	    	}

@@ -42,10 +42,10 @@ public class CmdConvert extends Cmd
 					s.convertToYML();
 				}
 				else
-					p.sendMessage(var.errorCol() + "Error: Illegal database.");	
+					p.sendMessage(var.errorCol() + lang.translate("Error: Illegal database."));	
 			}
 			else
-				p.sendMessage(var.errorCol() + "Error: You may not convert the database for the Hunger Games.");
+				p.sendMessage(var.errorCol() + lang.translate("Error: You may not convert the database for the Hunger Games."));
 		}
 		else
 		{
@@ -72,7 +72,7 @@ public class CmdConvert extends Cmd
 				s.convertToYML();
 			}
 			else
-				sender.sendMessage(var.errorCol() + "Error: Illegal database.");	
+				sender.sendMessage(var.errorCol() + lang.translate("Error: Illegal database."));	
 		}
 		return true;
 	}	

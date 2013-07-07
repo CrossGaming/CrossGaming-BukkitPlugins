@@ -24,42 +24,47 @@ public class CmdModify extends Cmd
 					}
 					catch(Exception e)
 					{
-						p.sendMessage(var.errorCol() + "Error: Must enter a number to modify by.");
+						p.sendMessage(var.errorCol() + lang.translate("Error: Must enter a number to modify by."));
 						return false;
 					}
 					if(args[1].equalsIgnoreCase("deaths"))
 					{
 						s.addDeath(targetName, temp);
-						p.sendMessage(var.defaultCol() + "Added " + Integer.toString(temp) + " deaths to " + targetName + ".");
+						p.sendMessage(var.defaultCol() + lang.translate("Added") + " " + Integer.toString(temp) +
+										" " + lang.translate("deaths to") + " " + targetName + ".");
 					}
 					else if(args[1].equalsIgnoreCase("games"))
 					{
 						s.addGame(targetName, temp);
-						p.sendMessage(var.defaultCol() + "Added " + Integer.toString(temp) + " games to " + targetName + ".");
+						p.sendMessage(var.defaultCol() + lang.translate("Added") + " " + Integer.toString(temp) +
+										" " + lang.translate("games to") + " " + targetName + ".");
 					}
 					else if(args[1].equalsIgnoreCase("kills"))
 					{
 						s.addKill(targetName, temp);
-						p.sendMessage(var.defaultCol() + "Added " + Integer.toString(temp) + " kills to " + targetName + ".");
+						p.sendMessage(var.defaultCol() + lang.translate("Added") + " " + Integer.toString(temp) +
+										" " + lang.translate("kills to") + " " + targetName + ".");
 					}
 					else if(args[1].equalsIgnoreCase("points"))
 					{
 						s.addPoints(targetName, temp);
-						p.sendMessage(var.defaultCol() + "Added " + Integer.toString(temp) + " points to " + targetName + ".");
+						p.sendMessage(var.defaultCol() + lang.translate("Added") + " " + Integer.toString(temp) +
+										" " + lang.translate("points to") + " " + targetName + ".");
 					}
 					else if(args[1].equalsIgnoreCase("wins"))
 					{
 						s.addWin(targetName, temp);
-						p.sendMessage(var.defaultCol() + "Added " + Integer.toString(temp) + " wins to " + targetName + ".");
+						p.sendMessage(var.defaultCol() + lang.translate("Added") + " " + Integer.toString(temp) +
+										" " + lang.translate("wins to") + " " + targetName + ".");
 					}
 					else
-						p.sendMessage(var.errorCol() + "Error: Unknown stat section.");
+						p.sendMessage(var.errorCol() + lang.translate("Error: Unknown stat section."));
 				}
 				else
-					p.sendMessage(var.errorCol() + "Error: Player does not exist.");
+					p.sendMessage(var.errorCol() + lang.translate("Error: Player does not exist."));
 			}
 			else
-				p.sendMessage(var.errorCol() + "Error: You may not modify a players stats for the Hunger Games.");
+				p.sendMessage(var.errorCol() + lang.translate("Error: You may not modify a players stats for the Hunger Games."));
 		}
 		else
 		{
@@ -73,39 +78,44 @@ public class CmdModify extends Cmd
 				}
 				catch(Exception e)
 				{
-					sender.sendMessage(var.errorCol() + "Error: Must enter a number to modify by.");
+					sender.sendMessage(var.errorCol() + lang.translate("Error: Must enter a number to modify by."));
 					return false;
 				}
 				if(args[1].equalsIgnoreCase("deaths"))
 				{
 					s.addDeath(targetName, temp);
-					sender.sendMessage(var.defaultCol() + "Added " + Integer.toString(temp) + " deaths to " + targetName + ".");
+					sender.sendMessage(var.defaultCol() + lang.translate("Added") + " " + Integer.toString(temp) +
+									" " + lang.translate("deaths to") + " " + targetName + ".");
 				}
 				else if(args[1].equalsIgnoreCase("games"))
 				{
 					s.addGame(targetName, temp);
-					sender.sendMessage(var.defaultCol() + "Added " + Integer.toString(temp) + " games to " + targetName + ".");
+					sender.sendMessage(var.defaultCol() + lang.translate("Added") + " " + Integer.toString(temp) +
+									" " + lang.translate("games to") + " " + targetName + ".");
 				}
 				else if(args[1].equalsIgnoreCase("kills"))
 				{
 					s.addKill(targetName, temp);
-					sender.sendMessage(var.defaultCol() + "Added " + Integer.toString(temp) + " kills to " + targetName + ".");
+					sender.sendMessage(var.defaultCol() + lang.translate("Added") + " " + Integer.toString(temp) +
+									" " + lang.translate("kills to") + " " + targetName + ".");
 				}
 				else if(args[1].equalsIgnoreCase("points"))
 				{
 					s.addPoints(targetName, temp);
-					sender.sendMessage(var.defaultCol() + "Added " + Integer.toString(temp) + " points to " + targetName + ".");
+					sender.sendMessage(var.defaultCol() + lang.translate("Added") + " " + Integer.toString(temp) +
+									" " + lang.translate("points to") + " " + targetName + ".");
 				}
 				else if(args[1].equalsIgnoreCase("wins"))
 				{
 					s.addWin(targetName, temp);
-					sender.sendMessage(var.defaultCol() + "Added " + Integer.toString(temp) + " wins to " + targetName + ".");
+					sender.sendMessage(var.defaultCol() + lang.translate("Added") + " " + Integer.toString(temp) +
+									" " + lang.translate("wins to") + " " + targetName + ".");
 				}
 				else
-					sender.sendMessage(var.errorCol() + "Error: Unknown stat section.");
+					sender.sendMessage(var.errorCol() + lang.translate("Error: Unknown stat section."));
 			}
 			else
-				sender.sendMessage(var.errorCol() + "Error: Player does not exist.");
+				sender.sendMessage(var.errorCol() + lang.translate("Error: Player does not exist."));
 		}
 		return true;
 	}

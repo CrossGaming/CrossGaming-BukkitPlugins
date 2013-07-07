@@ -31,7 +31,7 @@ public class CmdSetCorner extends Cmd
 				}
 				if(number > 2 || number < 1)
 				{
-					p.sendMessage(var.errorCol() + "Error: Only 2 corners are needed.");
+					p.sendMessage(var.errorCol() + lang.translate("Error: Only 2 corners are needed."));
 					return false;
 				}
 				String pathx = p.getWorld().getName() + ".corner" + Integer.toString(number) + ".x";
@@ -45,16 +45,16 @@ public class CmdSetCorner extends Cmd
 					customConfig.save(customConfigFile);
 				}
 			   	catch (IOException e) {}
-				p.sendMessage(var.defaultCol() + "Corner set: " + Integer.toString(number) + " at " +
+				p.sendMessage(var.defaultCol() + lang.translate("Corner set") + ": " + Integer.toString(number) + " " + lang.translate("at") + " " +
 						Integer.toString(p.getLocation().getBlockX()) + ", " + Integer.toString(p.getLocation().getBlockY())+ ", "
 						+ Integer.toString(p.getLocation().getBlockZ()));
 				g.initMaps();
 			}
 			else
-				p.sendMessage(var.errorCol() + "Error: You may not set the corners for Hunger Games.");
+				p.sendMessage(var.errorCol() + lang.translate("Error: You may not set the corners for Hunger Games."));
 		}
 		else
-			sender.sendMessage(var.errorCol() + "Error: You cannot set corners for the hunger games because you are not an entity, please log in.");
+			sender.sendMessage(var.errorCol() + lang.translate("Error: You cannot set corners for the hunger games because you are not an entity, please log in."));
 		return true;
 	}
 }

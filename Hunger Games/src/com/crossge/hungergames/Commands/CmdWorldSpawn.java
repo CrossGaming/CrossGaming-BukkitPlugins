@@ -34,15 +34,15 @@ public class CmdWorldSpawn extends Cmd
 					customConfig.save(customConfigFile);
 				}
 			   	catch (IOException e) {}
-				p.sendMessage(var.defaultCol() + "World spawn set at: " +
+				p.sendMessage(var.defaultCol() + lang.translate("World spawn set at") + ": " +
 						Integer.toString(p.getLocation().getBlockX()) + ", " + Integer.toString(p.getLocation().getBlockY())+ ", "
 						+ Integer.toString(p.getLocation().getBlockZ()));
 			}
 			else
-				p.sendMessage(var.errorCol() + "Error: You may not set the world spawn for Hunger Games.");
+				p.sendMessage(var.errorCol() + lang.translate("Error: You may not set the world spawn for Hunger Games."));
 		}
 		else
-			sender.sendMessage(var.errorCol() + "Error: You cannot set spawns for the hunger games because you are not an entity, please log in.");
+			sender.sendMessage(var.errorCol() + lang.translate("Error: You cannot set spawns for the hunger games because you are not an entity, please log in."));
 		return true;
 	}
 }

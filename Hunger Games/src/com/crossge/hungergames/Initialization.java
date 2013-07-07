@@ -53,6 +53,7 @@ public class Initialization
 				customConfig.set("playersDeathMatch", 3);
 				customConfig.set("deathTime", 60);
 				customConfig.set("updateMOTD", false);
+				customConfig.set("language", "en");
 				customConfig.save(customConfigFile);
 			}
 			catch (IOException e){}
@@ -88,6 +89,8 @@ public class Initialization
 					customConfig.set("playersDeathMatch", 3);
 				if(!customConfig.contains("updateMOTD"))
 					customConfig.set("updateMOTD", false);
+				if(!customConfig.contains("language"))
+					customConfig.set("language", "en");				
 				customConfig.save(customConfigFile);
 			}
 			catch (IOException e){}

@@ -34,7 +34,8 @@ public class CmdSetSpawn extends Cmd
 				int maxSpawns = customConf.getInt("maxPlayers");
 				if(number > maxSpawns || number < 0)
 				{
-					p.sendMessage(var.errorCol() + "Error: Max spawns are " + Integer.toString(maxSpawns) + " with the 0 being the spectator spawn");
+					p.sendMessage(var.errorCol() + lang.translate("Error: Max spawns are") +
+									" " + Integer.toString(maxSpawns) + " " + lang.translate("with the 0 being the spectator spawn"));
 					return false;
 				}
 				String pathx = p.getWorld().getName() + ".s" + Integer.toString(number) + ".x";
@@ -48,16 +49,16 @@ public class CmdSetSpawn extends Cmd
 					customConfig.save(customConfigFile);
 				}
 			   	catch (IOException e) {}
-				p.sendMessage(var.defaultCol() + "Spawn set: " + Integer.toString(number) + " at " +
+				p.sendMessage(var.defaultCol() + lang.translate("Spawn set") + ": " + Integer.toString(number) + " " + lang.translate("at") + " " +
 						Integer.toString(p.getLocation().getBlockX()) + ", " + Integer.toString(p.getLocation().getBlockY())+ ", "
 						+ Integer.toString(p.getLocation().getBlockZ()));
 				g.initMaps();
 			}
 			else
-				p.sendMessage(var.errorCol() + "Error: You may not set the spawnpoints for Hunger Games.");
+				p.sendMessage(var.errorCol() + lang.translate("Error: You may not set the spawnpoints for Hunger Games."));
 		}
 		else
-			sender.sendMessage(var.errorCol() + "Error: You cannot set spawns for the hunger games because you are not an entity, please log in.");
+			sender.sendMessage(var.errorCol() + lang.translate("Error: You cannot set spawns for the hunger games because you are not an entity, please log in."));
 		return true;
 	}
 }

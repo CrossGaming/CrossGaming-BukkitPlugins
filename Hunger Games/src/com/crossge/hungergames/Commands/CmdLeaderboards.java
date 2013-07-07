@@ -29,7 +29,7 @@ public class CmdLeaderboards extends Cmd
 					type = "games";
 				else
 				{
-					p.sendMessage(var.errorCol() + "Error: Unknown stat type.");
+					p.sendMessage(var.errorCol() + lang.translate("Error: Unknown stat type."));
 					return false;
 				}
 				int page = 1;
@@ -41,7 +41,7 @@ public class CmdLeaderboards extends Cmd
 					}
 					catch(Exception e)
 					{
-						p.sendMessage(var.errorCol() + "Error: Page entered not an integer.");
+						p.sendMessage(var.errorCol() + lang.translate("Error: Page entered not an integer."));
 						return false;
 					}
 				}
@@ -52,10 +52,11 @@ public class CmdLeaderboards extends Cmd
 				int size = pages(t.size());
 				if(page > size)
 				{
-					p.sendMessage(var.errorCol() + "Error: Max pages are " + Integer.toString(size) + ".");
+					p.sendMessage(var.errorCol() + lang.translate("Error: Max pages are") + " " + Integer.toString(size) + ".");
 					return true;
 				}
-				p.sendMessage(var.defaultCol() + "Page " + Integer.toString(page) + " of " + Integer.toString(size) + " for stat " + type + ".");
+				p.sendMessage(var.defaultCol() + lang.translate("Page") + " " + Integer.toString(page) +
+								" " + lang.translate("of") + " " + Integer.toString(size) + " " + lang.translate("for stat") + " " + type + ".");
 				page = page - 1;
 				for(int i = 0; i < 8; i++)
 				{
@@ -65,7 +66,7 @@ public class CmdLeaderboards extends Cmd
 				}
 			}
 			else
-				p.sendMessage(var.errorCol() + "Error: You may not view the leaderboards for the Hunger Games.");
+				p.sendMessage(var.errorCol() + lang.translate("Error: You may not view the leaderboards for the Hunger Games."));
 		}
 		else
 		{
@@ -82,7 +83,7 @@ public class CmdLeaderboards extends Cmd
 				type = "games";
 			else
 			{
-				sender.sendMessage(var.errorCol() + "Error: Unknown stat type.");
+				sender.sendMessage(var.errorCol() + lang.translate("Error: Unknown stat type."));
 				return false;
 			}
 			int page = 1;
@@ -94,7 +95,7 @@ public class CmdLeaderboards extends Cmd
 				}
 				catch(Exception e)
 				{
-					sender.sendMessage(var.errorCol() + "Error: Page entered not an integer.");
+					sender.sendMessage(var.errorCol() + lang.translate("Error: Page entered not an integer."));
 					return false;
 				}
 			}
@@ -105,10 +106,11 @@ public class CmdLeaderboards extends Cmd
 			int size = pages(t.size());
 			if(page > size)
 			{
-				sender.sendMessage(var.errorCol() + "Error: Max pages are " + Integer.toString(size) + ".");
+				sender.sendMessage(var.errorCol() + lang.translate("Error: Max pages are") + " " + Integer.toString(size) + ".");
 				return true;
 			}
-			sender.sendMessage(var.defaultCol() + "Page " + Integer.toString(page) + " of " + Integer.toString(size) + " for stat " + type + ".");
+			sender.sendMessage(var.defaultCol() + lang.translate("Page") + " " + Integer.toString(page) +
+								" " + lang.translate("of") + " " + Integer.toString(size) + " " + lang.translate("for stat") + " " + type + ".");
 			page = page - 1;
 			for(int i = 0; i < 8; i++)
 			{

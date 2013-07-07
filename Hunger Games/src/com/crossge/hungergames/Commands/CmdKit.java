@@ -33,29 +33,29 @@ public class CmdKit extends Cmd
 									if(kit.exists(args[0]))
 									{
 										kit.giveKit(p, args[0]);
-										p.sendMessage(var.defaultCol() + "You chose the kit " + args[0] + ".");
+										p.sendMessage(var.defaultCol() + lang.translate("You chose the kit") + " " + args[0] + ".");
 									}
 									else
-										p.sendMessage(var.errorCol() + "Error: That kit does not exist.");	
+										p.sendMessage(var.errorCol() + lang.translate("Error: That kit does not exist."));	
 								}
 								else
-									p.sendMessage(var.errorCol() + "Error: Already chose a kit.");
+									p.sendMessage(var.errorCol() + lang.translate("Error: Already chose a kit."));
 							}
 						}
 						else
-							p.sendMessage(var.errorCol() + "Error: You are not in the game.");
+							p.sendMessage(var.errorCol() + lang.translate("Error: You are not in the game."));
 					}
 					else
-						p.sendMessage(var.errorCol() + "Error: Game not going.");
+						p.sendMessage(var.errorCol() + lang.translate("Error: Game not going."));
 				}
 				else
-					p.sendMessage(var.errorCol() + "Error: This server has kits disabled.");
+					p.sendMessage(var.errorCol() + lang.translate("Error: This server has kits disabled."));
 			}
 			else
-				p.sendMessage(var.errorCol() + "Error: you may not use kits for the Hunger Games.");
+				p.sendMessage(var.errorCol() + lang.translate("Error: you may not use kits for the Hunger Games."));
 		}
 		else
-			sender.sendMessage(var.errorCol() + "Error: You may not use any kits.");
+			sender.sendMessage(var.errorCol() + lang.translate("Error: You may not use any kits."));
 		return true;
 	}
 }

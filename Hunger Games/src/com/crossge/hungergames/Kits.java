@@ -12,6 +12,7 @@ import org.bukkit.inventory.PlayerInventory;
 public class Kits
 {
 	Variables var = new Variables();
+	Language lang = new Language();
 	private static ArrayList<String> classes = new ArrayList<String>();
 	private static ArrayList<String> alreadyChose = new ArrayList<String>();
 	private File customConfigFile = new File("plugins/Hunger Games", "kits.yml");
@@ -62,7 +63,7 @@ public class Kits
 			temp = temp + kit + ", ";
 		temp = temp.trim();
 		temp = temp.substring(0, temp.length() - 1);
-		p.sendMessage(var.defaultCol() + "Available kits: " + temp + ".");
+		p.sendMessage(var.defaultCol() + lang.translate("Available kits") + ": " + temp + ".");
 	}
 	private void setLists()
 	{

@@ -23,7 +23,7 @@ public class CmdStats extends Cmd
 					String message = s.get(args[0]);
 					if(message == null)
 					{
-						p.sendMessage(var.errorCol() + "Error: Unkown player");
+						p.sendMessage(var.errorCol() + lang.translate("Error: Unkown player"));
 						return false;
 					}
 					message = parseStats(message);
@@ -31,7 +31,7 @@ public class CmdStats extends Cmd
 				}
 			}
 			else
-				p.sendMessage(var.errorCol() + "Error: You may not view your stats.");
+				p.sendMessage(var.errorCol() + lang.translate("Error: You may not view your stats."));
 		}
 		else
 		{
@@ -40,7 +40,7 @@ public class CmdStats extends Cmd
 			String message = s.get(args[0]);
 			if(message == null)
 			{
-				sender.sendMessage(var.errorCol() + "Error: Unkown player");
+				sender.sendMessage(var.errorCol() + lang.translate("Error: Unkown player"));
 				return false;
 			}
 			message = parseStats(message);
@@ -52,8 +52,9 @@ public class CmdStats extends Cmd
 	{//Name, Points, Wins, Kills, Deaths, Games
 		String[] info = stats.split(" ");
 		String statsNew = "";
-		statsNew = info[0] + " has " + info[1] + " points, and has won " + info[2] + " games, making a total of " + info[3] + " kills. They have also died "
-					+ info[4] + " times, and have played a total of " + info[5] + " games.";
+		statsNew = info[0] + " " + lang.translate("has") + " " + info[1] + " " + lang.translate("points, and has won") + " " +
+					info[2] + " " + lang.translate("games, making a total of") + " " + info[3] + " " + lang.translate("kills. They have also died" +
+					" " + info[4] + " " + lang.translate("times, and have played a total of") + " " + info[5] + " " + lang.translate("games."));
 		return statsNew;
 	}
 }

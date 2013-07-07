@@ -1,6 +1,7 @@
 package com.crossge.hungergames;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Random;
 import org.bukkit.Material;
@@ -54,6 +55,30 @@ public class Sponsor
         return -1;
     }
 	
+	private void balance()
+	{
+		double total = 0;
+		for(double d : percentChance)
+			total += d;			
+		if(total == 0)
+			return;
+		for(int i = 0; i < percentChance.size(); i++)
+			percentChance.set(i, percentChance.get(i)*100/total);
+		int i = 0;
+		for(String path : customConfigSponsor.getKeys(false))
+		{
+			if(i >= percentChance.size())
+				break;
+			customConfigSponsor.set(path, percentChance.get(i));
+			i++;
+		}
+		try
+	   	{
+			customConfigSponsor.save(customConfigFileSponsor);
+		}
+	   	catch (IOException e) {}
+	}
+	
 	private void setLists()
 	{
 		blockIds.clear();
@@ -74,5 +99,6 @@ public class Sponsor
 			damageValue.add(data);
 			percentChance.add(customConfigSponsor.getDouble(path));
 		}
+		balance();
 	}
 }

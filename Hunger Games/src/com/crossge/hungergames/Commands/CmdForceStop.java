@@ -16,25 +16,25 @@ public class CmdForceStop extends Cmd
 				if(pl.allowStart())
 				{
 					pl.endGame();
-					p.sendMessage(var.defaultCol() + "You stopped the game.");
-					Bukkit.broadcastMessage(var.defaultCol() + p.getName() + " stopped the game.");
+					p.sendMessage(var.defaultCol() + lang.translate("You stopped the game."));
+					Bukkit.broadcastMessage(var.defaultCol() + p.getName() + " " + lang.translate("stopped the game."));
 				}
 				else
-					p.sendMessage(var.errorCol() + "Error: Game is already stopped.");
+					p.sendMessage(var.errorCol() + lang.translate("Error: Game is already stopped."));
 			}
 			else
-				p.sendMessage(var.errorCol() + "Error: You may not stop the Hunger Games.");
+				p.sendMessage(var.errorCol() + lang.translate("Error: You may not stop the Hunger Games."));
 		}
 		else
 		{
 			if(pl.gameGoing())
 			{
 				pl.endGame();
-				sender.sendMessage(var.defaultCol() + "You stopped the game.");
-				Bukkit.broadcastMessage(var.defaultCol() + "The console stopped the game.");
+				sender.sendMessage(var.defaultCol() + lang.translate("You stopped the game."));
+				Bukkit.broadcastMessage(var.defaultCol() + lang.translate("The console stopped the game."));
 			}
 			else
-				sender.sendMessage(var.errorCol() + "Error: Game is already started.");
+				sender.sendMessage(var.errorCol() + lang.translate("Error: Game is already started."));
 		}
 		return true;
 	}

@@ -13,6 +13,7 @@ import org.bukkit.configuration.file.YamlConfiguration;
 public class Game
 {
 	Variables var = new Variables();
+	Language lang = new Language();
 	Kits kit = new Kits();
 	private static String nextMap = "";
 	private static boolean voting = false;
@@ -80,13 +81,14 @@ public class Game
 		if(!voting)
 			m();
 		voting = true;
-		Bukkit.broadcastMessage(var.defaultCol() + "Maps you can vote for are:");
+		Bukkit.broadcastMessage(var.defaultCol() + lang.translate("Maps you can vote for are:"));
 		for(int i = 0; i < maps.size(); i++)
 		{
 			if(i == 3)
 				break;
-			Bukkit.broadcastMessage(var.defaultCol() + "Vote " + Integer.toString(i + 1) + " for map " + maps.get(mvote.get(i)) +
-					" current votes: " + votes(i));
+			Bukkit.broadcastMessage(var.defaultCol() + lang.translate("Vote") + " " + Integer.toString(i + 1) + " " +
+									lang.translate("for map") + " " + maps.get(mvote.get(i)) +
+					" " + lang.translate("current votes") + ": " + votes(i));
 		}
 	}
 	private String votes(int map)

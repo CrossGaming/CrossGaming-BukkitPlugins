@@ -10,6 +10,7 @@ import org.bukkit.entity.Player;
 
 public class UpdateCheck
 {
+	Language lang = new Language();
 	private static boolean update = false;
 	private static String newVersion = "";
 	private static String currentVersion = "";
@@ -17,9 +18,10 @@ public class UpdateCheck
 	public void tellOp(Player p)
 	{
 		if(update)
-			p.sendMessage(ChatColor.GREEN + "Upadte found: v" + currentVersion + " is outdated please update to v" + newVersion);
+			p.sendMessage(ChatColor.GREEN + lang.translate("Update found") + ": v" + currentVersion + " " + 
+							lang.translate("is outdated please update to") + " v" + newVersion);
 		else
-			p.sendMessage(ChatColor.GREEN + "Hunger Games is up to date.");
+			p.sendMessage(ChatColor.GREEN + lang.translate("Hunger Games is up to date."));
 	}
 	
 	public void checkForUpdate()
@@ -47,8 +49,9 @@ public class UpdateCheck
 		if(major > curMajor || minor > curMinor || bug > curBug)
 			update = true;
 		if(update)
-			Bukkit.getConsoleSender().sendMessage(ChatColor.GREEN + "Upadte found: v" + currentVersion + " is outdated please update to v" + newVersion);
+			Bukkit.getConsoleSender().sendMessage(ChatColor.GREEN + lang.translate("Upadte found") + ": v" + currentVersion +
+										" " + lang.translate("is outdated please update to") + " v" + newVersion);
 		else
-			Bukkit.getConsoleSender().sendMessage(ChatColor.GREEN + "Hunger Games is up to date.");
+			Bukkit.getConsoleSender().sendMessage(ChatColor.GREEN + lang.translate("Hunger Games is up to date."));
 	}
 }

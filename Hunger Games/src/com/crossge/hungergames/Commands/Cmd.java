@@ -6,6 +6,7 @@ import com.crossge.hungergames.*;
 public class Cmd
 {
 	Variables var = new Variables();
+	Language lang = new Language();
 	Sponsor sp = new Sponsor();
 	Players pl = new Players();
 	Kits kit = new Kits();

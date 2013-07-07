@@ -15,7 +15,7 @@ public class CmdJoin extends Cmd
 			{
 				if(pl.isAlive(p.getName()))
 				{
-					p.sendMessage(var.errorCol() + "Error: You are already in a game.");
+					p.sendMessage(var.errorCol() + lang.translate("Error: You are already in a game."));
 					return true;
 				}
 				int spot = pl.posInQueue(p.getName()); 
@@ -23,21 +23,22 @@ public class CmdJoin extends Cmd
 				{
 					pl.addToQueue(p.getName());
 					spot = pl.posInQueue(p.getName());
-					p.sendMessage(var.defaultCol() + "Added in line position " + ChatColor.GOLD + "#" + Integer.toString(spot) + var.defaultCol() + " for the next game.");
+					p.sendMessage(var.defaultCol() + lang.translate("Added in line position") +
+									" " + ChatColor.GOLD + "#" + Integer.toString(spot) + var.defaultCol() + " " + lang.translate("for the next game."));
 					return true;
 				}
 				if(pl.queueFull())
 				{
-					p.sendMessage(var.defaultCol() + "Sorry the next game is full.");
+					p.sendMessage(var.defaultCol() + lang.translate("Sorry the next game is full."));
 					return true;
 				}
-				p.sendMessage(ChatColor.GOLD + "#" + Integer.toString(spot) + var.defaultCol() + " in line for the next game.");
+				p.sendMessage(ChatColor.GOLD + "#" + Integer.toString(spot) + var.defaultCol() + " " + lang.translate("in line for the next game."));
 			}
 			else
-				p.sendMessage(var.errorCol() + "Error: You may not join the Hunger Games.");
+				p.sendMessage(var.errorCol() + lang.translate("Error: You may not join the Hunger Games."));
 		}
 		else
-			sender.sendMessage(var.errorCol() + "Error: You cannot join the hunger games, please log in.");
+			sender.sendMessage(var.errorCol() + lang.translate("Error: You cannot join the hunger games, please log in."));
 		return true;
 	}	
 }

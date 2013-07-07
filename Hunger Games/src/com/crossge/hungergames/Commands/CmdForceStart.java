@@ -16,25 +16,25 @@ public class CmdForceStart extends Cmd
 				if(!pl.allowStart())
 				{
 					g.start();
-					p.sendMessage(var.defaultCol() + "You started the game.");
-					Bukkit.broadcastMessage(var.defaultCol() + p.getName() + " started the game.");
+					p.sendMessage(var.defaultCol() + lang.translate("You started the game."));
+					Bukkit.broadcastMessage(var.defaultCol() + p.getName() + " " + lang.translate("started the game."));
 				}
 				else
-					p.sendMessage(var.errorCol() + "Error: Game is already started.");
+					p.sendMessage(var.errorCol() + lang.translate("Error: Game is already started."));
 			}
 			else
-				p.sendMessage(var.errorCol() + "Error: You may not start the Hunger Games.");
+				p.sendMessage(var.errorCol() + lang.translate("Error: You may not start the Hunger Games."));
 		}
 		else
 		{
 			if(pl.gameGoing())
 			{
 				g.start();
-				sender.sendMessage(var.defaultCol() + "You started the game.");
-				Bukkit.broadcastMessage(var.defaultCol() + "The console started the game.");
+				sender.sendMessage(var.defaultCol() + lang.translate("You started the game."));
+				Bukkit.broadcastMessage(var.defaultCol() + lang.translate("The console started the game."));
 			}
 			else
-				sender.sendMessage(var.errorCol() + "Error: Game is already started.");
+				sender.sendMessage(var.errorCol() + lang.translate("Error: Game is already started."));
 		}
 		return true;
 	}

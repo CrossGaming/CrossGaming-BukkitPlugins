@@ -15,7 +15,7 @@ public class CmdSpectate extends Cmd
 			{
 				if(pl.isAlive(p.getName()))
 				{
-					p.sendMessage(var.errorCol() + "Error: You are already in a game.");
+					p.sendMessage(var.errorCol() + lang.translate("Error: You are already in a game."));
 					return true;
 				}
 				if(pl.gameGoing())
@@ -28,15 +28,15 @@ public class CmdSpectate extends Cmd
 							if(pl.isAlive(target.getName()))
 							{
 								pl.spectate(p, target);
-								p.sendMessage(var.defaultCol() + "Now spectating " + target.getName() + ".");
+								p.sendMessage(var.defaultCol() + lang.translate("Now spectating") + " " + target.getName() + ".");
 							}
 							else
-								p.sendMessage(var.errorCol() + "Error: That player is not playing.");
+								p.sendMessage(var.errorCol() + lang.translate("Error: That player is not playing."));
 						}
 						else
 						{
 							pl.delSpectating(p.getName());
-							p.sendMessage(var.defaultCol() + "No longer spectating the Hunger Games.");
+							p.sendMessage(var.defaultCol() + lang.translate("No longer spectating the Hunger Games."));
 							return true;
 						}
 					}
@@ -47,22 +47,22 @@ public class CmdSpectate extends Cmd
 						if(pl.isAlive(target.getName()))
 						{
 							pl.spectate(p, target);
-							p.sendMessage(var.defaultCol() + "Now spectating " + target.getName() + ".");
+							p.sendMessage(var.defaultCol() + lang.translate("Now spectating") + " " + target.getName() + ".");
 						}
 						else
-							p.sendMessage(var.errorCol() + "Error: That player is not playing.");
+							p.sendMessage(var.errorCol() + lang.translate("Error: That player is not playing."));
 					}
 					else
-						p.sendMessage(var.defaultCol() + "Now spectating the Hunger Games.");
+						p.sendMessage(var.defaultCol() + lang.translate("Now spectating the Hunger Games."));
 				}
 				else
-					p.sendMessage(var.errorCol() + "Error: There is no current game.");
+					p.sendMessage(var.errorCol() + lang.translate("Error: There is no current game."));
 			}
 			else
-				p.sendMessage(var.errorCol() + "Error: You may not spectate the Hunger Games.");
+				p.sendMessage(var.errorCol() + lang.translate("Error: You may not spectate the Hunger Games."));
 		}
 		else
-			sender.sendMessage(var.errorCol() + "Error: You cannot spectate the hunger games, please log in.");
+			sender.sendMessage(var.errorCol() + lang.translate("Error: You cannot spectate the hunger games, please log in."));
 		return true;
 	}
 }
