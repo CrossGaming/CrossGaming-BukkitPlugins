@@ -3,6 +3,7 @@ package com.crossge.hungergames;
 import java.io.File;
 import java.util.ArrayList;
 
+import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
@@ -63,7 +64,7 @@ public class Kits
 			temp = temp + kit + ", ";
 		temp = temp.trim();
 		temp = temp.substring(0, temp.length() - 1);
-		p.sendMessage(var.defaultCol() + lang.translate("Available kits") + ": " + temp + ".");
+		p.sendMessage(var.defaultCol() + ChatColor.WHITE + lang.translate("Available kits") + ": " + temp + ".");
 	}
 	private void setLists()
 	{

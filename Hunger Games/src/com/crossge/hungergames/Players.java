@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -21,40 +22,42 @@ public class Players
 	Stats s = new Stats();
 	Game g = new Game();
 	ChestRandomizer cr = new ChestRandomizer();
-	private static ArrayList<String> alive = new ArrayList<String>();
-	private static ArrayList<String> origalive = new ArrayList<String>();
-	private static ArrayList<String> dead = new ArrayList<String>();
-	private static ArrayList<String> queued = new ArrayList<String>();
-	private static ArrayList<String> spectating = new ArrayList<String>();
-	private static ArrayList<String> sponsored = new ArrayList<String>();
 	private File customConfigFile = new File("plugins/Hunger Games", "spawns.yml");
 	private YamlConfiguration customConfig = YamlConfiguration.loadConfiguration(customConfigFile);
 	private File customConfFile = new File("plugins/Hunger Games", "config.yml");
    	private YamlConfiguration customConf = YamlConfiguration.loadConfiguration(customConfFile);
+   	private static ArrayList<String> spectating = new ArrayList<String>();
+	private static ArrayList<String> sponsored = new ArrayList<String>();
+	private static ArrayList<String> origalive = new ArrayList<String>();
+	private static ArrayList<String> queued = new ArrayList<String>();
+	private static ArrayList<String> alive = new ArrayList<String>();
+	private static ArrayList<String> dead = new ArrayList<String>();
 	private static boolean alreadySponsor = false;
 	private static boolean deathStarted = false;
-	private static boolean death = false;
 	private static boolean gameStarted = false;
 	private static boolean invincible = true;
 	private static boolean moveDeny = true;
-	private static int time = 0;
-	private static int tptime = 0;
-	private static int stime = 0;
-	private static int xmin = 0;
-	private static int xmax = 0;
-	private static int zmin = 0;
-	private static int zmax = 0;
+	private static boolean death = false;
+	private static String motd = "Voting";
+	private static String worldName = "";
 	private static int xCornMin = 0;
 	private static int xCornMax = 0;
 	private static int zCornMin = 0;
 	private static int zCornMax = 0;
-	private static String worldName = "";
-	private static Timer t = new Timer();
-	private static Timer count = new Timer();
-	private static Timer day = new Timer();
+	private static int tptime = 0;
+	private static int stime = 0;
+	private static int dtime = 0;
+	private static int time = 0;
+	private static int xmin = 0;
+	private static int xmax = 0;
+	private static int zmin = 0;
+	private static int zmax = 0;
 	private static Timer invinc = new Timer();
 	private static Timer noMove = new Timer();
-	private static String motd = "Voting";
+	private static Timer count = new Timer();
+	private static Timer day = new Timer();
+	private static Timer t = new Timer();
+	
 	public boolean alreadySponsored(String name)
 	{
 		return sponsored.contains(name);
@@ -133,7 +136,7 @@ public class Players
 	}
 	public void startSponsor()
 	{
-		Bukkit.broadcastMessage(var.defaultCol() + lang.translate("The players left now recieve sponsorships."));
+		Bukkit.broadcastMessage(var.defaultCol() + ChatColor.GREEN + lang.translate("The players left now recieve sponsorships."));
 		for(int i = 0; i < alive.size(); i++)
 			spons.giveItems(Bukkit.getPlayer(alive.get(i)));
 	}
@@ -143,7 +146,7 @@ public class Players
 		int z = p.getLocation().getBlockZ();
 		if(x >= xmax || x <= xmin || z >= zmax || z <= zmin)
 		{
-			Bukkit.broadcastMessage(var.defaultCol() + p.getName() + " " + lang.translate("is trying to escape the death match."));
+			Bukkit.broadcastMessage(var.defaultCol() + ChatColor.DARK_RED + p.getName() + " " + lang.translate("is trying to escape the death match."));
 			Player temp;
 			for(int i = 0; i < alive.size(); i++)
 			{
@@ -154,6 +157,9 @@ public class Players
 	}
 	public void startDeath()
 	{
+		t.cancel();
+		t.purge();
+		t = new Timer();
 		death = true;
 		String world = g.getNext();
 		String pathx = "";
@@ -190,7 +196,7 @@ public class Players
 		zmin = tempzmin;
 		xmax = tempxmax;
 		xmin = tempxmin;
-		Bukkit.broadcastMessage(var.defaultCol() + lang.translate("Death match started."));
+		Bukkit.broadcastMessage(var.defaultCol() + ChatColor.DARK_RED + lang.translate("Death match started."));
 		motd = lang.translate("Deathmatch");
 		Player temp;
 		for(int i = 0; i < alive.size(); i++)
@@ -245,11 +251,11 @@ public class Players
 		spectating.add(name);
 		hideSpec();
 		Player p = Bukkit.getPlayer(name);
-		p.setGameMode(GameMode.CREATIVE);
 		p.setFoodLevel(20);
 		p.setHealth(20);
 		p.setCanPickupItems(false);
 		p.teleport(new Location(Bukkit.getWorld(world), customConfig.getInt(pathx), customConfig.getInt(pathy), customConfig.getInt(pathz)));
+		p.setGameMode(GameMode.CREATIVE);
 	}
 	public boolean deathstarted()
 	{
@@ -294,25 +300,25 @@ public class Players
 		int z = p.getLocation().getBlockZ();
 		if(x >= xCornMax)
 		{
-			p.sendMessage(var.defaultCol() + lang.translate("You may not leave the arena."));
+			p.sendMessage(var.defaultCol() + ChatColor.RED + lang.translate("You may not leave the arena."));
 			Location l = new Location(p.getWorld(), x - 1, p.getLocation().getBlockY(), z);
 			p.teleport(l);
 		}
 		else if(x <= xCornMin)
 		{
-			p.sendMessage(var.defaultCol() + lang.translate("You may not leave the arena."));
+			p.sendMessage(var.defaultCol() + ChatColor.RED + lang.translate("You may not leave the arena."));
 			Location l = new Location(p.getWorld(), x + 1, p.getLocation().getBlockY(), z);
 			p.teleport(l);
 		}
 		else if(z >= zCornMax)
 		{
-			p.sendMessage(var.defaultCol() + lang.translate("You may not leave the arena."));
+			p.sendMessage(var.defaultCol() + ChatColor.RED + lang.translate("You may not leave the arena."));
 			Location l = new Location(p.getWorld(), x, p.getLocation().getBlockY(), z - 1);
 			p.teleport(l);
 		}
 		else if(z <= zCornMin)
 		{
-			p.sendMessage(var.defaultCol() + lang.translate("You may not leave the arena."));
+			p.sendMessage(var.defaultCol() + ChatColor.RED + lang.translate("You may not leave the arena."));
 			Location l = new Location(p.getWorld(), x, p.getLocation().getBlockY(), z + 1);
 			p.teleport(l);
 		}
@@ -326,6 +332,7 @@ public class Players
 		Player p = Bukkit.getPlayer(name);
 		p.setFoodLevel(20);
 		p.setHealth(20);
+		p.setGameMode(GameMode.SURVIVAL);
 		p.setFlying(false);
 		p.setCanPickupItems(true);
 		PlayerInventory inv = p.getInventory();
@@ -459,10 +466,14 @@ public class Players
 		cr.emptyChests();
 		spectating.clear();
 		sponsored.clear();
+		endTimer();
 		g.end();
 	}
 	private void safeEnd()
 	{
+		invinc.cancel();
+		invinc.purge();
+		invinc = new Timer();
 		Bukkit.broadcastMessage(var.defaultCol() + lang.translate("Players are no longer invincible."));
 		invincible = false;
 	}
@@ -514,12 +525,18 @@ public class Players
 	{
 		if(queued.size() < customConf.getInt("minPlayers"))
 		{
-			Bukkit.broadcastMessage(var.defaultCol() + lang.translate("Not enough players, need at least") + " " +
+			Bukkit.broadcastMessage(var.defaultCol() + ChatColor.DARK_RED + lang.translate("Not enough players to start, need at least") + " " +
 							Integer.toString(customConf.getInt("minPlayers")) + ". " + lang.translate("Restarting countdown."));
 			vote();
 		}
 		else
+		{
+			count.cancel();
+			count.purge();
+			count = new Timer();
 			finishGameStart();
+			
+		}
 	}
 	public boolean denyMoving()
 	{
@@ -527,7 +544,7 @@ public class Players
 	}
 	private void finishGameStart()
 	{
-		Bukkit.broadcastMessage(var.defaultCol() + lang.translate("Game will now start."));
+		Bukkit.broadcastMessage(var.defaultCol() + ChatColor.WHITE + lang.translate("Game will now start."));
 		cr.emptyChests();
 		cr.randomizeChests();
 		for(int i = 0; i < queued.size(); i++)
@@ -542,8 +559,11 @@ public class Players
 	}
 	private void finishGameStart2()
 	{
+		noMove.cancel();
+		noMove.purge();
+		noMove = new Timer();
 		motd = g.getNext() + " " + lang.translate("Game in progress");
-		Bukkit.broadcastMessage(var.defaultCol() + lang.translate("Players may now move."));
+		Bukkit.broadcastMessage(var.defaultCol() + ChatColor.WHITE + lang.translate("Players may now move."));
 		moveDeny = false;
 		safeTimer();
 		if(deathMatch())
@@ -553,8 +573,11 @@ public class Players
 	}
 	private void refillChests()
 	{
+		day.cancel();
+		day.purge();
+		day = new Timer();
 		cr.randomizeChests();
-		Bukkit.broadcastMessage(var.defaultCol() + lang.translate("The chests have now been refilled."));
+		Bukkit.broadcastMessage(var.defaultCol() + ChatColor.GREEN + lang.translate("The chests have been refilled."));
 	}
 	private void joinGame()
 	{
@@ -598,7 +621,7 @@ public class Players
 		if(stime == 0)
 			stime = customConf.getInt("safeTime");
 		int freq = customConf.getInt("messageFrequency");
-		Bukkit.broadcastMessage(var.defaultCol() + lang.translate("Players are now invincible for") + " " + getTime(stime));
+		Bukkit.broadcastMessage(var.defaultCol() + ChatColor.WHITE + lang.translate("Players are now invincible for") + " " + getTime(stime));
 		if(freq >= stime)
 		{
 			int temp = stime;
@@ -616,7 +639,7 @@ public class Players
 		if(tptime == 0)
 			tptime = customConf.getInt("tpCoolDown");
 		int freq = customConf.getInt("messageFrequency");
-		Bukkit.broadcastMessage(var.defaultCol() + lang.translate("Players may move in") + " " + getTime(tptime));
+		Bukkit.broadcastMessage(var.defaultCol() + ChatColor.WHITE + lang.translate("Players may move in") + " " + getTime(tptime));
 		if(freq >= tptime)
 		{
 			int temp = tptime;
@@ -632,11 +655,23 @@ public class Players
 	public void deathCountdown()
 	{
 		if(!deathStarted)
-		{
-			deathStarted = true;
-			int dtime = customConf.getInt("deathTime");
-			Bukkit.broadcastMessage(var.defaultCol() + lang.translate("Death match will start in") + " " + getTime(dtime));
-			t.schedule(new TimerTask(){public void run() {startDeath();}}, dtime * 1000);
+		{			
+			if(dtime == 0)
+				dtime = customConf.getInt("deathTime");
+			int freq = customConf.getInt("messageFrequency");
+			Bukkit.broadcastMessage(var.defaultCol() + ChatColor.DARK_RED + lang.translate("Death match will start in") + " " + getTime(dtime));
+			if(freq >= dtime)
+			{
+				deathStarted = true;
+				int temp = dtime;
+				dtime = 0;
+				t.schedule(new TimerTask(){public void run() {startDeath();}}, temp * 1000);
+			}
+			else
+			{
+				dtime -= freq;
+				t.schedule(new TimerTask(){public void run() {deathCountdown();}}, freq * 1000);
+			}
 		}
 	}
 	public void vote()
@@ -644,7 +679,7 @@ public class Players
 		if(time == 0)
 			time = customConf.getInt("votingTime");
 		int freq = customConf.getInt("messageFrequency");
-		Bukkit.broadcastMessage(var.defaultCol() + lang.translate("Game will start in") + " " + getTime(time) + " " +
+		Bukkit.broadcastMessage(var.defaultCol() + ChatColor.WHITE + lang.translate("Game will start in") + " " + getTime(time) + " " +
 				lang.translate("please use /hg join to join."));
 		g.holdVote();
 		if(freq >= time)

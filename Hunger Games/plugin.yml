@@ -36,6 +36,7 @@ permissions:
             HungerGames.setworldspawn: true
             HungerGames.update: true
             HungerGames.setchests: true
+            HungerGames.cmdGame: true
     HungerGames.hg:
         description: Lets you use /hg.
         default: true
@@ -95,4 +96,7 @@ permissions:
         default: op
     HungerGames.setchests:
         description: Sets the locations of the chests for a world.
+        default: op
+    HungerGames.cmdGame:
+        description: Allows you to perform commands during a game.
         default: op

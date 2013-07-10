@@ -1,5 +1,6 @@
 package com.crossge.hungergames.Commands;
 
+import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
@@ -13,9 +14,9 @@ public class CmdInfo extends Cmd
 			if(p.hasPermission("HungerGames.info"))
 			{
 				p.sendMessage(var.defaultCol() + lang.translate("Map") + ": " + g.getNext());
-				p.sendMessage(var.defaultCol() + pl.amount());
-				p.sendMessage(var.defaultCol() + lang.translate("Alive") + ": " + pl.breathing());
-				p.sendMessage(var.defaultCol() + lang.translate("Dead") + ": " + pl.deceased());
+				p.sendMessage(var.defaultCol() + ChatColor.GREEN + pl.amount());
+				p.sendMessage(var.defaultCol() + ChatColor.WHITE + lang.translate("Alive") + ": " + pl.breathing());
+				p.sendMessage(var.defaultCol() + ChatColor.DARK_RED + lang.translate("Dead") + ": " + pl.deceased());
 			}
 			else
 				p.sendMessage(var.errorCol() + lang.translate("Error: You may not view the info for the current round."));
@@ -23,9 +24,9 @@ public class CmdInfo extends Cmd
 		else
 		{
 			sender.sendMessage(var.defaultCol() + lang.translate("Map") + ": " + g.getNext());
-			sender.sendMessage(var.defaultCol() + pl.amount());
-			sender.sendMessage(var.defaultCol() + lang.translate("Alive") + ": " + pl.breathing());
-			sender.sendMessage(var.defaultCol() + lang.translate("Dead") + ": " + pl.deceased());
+			sender.sendMessage(var.defaultCol() + ChatColor.GREEN + pl.amount());
+			sender.sendMessage(var.defaultCol() + ChatColor.WHITE + lang.translate("Alive") + ": " + pl.breathing());
+			sender.sendMessage(var.defaultCol() + ChatColor.DARK_RED + lang.translate("Dead") + ": " + pl.deceased());
 		}
 		return true;
 	}

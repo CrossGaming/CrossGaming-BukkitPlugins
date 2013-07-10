@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.Random;
 import java.util.Set;
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.World;
 import org.bukkit.WorldCreator;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -76,17 +77,19 @@ public class Game
 	}
 	public void holdVote()
 	{
-		if(maps.isEmpty() || maps.size() == 1)
+		if(maps.isEmpty())
+			initMaps();
+		if(maps.size() == 1)
 			return;
 		if(!voting)
 			m();
 		voting = true;
-		Bukkit.broadcastMessage(var.defaultCol() + lang.translate("Maps you can vote for are:"));
+		Bukkit.broadcastMessage(var.defaultCol() + ChatColor.WHITE + lang.translate("Maps you can vote for are:"));
 		for(int i = 0; i < maps.size(); i++)
 		{
 			if(i == 3)
 				break;
-			Bukkit.broadcastMessage(var.defaultCol() + lang.translate("Vote") + " " + Integer.toString(i + 1) + " " +
+			Bukkit.broadcastMessage(var.defaultCol() + ChatColor.WHITE + lang.translate("Vote") + " " + Integer.toString(i + 1) + " " +
 									lang.translate("for map") + " " + maps.get(mvote.get(i)) +
 					" " + lang.translate("current votes") + ": " + votes(i));
 		}
@@ -156,7 +159,8 @@ public class Game
 	}
 	public void start()
 	{
-		if(maps.size() == 0)
+		initMaps();
+		if(maps.isEmpty())
 			return;
 		new Players().gameStart();
 		votes.clear();
@@ -173,6 +177,11 @@ public class Game
 		for(String map : maps)
 		{
 			w = Bukkit.getWorld(map);
+			if(w == null)
+			{
+				Bukkit.createWorld(new WorldCreator(map));
+				w = Bukkit.getWorld(map);
+			}
 			w.setAutoSave(false);
 		}
 	}

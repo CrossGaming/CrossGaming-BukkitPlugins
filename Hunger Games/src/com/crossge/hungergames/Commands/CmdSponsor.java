@@ -1,5 +1,6 @@
 package com.crossge.hungergames.Commands;
 
+import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
@@ -23,7 +24,7 @@ public class CmdSponsor extends Cmd
 					}
 					sp.giveItems(p);
 					pl.addSponsored(p.getName());
-					p.sendMessage(var.defaultCol() + lang.translate("You sponsored yourself."));
+					p.sendMessage(var.defaultCol() + ChatColor.GREEN + lang.translate("You sponsored yourself."));
 				}
 				else
 					p.sendMessage(var.errorCol() + lang.translate("Error: Game not going."));

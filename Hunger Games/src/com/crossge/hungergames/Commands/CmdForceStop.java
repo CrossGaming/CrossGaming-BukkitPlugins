@@ -1,6 +1,7 @@
 package com.crossge.hungergames.Commands;
 
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
@@ -16,8 +17,8 @@ public class CmdForceStop extends Cmd
 				if(pl.allowStart())
 				{
 					pl.endGame();
-					p.sendMessage(var.defaultCol() + lang.translate("You stopped the game."));
-					Bukkit.broadcastMessage(var.defaultCol() + p.getName() + " " + lang.translate("stopped the game."));
+					p.sendMessage(var.defaultCol() + ChatColor.DARK_RED + lang.translate("You stopped the game."));
+					Bukkit.broadcastMessage(var.defaultCol() + ChatColor.DARK_RED + p.getName() + " " + lang.translate("stopped the game."));
 				}
 				else
 					p.sendMessage(var.errorCol() + lang.translate("Error: Game is already stopped."));
@@ -30,8 +31,8 @@ public class CmdForceStop extends Cmd
 			if(pl.gameGoing())
 			{
 				pl.endGame();
-				sender.sendMessage(var.defaultCol() + lang.translate("You stopped the game."));
-				Bukkit.broadcastMessage(var.defaultCol() + lang.translate("The console stopped the game."));
+				sender.sendMessage(var.defaultCol() + ChatColor.DARK_RED + lang.translate("You stopped the game."));
+				Bukkit.broadcastMessage(var.defaultCol() + ChatColor.DARK_RED + lang.translate("The console stopped the game."));
 			}
 			else
 				sender.sendMessage(var.errorCol() + lang.translate("Error: Game is already started."));

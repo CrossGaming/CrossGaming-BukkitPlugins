@@ -1,5 +1,6 @@
 package com.crossge.hungergames;
 
+import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -43,6 +44,6 @@ public class HungerGames extends JavaPlugin
     	pl.sendToWSpawn();
     	pl.unhideSpec();
     	cr.emptyChests();
-    	getLogger().info(lang.translate("Hunger Games disabled."));
+    	getLogger().info(ChatColor.DARK_RED + lang.translate("Hunger Games disabled."));
     }
 }

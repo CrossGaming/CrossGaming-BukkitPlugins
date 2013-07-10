@@ -17,6 +17,7 @@ import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
 import org.bukkit.event.player.PlayerCommandPreprocessEvent;
+import org.bukkit.event.player.PlayerDropItemEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
@@ -77,9 +78,9 @@ public class Listeners implements Listener
 					break;
 				}
 			}
-			if(cancel)
+			if(cancel && !p.hasPermission("HungerGames.cmdGame"))
 				p.sendMessage(var.errorCol() + lang.translate("Error: You may not perform commands while in the hunger games."));
-			event.setCancelled(cancel);
+			event.setCancelled(cancel && !p.hasPermission("HungerGames.cmdGame"));
 		}
 	}
 	@EventHandler
@@ -92,6 +93,13 @@ public class Listeners implements Listener
     	if(p.hasPermission("HungerGames.update"))
     		up.tellOp(p);
 	}
+	@EventHandler
+    public void onItemDrop(PlayerDropItemEvent e)
+	{
+       Player p = e.getPlayer();
+       if(pl.isSpectating(p.getName()))
+    	   e.setCancelled(true);
+    }
 	@EventHandler
 	public void onBlockDamage(BlockDamageEvent event)
 	{
@@ -185,7 +193,7 @@ public class Listeners implements Listener
     		String points = s.getPoints(p.getName());
     		if(points != null)
     		{
-    			points = var.defaultCol() + "(" + var.pointCol() + points + var.defaultCol() + ") " + ChatColor.RESET;
+    			points = var.trueDefaultCol() + "(" + var.pointCol() + points + var.trueDefaultCol() + ") " + ChatColor.RESET;
     			event.setFormat(points + event.getFormat());
     		}
     	}

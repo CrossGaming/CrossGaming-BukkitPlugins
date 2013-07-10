@@ -1,6 +1,7 @@
 package com.crossge.hungergames.Commands;
 
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
@@ -28,7 +29,7 @@ public class CmdSpectate extends Cmd
 							if(pl.isAlive(target.getName()))
 							{
 								pl.spectate(p, target);
-								p.sendMessage(var.defaultCol() + lang.translate("Now spectating") + " " + target.getName() + ".");
+								p.sendMessage(var.defaultCol() + ChatColor.WHITE + lang.translate("Now spectating") + " " + target.getName() + ".");
 							}
 							else
 								p.sendMessage(var.errorCol() + lang.translate("Error: That player is not playing."));
@@ -36,7 +37,7 @@ public class CmdSpectate extends Cmd
 						else
 						{
 							pl.delSpectating(p.getName());
-							p.sendMessage(var.defaultCol() + lang.translate("No longer spectating the Hunger Games."));
+							p.sendMessage(var.defaultCol() + ChatColor.WHITE + lang.translate("No longer spectating the Hunger Games."));
 							return true;
 						}
 					}
@@ -47,13 +48,13 @@ public class CmdSpectate extends Cmd
 						if(pl.isAlive(target.getName()))
 						{
 							pl.spectate(p, target);
-							p.sendMessage(var.defaultCol() + lang.translate("Now spectating") + " " + target.getName() + ".");
+							p.sendMessage(var.defaultCol() + ChatColor.WHITE + lang.translate("Now spectating") + " " + target.getName() + ".");
 						}
 						else
 							p.sendMessage(var.errorCol() + lang.translate("Error: That player is not playing."));
 					}
 					else
-						p.sendMessage(var.defaultCol() + lang.translate("Now spectating the Hunger Games."));
+						p.sendMessage(var.defaultCol() + ChatColor.WHITE + lang.translate("Now spectating the Hunger Games."));
 				}
 				else
 					p.sendMessage(var.errorCol() + lang.translate("Error: There is no current game."));

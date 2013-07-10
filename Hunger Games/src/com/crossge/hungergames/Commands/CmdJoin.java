@@ -23,16 +23,16 @@ public class CmdJoin extends Cmd
 				{
 					pl.addToQueue(p.getName());
 					spot = pl.posInQueue(p.getName());
-					p.sendMessage(var.defaultCol() + lang.translate("Added in line position") +
-									" " + ChatColor.GOLD + "#" + Integer.toString(spot) + var.defaultCol() + " " + lang.translate("for the next game."));
+					p.sendMessage(var.defaultCol() + lang.translate("Added in line at position") +
+									" " + ChatColor.GOLD + "#" + Integer.toString(spot) + ChatColor.BLUE + " " + lang.translate("for the next game."));
 					return true;
 				}
 				if(pl.queueFull())
 				{
-					p.sendMessage(var.defaultCol() + lang.translate("Sorry the next game is full."));
+					p.sendMessage(var.defaultCol() + ChatColor.DARK_RED + lang.translate("Sorry the next game is full."));
 					return true;
 				}
-				p.sendMessage(ChatColor.GOLD + "#" + Integer.toString(spot) + var.defaultCol() + " " + lang.translate("in line for the next game."));
+				p.sendMessage(ChatColor.GOLD + "#" + Integer.toString(spot) + ChatColor.BLUE + " " + lang.translate("in line for the next game."));
 			}
 			else
 				p.sendMessage(var.errorCol() + lang.translate("Error: You may not join the Hunger Games."));

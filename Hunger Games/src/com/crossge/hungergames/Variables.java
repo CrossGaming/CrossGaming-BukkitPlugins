@@ -10,7 +10,11 @@ public class Variables
 	private ChatColor points = ChatColor.GOLD;
 	private ChatColor district = ChatColor.DARK_GREEN;
 	
-	public ChatColor defaultCol()
+	public String defaultCol()
+	{
+		return ChatColor.GREEN + "[" + ChatColor.GOLD + "HG" + ChatColor.GREEN + "] " + def;
+	}
+	public ChatColor trueDefaultCol()
 	{
 		return def;
 	}
@@ -18,9 +22,9 @@ public class Variables
 	{
 		return death;
 	}
-	public ChatColor errorCol()
+	public String errorCol()
 	{
-		return error;
+		return ChatColor.GREEN + "[" + ChatColor.GOLD + "HG" + ChatColor.GREEN + "] " + error;
 	}
 	public ChatColor pointCol()
 	{

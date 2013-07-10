@@ -2,6 +2,8 @@ package com.crossge.hungergames.Commands;
 
 import java.util.ArrayList;
 import java.util.Collections;
+
+import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
@@ -55,7 +57,7 @@ public class CmdLeaderboards extends Cmd
 					p.sendMessage(var.errorCol() + lang.translate("Error: Max pages are") + " " + Integer.toString(size) + ".");
 					return true;
 				}
-				p.sendMessage(var.defaultCol() + lang.translate("Page") + " " + Integer.toString(page) +
+				p.sendMessage(var.defaultCol() + ChatColor.WHITE + lang.translate("Page") + " " + Integer.toString(page) +
 								" " + lang.translate("of") + " " + Integer.toString(size) + " " + lang.translate("for stat") + " " + type + ".");
 				page = page - 1;
 				for(int i = 0; i < 8; i++)
@@ -109,7 +111,7 @@ public class CmdLeaderboards extends Cmd
 				sender.sendMessage(var.errorCol() + lang.translate("Error: Max pages are") + " " + Integer.toString(size) + ".");
 				return true;
 			}
-			sender.sendMessage(var.defaultCol() + lang.translate("Page") + " " + Integer.toString(page) +
+			sender.sendMessage(var.defaultCol() + ChatColor.WHITE + lang.translate("Page") + " " + Integer.toString(page) +
 								" " + lang.translate("of") + " " + Integer.toString(size) + " " + lang.translate("for stat") + " " + type + ".");
 			page = page - 1;
 			for(int i = 0; i < 8; i++)

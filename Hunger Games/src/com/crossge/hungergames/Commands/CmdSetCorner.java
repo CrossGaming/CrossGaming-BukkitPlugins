@@ -45,7 +45,7 @@ public class CmdSetCorner extends Cmd
 					customConfig.save(customConfigFile);
 				}
 			   	catch (IOException e) {}
-				p.sendMessage(var.defaultCol() + lang.translate("Corner set") + ": " + Integer.toString(number) + " " + lang.translate("at") + " " +
+				p.sendMessage(var.defaultCol() + lang.translate("Corner") + " " + Integer.toString(number) + " " + lang.translate("set at") + ": " +
 						Integer.toString(p.getLocation().getBlockX()) + ", " + Integer.toString(p.getLocation().getBlockY())+ ", "
 						+ Integer.toString(p.getLocation().getBlockZ()));
 				g.initMaps();

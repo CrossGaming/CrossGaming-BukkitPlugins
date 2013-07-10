@@ -1,5 +1,6 @@
 package com.crossge.hungergames.Commands;
 
+import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
@@ -44,7 +45,7 @@ public class CmdStats extends Cmd
 				return false;
 			}
 			message = parseStats(message);
-			sender.sendMessage(var.defaultCol() + message);
+			sender.sendMessage(var.defaultCol() + ChatColor.YELLOW + message);
 		}
 		return true;
 	}
