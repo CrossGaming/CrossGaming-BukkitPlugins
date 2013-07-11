@@ -8,6 +8,7 @@ import java.util.Random;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.World;
+import org.bukkit.WorldCreator;
 import org.bukkit.block.Block;
 import org.bukkit.block.Chest;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -19,14 +20,14 @@ import org.bukkit.inventory.ItemStack;
 public class ChestRandomizer
 {
 	Game g = new Game();
-	private File customConfigFile = new File("plugins/Hunger Games", "spawns.yml");
-	private YamlConfiguration customConfig = YamlConfiguration.loadConfiguration(customConfigFile);
-	private File customConfigFileChest = new File("plugins/Hunger Games", "chests.yml");
-	private YamlConfiguration customConfigChest = YamlConfiguration.loadConfiguration(customConfigFileChest);
-	private File customConfFile = new File("plugins/Hunger Games", "config.yml");
-	private YamlConfiguration customConf = YamlConfiguration.loadConfiguration(customConfFile);
-	private File customConfFileLocs = new File("plugins/Hunger Games", "chestlocs.yml");
-	private YamlConfiguration customConfLocs = YamlConfiguration.loadConfiguration(customConfFileLocs);
+	private static File customConfigFile = new File("plugins/Hunger Games", "spawns.yml");
+	private static YamlConfiguration customConfig = YamlConfiguration.loadConfiguration(customConfigFile);
+	private static File customConfigFileChest = new File("plugins/Hunger Games", "chests.yml");
+	private static YamlConfiguration customConfigChest = YamlConfiguration.loadConfiguration(customConfigFileChest);
+	private static File customConfFile = new File("plugins/Hunger Games", "config.yml");
+	private static YamlConfiguration customConf = YamlConfiguration.loadConfiguration(customConfFile);
+	private static File customConfFileLocs = new File("plugins/Hunger Games", "chestlocs.yml");
+	private static YamlConfiguration customConfLocs = YamlConfiguration.loadConfiguration(customConfFileLocs);
 	private static ArrayList<Integer> blockIds = new ArrayList<Integer>();
 	private static ArrayList<Double> percentChance = new ArrayList<Double>();
 	private static ArrayList<Short> damageValue = new ArrayList<Short>();
@@ -62,7 +63,7 @@ public class ChestRandomizer
 				y = customConfLocs.getInt(world + ".c" + Integer.toString(chestNum) + ".y");
 				z = customConfLocs.getInt(world + ".c" + Integer.toString(chestNum) + ".z");
 				Block b = w.getBlockAt(x, y, z);
-				if(b.getType() == Material.CHEST || b.getType() == Material.TRAPPED_CHEST)
+				if(b.getState()  instanceof Chest)
 				{
 					resetSpots();
 					Chest c = (Chest) b.getState();
@@ -122,7 +123,7 @@ public class ChestRandomizer
 				for(int z = z2; z <= z1; z++)
 				{
 					Block b = w.getBlockAt(x, y, z);
-					if(b.getType() == Material.CHEST || b.getType() == Material.TRAPPED_CHEST)
+					if(b.getState()  instanceof Chest)
 					{
 						customConfLocs.set(world + ".c" + Integer.toString(chestNum) + ".x", x);
 						customConfLocs.set(world + ".c" + Integer.toString(chestNum) + ".y", y);
@@ -167,6 +168,11 @@ public class ChestRandomizer
 			z1 = temp;
 		}
 		World w = Bukkit.getWorld(world);
+		if(w == null)
+		{
+			Bukkit.createWorld(new WorldCreator(world));
+			w = Bukkit.getWorld(world);
+		}
 		int chestNum = 0;
 		int x, y, z;
 		for(String path : customConfLocs.getKeys(true))
@@ -177,7 +183,7 @@ public class ChestRandomizer
 				y = customConfLocs.getInt(world + ".c" + Integer.toString(chestNum) + ".y");
 				z = customConfLocs.getInt(world + ".c" + Integer.toString(chestNum) + ".z");
 				Block b = w.getBlockAt(x, y, z);
-				if(b.getType() == Material.CHEST || b.getType() == Material.TRAPPED_CHEST)
+				if(b.getState()  instanceof Chest)
 				{
 					Chest c = (Chest) b.getState();
 					Inventory inv = c.getBlockInventory();
