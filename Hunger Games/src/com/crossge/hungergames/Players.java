@@ -156,10 +156,7 @@ public class Players
 		}
 	}
 	public void startDeath()
-	{
-		t.cancel();
-		t.purge();
-		t = new Timer();
+	{		
 		death = true;
 		String world = g.getNext();
 		String pathx = "";
@@ -204,6 +201,9 @@ public class Players
 			temp = Bukkit.getPlayer(alive.get(i));
 			temp.teleport(loc(i + 1));
 		}
+		t.cancel();
+		t.purge();
+		t = new Timer();
 	}
 	public boolean deathMatch()
 	{
@@ -548,16 +548,13 @@ public class Players
 		queued.clear();
 		joinGame();
 		motd = g.getNext() + " " + lang.translate("Pre-game");
+		tpCool();
 		count.cancel();
 		count.purge();
 		count = new Timer();
-		tpCool();
 	}
 	private void finishGameStart2()
 	{
-		noMove.cancel();
-		noMove.purge();
-		noMove = new Timer();
 		motd = g.getNext() + " " + lang.translate("Game in progress");
 		Bukkit.broadcastMessage(var.defaultCol() + ChatColor.WHITE + lang.translate("Players may now move."));
 		moveDeny = false;
@@ -566,14 +563,17 @@ public class Players
 			deathCountdown();
 		Bukkit.getWorld(g.getNext()).setTime(70584000);//70584000: sunrise. 70620000: evening
 		day.schedule(new TimerTask(){public void run() {refillChests();}}, 660000);//11 minutes
+		noMove.cancel();
+		noMove.purge();
+		noMove = new Timer();
 	}
 	private void refillChests()
 	{
+		cr.randomizeChests();
+		Bukkit.broadcastMessage(var.defaultCol() + ChatColor.GREEN + lang.translate("The chests have been refilled."));
 		day.cancel();
 		day.purge();
 		day = new Timer();
-		cr.randomizeChests();
-		Bukkit.broadcastMessage(var.defaultCol() + ChatColor.GREEN + lang.translate("The chests have been refilled."));
 	}
 	private void joinGame()
 	{

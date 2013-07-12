@@ -31,7 +31,9 @@ public class Game
 	{
 		if(nextMap.equals(""))
 		{
-			if(mvote.isEmpty())
+			if(maps.isEmpty())
+				nextMap = null;
+			else if(mvote.isEmpty())
 				nextMap = maps.get(0);
 			else
 				nextMap = maps.get(mvote.get(0));

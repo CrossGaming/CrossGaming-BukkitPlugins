@@ -90,7 +90,7 @@ public class Listeners implements Listener
     	if(s.get(p.getName()) == null)
     		s.write(p.getName(), 0, 0, 0, 0, 0);
     	pl.hideSpectators(p);
-    	if(p.hasPermission("HungerGames.update"))
+    	if(p.hasPermission("HungerGames.update") && customConfig.getBoolean("checkForUpdates"))
     		up.tellOp(p);
 	}
 	@EventHandler

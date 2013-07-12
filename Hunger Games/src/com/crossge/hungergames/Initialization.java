@@ -29,7 +29,9 @@ public class Initialization
 		createYaml();
 		g.initMaps();
 		s.connect();
-		up.checkForUpdate();
+		YamlConfiguration customConfig = YamlConfiguration.loadConfiguration(customConfigFile);
+		if(customConfig.getBoolean("checkForUpdates"))
+			up.checkForUpdate();
 	}
 	
 	public void createYaml()
@@ -56,6 +58,7 @@ public class Initialization
 				customConfig.set("language", "en");
 				customConfig.set("votingTime", 180);
 				customConfig.set("messageFrequency", 30);
+				customConfig.set("checkForUpdates", true);
 				customConfig.save(customConfigFile);
 			}
 			catch (IOException e){}
@@ -97,6 +100,8 @@ public class Initialization
 					customConfig.set("votingTime", 180);
 				if(!customConfig.contains("messageFrequency"))
 					customConfig.set("messageFrequency", 30);
+				if(!customConfig.contains("checkForUpdates"))
+					customConfig.set("checkForUpdates", true);
 				customConfig.save(customConfigFile);
 			}
 			catch (IOException e){}
@@ -147,6 +152,7 @@ public class Initialization
 				customConfigFileBreakable.createNewFile();
 				YamlConfiguration customConfig = YamlConfiguration.loadConfiguration(customConfigFileBreakable);
 				customConfig.set("18", true);
+				customConfig.set("51", true);
 				customConfig.save(customConfigFileBreakable);
 			}
 			catch (IOException e){}
@@ -158,6 +164,7 @@ public class Initialization
 				customConfigFilePlaceable.createNewFile();
 				YamlConfiguration customConfig = YamlConfiguration.loadConfiguration(customConfigFilePlaceable);
 				customConfig.set("18", true);
+				customConfig.set("259", true);
 				customConfig.save(customConfigFilePlaceable);
 			}
 			catch (IOException e){}

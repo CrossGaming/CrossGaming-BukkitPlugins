@@ -51,6 +51,8 @@ public class ChestRandomizer
 	{
 		setLists();
 		String world = g.getNext();
+		if(world == null)
+			return; //No chest locations set yet
 		World w = Bukkit.getWorld(world);
 		int chestNum = 0;
 		int x, y, z, chestAmount, loc, mat;
@@ -142,6 +144,8 @@ public class ChestRandomizer
 	{
 		setLists();
 		String world = g.getNext();
+		if(world == null)
+			return; //No chest locations set yet
 		int x1 = customConfig.getInt(world + ".corner1.x");
 		int y1 = customConfig.getInt(world + ".corner1.y");
 		int z1 = customConfig.getInt(world + ".corner1.z");
