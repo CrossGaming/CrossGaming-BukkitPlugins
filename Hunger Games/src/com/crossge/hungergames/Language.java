@@ -23,6 +23,8 @@ public class Language
 	private String locale()
 	{
 		String lang = customConfig.getString("language");
+		if(lang == null)
+			return "en";
 		if(lang.equalsIgnoreCase("DE") || lang.equalsIgnoreCase("GERMAN"))
 			return "de";
 		else if(lang.equalsIgnoreCase("EL") || lang.equalsIgnoreCase("GREEK"))

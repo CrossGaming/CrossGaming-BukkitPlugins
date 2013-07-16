@@ -201,9 +201,6 @@ public class Players
 			temp = Bukkit.getPlayer(alive.get(i));
 			temp.teleport(loc(i + 1));
 		}
-		t.cancel();
-		t.purge();
-		t = new Timer();
 	}
 	public boolean deathMatch()
 	{
@@ -350,8 +347,6 @@ public class Players
 		dead.add(name);
 		Player p = Bukkit.getPlayer(name);
 		p.setGameMode(GameMode.SURVIVAL);
-		p.setFoodLevel(20);
-		p.setHealth(20);
 		p.setFlying(false);
 		p.setCanPickupItems(true);
 		PlayerInventory inv = p.getInventory();
@@ -471,8 +466,6 @@ public class Players
 	}
 	private void safeEnd()
 	{
-		invinc.cancel();
-		invinc = new Timer();
 		Bukkit.broadcastMessage(var.defaultCol() + lang.translate("Players are no longer invincible."));
 		invincible = false;
 	}
@@ -549,9 +542,6 @@ public class Players
 		joinGame();
 		motd = g.getNext() + " " + lang.translate("Pre-game");
 		tpCool();
-		count.cancel();
-		count.purge();
-		count = new Timer();
 	}
 	private void finishGameStart2()
 	{
@@ -562,18 +552,20 @@ public class Players
 		if(deathMatch())
 			deathCountdown();
 		Bukkit.getWorld(g.getNext()).setTime(70584000);//70584000: sunrise. 70620000: evening
-		day.schedule(new TimerTask(){public void run() {refillChests();}}, 660000);//11 minutes
-		noMove.cancel();
-		noMove.purge();
-		noMove = new Timer();
+		TimerTask timerTask = new TimerTask()
+		{
+            @Override
+            public void run()
+            {
+            	refillChests();
+            }
+        };
+		day.schedule(timerTask, 660000);//11 minutes
 	}
 	private void refillChests()
 	{
 		cr.randomizeChests();
 		Bukkit.broadcastMessage(var.defaultCol() + ChatColor.GREEN + lang.translate("The chests have been refilled."));
-		day.cancel();
-		day.purge();
-		day = new Timer();
 	}
 	private void joinGame()
 	{
@@ -622,18 +614,28 @@ public class Players
 		{
 			int temp = stime;
 			stime = 0;
-			invinc.cancel();
-			invinc.purge();
-			invinc = new Timer();
-			invinc.schedule(new TimerTask(){public void run() {safeEnd();}}, temp * 1000);
+			TimerTask timerTask = new TimerTask()
+			{
+	            @Override
+	            public void run()
+	            {
+	            	safeEnd();
+	            }
+	        };
+			invinc.schedule(timerTask, temp * 1000);
 		}
 		else
 		{
 			stime -= freq;
-			invinc.cancel();
-			invinc.purge();
-			invinc = new Timer();
-			invinc.schedule(new TimerTask(){public void run() {safeTimer();}}, freq * 1000);
+			TimerTask timerTask = new TimerTask()
+			{
+	            @Override
+	            public void run()
+	            {
+	            	safeTimer();
+	            }
+	        };
+			invinc.schedule(timerTask, freq * 1000);
 		}
 	}
 	public void tpCool()
@@ -646,18 +648,28 @@ public class Players
 		{
 			int temp = tptime;
 			tptime = 0;
-			noMove.cancel();
-			noMove.purge();
-			noMove = new Timer();
-			noMove.schedule(new TimerTask(){public void run() {finishGameStart2();}}, temp * 1000);
+			TimerTask timerTask = new TimerTask()
+			{
+	            @Override
+	            public void run()
+	            {
+	            	finishGameStart2();
+	            }
+	        };
+			noMove.schedule(timerTask, temp * 1000);
 		}
 		else
 		{
 			tptime -= freq;
-			noMove.cancel();
-			noMove.purge();
-			noMove = new Timer();
-			noMove.schedule(new TimerTask(){public void run() {tpCool();}}, freq * 1000);
+			TimerTask timerTask = new TimerTask()
+			{
+	            @Override
+	            public void run()
+	            {
+	            	tpCool();
+	            }
+	        };
+			noMove.schedule(timerTask, freq * 1000);
 		}
 	}
 	public void deathCountdown()
@@ -673,18 +685,28 @@ public class Players
 				deathStarted = true;
 				int temp = dtime;
 				dtime = 0;
-				t.cancel();
-				t.purge();
-				t = new Timer();
-				t.schedule(new TimerTask(){public void run() {startDeath();}}, temp * 1000);
+				TimerTask timerTask = new TimerTask()
+				{
+		            @Override
+		            public void run()
+		            {
+		            	startDeath();
+		            }
+		        };
+				t.schedule(timerTask, temp * 1000);
 			}
 			else
 			{
 				dtime -= freq;
-				t.cancel();
-				t.purge();
-				t = new Timer();
-				t.schedule(new TimerTask(){public void run() {deathCountdown();}}, freq * 1000);
+				TimerTask timerTask = new TimerTask()
+				{
+		            @Override
+		            public void run()
+		            {
+		            	deathCountdown();
+		            }
+		        };
+				t.schedule(timerTask, freq * 1000);
 			}
 		}
 	}
@@ -700,18 +722,28 @@ public class Players
 		{
 			int temp = time;
 			time = 0;
-			count.cancel();
-			count.purge();
-			count = new Timer();
-			count.schedule(new TimerTask(){public void run() {checkPlayers();}}, temp * 1000);
+			TimerTask timerTask = new TimerTask()
+			{
+	            @Override
+	            public void run()
+	            {
+	            	checkPlayers();
+	            }
+	        };
+			count.schedule(timerTask, temp * 1000);
 		}
 		else
 		{
 			time -= freq;
-			count.cancel();
-			count.purge();
-			count = new Timer();
-			count.schedule(new TimerTask(){public void run() {vote();}}, freq * 1000);
+			TimerTask timerTask = new TimerTask()
+			{
+	            @Override
+	            public void run()
+	            {
+	            	vote();
+	            }
+	        };
+			count.schedule(timerTask, freq * 1000);
 		}
 	}
 	private String getTime(int time)

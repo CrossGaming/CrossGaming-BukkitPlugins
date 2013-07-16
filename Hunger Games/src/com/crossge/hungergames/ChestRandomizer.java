@@ -70,7 +70,8 @@ public class ChestRandomizer
 					resetSpots();
 					Chest c = (Chest) b.getState();
 					Inventory inv = c.getBlockInventory();
-					inv.clear();
+					for(int i = 0; i < 27; i++)
+						inv.clear(i);
 					chestAmount = items();
 					for(int i = 0; i < chestAmount; i++)
 					{
@@ -187,11 +188,12 @@ public class ChestRandomizer
 				y = customConfLocs.getInt(world + ".c" + Integer.toString(chestNum) + ".y");
 				z = customConfLocs.getInt(world + ".c" + Integer.toString(chestNum) + ".z");
 				Block b = w.getBlockAt(x, y, z);
-				if(b.getState()  instanceof Chest)
+				if(b.getState() instanceof Chest)
 				{
 					Chest c = (Chest) b.getState();
 					Inventory inv = c.getBlockInventory();
-					inv.clear();
+					for(int i = 0; i < 27; i++)
+						inv.clear(i);
 				}
 				chestNum++;
 			}

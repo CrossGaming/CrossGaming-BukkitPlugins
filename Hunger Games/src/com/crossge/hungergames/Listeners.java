@@ -188,7 +188,7 @@ public class Listeners implements Listener
     			event.setFormat(district + event.getFormat());
     		}
     	}
-    	else
+    	else if(customConfig.getBoolean("showScore"))
     	{
     		String points = s.getPoints(p.getName());
     		if(points != null)
@@ -203,6 +203,9 @@ public class Listeners implements Listener
 	{
 		if(event.getDamager() instanceof Player)
 			if(pl.gameGoing() && (!pl.isAlive(((Player)event.getDamager()).getName()) || pl.safeTime()))
+				event.setCancelled(true);
+		if(event.getEntity() instanceof Player)
+			if(pl.gameGoing() && pl.isAlive(((Player)event.getEntity()).getName()) && pl.safeTime())
 				event.setCancelled(true);
 	}
 	@EventHandler
@@ -225,7 +228,7 @@ public class Listeners implements Listener
 	@EventHandler
 	public void onPlayerDeath(PlayerDeathEvent event)
 	{
-		Player p = (Player) event.getEntity();
+		Player p = event.getEntity();
     	if(pl.gameGoing() && pl.isAlive(p.getName()))
     	{
     		if(event.getDeathMessage().equals(p.getName() + " died"))
@@ -258,6 +261,11 @@ public class Listeners implements Listener
 	    		Bukkit.broadcastMessage(var.defaultCol() + pl.winner() + " " + lang.translate("won the Hunger Games."));
 	    		pl.endTimer();
 	    		pl.endGame();
+	    	}
+	    	else if(customConfig.getBoolean("spectateOnDeath"))
+	    	{
+	    		pl.addSpectating(p.getName());
+	    		p.sendMessage(var.defaultCol() + ChatColor.WHITE + lang.translate("Now spectating the Hunger Games."));
 	    	}
     	}
 	}

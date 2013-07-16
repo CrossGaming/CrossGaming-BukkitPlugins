@@ -59,6 +59,8 @@ public class Initialization
 				customConfig.set("votingTime", 180);
 				customConfig.set("messageFrequency", 30);
 				customConfig.set("checkForUpdates", true);
+				customConfig.set("showScore", true);
+				customConfig.set("spectateOnDeath", false);
 				customConfig.save(customConfigFile);
 			}
 			catch (IOException e){}
@@ -102,6 +104,10 @@ public class Initialization
 					customConfig.set("messageFrequency", 30);
 				if(!customConfig.contains("checkForUpdates"))
 					customConfig.set("checkForUpdates", true);
+				if(!customConfig.contains("showScore"))
+					customConfig.set("showScore", true);
+				if(!customConfig.contains("spectateOnDeath"))
+					customConfig.set("spectateOnDeath", false);
 				customConfig.save(customConfigFile);
 			}
 			catch (IOException e){}
