@@ -52,7 +52,10 @@ public class Game
 		for(int i = 0; i < maps.size(); i++)
 			mid.add(i);
 		int temp = 0;
-		for(int i = 0; i < 3; i++)
+		int max = 3;
+		if(maps.size() < 3)
+			max = maps.size();
+		for(int i = 0; i < max; i++)
 		{
 			temp = r.nextInt(mid.size());
 			mvote.add(mid.get(temp));

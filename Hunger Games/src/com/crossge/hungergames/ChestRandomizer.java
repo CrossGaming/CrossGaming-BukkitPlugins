@@ -70,21 +70,23 @@ public class ChestRandomizer
 					resetSpots();
 					Chest c = (Chest) b.getState();
 					Inventory inv = c.getBlockInventory();
-					for(int i = 0; i < 27; i++)
-						inv.clear(i);
+					if(inv != null)
+						for(int i = 0; i < 27; i++)
+							inv.setItem(i, new ItemStack(Material.AIR, 1));
 					chestAmount = items();
-					for(int i = 0; i < chestAmount; i++)
-					{
-						loc = chestIdLocation();
-						mat = 0;
-						data = 0;
-						if(loc != -1)
+					if(inv != null)
+						for(int i = 0; i < chestAmount; i++)
 						{
-							mat = blockIds.get(loc);
-							data = damageValue.get(loc);
+							loc = chestIdLocation();
+							mat = 0;
+							data = 0;
+							if(loc != -1)
+							{
+								mat = blockIds.get(loc);
+								data = damageValue.get(loc);
+							}
+							inv.setItem(chestLoc(), new ItemStack(Material.getMaterial(mat), 1, data));
 						}
-						inv.setItem(chestLoc(), new ItemStack(Material.getMaterial(mat), 1, data));
-					}
 				}
 				chestNum++;
 			}
@@ -192,8 +194,9 @@ public class ChestRandomizer
 				{
 					Chest c = (Chest) b.getState();
 					Inventory inv = c.getBlockInventory();
-					for(int i = 0; i < 27; i++)
-						inv.clear(i);
+					if(inv != null)
+						for(int i = 0; i < 27; i++)
+							inv.setItem(i, new ItemStack(Material.AIR, 1));
 				}
 				chestNum++;
 			}

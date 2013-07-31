@@ -37,6 +37,7 @@ permissions:
             HungerGames.update: true
             HungerGames.setchests: true
             HungerGames.cmdGame: true
+            HungerGames.removeArena: true
     HungerGames.hg:
         description: Lets you use /hg.
         default: true
@@ -99,4 +100,7 @@ permissions:
         default: op
     HungerGames.cmdGame:
         description: Allows you to perform commands during a game.
+        default: op
+    HungerGames.removeArena:
+        description: Allows you to remove an arena.
         default: op

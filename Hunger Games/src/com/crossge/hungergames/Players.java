@@ -11,6 +11,7 @@ import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
+import org.bukkit.event.player.PlayerTeleportEvent.TeleportCause;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.PlayerInventory;
 
@@ -77,13 +78,15 @@ public class Players
 			p.setFlying(false);
 			p.setCanPickupItems(true);
 			PlayerInventory inv = p.getInventory();
-			inv.clear();
+			for(int j = 0; j < 36; j++)
+				inv.setItem(j, new ItemStack(Material.AIR));
 			inv.setBoots(new ItemStack(Material.AIR));
 			inv.setLeggings(new ItemStack(Material.AIR));
 			inv.setChestplate(new ItemStack(Material.AIR));
 			inv.setHelmet(new ItemStack(Material.AIR));
 			p.setExp(-p.getExp());
-			p.teleport(spawnLoc());
+			p.getActivePotionEffects().clear();
+			p.teleport(spawnLoc(), TeleportCause.PLUGIN);
 		}
 		for(int i = 0; i < spectating.size(); i++)
 		{
@@ -93,13 +96,15 @@ public class Players
 			p.setFlying(false);
 			p.setCanPickupItems(true);
 			PlayerInventory inv = p.getInventory();
-			inv.clear();
+			for(int j = 0; j < 36; j++)
+				inv.setItem(j, new ItemStack(Material.AIR));
 			inv.setBoots(new ItemStack(Material.AIR));
 			inv.setLeggings(new ItemStack(Material.AIR));
 			inv.setChestplate(new ItemStack(Material.AIR));
 			inv.setHelmet(new ItemStack(Material.AIR));
 			p.setExp(-p.getExp());
-			p.teleport(spawnLoc());
+			p.getActivePotionEffects().clear();
+			p.teleport(spawnLoc(), TeleportCause.PLUGIN);
 		}
 	}
 	public void endTimer()
@@ -151,7 +156,7 @@ public class Players
 			for(int i = 0; i < alive.size(); i++)
 			{
 				temp = Bukkit.getPlayer(alive.get(i));
-				temp.teleport(loc(i + 1));
+				temp.teleport(loc(i + 1), TeleportCause.PLUGIN);
 			}
 		}
 	}
@@ -199,7 +204,7 @@ public class Players
 		for(int i = 0; i < alive.size(); i++)
 		{
 			temp = Bukkit.getPlayer(alive.get(i));
-			temp.teleport(loc(i + 1));
+			temp.teleport(loc(i + 1), TeleportCause.PLUGIN);
 		}
 	}
 	public boolean deathMatch()
@@ -237,7 +242,7 @@ public class Players
 	}
 	public void spectate(Player p, Player target)
 	{
-		p.teleport(target);
+		p.teleport(target, TeleportCause.PLUGIN);
 	}
 	public void addSpectating(String name)
 	{
@@ -251,7 +256,8 @@ public class Players
 		p.setFoodLevel(20);
 		p.setHealth(20);
 		p.setCanPickupItems(false);
-		p.teleport(new Location(Bukkit.getWorld(world), customConfig.getInt(pathx), customConfig.getInt(pathy), customConfig.getInt(pathz)));
+		p.teleport(new Location(Bukkit.getWorld(world), customConfig.getInt(pathx), customConfig.getInt(pathy), customConfig.getInt(pathz)), TeleportCause.PLUGIN);
+		p.getActivePotionEffects().clear();
 		p.setGameMode(GameMode.CREATIVE);
 	}
 	public boolean deathstarted()
@@ -299,25 +305,25 @@ public class Players
 		{
 			p.sendMessage(var.defaultCol() + ChatColor.RED + lang.translate("You may not leave the arena."));
 			Location l = new Location(p.getWorld(), x - 1, p.getLocation().getBlockY(), z);
-			p.teleport(l);
+			p.teleport(l, TeleportCause.PLUGIN);
 		}
 		else if(x <= xCornMin)
 		{
 			p.sendMessage(var.defaultCol() + ChatColor.RED + lang.translate("You may not leave the arena."));
 			Location l = new Location(p.getWorld(), x + 1, p.getLocation().getBlockY(), z);
-			p.teleport(l);
+			p.teleport(l, TeleportCause.PLUGIN);
 		}
 		else if(z >= zCornMax)
 		{
 			p.sendMessage(var.defaultCol() + ChatColor.RED + lang.translate("You may not leave the arena."));
 			Location l = new Location(p.getWorld(), x, p.getLocation().getBlockY(), z - 1);
-			p.teleport(l);
+			p.teleport(l, TeleportCause.PLUGIN);
 		}
 		else if(z <= zCornMin)
 		{
 			p.sendMessage(var.defaultCol() + ChatColor.RED + lang.translate("You may not leave the arena."));
 			Location l = new Location(p.getWorld(), x, p.getLocation().getBlockY(), z + 1);
-			p.teleport(l);
+			p.teleport(l, TeleportCause.PLUGIN);
 		}
 	}
 	public void delSpectating(String name)
@@ -333,13 +339,15 @@ public class Players
 		p.setFlying(false);
 		p.setCanPickupItems(true);
 		PlayerInventory inv = p.getInventory();
-		inv.clear();
+		for(int j = 0; j < 36; j++)
+			inv.setItem(j, new ItemStack(Material.AIR));
 		inv.setBoots(new ItemStack(Material.AIR));
 		inv.setLeggings(new ItemStack(Material.AIR));
 		inv.setChestplate(new ItemStack(Material.AIR));
 		inv.setHelmet(new ItemStack(Material.AIR));
 		p.setExp(-p.getExp());
-		p.teleport(spawnLoc());
+		p.getActivePotionEffects().clear();
+		p.teleport(spawnLoc(), TeleportCause.PLUGIN);
 	}
 	public void addDead(String name)
 	{
@@ -350,13 +358,15 @@ public class Players
 		p.setFlying(false);
 		p.setCanPickupItems(true);
 		PlayerInventory inv = p.getInventory();
-		inv.clear();
+		for(int j = 0; j < 36; j++)
+			inv.setItem(j, new ItemStack(Material.AIR));
 		inv.setBoots(new ItemStack(Material.AIR));
 		inv.setLeggings(new ItemStack(Material.AIR));
 		inv.setChestplate(new ItemStack(Material.AIR));
 		inv.setHelmet(new ItemStack(Material.AIR));
 		p.setExp(-p.getExp());
-		p.teleport(spawnLoc());
+		p.getActivePotionEffects().clear();
+		p.teleport(spawnLoc(), TeleportCause.PLUGIN);
 	}
 	public String deceased()
 	{
@@ -396,7 +406,7 @@ public class Players
 	}
 	public boolean onePlayerLeft()
 	{
-		return alive.size() == 1;
+		return (alive.size() == 1 || alive.size() == 0);
 	}
 	public String winner()
 	{
@@ -408,13 +418,15 @@ public class Players
 		p.setFlying(false);
 		p.setCanPickupItems(true);
 		PlayerInventory inv = p.getInventory();
-		inv.clear();
+		for(int j = 0; j < 36; j++)
+			inv.setItem(j, new ItemStack(Material.AIR));
 		inv.setBoots(new ItemStack(Material.AIR));
 		inv.setLeggings(new ItemStack(Material.AIR));
 		inv.setChestplate(new ItemStack(Material.AIR));
 		inv.setHelmet(new ItemStack(Material.AIR));
 		p.setExp(-p.getExp());
-		p.teleport(spawnLoc());
+		p.getActivePotionEffects().clear();
+		p.teleport(spawnLoc(), TeleportCause.PLUGIN);
 		return alive.get(0);
 	}
 	public void hideSpectators(Player p)
@@ -451,9 +463,13 @@ public class Players
 		alive.clear();
 		origalive.clear();
 		dead.clear();
-		for(Player p : Bukkit.getOnlinePlayers())
-			p.setCanPickupItems(true);
 		unhideSpec();
+		for(Player p : Bukkit.getOnlinePlayers())
+		{
+			p.setCanPickupItems(true);
+			if(customConf.getBoolean("kickOnEnd"))
+				p.kickPlayer("Game Over.");
+		}
 		death = false;
 		alreadySponsor = false;
 		deathStarted = false;
@@ -461,10 +477,9 @@ public class Players
 		cr.emptyChests();
 		spectating.clear();
 		sponsored.clear();
-		endTimer();
 		g.end();
 	}
-	private void safeEnd()
+	public void safeEnd()
 	{
 		Bukkit.broadcastMessage(var.defaultCol() + lang.translate("Players are no longer invincible."));
 		invincible = false;
@@ -513,7 +528,7 @@ public class Players
 	{
 		return loc(alive.indexOf(p.getName()) + 1);
 	}
-	private void checkPlayers()
+	public void checkPlayers()
 	{
 		if(queued.size() < customConf.getInt("minPlayers"))
 		{
@@ -543,7 +558,7 @@ public class Players
 		motd = g.getNext() + " " + lang.translate("Pre-game");
 		tpCool();
 	}
-	private void finishGameStart2()
+	public void finishGameStart2()
 	{
 		motd = g.getNext() + " " + lang.translate("Game in progress");
 		Bukkit.broadcastMessage(var.defaultCol() + ChatColor.WHITE + lang.translate("Players may now move."));
@@ -557,12 +572,19 @@ public class Players
             @Override
             public void run()
             {
-            	refillChests();
+            	new Players().refillChests();
             }
         };
-		day.schedule(timerTask, 660000);//11 minutes
+        try
+        {
+        	day.schedule(timerTask, 660000);//11 minutes
+        }
+		catch (Exception e)
+		{
+			e.printStackTrace();
+		}
 	}
-	private void refillChests()
+	public void refillChests()
 	{
 		cr.randomizeChests();
 		Bukkit.broadcastMessage(var.defaultCol() + ChatColor.GREEN + lang.translate("The chests have been refilled."));
@@ -577,9 +599,11 @@ public class Players
 			temp.setFoodLevel(20);
 			temp.setHealth(20);
 			temp.setFlying(false);
-			temp.teleport(loc(i + 1));
+			temp.teleport(loc(i + 1), TeleportCause.PLUGIN);
+			temp.getActivePotionEffects().clear();
 			PlayerInventory inv = temp.getInventory();
-			inv.clear();
+			for(int j = 0; j < 36; j++)
+				inv.setItem(j, new ItemStack(Material.AIR));
 			inv.setBoots(new ItemStack(Material.AIR));
 			inv.setLeggings(new ItemStack(Material.AIR));
 			inv.setChestplate(new ItemStack(Material.AIR));
@@ -619,10 +643,17 @@ public class Players
 	            @Override
 	            public void run()
 	            {
-	            	safeEnd();
+	            	new Players().safeEnd();
 	            }
 	        };
-			invinc.schedule(timerTask, temp * 1000);
+	        try
+	        {
+	        	invinc.schedule(timerTask, temp * 1000);
+	        }
+			catch (Exception e)
+			{
+				e.printStackTrace();
+			}
 		}
 		else
 		{
@@ -632,10 +663,17 @@ public class Players
 	            @Override
 	            public void run()
 	            {
-	            	safeTimer();
+	            	new Players().safeTimer();
 	            }
 	        };
-			invinc.schedule(timerTask, freq * 1000);
+	        try
+	        {
+	        	invinc.schedule(timerTask, freq * 1000);
+	        }
+			catch (Exception e)
+			{
+				e.printStackTrace();
+			}
 		}
 	}
 	public void tpCool()
@@ -644,32 +682,91 @@ public class Players
 			tptime = customConf.getInt("tpCoolDown");
 		int freq = customConf.getInt("messageFrequency");
 		Bukkit.broadcastMessage(var.defaultCol() + ChatColor.WHITE + lang.translate("Players may move in") + " " + getTime(tptime));
-		if(freq >= tptime)
+		if(tptime == 1 || tptime == 0)
 		{
-			int temp = tptime;
 			tptime = 0;
 			TimerTask timerTask = new TimerTask()
 			{
 	            @Override
 	            public void run()
 	            {
-	            	finishGameStart2();
+	            	new Players().finishGameStart2();
 	            }
 	        };
-			noMove.schedule(timerTask, temp * 1000);
+	        try
+	        {
+	        	noMove.schedule(timerTask, 1000);
+	        }
+			catch (Exception e)
+			{
+				e.printStackTrace();
+			}
 		}
-		else
+		else if(tptime > 1 && tptime <=10)
 		{
+			tptime -= 1;
+			TimerTask timerTask = new TimerTask()
+			{
+	            @Override
+	            public void run()
+	            {
+	            	new Players().tpCool();
+	            }
+	        };
+	        try
+	        {
+	        	noMove.schedule(timerTask, 1000);
+	        }
+			catch (Exception e)
+			{
+				e.printStackTrace();
+			}
+		}
+		else if(freq >= tptime)
+		{
+			int temp = tptime - 10;
+			tptime = 10;
+			TimerTask timerTask = new TimerTask()
+			{
+	            @Override
+	            public void run()
+	            {
+	            	new Players().tpCool();
+	            }
+	        };
+	        try
+	        {
+	        	noMove.schedule(timerTask, temp * 1000);
+	        }
+			catch (Exception e)
+			{
+				e.printStackTrace();
+			}
+		}
+		else if(tptime - freq >= 10)
+		{
+			
 			tptime -= freq;
 			TimerTask timerTask = new TimerTask()
 			{
 	            @Override
 	            public void run()
 	            {
-	            	tpCool();
+	            	new Players().tpCool();
 	            }
 	        };
-			noMove.schedule(timerTask, freq * 1000);
+	        try
+	        {
+	        	noMove.schedule(timerTask, freq * 1000);
+	        }
+			catch (Exception e)
+			{
+				e.printStackTrace();
+			}
+		}
+		else
+		{
+			Bukkit.broadcastMessage("If this shows up there is an error.");
 		}
 	}
 	public void deathCountdown()
@@ -679,34 +776,92 @@ public class Players
 			if(dtime == 0)
 				dtime = customConf.getInt("deathTime");
 			int freq = customConf.getInt("messageFrequency");
-			Bukkit.broadcastMessage(var.defaultCol() + ChatColor.DARK_RED + lang.translate("Death match will start in") + " " + getTime(dtime));
-			if(freq >= dtime)
+			Bukkit.broadcastMessage(var.defaultCol() + ChatColor.DARK_RED + lang.translate("Death match will start in") + " " + getTime(dtime));	
+			if(dtime == 1 || dtime == 0)
 			{
-				deathStarted = true;
-				int temp = dtime;
 				dtime = 0;
 				TimerTask timerTask = new TimerTask()
 				{
 		            @Override
 		            public void run()
 		            {
-		            	startDeath();
+		            	new Players().startDeath();
 		            }
 		        };
-				t.schedule(timerTask, temp * 1000);
+		        try
+		        {
+		        	t.schedule(timerTask, 1000);
+		        }
+				catch (Exception e)
+				{
+					e.printStackTrace();
+				}
 			}
-			else
+			else if(dtime > 1 && dtime <=10)
 			{
+				dtime -= 1;
+				TimerTask timerTask = new TimerTask()
+				{
+		            @Override
+		            public void run()
+		            {
+		            	new Players().deathCountdown();
+		            }
+		        };
+		        try
+		        {
+		        	t.schedule(timerTask, 1000);
+		        }
+				catch (Exception e)
+				{
+					e.printStackTrace();
+				}
+			}
+			else if(freq >= dtime)
+			{
+				int temp = dtime - 10;
+				dtime = 10;
+				TimerTask timerTask = new TimerTask()
+				{
+		            @Override
+		            public void run()
+		            {
+		            	new Players().deathCountdown();
+		            }
+		        };
+		        try
+		        {
+		        	t.schedule(timerTask, temp * 1000);
+		        }
+				catch (Exception e)
+				{
+					e.printStackTrace();
+				}
+			}
+			else if(dtime - freq >= 10)
+			{
+				
 				dtime -= freq;
 				TimerTask timerTask = new TimerTask()
 				{
 		            @Override
 		            public void run()
 		            {
-		            	deathCountdown();
+		            	new Players().deathCountdown();
 		            }
 		        };
-				t.schedule(timerTask, freq * 1000);
+		        try
+		        {
+		        	t.schedule(timerTask, freq * 1000);
+		        }
+				catch (Exception e)
+				{
+					e.printStackTrace();
+				}
+			}
+			else
+			{
+				Bukkit.broadcastMessage("If this shows up there is an error.");
 			}
 		}
 	}
@@ -715,8 +870,13 @@ public class Players
 		if(time == 0)
 			time = customConf.getInt("votingTime");
 		int freq = customConf.getInt("messageFrequency");
-		Bukkit.broadcastMessage(var.defaultCol() + ChatColor.WHITE + lang.translate("Game will start in") + " " + getTime(time) + " " +
-				lang.translate("please use /hg join to join."));
+		if(customConf.getBoolean("showJoin"))
+		{
+			Bukkit.broadcastMessage(var.defaultCol() + ChatColor.WHITE + lang.translate("Game will start in") + " " + getTime(time) + " " +
+					lang.translate("please use /hg join to join."));
+		}
+		else
+			Bukkit.broadcastMessage(var.defaultCol() + ChatColor.WHITE + lang.translate("Game will start in") + " " + getTime(time));	
 		g.holdVote();
 		if(freq >= time)
 		{
@@ -727,10 +887,17 @@ public class Players
 	            @Override
 	            public void run()
 	            {
-	            	checkPlayers();
+	            	new Players().checkPlayers();
 	            }
 	        };
-			count.schedule(timerTask, temp * 1000);
+	        try
+	        {
+	        	count.schedule(timerTask, temp * 1000);
+	        }
+			catch (Exception e)
+			{
+				e.printStackTrace();
+			}
 		}
 		else
 		{
@@ -739,11 +906,18 @@ public class Players
 			{
 	            @Override
 	            public void run()
-	            {
-	            	vote();
+	            {	      
+	            	new Players().vote();
 	            }
 	        };
-			count.schedule(timerTask, freq * 1000);
+	        try
+	        {
+	        	count.schedule(timerTask, freq * 1000);
+	        }
+			catch (Exception e)
+			{
+				e.printStackTrace();
+			}
 		}
 	}
 	private String getTime(int time)

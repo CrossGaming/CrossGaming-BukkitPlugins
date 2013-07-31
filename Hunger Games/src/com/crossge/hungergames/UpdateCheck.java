@@ -39,7 +39,11 @@ public class UpdateCheck
 	        in.close();
 	        newVersion = response.toString();
         }
-		catch (Exception e){}
+		catch (Exception e)
+		{
+			Bukkit.getConsoleSender().sendMessage(ChatColor.DARK_RED + lang.translate("Not connected to the internet"));
+			return;
+		}
 		int major = Integer.parseInt(newVersion.split("\\.")[0]);
 		int minor = Integer.parseInt(newVersion.split("\\.")[1]);
 		int bug = Integer.parseInt(newVersion.split("\\.")[2]);

@@ -1,5 +1,6 @@
 package com.crossge.hungergames.Commands;
 
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -38,7 +39,16 @@ public class CmdJoin extends Cmd
 				p.sendMessage(var.errorCol() + lang.translate("Error: You may not join the Hunger Games."));
 		}
 		else
-			sender.sendMessage(var.errorCol() + lang.translate("Error: You cannot join the hunger games, please log in."));
+		{
+			if(args.length == 1)
+			{
+				Player target = Bukkit.getPlayer(args[0]);
+				if(target != null)
+					target.performCommand("hg join");
+			}
+			else
+				sender.sendMessage(var.errorCol() + lang.translate("Error: You cannot join the hunger games, please log in."));
+		}
 		return true;
 	}	
 }

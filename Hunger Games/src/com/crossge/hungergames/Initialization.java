@@ -61,6 +61,8 @@ public class Initialization
 				customConfig.set("checkForUpdates", true);
 				customConfig.set("showScore", true);
 				customConfig.set("spectateOnDeath", false);
+				customConfig.set("showJoin", true);
+				customConfig.set("kickOnEnd", false);
 				customConfig.save(customConfigFile);
 			}
 			catch (IOException e){}
@@ -108,6 +110,10 @@ public class Initialization
 					customConfig.set("showScore", true);
 				if(!customConfig.contains("spectateOnDeath"))
 					customConfig.set("spectateOnDeath", false);
+				if(!customConfig.contains("showJoin"))
+					customConfig.set("showJoin", true);
+				if(!customConfig.contains("kickOnEnd"))
+					customConfig.set("kickOnEnd", false);
 				customConfig.save(customConfigFile);
 			}
 			catch (IOException e){}
@@ -146,7 +152,6 @@ public class Initialization
 				customConfig.set("survivalgames", true);
 				customConfig.set("hg", true);
 				customConfig.set("sg", true);
-				customConfig.set("spawn", true);
 				customConfig.save(customConfigFileCommands);
 			}
 			catch (IOException e){}

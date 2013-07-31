@@ -14,6 +14,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockDamageEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
+import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
 import org.bukkit.event.player.PlayerCommandPreprocessEvent;
@@ -202,11 +203,16 @@ public class Listeners implements Listener
 	public void onEntityDamage(EntityDamageByEntityEvent event)
 	{
 		if(event.getDamager() instanceof Player)
-			if(pl.gameGoing() && (!pl.isAlive(((Player)event.getDamager()).getName()) || pl.safeTime()))
+			if(((Player)event.getDamager()).getWorld().equals(Bukkit.getWorld(g.getNext())) &&
+					pl.gameGoing() && (!pl.isAlive(((Player)event.getDamager()).getName()) || pl.safeTime()))
 				event.setCancelled(true);
+	}
+	@EventHandler
+	public void onPlayerDamage(EntityDamageEvent event)
+	{
 		if(event.getEntity() instanceof Player)
 			if(pl.gameGoing() && pl.isAlive(((Player)event.getEntity()).getName()) && pl.safeTime())
-				event.setCancelled(true);
+				event.setCancelled(true);				
 	}
 	@EventHandler
 	public void onPlayerInteract(PlayerInteractEvent event)
